@@ -1,0 +1,11 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.category-sidenav-container {
+    height: 100%;
+}
+
+#categorySnav {
+    width: 20%;
+}
