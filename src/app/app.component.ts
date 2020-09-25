@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Ecloth-ui';
+  categoryId: number;
+
+  onCategoryId(categoryId: number) {
+    this.categoryId = categoryId;
+  }
 }

@@ -1,5 +1,5 @@
 import {NestedTreeControl} from '@angular/cdk/tree';
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { CategoryService } from './category.service';
 import { ItemCategoryModel } from '../models/main-categories-model';
@@ -16,18 +16,23 @@ import { ItemCategoryModel } from '../models/main-categories-model';
 })
 export class CategoryTreeComponent {
 
-  treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
-  dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
+  private treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
+  private dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
+
+  @Output() categoryId = new EventEmitter<number>();
 
   constructor(private categoryService: CategoryService) {
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log("items: ", itemType);
       this.dataSource.data = itemType;
     });
 
   }
 
   hasChild = (_: number, node: ItemCategoryModel) => !!node.subCategories && node.subCategories.length > 0;
+
+  onSelectCategory(categoryId: number) {
+    this.categoryId.emit(categoryId);
+  }
 
 }

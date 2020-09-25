@@ -13,8 +13,9 @@ export class ItemService {
 
   constructor(private httpService: HttpService) { }
 
-  get() : Observable<Item[]> {
-    return this.httpService.get(this.itemUri);
+  get(categoryId: number) : Observable<Item[]> {
+    const catParam = "categoryId=" + categoryId;
+    return this.httpService.get(this.itemUri + "?" + catParam);
   }
 
   put(item: Item) : Observable<Item> {

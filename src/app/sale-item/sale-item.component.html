@@ -1,0 +1,22 @@
+
+<div class="row">
+    <div class="col-md-12"><h3>¿Que Quieres vender?</h3></div>
+</div>
+{{hierLevels | json}}
+<div *ngFor="let hierLevel of hierLevels">
+    <div *ngIf="mainCategoryList[hierLevel]">
+        <div class="col-md-1"></div>
+        <div class="col-md-2" ><h4>{{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</h4></div>
+        <div class="col-md-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</mat-label>
+                
+                <mat-select (ngModel)="hierLevel" (selectionChange)="goToNextSection(mainCategoryList[0].id)">
+                    <mat-option *ngFor="let category of getCurrentCategoryList(mainCategoryList, hierLevel)" [value]="category.id">
+                        {{category.subCategoryName | titlecase}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

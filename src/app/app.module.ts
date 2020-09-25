@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../app/material-module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryTreeComponent } from './category-tree/category-tree.component';
+import { SaleItemComponent } from './sale-item/sale-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemSearchComponent,
     ItemListComponent,
-    CategoryTreeComponent
+    CategoryTreeComponent,
+    SaleItemComponent
   ],
   imports: [
     BrowserModule,
