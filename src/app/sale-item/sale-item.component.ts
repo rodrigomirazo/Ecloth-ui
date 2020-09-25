@@ -11,25 +11,27 @@ export class SaleItemComponent {
 
   private mainCategoryList: ItemCategoryModel[] = [];
   private hierLevels: Array<number> = [];
-  private charLevels: Array<number> = [];
+  private categoryLevelId: number[] = [];
   
-  private undefinedLevels: boolean = false;
   private initialLevels: number = 3;
   
   constructor(private categoryService: CategoryService) {
 
-    for (let level = 0; level < this.initialLevels; level++)
-      this.hierLevels.push(-1);
+    for (let level = 0; level < this.initialLevels; level++) {
+      this.hierLevels.push(level);
+      this.categoryLevelId = this.categoryLevelId.concat(-1);
+    }
+    this.categoryLevelId[0] = 0;
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log("mainCategoryList: ", itemType);
+      console.log("mainCategoryList: ", 3);
       this.mainCategoryList = itemType;
     });
 
   }
 
-  goToNextSection(hierLevelId: number) {
-    this.hierLevels.push(hierLevelId);
+  goToNextSection(hierLevel: number, hierLevelId: number) {
+    this.categoryLevelId[hierLevel+1] = hierLevelId;
     console.log("");
   }
 
@@ -37,12 +39,14 @@ export class SaleItemComponent {
     let nextCategory: ItemCategoryModel = currentCategory;
     
     for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
+      if (!nextCategory)
+        break;
       nextCategory = nextCategory.subCategories[0];
     }
-
-    return nextCategory.categoryName;
+    return (nextCategory)? nextCategory.categoryName : "";
   }
 
+  /*
   getCurrentCategoryId(currentCategory: ItemCategoryModel, hierLevel: number) : number {
     let nextCategory: ItemCategoryModel = currentCategory;
     
@@ -50,17 +54,23 @@ export class SaleItemComponent {
       nextCategory = nextCategory.subCategories[levelIter];
     }
 
-    return nextCategory.id;
+    return (nextCategory)? nextCategory.id : null;
   }
+*/
 
   getCurrentCategoryList(currentCategory: ItemCategoryModel[], hierLevel: number) : ItemCategoryModel[] {
     let nextCategories: ItemCategoryModel[] = currentCategory;
+
+    if( this.categoryLevelId[hierLevel] == -1 ) {
+      return [];
+    }
     
     for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
-      nextCategories = nextCategories[0].subCategories;
+      if (!nextCategories)
+        break;
+      nextCategories = nextCategories[ 0 ].subCategories;
     }
 
     return nextCategories;
   }
-
 }
