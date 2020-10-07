@@ -9,6 +9,8 @@ export const environment = {
   entity: {
     item: "/item",
     types: "/itemTypeCat",
-    categoryType: "/itemCat"
+    categoryType: "/itemCat",
+    floatingChars: "/itemFloatingChars",
+    floatingCharsCat: "/itemFloatingCharsCat",
   }
 };

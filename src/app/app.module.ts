@@ -10,6 +10,7 @@ import { MaterialModule } from '../app/material-module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryTreeComponent } from './category-tree/category-tree.component';
 import { SaleItemComponent } from './sale-item/sale-item.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SaleItemComponent } from './sale-item/sale-item.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,7 +11,8 @@ export class SaleItemComponent {
 
   private mainCategoryList: ItemCategoryModel[] = [];
   private hierLevels: Array<number> = [];
-  private categoryLevelId: number[] = [];
+  private categoryLevelSelector: number[] = [];
+  private subcategoryLevelOptions: Array<ItemCategoryModel[]> = [];
   
   private initialLevels: number = 3;
   
@@ -19,20 +20,59 @@ export class SaleItemComponent {
 
     for (let level = 0; level < this.initialLevels; level++) {
       this.hierLevels.push(level);
-      this.categoryLevelId = this.categoryLevelId.concat(-1);
+      this.categoryLevelSelector = this.categoryLevelSelector.concat(-1);
+      this.subcategoryLevelOptions = this.subcategoryLevelOptions.concat([]);
     }
-    this.categoryLevelId[0] = 0;
+    this.categoryLevelSelector[0] = 0;
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log("mainCategoryList: ", 3);
+      
       this.mainCategoryList = itemType;
+      this.subcategoryLevelOptions[0] = this.mainCategoryList;
     });
 
   }
 
-  goToNextSection(hierLevel: number, hierLevelId: number) {
-    this.categoryLevelId[hierLevel+1] = hierLevelId;
-    console.log("");
+  goToNextSection(hierLevel: number, categoryId: number, goToNextSection: number) {
+    
+    let nextCategory: ItemCategoryModel[] = this.mainCategoryList;
+    
+    if( hierLevel + 1 >= this.categoryLevelSelector.length ) {
+      return ;
+    }
+
+    for (let levelIter = 0; levelIter <= hierLevel; levelIter++) {
+      if (!nextCategory)
+        break;
+      
+      // Determine chosen index
+      let pathIndex = 0;
+      for (let i = 0; i < nextCategory.length; i++) {
+        if(nextCategory[i].id == this.categoryLevelSelector[levelIter]) {
+          break;
+        }
+        pathIndex++;
+      }
+      
+      nextCategory = nextCategory[ pathIndex ].subCategories;
+    }
+
+    console.log(nextCategory);
+
+    //Assign next category
+    this.subcategoryLevelOptions[hierLevel+1] = nextCategory;
+
+    //Remove Rest of the Levels options
+    for (let index = hierLevel + 2; index < this.subcategoryLevelOptions.length; index++) {
+      this.subcategoryLevelOptions[index] = [];
+      this.categoryLevelSelector[index] = -1;
+    }
+
+    //Remove Rest of selected levels
+    for (let index = hierLevel + 1; index < this.subcategoryLevelOptions.length; index++) {
+      this.categoryLevelSelector[index] = -1;
+    }
+    
   }
 
   getCurrentCategoryName(currentCategory: ItemCategoryModel, hierLevel: number) : string {
@@ -46,31 +86,4 @@ export class SaleItemComponent {
     return (nextCategory)? nextCategory.categoryName : "";
   }
 
-  /*
-  getCurrentCategoryId(currentCategory: ItemCategoryModel, hierLevel: number) : number {
-    let nextCategory: ItemCategoryModel = currentCategory;
-    
-    for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
-      nextCategory = nextCategory.subCategories[levelIter];
-    }
-
-    return (nextCategory)? nextCategory.id : null;
-  }
-*/
-
-  getCurrentCategoryList(currentCategory: ItemCategoryModel[], hierLevel: number) : ItemCategoryModel[] {
-    let nextCategories: ItemCategoryModel[] = currentCategory;
-
-    if( this.categoryLevelId[hierLevel] == -1 ) {
-      return [];
-    }
-    
-    for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
-      if (!nextCategories)
-        break;
-      nextCategories = nextCategories[ 0 ].subCategories;
-    }
-
-    return nextCategories;
-  }
 }

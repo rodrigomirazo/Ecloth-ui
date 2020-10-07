@@ -4,27 +4,21 @@
 </div>
 
 <div *ngFor="let hierLevel of hierLevels">
-    
-    categoryLevelId: {{categoryLevelId[hierLevel]}} <br>
     <!-- <div *ngIf="mainCategoryList[hierLevel]"></div> -->
     <div *ngIf="mainCategoryList">
         <div class="col-md-1"></div>
         <div class="col-md-2" ><h4>{{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</h4></div>
         
-        
         <div class="col-md-3">
-            subCatModel: {{categoryLevelId[hierLevel]}}
-                <mat-form-field appearance="fill">
-                <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</mat-label>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[hierLevel], hierLevel) | titlecase}}</mat-label>
 
-                <mat-select (ngModel)="categoryLevelId[hierLevel]" (selectionChange)="goToNextSection(hierLevel, subCatModel)">
-                    <mat-option *ngFor="let category of getCurrentCategoryList(mainCategoryList, hierLevel)" [value]="category.id">
+                <mat-select [(ngModel)]="categoryLevelSelector[hierLevel]" name="catId" (selectionChange)="goToNextSection(hierLevel, categoryLevelSelector[hierLevel], catIteration)">
+                    <mat-option *ngFor="let category of subcategoryLevelOptions[hierLevel]" [value]="category.id">
                         {{category.subCategoryName | titlecase}}
                     </mat-option>
                 </mat-select>
-                </mat-form-field>
-            
+            </mat-form-field>
         </div>
-    
     </div>
 </div>
