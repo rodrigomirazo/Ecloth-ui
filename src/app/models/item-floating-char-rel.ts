@@ -1,17 +1,24 @@
 
 export class ItemFloatingCharRel {
 
-    private _floatingCharId: string;
+    private _floatingCharId: number;
     private _floatingCharCatId: number;
     
-	constructor() {
-    }
-    
+	constructor(floatingCharId?: number, floatingCharCatId?: number) {
+        if(floatingCharId) {
+            this.floatingCharId = floatingCharId;
+        }
+        if(floatingCharCatId) {
+            this.floatingCharCatId = floatingCharCatId;
+        }
+        
+	}
+	
     /**
      * Getter floatingCharId
-     * @return {string}
+     * @return {number}
      */
-	public get floatingCharId(): string {
+	public get floatingCharId(): number {
 		return this._floatingCharId;
 	}
 
@@ -25,9 +32,9 @@ export class ItemFloatingCharRel {
 
     /**
      * Setter floatingCharId
-     * @param {string} value
+     * @param {number} value
      */
-	public set floatingCharId(value: string) {
+	public set floatingCharId(value: number) {
 		this._floatingCharId = value;
 	}
 
@@ -38,5 +45,6 @@ export class ItemFloatingCharRel {
 	public set floatingCharCatId(value: number) {
 		this._floatingCharCatId = value;
 	}
+    
 
 }

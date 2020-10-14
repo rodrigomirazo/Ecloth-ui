@@ -1,6 +1,10 @@
 <div style="padding-left: 2.5%;">
 
     {{item | json}}
+    <br>
+    {{itemFloatingCharsRel | json}}
+    <br>
+    {{categoryLevelSelector | json}}
     <div class="row">
         <div class="col-md-10"><h3>Crea Una Publicación</h3></div>
     </div>
@@ -56,14 +60,14 @@
 
     <!-- Floating Chars Begin -->
     <div class="row">
-        <div *ngFor="let itemFloatingChar of itemFloatingChars">
+        <div *ngFor="let itemFloatingChar of itemFloatingChars; index as charRelIndex">
             <div *ngIf="itemFloatingChar">
                 <div class="col-md-3">
-                    <h5>{{ itemFloatingChar.floatingCharName | titlecase}}</h5>
+                    <h5>{{ itemFloatingChar.floatingCharName | titlecase}} </h5>
                     <mat-form-field appearance="fill">
                         <mat-label>Choose {{ itemFloatingChar.floatingCharName | titlecase}}</mat-label>
 
-                        <mat-select  name="floatingCatId">
+                        <mat-select  name="floatingCatId" [(ngModel)]="itemFloatingCharsRel[charRelIndex].floatingCharCatId">
                             <mat-option [value]="">
                                 
                             </mat-option>

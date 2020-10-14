@@ -70,7 +70,8 @@ export class SaleItemComponent {
     this.floatingCharsService.getAll().subscribe( (itemFloatingChars: ItemFloatingChars[]) => {
       this.itemFloatingChars = itemFloatingChars;
       this.itemFloatingChars.forEach(floatingChar => {
-        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(new ItemFloatingCharRel());
+        
+        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(new ItemFloatingCharRel(floatingChar.floatingCharId, -1));
       });
 
       console.log(this.itemFloatingChars);
@@ -163,6 +164,15 @@ export class SaleItemComponent {
       event.srcElement.percentage = null;
     }
     console.log(this.selectedFiles);
+  }
+
+  selectFloatingChar(charIndx: number, floatingCharId: number, floatingCharCatId: number) {
+    
+    console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
+
+    this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
+    this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
+    console.log(this.itemFloatingCharsRel);
   }
 
   uploadFiles() {
