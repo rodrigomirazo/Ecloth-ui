@@ -28,7 +28,7 @@ export class FloatingCharsService {
     return this.httpService.post(this.floatingCharsUri, floatingChar);
   }
 
-  deleteChar(floatingCharId: number) : Observable<ItemFloatingChars> {
+  deleteChar(floatingCharId: number) : Observable<void> {
     return this.httpService.delete(this.floatingCharsUri + "?itemFloatingCharId=" + floatingCharId, {});
   }
 

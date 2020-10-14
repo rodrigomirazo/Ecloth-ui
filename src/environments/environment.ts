@@ -5,9 +5,12 @@
 export const environment = {
   production: false,
   host: "http://localhost:8081",
-  baseUrl: "/EClothes-item/api/v1",
+  baseUrl: "/ecommerce/bicicle/api/v1",
   entity: {
     item: "/item",
+    itemImage: "/item/uploadImg",
+    getItemImage: "/item/uploadImg",
+    
     types: "/itemTypeCat",
     categoryType: "/itemCat",
     floatingChars: "/itemFloatingChars",

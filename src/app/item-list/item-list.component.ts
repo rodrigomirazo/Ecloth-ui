@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Item } from '../models/Item-model';
+import { UserItem } from '../models/Item-user-model';
 import { ItemService } from './item.service';
 
 @Component({
@@ -13,12 +13,12 @@ export class ItemListComponent implements OnInit {
   //@Input() categoryId: number;
   private _categoryId: number;
 
-  private items: Item[];
+  private items: UserItem[];
 
   constructor(private itemService: ItemService) { }
 
   ngOnInit() {
-    this.itemService.get(this.categoryId).subscribe((itemsResp: Item[]) => {
+    this.itemService.get(this.categoryId).subscribe((itemsResp: UserItem[]) => {
       this.items = itemsResp;
     });
   }
@@ -31,7 +31,7 @@ export class ItemListComponent implements OnInit {
 	public set categoryId(value: number) {
     this._categoryId = value;
     
-    this.itemService.get(this._categoryId).subscribe((itemsResp: Item[]) => {
+    this.itemService.get(this._categoryId).subscribe((itemsResp: UserItem[]) => {
       console.log();
       this.items = itemsResp;
     });

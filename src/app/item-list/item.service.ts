@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Item } from '../models/Item-model';
+import { UserItem } from '../models/Item-user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +13,21 @@ export class ItemService {
 
   constructor(private httpService: HttpService) { }
 
-  get(categoryId: number) : Observable<Item[]> {
+  get(categoryId: number) : Observable<UserItem[]> {
     const catParam = "categoryId=" + categoryId;
     return this.httpService.get(this.itemUri + "?" + catParam);
   }
 
-  put(item: Item) : Observable<Item> {
+  getByUser(userId: number) : Observable<UserItem[]> {
+    const catParam = "userId=" + userId;
+    return this.httpService.get(this.itemUri + "/user/" + userId);
+  }
+
+  post(item: UserItem) : Observable<UserItem> {
     return this.httpService.put(this.itemUri, item);
   }
 
-  delete(item: Item) : Observable<Item> {
+  delete(item: UserItem) : Observable<UserItem> {
     return this.httpService.delete(this.itemUri, item);
   }
 

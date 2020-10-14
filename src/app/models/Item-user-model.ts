@@ -1,5 +1,8 @@
 
-export class Item {
+import { ItemFloatingCharRel } from './item-floating-char-rel';
+import { User } from './Item-user';
+
+export class UserItem {
 
     private _id: string;
     private _statusId: number;
@@ -14,6 +17,8 @@ export class Item {
     private _fleetCost: number;
     private _sizeId: string;
     private _lastLevelCategoryId: number;
+    private _user: User;
+    private _itemFloatingChars: ItemFloatingCharRel[];
 
 	constructor() {
     }
@@ -224,6 +229,38 @@ export class Item {
      */
 	public set lastLevelCategoryId(value: number) {
 		this._lastLevelCategoryId = value;
+    }
+
+    /**
+     * Getter user
+     * @return {User}
+     */
+	public get user(): User {
+		return this._user;
 	}
 
+    /**
+     * Setter user
+     * @param {User} value
+     */
+	public set user(value: User) {
+		this._user = value;
+    }
+    
+    /**
+     * Getter itemFloatingChars
+     * @return {ItemFloatingCharRel[]}
+     */
+	public get itemFloatingChars(): ItemFloatingCharRel[] {
+		return this._itemFloatingChars;
+	}
+
+    /**
+     * Setter itemFloatingChars
+     * @param {ItemFloatingCharRel[]} value
+     */
+	public set itemFloatingChars(value: ItemFloatingCharRel[]) {
+		this._itemFloatingChars = value;
+	}
+    
 }

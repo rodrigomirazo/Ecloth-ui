@@ -1,24 +1,179 @@
+<div style="padding-left: 2.5%;">
 
-<div class="row">
-    <div class="col-md-12"><h3>¿Que Quieres vender?</h3></div>
-</div>
+    {{item | json}}
+    <div class="row">
+        <div class="col-md-10"><h3>Crea Una Publicación</h3></div>
+    </div>
 
-<div *ngFor="let hierLevel of hierLevels">
-    <!-- <div *ngIf="mainCategoryList[hierLevel]"></div> -->
-    <div *ngIf="mainCategoryList">
-        <div class="col-md-1"></div>
-        <div class="col-md-2" ><h4>{{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</h4></div>
-        
-        <div class="col-md-3">
-            <mat-form-field appearance="fill">
-                <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[hierLevel], hierLevel) | titlecase}}</mat-label>
-
-                <mat-select [(ngModel)]="categoryLevelSelector[hierLevel]" name="catId" (selectionChange)="goToNextSection(hierLevel, categoryLevelSelector[hierLevel], catIteration)">
-                    <mat-option *ngFor="let category of subcategoryLevelOptions[hierLevel]" [value]="category.id">
-                        {{category.subCategoryName | titlecase}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Nombre de la Publicación</h4>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre de la Publicación</mat-label>
+                <input matInput placeholder="publicación" value="" [(ngModel)]="item.name">
+              </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Elegir Categoría</h4>
+        </div>
+    </div>
+
+    <!-- Category Begin -->
+    <div class="row">
+        <div *ngFor="let hierLevel of hierLevels">
+            <div *ngIf="mainCategoryList">
+                <div class="col-md-3">
+                    <h5>{{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</h5>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[hierLevel], hierLevel) | titlecase}}</mat-label>
+
+                        <mat-select [(ngModel)]="categoryLevelSelector[hierLevel]" name="catId" (selectionChange)="goToNextSection(hierLevel, categoryLevelSelector[hierLevel], catIteration)">
+                            <mat-option *ngFor="let category of subcategoryLevelOptions[hierLevel]" [value]="category.id">
+                                {{category.subCategoryName | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Category End -->
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Caracteristicas Adicionales</h4>
+        </div>
+    </div>
+
+    <!-- Floating Chars Begin -->
+    <div class="row">
+        <div *ngFor="let itemFloatingChar of itemFloatingChars">
+            <div *ngIf="itemFloatingChar">
+                <div class="col-md-3">
+                    <h5>{{ itemFloatingChar.floatingCharName | titlecase}}</h5>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose {{ itemFloatingChar.floatingCharName | titlecase}}</mat-label>
+
+                        <mat-select  name="floatingCatId">
+                            <mat-option [value]="">
+                                
+                            </mat-option>
+
+                            <mat-option *ngFor="let floatingCat of itemFloatingChar.catalogList" [value]="floatingCat.charId">
+                                {{floatingCat.charName | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Floating Chars End -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Agrega hasta 12 Fotos</h4>
+            <p>
+                Sube fotos claras usando las siguientes imagenes
+                como referencia
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <!-- Image Model Begin -->
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-1.jpg" class="img-refrense" alt="image">
+                </div>
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-2.jpg" class="img-refrense" alt="image">
+                </div>
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-3.jpg" class="img-refrense" alt="image">
+                </div>
+                
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-4.jpg" class="img-refrense" alt="image">
+                </div>
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-5.jpg" class="img-refrense" alt="image">
+                </div>
+                <div class="col-md-4">
+                    <img src="/assets/images/vistas/bicicleta-ejemplo-vista-6.jpg" class="img-refrense" alt="image">
+                </div>
+            <!-- Image Model Begin -->
+        </div>
+
+        <div class="col-md-6">
+            <!-- Upload Imnages Begin -->
+            <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                <span>{{ progressInfo.fileName }}</span>
+                <div class="progress">
+                <div
+                    class="progress-bar progress-bar-info progress-bar-striped"
+                    role="progressbar"
+                    attr.aria-valuenow="{{ progressInfo.percentage }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [ngStyle]="{ width: progressInfo.percentage + '%' }">
+                    {{ progressInfo.percentage }}%
+                </div>
+                </div>
+            </div>
+            
+            <label class="btn btn-default">
+                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+            </label>
+            
+            <!-- <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFiles()">Subir Imágenes</button> -->
+            
+            <div class="alert alert-light" role="alert">{{ message }}</div>
+            
+            <div class="card">
+                
+
+                <div *ngIf="fileInfos">
+                    <div *ngIf="fileInfos.length >= 1">
+
+                        <div class="card-header"><p>List of Images</p></div>
+
+                        <div class="list-group list-group-flush" *ngFor="let file of fileInfos">
+
+                            <div class="col-md-2">
+                                <img src="{{ file }}" height="80px">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Upload Imnages End -->
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-7"></div>
+        <div class="col-md-2">
+            <button mat-raised-button>Guardar y Publicar</button>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row" style="margin-bottom: 25px;"></div>
+
+
 </div>
+
+<!-- -->

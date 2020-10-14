@@ -1,0 +1,12 @@
+.img-refrense {
+    object-fit: cover;
+    width: 250px;
+    height: 180px;
+    padding-right: 100px;
+    padding-top: 50px;
+}
+
+.img-border {
+    border: 1px;
+    border-color: black;
+}
