@@ -24,7 +24,7 @@ export class ItemService {
   }
 
   post(item: UserItem) : Observable<UserItem> {
-    return this.httpService.put(this.itemUri, item);
+    return this.httpService.post(this.itemUri, item);
   }
 
   delete(item: UserItem) : Observable<UserItem> {

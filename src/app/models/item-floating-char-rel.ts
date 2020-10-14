@@ -1,50 +1,49 @@
 
 export class ItemFloatingCharRel {
 
-    private _floatingCharId: number;
-    private _floatingCharCatId: number;
+    private floatingCharId: number;
+    private floatingCharCatId: number;
     
 	constructor(floatingCharId?: number, floatingCharCatId?: number) {
         if(floatingCharId) {
-            this.floatingCharId = floatingCharId;
+            this.$floatingCharId = floatingCharId;
         }
         if(floatingCharCatId) {
-            this.floatingCharCatId = floatingCharCatId;
+            this.$floatingCharCatId = floatingCharCatId;
         }
         
 	}
-	
+
     /**
-     * Getter floatingCharId
+     * Getter $floatingCharId
      * @return {number}
      */
-	public get floatingCharId(): number {
-		return this._floatingCharId;
+	public get $floatingCharId(): number {
+		return this.floatingCharId;
 	}
 
     /**
-     * Getter floatingCharCatId
+     * Getter $floatingCharCatId
      * @return {number}
      */
-	public get floatingCharCatId(): number {
-		return this._floatingCharCatId;
+	public get $floatingCharCatId(): number {
+		return this.floatingCharCatId;
 	}
 
     /**
-     * Setter floatingCharId
+     * Setter $floatingCharId
      * @param {number} value
      */
-	public set floatingCharId(value: number) {
-		this._floatingCharId = value;
+	public set $floatingCharId(value: number) {
+		this.floatingCharId = value;
 	}
 
     /**
-     * Setter floatingCharCatId
+     * Setter $floatingCharCatId
      * @param {number} value
      */
-	public set floatingCharCatId(value: number) {
-		this._floatingCharCatId = value;
+	public set $floatingCharCatId(value: number) {
+		this.floatingCharCatId = value;
 	}
-    
 
 }

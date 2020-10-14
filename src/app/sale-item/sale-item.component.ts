@@ -170,8 +170,8 @@ export class SaleItemComponent {
     
     console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
 
-    this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
-    this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
+    this.itemFloatingCharsRel[charIndx].$floatingCharId = floatingCharId;
+    this.itemFloatingCharsRel[charIndx].$floatingCharCatId = floatingCharCatId;
     console.log(this.itemFloatingCharsRel);
   }
 
@@ -195,7 +195,19 @@ export class SaleItemComponent {
   }
 
   save() {
+    this.item.$itemFloatingChars = this.itemFloatingCharsRel;
+    this.item.$itemTypeCatId = this.categoryLevelSelector[0];
+    this.item.$lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
+    this.item.$statusId = 1;
+    //TODO: color catalog
+    this.item.$itemColorId = 85;
     
+    this.itemService.post( this.item ).subscribe(persistedItem => {
+      console.log(persistedItem);
+
+      this.uploadFiles();
+
+    });
   }
 
 }

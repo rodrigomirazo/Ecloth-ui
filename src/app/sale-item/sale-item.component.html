@@ -1,10 +1,5 @@
 <div style="padding-left: 2.5%;">
 
-    {{item | json}}
-    <br>
-    {{itemFloatingCharsRel | json}}
-    <br>
-    {{categoryLevelSelector | json}}
     <div class="row">
         <div class="col-md-10"><h3>Crea Una Publicación</h3></div>
     </div>
@@ -84,12 +79,17 @@
     <!-- Floating Chars End -->
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h4>Agrega hasta 12 Fotos</h4>
             <p>
                 Sube fotos claras usando las siguientes imagenes
                 como referencia
             </p>
+        </div>
+        <div class="col-md-6">
+            <label class="btn btn-default">
+                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+            </label>
         </div>
     </div>
 
@@ -136,27 +136,18 @@
                 </div>
             </div>
             
-            <label class="btn btn-default">
-                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-            </label>
-            
-            <!-- <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFiles()">Subir Imágenes</button> -->
-            
-            <div class="alert alert-light" role="alert">{{ message }}</div>
-            
             <div class="card">
                 
 
                 <div *ngIf="fileInfos">
                     <div *ngIf="fileInfos.length >= 1">
 
-                        <div class="card-header"><p>List of Images</p></div>
-
                         <div class="list-group list-group-flush" *ngFor="let file of fileInfos">
 
-                            <div class="col-md-2">
-                                <img src="{{ file }}" height="80px">
+                            <div class="col-md-4">
+                                <img src="{{ file }}" class="img-refrense" alt="image">
                             </div>
+
                         </div>
 
                     </div>
@@ -170,7 +161,7 @@
     <div class="row">
         <div class="col-md-7"></div>
         <div class="col-md-2">
-            <button mat-raised-button>Guardar y Publicar</button>
+            <button mat-raised-button (click)="save()">Guardar y Publicar</button>
         </div>
         <div class="col-md-1"></div>
     </div>
