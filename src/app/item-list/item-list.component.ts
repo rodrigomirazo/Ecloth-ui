@@ -20,6 +20,7 @@ export class ItemListComponent implements OnInit {
   ngOnInit() {
     this.itemService.get(this.categoryId).subscribe((itemsResp: UserItem[]) => {
       this.items = itemsResp;
+      console.log(this.items);
     });
   }
 

@@ -6,14 +6,14 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h4>Nombre de la Publicación</h4>
+            <h4>Modelo de Bicicleta</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
             <mat-form-field class="example-full-width">
-                <mat-label>Nombre de la Publicación</mat-label>
+                <mat-label>Modelo de Bicicleta</mat-label>
                 <input matInput placeholder="publicación" value="" [(ngModel)]="item.name">
               </mat-form-field>
         </div>
@@ -97,23 +97,23 @@
 
         <div class="col-md-6">
             <!-- Image Model Begin -->
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-1.jpg" class="img-refrense" alt="image">
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-2.jpg" class="img-refrense" alt="image">
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-3.jpg" class="img-refrense" alt="image">
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-4.jpg" class="img-refrense" alt="image">
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-5.jpg" class="img-refrense" alt="image">
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-md-4">
                     <img src="/assets/images/vistas/bicicleta-ejemplo-vista-6.jpg" class="img-refrense" alt="image">
                 </div>
             <!-- Image Model Begin -->
@@ -144,7 +144,7 @@
 
                         <div class="list-group list-group-flush" *ngFor="let file of fileInfos">
 
-                            <div class="col-md-4">
+                            <div class="col-xs-6 col-md-4">
                                 <img src="{{ file }}" class="img-refrense" alt="image">
                             </div>
 
@@ -156,6 +156,21 @@
             <!-- Upload Imnages End -->
         </div>
 
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Precio</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Precio</mat-label>
+                <input matInput placeholder="precio" value="">
+              </mat-form-field>
+        </div>
     </div>
 
     <div class="row">
