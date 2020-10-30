@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import * as $ from "jquery";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ItemSearchComponent } from './item-search/item-search.component';
@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryTreeComponent } from './category-tree/category-tree.component';
 import { SaleItemComponent } from './sale-item/sale-item.component';
 import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { HomeCarouselComponent } from './home-carousel/home-carousel.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     ItemSearchComponent,
     ItemListComponent,
     CategoryTreeComponent,
-    SaleItemComponent
+    SaleItemComponent,
+    HomeCarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,9 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]

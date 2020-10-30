@@ -1,5 +1,135 @@
 <div style="padding-left: 2.5%;">
 
+    <mat-horizontal-stepper labelPosition="bottom" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <!-- Begin First Step -->
+
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Modelo de Bicicleta</h4>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Marca</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.brand" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Modelo</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.model" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Año</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.year" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Material del Cuadro</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.frameMaterial" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Genero</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.genre" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Tipo de Freno</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.breakType" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Talla</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.size" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Modalidad</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.modality" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Medida de la llanta</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.wheelSize" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Numero de Serie</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.series" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                </div>
+                
+                <div class="col-md-12 example-radio-group-label">
+                        <label id="example-radio-group-label">¿Tiene alguna modificación?</label>
+
+                        <mat-radio-group aria-label="Select an option">
+                            <div class="col-md-12">
+                                <mat-radio-button value="true">Sí</mat-radio-button>
+                            </div>
+
+                            <div class="col-md-12">
+                                <mat-radio-button value="false">No/Original</mat-radio-button>
+                            </div>
+
+                        </mat-radio-group>
+                </div>
+
+                <div class="col-md-12">
+                    <mat-form-field class="input-modified-desc">
+                        <mat-label>¿Cuál?</mat-label>
+                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.modifiedDesc" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                </div>
+            
+            </div>
+
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+
+          <!-- End first Step -->
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" optional>
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fill out your address</ng-template>
+            <mat-form-field>
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                     required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+
+
     <div class="row">
         <div class="col-md-10"><h3>Crea Una Publicación</h3></div>
     </div>

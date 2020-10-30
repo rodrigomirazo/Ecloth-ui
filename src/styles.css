@@ -3,3 +3,112 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: montserrat-extraLight;
+    src: url("assets/font/Montserrat-ExtraLight.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bebasNeue-bold;
+    src: url("assets/font/BebasNeue-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bebasNeue-book;
+    src: url("assets/font/BebasNeue-Book.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bebasNeue-light;
+    src: url("assets/font/BebasNeue-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bebasNeue-regular;
+    src: url("assets/font/BebasNeue-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bebasNeue-thin;
+    src: url("assets/font/BebasNeue-Thin.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-black;
+    src: url("assets/font/Montserrat-Black.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-blackItalic;
+    src: url("assets/font/Montserrat-BlackItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-bold;
+    src: url("assets/font/Montserrat-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-boldItalic;
+    src: url("assets/font/Montserrat-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-extraLight;
+    src: url("assets/font/Montserrat-ExtraLight.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-extraLightItalic;
+    src: url("assets/font/Montserrat-ExtraLightItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-italic;
+    src: url("assets/font/Montserrat-Italic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-light;
+    src: url("assets/font/Montserrat-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-lightItalic;
+    src: url("assets/font/Montserrat-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-medium;
+    src: url("assets/font/Montserrat-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-mediumItalic;
+    src: url("assets/font/Montserrat-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-regular;
+    src: url("assets/font/Montserrat-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-semiBold;
+    src: url("assets/font/Montserrat-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-semiBoldItalic;
+    src: url("assets/font/Montserrat-SemiBoldItalic.otf") format("opentype");
+}
+
+@font-face {
+    font-family: montserrat-thin;
+    src: url("assets/font/Montserrat-Thin.otf") format("opentype");
+}
+@font-face {
+    font-family: montserrat-thinItalic;
+    src: url("assets/font/Montserrat-ThinItalic.otf") format("opentype");
+}

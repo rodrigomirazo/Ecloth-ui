@@ -1,5 +1,5 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
@@ -8,13 +8,14 @@ import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
 import { UserItem } from '../models/Item-user-model';
 import { ItemCategoryModel } from '../models/main-categories-model';
 import { UploadFilesService } from '../services/upload-files.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sale-item',
   templateUrl: './sale-item.component.html',
   styleUrls: ['./sale-item.component.css']
 })
-export class SaleItemComponent {
+export class SaleItemComponent implements OnInit {
 
   // Item
   private item: UserItem = new UserItem();
@@ -38,12 +39,29 @@ export class SaleItemComponent {
   private progressInfos = [];
   private fileInfos =  [];
   private fileResult =  [];
-  
+
+  /** Form Groups */
+  private firstFormGroup: FormGroup;
+  private secondFormGroup: FormGroup;
+
+  ngOnInit() {
+
+  }
+
   constructor(
     private categoryService: CategoryService,
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
-    private uploadFilesService: UploadFilesService) {
+    private uploadFilesService: UploadFilesService,
+    private _formBuilder: FormBuilder) {
+
+      this.firstFormGroup = this._formBuilder.group({
+        firstCtrl: ['', Validators.required]
+      });
+      this.secondFormGroup = this._formBuilder.group({
+        secondCtrl: ['', Validators.required]
+      });
+      
       this.userId = 1;
       for (let level = 0; level < this.initialLevels; level++) {
         this.hierLevels.push(level);
