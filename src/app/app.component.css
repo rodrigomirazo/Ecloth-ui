@@ -97,12 +97,13 @@ button.mat-button {
 
  /* Search bar */
 
-:host ::ng-deep .mat-form-field-prefix {
+
+.search-bar ::ng-deep .mat-form-field-prefix {
     top: -12px;
     left: 7px;
 }
 
-:host ::ng-deep .mat-form-field-flex {
+.search-bar ::ng-deep .mat-form-field-flex {
     border-radius: 12px;
     height: 47px;
     position: inherit;
@@ -110,7 +111,7 @@ button.mat-button {
     background-image: linear-gradient(to right, rgba(255,0,0,0), #3333332e 90%);
 }
 
-:host ::ng-deep .mat-form-field-infix {
+.search-bar ::ng-deep .mat-form-field-infix {
     left: 10px;
     top: -19px;
 }
