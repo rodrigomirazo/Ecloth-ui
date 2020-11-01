@@ -14,6 +14,17 @@ import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeCarouselComponent } from './home-carousel/home-carousel.component';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { HomeFooterComponent } from './home-footer/home-footer.component';
+import { HomeNewsComponent } from './home-news/home-news.component';
+import { HomeCategoriesComponent } from './home-categories/home-categories.component';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 
 @NgModule({
   declarations: [
@@ -22,7 +33,10 @@ import { HomeCarouselComponent } from './home-carousel/home-carousel.component';
     ItemListComponent,
     CategoryTreeComponent,
     SaleItemComponent,
-    HomeCarouselComponent
+    HomeCarouselComponent,
+    HomeFooterComponent,
+    HomeNewsComponent,
+    HomeCategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +46,13 @@ import { HomeCarouselComponent } from './home-carousel/home-carousel.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    SwiperModule
   ],
-  providers: [],
+  providers: [{
+    provide: SWIPER_CONFIG,
+    useValue: DEFAULT_SWIPER_CONFIG
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
