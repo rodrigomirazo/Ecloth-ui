@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserItem } from '../models/Item-user-model';
 import { ItemService } from './item.service';
+import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-item-list',
@@ -8,6 +9,8 @@ import { ItemService } from './item.service';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
+
+
 
   // IO
   //@Input() categoryId: number;

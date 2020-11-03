@@ -1,7 +1,7 @@
 
 .news-background {
     width: 100%;
-    height: calc( 33em);
+    height: 43em;
     background: url(/assets/images/home/News.svg);
     background-repeat: no-repeat, repeat;
 }
@@ -19,4 +19,8 @@
 
 .mat-focused .mat-form-field-label {
     color: #027D7C !important;
+}
+
+.news-email {
+    width: 66%;
 }
