@@ -9,6 +9,7 @@ export class ItemCategoryModel {
     private _subCategoryName: string;
     private _subCategoryNameEsp: string;
     private _subCategories: ItemCategoryModel[];
+    private _isSelected: boolean;
     
     constructor() {}
     
@@ -138,6 +139,22 @@ export class ItemCategoryModel {
      */
 	public set subCategories(value: ItemCategoryModel[]) {
 		this._subCategories = value;
+    }
+    
+    /**
+     * Getter isSelected
+     * @return {boolean}
+     */
+	public get isSelected(): boolean {
+		return this._isSelected;
+	}
+
+    /**
+     * Setter isSelected
+     * @param {boolean} value
+     */
+	public set isSelected(value: boolean) {
+		this._isSelected = value;
 	}
 
 }

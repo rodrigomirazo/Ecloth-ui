@@ -3,6 +3,27 @@
     width: 140px;
 }
 
-::ng-deep .mat-expansion-panel-spacing {
-    margin-bottom: 0px !important;
+.item-detail-frame {
+    background-color: #f2f2f2;
+    align-content: center;
+    margin: auto;
+    display: table;
+    padding-top: 15px;
 }
+
+.item-title-frame {
+    padding-top: 5px;
+}
+
+.item-title-new-message {
+    background-color: #18c65e;
+    color: white;
+    width: 60px;
+}
+
+.item-image-row {
+    align-content: center;
+    margin: auto;
+    display: table;
+}
+

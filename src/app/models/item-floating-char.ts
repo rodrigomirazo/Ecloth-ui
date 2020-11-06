@@ -6,7 +6,14 @@ export class ItemFloatingChars {
     private _floatingCharName: string;
     private _catalogList: ItemFloatingCharsCat[];
 
-	constructor() {
+	constructor(floatingCharId?: number, floatingCharName?: string, catalogList?: ItemFloatingCharsCat[]) {
+
+        if(floatingCharName)
+            this._floatingCharId = floatingCharId;
+        if(floatingCharName)
+            this._floatingCharName = floatingCharName;
+        if(catalogList)
+        this._catalogList = catalogList;
     }
     
     /**
