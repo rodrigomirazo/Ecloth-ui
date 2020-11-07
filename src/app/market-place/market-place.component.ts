@@ -4,10 +4,12 @@ import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
 import { FloatingCharIdsSelected } from '../models/floating-char-Ids-selected';
+import { InputFilter } from '../models/input-filter-model';
 import { ItemFloatingChars } from '../models/item-floating-char';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
 import { ItemSelectedFilters } from '../models/item-selected-filters';
 import { ItemCategoryModel } from '../models/main-categories-model';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-market-place',
@@ -16,77 +18,68 @@ import { ItemCategoryModel } from '../models/main-categories-model';
 })
 export class MarketPlaceComponent implements OnInit {
 
-  private filter: string;
+  private inputFilter: InputFilter;
 
-  private itemFloatingChars: ItemFloatingChars[];
+  private itemFloatingChars: ItemFloatingChars[] = [];
 
-  private bicicleTypes: ItemCategoryModel[] = [];
-  private frameCat: ItemFloatingCharsCat[];
-  private genereCat: ItemFloatingCharsCat[];
-  private breakCat: ItemFloatingCharsCat[];
-  private sizeCat: ItemFloatingCharsCat[];
-  private wheelSizeCat: ItemFloatingCharsCat[];
-  private conditionCat: ItemFloatingCharsCat[];
+  /** Item Types */
+  private itemTypes: ItemCategoryModel[] = [];
+
+  /** Catalogs */
   private years: number[] = [];
 
-  /** Selected Filters */
-  private selectedTypes: ItemSelectedFilters[] = [];
-  private selectedYears: any[] = [];
-  private floatingCharIdsSelected: FloatingCharIdsSelected[] = [];
-4
   constructor(
     private route: ActivatedRoute,
-    private itemService: ItemService,
     private floatingCharsService: FloatingCharsService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private utilsService: UtilsService
+    ) { }
 
   ngOnInit() {
-    this.getFloatingChars();
-    this.getCategoryTypes();
-    this.route.queryParams.subscribe(params => {
-      this.filter = params['filter'];
+
+    // 1. Get Current Filters
+    this.route.params.subscribe(params => {
+      
+      this.inputFilter = this.utilsService.decodeBase64(params.inputFilter);
+      
+      // 2. Load Filters From DB
+      this.getYearsCat();
+      this.getFloatingChars();
+      this.getCategoryTypes(this.inputFilter);
     });
+  }
+
+  getYearsCat(): void {
     for (let year = 2020; year > 1980; year--) {
       this.years = this.years.concat(year);
-      
     }
   }
 
-
   getFloatingChars(): void {
     this.floatingCharsService.getAll().subscribe( (itemFloatingChars: ItemFloatingChars[]) => {
-
-      this.itemFloatingChars = itemFloatingChars;
-
-      this.frameCat = this.filterCatalog( 'material_de_cuadro');
-      this.genereCat = this.filterCatalog( 'genero');
-      this.sizeCat = this.filterCatalog( 'talla');
-      this.wheelSizeCat = this.filterCatalog( 'medida_de_llanta');
-      this.conditionCat = this.filterCatalog( 'condition');
-      this.breakCat = this.filterCatalog( 'tipo_de_freno');
-      
-
-      console.log(this.frameCat);
-      console.log(this.genereCat);
-      console.log(this.sizeCat);
-      console.log(this.wheelSizeCat);
-      
+      this.itemFloatingChars = itemFloatingChars;      
     });
   }
 
-  getCategoryTypes(): void {
+  getCategoryTypes(inputFilter: any): void {
+
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      this.bicicleTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      this.bicicleTypes.forEach( type => {
+      this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
 
+      
+      for (let i = 0; i < this.itemTypes.length; i++) {
 
-        this.selectedTypes = this.selectedTypes.concat(
-            new ItemSelectedFilters(type.id, false, [])
-          )
-      });
+        this.itemTypes[i].isSelected = false;
 
-      console.log("selectedTypes: ", this.selectedTypes);
+        if(inputFilter._itemTypes) {
 
+          console.log(inputFilter._itemTypes[i]);
+          if(inputFilter._itemTypes[i].isSelected)
+            this.itemTypes[i].isSelected =
+            inputFilter._itemTypes[i].isSelected;
+        }
+      }
+      
     });
   }
 
