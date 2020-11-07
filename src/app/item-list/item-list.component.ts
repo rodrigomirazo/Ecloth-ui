@@ -25,10 +25,10 @@ export class ItemListComponent implements OnInit {
     private domSanitizer: DomSanitizer
     ) {
     this.matIconRegistry.addSvgIcon("star_inactive",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_active.svg.svg") );
+    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_inactive.svg") );
     
     this.matIconRegistry.addSvgIcon("star_active",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_inactive.svg.svg") );
+    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_active.svg") );
     
   }
 
