@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { InputFilter_header } from '../models/input-filter-header-model';
 import { InputFilter } from '../models/input-filter-model';
 
 @Injectable({
@@ -8,9 +9,15 @@ export class UtilsService {
 
   constructor() { }
 
-  encodeBase64(inputFilter: InputFilter) {
+  encodeBase64(inputFilter: InputFilter_header) {
 
-    const inputFiltersStr = JSON.stringify(inputFilter);
+    let inputFiltersStr: string = JSON.stringify(inputFilter);
+
+    inputFiltersStr = inputFiltersStr.replace("_searchBar",     "searchBar");
+    inputFiltersStr = inputFiltersStr.replace("_years",         "years");
+    inputFiltersStr = inputFiltersStr.replace("_itemTypes",     "itemTypes");
+    inputFiltersStr = inputFiltersStr.replace("_itemFloatingChars", "itemFloatingChars");
+    
     return btoa(inputFiltersStr);
   }
   

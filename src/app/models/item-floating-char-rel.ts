@@ -2,7 +2,10 @@
 export class ItemFloatingCharRel {
 
     private floatingCharId: number;
+    private floatingCharName: string;
     private floatingCharCatId: number;
+    private floatingCharCatName: string;
+    
     
 	constructor(floatingCharId?: number, floatingCharCatId?: number) {
         if(floatingCharId) {
@@ -44,6 +47,39 @@ export class ItemFloatingCharRel {
      */
 	public set $floatingCharCatId(value: number) {
 		this.floatingCharCatId = value;
+    }
+    
+    /**
+     * Getter $floatingCharName
+     * @return {string}
+     */
+	public get $floatingCharName(): string {
+		return this.floatingCharName;
 	}
+
+    /**
+     * Getter $floatingCharCatName
+     * @return {string}
+     */
+	public get $floatingCharCatName(): string {
+		return this.floatingCharCatName;
+	}
+
+    /**
+     * Setter $floatingCharName
+     * @param {string} value
+     */
+	public set $floatingCharName(value: string) {
+		this.floatingCharName = value;
+	}
+
+    /**
+     * Setter $floatingCharCatName
+     * @param {string} value
+     */
+	public set $floatingCharCatName(value: string) {
+		this.floatingCharCatName = value;
+	}
+
 
 }

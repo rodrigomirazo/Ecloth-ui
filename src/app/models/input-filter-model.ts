@@ -1,46 +1,48 @@
+import { InputFilterYear } from './input-filter-years-model';
 import { ItemFloatingChars } from './item-floating-char';
 import { ItemCategoryModel } from './main-categories-model';
 
 export class InputFilter {
 
-    private _searchBar: string;
-    private _years: number[];
+    private _searchBar: string = "";
+    private _years: InputFilterYear[] =[];
     private _itemFloatingChars: ItemFloatingChars[] = [];
     private _itemTypes: ItemCategoryModel[] = [];
 
 
 	constructor(
-        $years?: number[],
-        $searchBar?: string,
-        $itemFloatingChars?: ItemFloatingChars[],
-        $itemTypes?: ItemCategoryModel[]) {
+        years?: InputFilterYear[],
+        searchBar?: string,
+        itemFloatingChars?: ItemFloatingChars[],
+        itemTypes?: ItemCategoryModel[]) {
         
-        if($years)
-            this._years = $years;
+        if(years)
+            this.years = years;
         
-        if($searchBar)
-            this._searchBar = $searchBar;
+        if(searchBar)
+            this.searchBar = searchBar;
         
-        if($itemFloatingChars)
-            this._itemFloatingChars = $itemFloatingChars;
+        if(itemFloatingChars)
+            this.itemFloatingChars = itemFloatingChars;
         
-        if($itemTypes)
-		    this._itemTypes = $itemTypes;
+        if(itemTypes)
+		    this.itemTypes = itemTypes;
     }
+
 
     /**
      * Getter searchBar
-     * @return {string}
+     * @return {string }
      */
-	public get searchBar(): string {
+	public get searchBar(): string  {
 		return this._searchBar;
 	}
 
     /**
      * Getter years
-     * @return {number[]}
+     * @return {InputFilterYear[] }
      */
-	public get years(): number[] {
+	public get years(): InputFilterYear[]  {
 		return this._years;
 	}
 
@@ -62,17 +64,17 @@ export class InputFilter {
 
     /**
      * Setter searchBar
-     * @param {string} value
+     * @param {string } value
      */
-	public set searchBar(value: string) {
+	public set searchBar(value: string ) {
 		this._searchBar = value;
 	}
 
     /**
      * Setter years
-     * @param {number[]} value
+     * @param {InputFilterYear[] } value
      */
-	public set years(value: number[]) {
+	public set years(value: InputFilterYear[] ) {
 		this._years = value;
 	}
 
@@ -92,5 +94,4 @@ export class InputFilter {
 		this._itemTypes = value;
 	}
 
-    
 }

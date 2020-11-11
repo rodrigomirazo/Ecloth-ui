@@ -8,4 +8,29 @@
 
 ::ng-deep .mat-expansion-panel-body {
     padding-left: 8px !important;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+::ng-deep .mat-expansion-panel {
+    background-color: #f2f2f2 !important;
+}
+
+.market-place-main-div ::ng-deep .mat-expansion-panel-spacing {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.filters-accordion {
+    color: #f2f2f2;
+}
+
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: #18c65e!important;
+  }
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #18c65e;
 }
