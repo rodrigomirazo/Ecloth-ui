@@ -67,5 +67,18 @@
 
 .item-price {
     font-family: bebasNeue-bold;
+    font-size: 26px;
+}
+
+.item-buy-button {
+    margin-top: -16px;
+}
+
+.item-buy-button .mat-button-base {
+    margin: 8px 8px 8px 0;
+    border-radius: 34px;
+    color: black;
+    font-family: montserrat-light;
     font-size: 14px;
+    float: right;
 }

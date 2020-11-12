@@ -41,7 +41,6 @@ export class MarketPlaceComponent implements OnInit {
     this.route.params.subscribe(params => {
       
       this.inputFilter = this.utilsService.decodeBase64(params.inputFilter);
-      console.log(this.inputFilter.itemTypes);
       
       // 2. Load Filters From DB
       this.getYearsCat();
@@ -79,25 +78,8 @@ export class MarketPlaceComponent implements OnInit {
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       
       if(inputFilter.itemTypes == []) {
-        console.log("input filter empty");
         this.inputFilter.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      } else {
-        console.log("input filter is DEFINED");
       }
-      
-      /*
-      for (let i = 0; i < this.inputFilter.itemTypes.length; i++) {
-
-        //this.itemTypes[i].isSelected = false;
-
-        if(inputFilter.itemTypes) {
-
-          if(inputFilter.itemTypes[i].isSelected)
-            this.itemTypes[i].isSelected =
-            inputFilter.itemTypes[i].isSelected;
-        }
-      }
-      */
       
     });
   }
