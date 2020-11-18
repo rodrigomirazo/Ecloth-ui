@@ -18,6 +18,10 @@ export class ItemService {
     return this.httpService.get(this.itemUri + "?" + catParam);
   }
 
+  getById(itemId: number) : Observable<UserItem> {
+    return this.httpService.get(this.itemUri + "/" + itemId);
+  }
+
   getByUser(userId: number) : Observable<UserItem[]> {
     const catParam = "userId=" + userId;
     return this.httpService.get(this.itemUri + "/user/" + userId);
