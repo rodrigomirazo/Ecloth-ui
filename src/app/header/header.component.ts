@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
   private mountainFilter: string;
   private urbanFilter: string;
   private roadFilter: string;
+  private discoverFilter: string;
+  
   
   /** Item Types */
   private itemTypes: ItemCategoryModel[] = [];

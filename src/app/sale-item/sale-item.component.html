@@ -12,12 +12,15 @@
                 <div class="col-md-12">
                     <h4>Modelo de Bicicleta</h4>
                 </div>
-                <div class="col-md-12">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Marca</mat-label>
-                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.brand" [ngModelOptions]="{standalone: true}">
-                      </mat-form-field>
+
+                <div class="col-md-6">
+                    <app-catalog-selector
+                    [inputTitle]="'Marca'"
+                    [itemFloatingChar]="filterFloatChar('brand')"
+                    [itemFloatingCharRel]="filterFloatCharRel('brand')" ></app-catalog-selector>
                 </div>
+                
+                
                 <div class="col-md-12">
                     <mat-form-field class="example-full-width">
                         <mat-label>Modelo</mat-label>
@@ -129,85 +132,6 @@
       </mat-horizontal-stepper>
 
 
-
-    <div class="row">
-        <div class="col-md-10"><h3>Crea Una Publicación</h3></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Modelo de Bicicleta</h4>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <mat-form-field class="example-full-width">
-                <mat-label>Modelo de Bicicleta</mat-label>
-                <input matInput placeholder="publicación" value="" [(ngModel)]="item.name">
-              </mat-form-field>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Elegir Categoría</h4>
-        </div>
-    </div>
-
-    <!-- Category Begin -->
-    <div class="row">
-        <div *ngFor="let hierLevel of hierLevels">
-            <div *ngIf="mainCategoryList">
-                <div class="col-md-3">
-                    <h5>{{ getCurrentCategoryName(mainCategoryList[0], hierLevel) | titlecase}}</h5>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose {{ getCurrentCategoryName(mainCategoryList[hierLevel], hierLevel) | titlecase}}</mat-label>
-
-                        <mat-select [(ngModel)]="categoryLevelSelector[hierLevel]" name="catId" (selectionChange)="goToNextSection(hierLevel, categoryLevelSelector[hierLevel], catIteration)">
-                            <mat-option *ngFor="let category of subcategoryLevelOptions[hierLevel]" [value]="category.id">
-                                {{category.subCategoryName | titlecase}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Category End -->
-
-
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Caracteristicas Adicionales</h4>
-        </div>
-    </div>
-
-    <!-- Floating Chars Begin -->
-    <div class="row">
-        <div *ngFor="let itemFloatingChar of itemFloatingChars; index as charRelIndex">
-            <div *ngIf="itemFloatingChar">
-                <div class="col-md-3">
-                    <h5>{{ itemFloatingChar.floatingCharName | titlecase}} </h5>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose {{ itemFloatingChar.floatingCharName | titlecase}}</mat-label>
-
-                        <mat-select  name="floatingCatId" [(ngModel)]="itemFloatingCharsRel[charRelIndex].floatingCharCatId">
-                            <mat-option [value]="">
-                                
-                            </mat-option>
-
-                            <mat-option *ngFor="let floatingCat of itemFloatingChar.catalogList" [value]="floatingCat.charId">
-                                {{floatingCat.charName | titlecase}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Floating Chars End -->
-
     <div class="row">
         <div class="col-md-6">
             <h4>Agrega hasta 12 Fotos</h4>
@@ -288,21 +212,6 @@
 
     </div>
     
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Precio</h4>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <mat-form-field class="example-full-width">
-                <mat-label>Precio</mat-label>
-                <input matInput placeholder="precio" value="">
-              </mat-form-field>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-7"></div>
         <div class="col-md-2">

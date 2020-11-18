@@ -1,0 +1,22 @@
+
+<div *ngIf="itemFloatingCharRel" class="catalog-selector">
+    
+    <div class="input-title">
+        {{ inputTitle | titlecase}}
+    </div>
+
+    <mat-form-field appearance="fill" style="width: 300px;">
+        <mat-label>Choose {{ itemFloatingChar.floatingCharName | titlecase}}</mat-label>
+
+        <mat-select  name="floatingCatId" [(ngModel)]="itemFloatingCharRel.floatingCharCatId" (selectionChange)="selectFloatingChar($event)">
+            <mat-option [value]="-1">
+            
+            </mat-option>
+
+            <mat-option *ngFor="let floatingCat of itemFloatingChar" [value]="floatingCat.charId">
+                {{floatingCat.charName | titlecase}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>

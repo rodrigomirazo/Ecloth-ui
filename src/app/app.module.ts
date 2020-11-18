@@ -24,6 +24,7 @@ import { MarketPlaceComponent } from './market-place/market-place.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuDropDawnComponent } from './menu-drop-dawn/menu-drop-dawn.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CatalogSelectorComponent } from './form-elements/catalog-selector/catalog-selector.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -44,7 +45,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MarketPlaceComponent,
     HeaderComponent,
     MenuDropDawnComponent,
-    HomePageComponent
+    HomePageComponent,
+    CatalogSelectorComponent
   ],
   imports: [
     BrowserModule,

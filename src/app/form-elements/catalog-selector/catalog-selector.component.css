@@ -1,0 +1,33 @@
+
+.catalog-selector .input-title {
+    font-family: montserrat-light;
+    font-size: 14px;
+    color: #303130;
+}
+
+
+::ng-deep .mat-form-field-flex {
+    border-bottom: solid 1px #18c65e !important;
+}
+
+
+
+::ng-deep .mat-form-field-flex:hover {
+    border-bottom: solid 1px #18c65e !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #18c65e;
+}
+
+/** */
+
+
+::ng-deep mat-focused .mat-form-field-label {
+    color: #18c65e;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+    background: #18c65e;
+}
+

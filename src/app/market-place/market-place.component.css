@@ -22,6 +22,8 @@
 }
 
 .filters-accordion {
+    z-index: 1;
+    position: fixed;
     color: #f2f2f2;
 }
 

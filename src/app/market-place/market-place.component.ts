@@ -77,8 +77,9 @@ export class MarketPlaceComponent implements OnInit {
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       
-      if(inputFilter.itemTypes == []) {
+      if(inputFilter.itemTypes.length == 0) {
         this.inputFilter.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+        console.log("item types = ", this.inputFilter.itemTypes);
       }
       
     });

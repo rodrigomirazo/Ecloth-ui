@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'index', component: HomePageComponent },
   { path: '', redirectTo: 'index', pathMatch: 'full'},
   { path: 'market-place/:inputFilter', component: MarketPlaceComponent },
+  { path: 'publish', component: SaleItemComponent }
 ];
 
 

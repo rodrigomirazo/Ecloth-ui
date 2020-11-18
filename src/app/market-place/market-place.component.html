@@ -147,8 +147,7 @@
         </div>
     </div>
 
-    <div class="col-xs-10 col-sm-10 col-md-10">
-
+    <div class="col-xs-10 col-sm-10 col-md-10" *ngIf="inputFilter.itemTypes.length > 0">
         <app-item-list [inputFilter]="inputFilter" [changeIncrement]="changeIncrement"></app-item-list>
     </div>
 

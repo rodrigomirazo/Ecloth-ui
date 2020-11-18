@@ -21,17 +21,19 @@ export class UtilsService {
     return btoa(inputFiltersStr);
   }
   
-  decodeBase64(inputFilterDecoded: string) : InputFilter {
+  decodeBase64(inputFilterDecoded: string) : any {
     let atobResult: string = "";
     try {
       atobResult = atob(inputFilterDecoded);
-      
+
       const inputFilter: InputFilter = JSON.parse(atobResult);
 
       return inputFilter;
 
     } catch(e) {
-      return new InputFilter([], "", [], []);
+      console.log("catch error", new InputFilter_header([], "", [], []));
+      
+      return new InputFilter_header([], "", [], []);
     }
   }
 
