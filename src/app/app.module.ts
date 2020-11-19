@@ -25,6 +25,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuDropDawnComponent } from './menu-drop-dawn/menu-drop-dawn.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CatalogSelectorComponent } from './form-elements/catalog-selector/catalog-selector.component';
+import { SaleItemUploadImgComponent } from './sale-item-upload-img/sale-item-upload-img.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -46,7 +47,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     HeaderComponent,
     MenuDropDawnComponent,
     HomePageComponent,
-    CatalogSelectorComponent
+    CatalogSelectorComponent,
+    SaleItemUploadImgComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import { ItemCategoryModel } from '../models/main-categories-model';
 import { UploadFilesService } from '../services/upload-files.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
+import { InputFilter } from '../models/input-filter-model';
+import { InputFilterYear } from '../models/input-filter-years-model';
 
 @Component({
   selector: 'app-sale-item',
@@ -24,16 +26,15 @@ export class SaleItemComponent implements OnInit {
   private userId: number;
   //Floating Chars
   private itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  private itemTypeSelected: ItemCategoryModel;
+  private yearSelected: InputFilterYear;
+  private textarea: string = "";
 
   /** Category List */
-  private mainCategoryList: ItemCategoryModel[] = [];
-  private hierLevels: Array<number> = [];
   private categoryLevelSelector: number[] = [];
-  private subcategoryLevelOptions: Array<ItemCategoryModel[]> = [];
   private itemFloatingChars: ItemFloatingChars[];
-
-  /** Constants */
-  private initialLevels: number = 3;
+  private itemTypes: ItemCategoryModel[];
+  private years: InputFilterYear[];
 
   /** File Uploading */
   private selectedFiles: FileList;
@@ -64,27 +65,28 @@ export class SaleItemComponent implements OnInit {
       });
       
       this.userId = 1;
-      /*
-      for (let level = 0; level < this.initialLevels; level++) {
-        this.hierLevels.push(level);
-        this.categoryLevelSelector = this.categoryLevelSelector.concat(-1);
-        this.subcategoryLevelOptions = this.subcategoryLevelOptions.concat([]);
-      }
-      this.categoryLevelSelector[0] = 0;
-      */
 
+      this.getFloatingChars();+
       this.getCategoryTypes();
-      this.getFloatingChars();
-
-      //this.fileInfos = this.uploadFilesService.getFiles();
+      this.getYearsCat();
   }
 
   getCategoryTypes(): void {
+
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log(itemType);
-      this.mainCategoryList = itemType;
-      this.subcategoryLevelOptions[0] = this.mainCategoryList;
+      this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      console.log("itemTypes", this.itemTypes);
     });
+  }
+
+  getYearsCat(): void {
+
+    if(!this.years)
+      this.years = [];
+
+    for (let year = 2020; year > 2015; year--) {
+      this.years = this.years.concat(new InputFilterYear(year, false));
+    }
   }
 
   getFloatingChars(): void {
@@ -99,6 +101,10 @@ export class SaleItemComponent implements OnInit {
 
       console.log(this.itemFloatingChars);
     });
+  }
+
+  escapePipe(catName: string): string {
+    return catName.split('|').join(' - ');
   }
 
   selectFiles(event) {

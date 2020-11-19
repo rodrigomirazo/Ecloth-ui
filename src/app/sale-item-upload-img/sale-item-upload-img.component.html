@@ -1,0 +1,124 @@
+
+<div class="row">
+    <div class="item-upload-img-title">Muestranos tu bicicleta</div>
+
+    <p class="item-upload-img-sub-title">Toma al menos siete fotos de tu bicicleta en fondo blanco.</p>
+    <p class="item-upload-img-sub-title">Recuerda que estén bien iluminadas y enfocadas.</p>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+
+    <!-- Image Example -->
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        
+        <div class="item-upload-img-example-title">
+            <p>EJEMPLO DE FOTOS</p>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <img class="item-upload-img-principal-button" src="assets/images/publish/bici_1.png">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_2.png">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_3.png">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_4.png">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_5.png">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_6.png">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_7.png">
+            </div>
+        </div>
+
+
+        
+    </div>
+
+    <!--  -->
+    <!-- Image Example -->
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        
+        <div class="item-upload-img-example-title">
+            <p> &nbsp; </p>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12" (click)="file.click()">
+                <img class="item-upload-img-principal-button" src="assets/images/publish/upload_img_principal.svg">
+
+                <input type="file" name="image" (change)="fileProgress($event)" #file/>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        
+                        <div *ngIf="fileUploadProgress">
+                            Upload progress: {{ fileUploadProgress }}
+                        </div>
+                        <div class="image-preview mb-3" *ngIf="previewUrl">
+                            <img [src]="previewUrl" height="300" />
+                        </div>
+             
+                        <div class="mb-3" *ngIf="uploadedFilePath">
+                            {{uploadedFilePath}}
+                        </div>
+                         
+                        <div class="form-group">
+                            <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <img class="item-upload-img-button" src="assets/images/publish/upload_img_secundary.svg">
+            </div>
+        </div>
+
+
+        
+    </div>
+</div>

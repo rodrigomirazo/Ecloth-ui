@@ -1,15 +1,11 @@
 
 <div *ngIf="itemFloatingCharRel" class="catalog-selector">
     
-    <div class="input-title">
-        {{ inputTitle | titlecase}}
-    </div>
-
     <mat-form-field appearance="fill" style="width: 300px;">
-        <mat-label>Choose {{ itemFloatingChar.floatingCharName | titlecase}}</mat-label>
+        <mat-label>{{ inputTitle | titlecase}}</mat-label>
 
         <mat-select  name="floatingCatId" [(ngModel)]="itemFloatingCharRel.floatingCharCatId" (selectionChange)="selectFloatingChar($event)">
-            <mat-option [value]="-1">
+            <mat-option [value]="">
             
             </mat-option>
 

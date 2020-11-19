@@ -54,7 +54,7 @@ export class MarketPlaceComponent implements OnInit {
     if(!this.inputFilter.years)
       this.inputFilter.years = [];
 
-    for (let year = 2020; year > 1980; year--) {
+    for (let year = 2020; year > 2015; year--) {
       this.inputFilter.years = this.inputFilter.years.concat(new InputFilterYear(year, false));
     }
   }
