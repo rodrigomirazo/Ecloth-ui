@@ -9,8 +9,8 @@ import { SaleItemComponent } from './sale-item/sale-item.component';
 const routes: Routes = [
   { path: 'index', component: HomePageComponent },
   { path: '', redirectTo: 'index', pathMatch: 'full'},
-  { path: 'market-place', component: MarketPlaceComponent },
-  { path: 'create', component: SaleItemComponent },
+  { path: 'market-place/:inputFilter', component: MarketPlaceComponent },
+  { path: 'publish', component: SaleItemComponent },
   { path: 'item-detail/:itemId', component: ItemDetailComponent}
 ];
 

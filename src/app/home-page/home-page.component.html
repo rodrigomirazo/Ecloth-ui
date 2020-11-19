@@ -2,73 +2,12 @@
 
 <div>
     <mat-toolbar color="primary" class="home-page-header">
-        
-            <div class="col-md-3 col-sm-3 col-xs-3"  (click)="categorySnav.toggle()">
-                <div class="row">
-                    <button mat-icon-button class="app-icon">
-                        <mat-icon style="color: #18c65e;">menu</mat-icon>
-                    </button>
-                </div>
-                <div class="row">
-                    <span class="header-menu-title">menú</span>
-                </div>
-            </div>
-            
-            <div class="col-md-4 col-sm-4 col-xs-2">
-            </div>
-            
-            <div class="col-md-1 col-sm-1 col-xs-1 logo-header">
-                <p>LOGO</p>
-            </div>
-            
-            <div class="col-md-4 col-sm-4 col-xs-2">
-            </div>
-            
-            <div class="col-md-3 col-sm-3 col-xs-6">
-            
-                <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <button mat-icon-button class="app-icon banner-icon" aria-label="Example icon-button with heart icon">
-                            <mat-icon class="banner-icon" svgIcon="love_inactive"></mat-icon>
-                        </button>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <button mat-icon-button class="app-icon banner-icon" aria-label="Example icon-button with heart icon">
-                            <mat-icon class="banner-icon" svgIcon="bell_inactive"></mat-icon>
-                        </button>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <button mat-icon-button class="app-icon" aria-label="Example icon-button with heart icon">
-                            <mat-icon class="banner-icon" svgIcon="user_inactive"></mat-icon>
-                        </button>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <button mat-icon-button class="app-icon" aria-label="Example icon-button with heart icon">
-                            <mat-icon class="banner-icon" svgIcon="car_inactive"></mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <div class="row search-bar" style="color: black;" id="search-bar">
-            
-                    <mat-form-field appearance="none" style="width: 100%;">
-                        <mat-label style="color: gray;">Search</mat-label>
-                        <input matInput placeholder="">
-                        <span matPrefix class="material-icons" >search</span>
-                    </mat-form-field>
-            
-                </div>
-            
-            </div>
-        
-        
-        
 
     </mat-toolbar>
 
     <mat-sidenav-container class="category-sidenav-container home-page-banner" [style.marginTop.px]="0">
 
         <mat-sidenav class="banner-menu" #categorySnav [mode]="'side'" fixedTopGap="1" style="width: 40%;">
-            <!-- <app-category-tree (categoryId)="onCategoryId($event)"></app-category-tree>-->
             
             <div class="menu-slide">
 
@@ -134,7 +73,12 @@
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-5"></div>
                     <div class="col-md-2 col-sm-2 col-xs-2">
-                        <button mat-stroked-button style="border-radius: 25px; width: 170px; border-color: white;">Descubre</button>
+                        <a [routerLink]="['/market-place', 'null' ]">
+                            <button mat-stroked-button style="border-radius: 25px; width: 170px; border-color: white;">
+                                Descubre
+                            </button>
+                        </a>
+
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-5"></div>
                 </div>
@@ -169,10 +113,6 @@
 
     <div id="home-news" style="padding-top: 80px">
         <app-home-news></app-home-news>
-    </div>
-
-    <div id="home-footer"  style="padding-top: 80px">
-        <app-home-footer></app-home-footer>
     </div>
 
 </div>

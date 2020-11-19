@@ -8,6 +8,7 @@ export const environment = {
   baseUrl: "/ecommerce/bicicle/api/v1",
   entity: {
     item: "/item",
+    filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",
     

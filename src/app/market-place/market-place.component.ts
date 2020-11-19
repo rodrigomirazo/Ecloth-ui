@@ -4,10 +4,13 @@ import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
 import { FloatingCharIdsSelected } from '../models/floating-char-Ids-selected';
+import { InputFilter } from '../models/input-filter-model';
+import { InputFilterYear } from '../models/input-filter-years-model';
 import { ItemFloatingChars } from '../models/item-floating-char';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
 import { ItemSelectedFilters } from '../models/item-selected-filters';
 import { ItemCategoryModel } from '../models/main-categories-model';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-market-place',
@@ -16,85 +19,97 @@ import { ItemCategoryModel } from '../models/main-categories-model';
 })
 export class MarketPlaceComponent implements OnInit {
 
-  private filter: string;
+  private inputFilter: InputFilter;
+  private outputFilter: InputFilter;
 
-  private itemFloatingChars: ItemFloatingChars[];
+  /** Catalogs */
+  private selectedYears: number[] = [];
 
-  private bicicleTypes: ItemCategoryModel[] = [];
-  private frameCat: ItemFloatingCharsCat[];
-  private genereCat: ItemFloatingCharsCat[];
-  private breakCat: ItemFloatingCharsCat[];
-  private sizeCat: ItemFloatingCharsCat[];
-  private wheelSizeCat: ItemFloatingCharsCat[];
-  private conditionCat: ItemFloatingCharsCat[];
-  private years: number[] = [];
+  /** Change Detector */
+  private changeIncrement: number = 0;
 
-  /** Selected Filters */
-  private selectedTypes: ItemSelectedFilters[] = [];
-  private selectedYears: any[] = [];
-  private floatingCharIdsSelected: FloatingCharIdsSelected[] = [];
-4
   constructor(
     private route: ActivatedRoute,
-    private itemService: ItemService,
     private floatingCharsService: FloatingCharsService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private utilsService: UtilsService
+    ) { }
 
   ngOnInit() {
-    this.getFloatingChars();
-    this.getCategoryTypes();
-    this.route.queryParams.subscribe(params => {
-      this.filter = params['filter'];
-    });
-    for (let year = 2020; year > 1980; year--) {
-      this.years = this.years.concat(year);
+
+    // 1. Get Current Filters
+    this.route.params.subscribe(params => {
       
+      this.inputFilter = this.utilsService.decodeBase64(params.inputFilter);
+      
+      // 2. Load Filters From DB
+      this.getYearsCat();
+      this.getFloatingChars();
+      this.getCategoryTypes(this.inputFilter);
+    });
+  }
+
+  getYearsCat(): void {
+
+    if(!this.inputFilter.years)
+      this.inputFilter.years = [];
+
+    for (let year = 2020; year > 2015; year--) {
+      this.inputFilter.years = this.inputFilter.years.concat(new InputFilterYear(year, false));
     }
   }
 
-
   getFloatingChars(): void {
     this.floatingCharsService.getAll().subscribe( (itemFloatingChars: ItemFloatingChars[]) => {
+      this.inputFilter.itemFloatingChars = itemFloatingChars;
 
-      this.itemFloatingChars = itemFloatingChars;
+      for (let i = 0; i < itemFloatingChars.length; i++) {
 
-      this.frameCat = this.filterCatalog( 'material_de_cuadro');
-      this.genereCat = this.filterCatalog( 'genero');
-      this.sizeCat = this.filterCatalog( 'talla');
-      this.wheelSizeCat = this.filterCatalog( 'medida_de_llanta');
-      this.conditionCat = this.filterCatalog( 'condition');
-      this.breakCat = this.filterCatalog( 'tipo_de_freno');
+        for (let j = 0; j < itemFloatingChars[i].catalogList.length; j++) {
+          
+          this.inputFilter.itemFloatingChars[i].catalogList[j].isSelected = false;
+        }
+      }
+    });
+  }
+
+  getCategoryTypes(inputFilter: InputFilter): void {
+
+    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       
-
-      console.log(this.frameCat);
-      console.log(this.genereCat);
-      console.log(this.sizeCat);
-      console.log(this.wheelSizeCat);
+      if(inputFilter.itemTypes.length == 0) {
+        this.inputFilter.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+        console.log("item types = ", this.inputFilter.itemTypes);
+      }
       
     });
   }
 
-  getCategoryTypes(): void {
-    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      this.bicicleTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      this.bicicleTypes.forEach( type => {
+  setUpSelectedYears() {
+    this.changeIncrement++;
+    for (let i = 0; i < this.inputFilter.years.length; i++) {
+      if(this.selectedYears.indexOf(this.inputFilter.years[i].$year) != -1 ) {
+        this.inputFilter.years[i].$selected = true;
+      } else {
+        this.inputFilter.years[i].$selected = false;
+      }
+    }
+  }
 
-
-        this.selectedTypes = this.selectedTypes.concat(
-            new ItemSelectedFilters(type.id, false, [])
-          )
-      });
-
-      console.log("selectedTypes: ", this.selectedTypes);
-
-    });
+  updateFloatingChar() {
+    // Detect Change Only if Floating chars are selected
+    this.changeIncrement++;
   }
 
   filterCatalog(flaotingChar: string): ItemFloatingCharsCat[] {
-    const charsCatalog: ItemFloatingChars[]  =
-      this.itemFloatingChars
-        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
 
+    if(!this.inputFilter.itemFloatingChars) {
+      return [];
+    }
+    const charsCatalog: ItemFloatingChars[]  =
+      this.inputFilter.itemFloatingChars
+        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
+    
     if(charsCatalog.length > 0) {
       return charsCatalog[0].catalogList;
     } else {

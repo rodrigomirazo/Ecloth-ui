@@ -24,6 +24,8 @@ import { MarketPlaceComponent } from './market-place/market-place.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuDropDawnComponent } from './menu-drop-dawn/menu-drop-dawn.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CatalogSelectorComponent } from './form-elements/catalog-selector/catalog-selector.component';
+import { SaleItemUploadImgComponent } from './sale-item-upload-img/sale-item-upload-img.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -46,6 +48,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     HeaderComponent,
     MenuDropDawnComponent,
     HomePageComponent,
+    CatalogSelectorComponent,
+    SaleItemUploadImgComponent,
     ItemDetailComponent
   ],
   imports: [

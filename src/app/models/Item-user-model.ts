@@ -4,263 +4,265 @@ import { User } from './Item-user';
 
 export class UserItem {
 
-    private id: string;
-    private statusId: number;
-    private itemColorId: number;
-    private itemTypeCatId: number;
-    private itemTransactionId: number;
-    private name: string;
-    private price: number;
-    private originalPrice: number;
-    private discount: number;
-    private description: string;
-    private fleetCost: number;
-    private sizeId: string;
-    private lastLevelCategoryId: number;
-    private user: User;
-    private itemFloatingChars: ItemFloatingCharRel[];
+    private _id: string;
+    private _statusId: number;
+    private _itemColorId: number;
+    private _itemTypeCatId: number;
+    private _itemTransactionId: number;
+    private _name: string;
+    private _price: number;
+    private _originalPrice: number;
+    private _discount: number;
+    private _description: string;
+    private _fleetCost: number;
+    private _sizeId: string;
+    private _lastLevelCategoryId: number;
+    private _user: User;
+    private _itemFloatingChars: ItemFloatingCharRel[];
 
 	constructor() {
     }
 
+
     /**
-     * Getter $id
+     * Getter id
      * @return {string}
      */
-	public get $id(): string {
-		return this.id;
+	public get id(): string {
+		return this._id;
 	}
 
     /**
-     * Getter $statusId
+     * Getter statusId
      * @return {number}
      */
-	public get $statusId(): number {
-		return this.statusId;
+	public get statusId(): number {
+		return this._statusId;
 	}
 
     /**
-     * Getter $itemColorId
+     * Getter itemColorId
      * @return {number}
      */
-	public get $itemColorId(): number {
-		return this.itemColorId;
+	public get itemColorId(): number {
+		return this._itemColorId;
 	}
 
     /**
-     * Getter $itemTypeCatId
+     * Getter itemTypeCatId
      * @return {number}
      */
-	public get $itemTypeCatId(): number {
-		return this.itemTypeCatId;
+	public get itemTypeCatId(): number {
+		return this._itemTypeCatId;
 	}
 
     /**
-     * Getter $itemTransactionId
+     * Getter itemTransactionId
      * @return {number}
      */
-	public get $itemTransactionId(): number {
-		return this.itemTransactionId;
+	public get itemTransactionId(): number {
+		return this._itemTransactionId;
 	}
 
     /**
-     * Getter $name
+     * Getter name
      * @return {string}
      */
-	public get $name(): string {
-		return this.name;
+	public get name(): string {
+		return this._name;
 	}
 
     /**
-     * Getter $price
+     * Getter price
      * @return {number}
      */
-	public get $price(): number {
-		return this.price;
+	public get price(): number {
+		return this._price;
 	}
 
     /**
-     * Getter $originalPrice
+     * Getter originalPrice
      * @return {number}
      */
-	public get $originalPrice(): number {
-		return this.originalPrice;
+	public get originalPrice(): number {
+		return this._originalPrice;
 	}
 
     /**
-     * Getter $discount
+     * Getter discount
      * @return {number}
      */
-	public get $discount(): number {
-		return this.discount;
+	public get discount(): number {
+		return this._discount;
 	}
 
     /**
-     * Getter $description
+     * Getter description
      * @return {string}
      */
-	public get $description(): string {
-		return this.description;
+	public get description(): string {
+		return this._description;
 	}
 
     /**
-     * Getter $fleetCost
+     * Getter fleetCost
      * @return {number}
      */
-	public get $fleetCost(): number {
-		return this.fleetCost;
+	public get fleetCost(): number {
+		return this._fleetCost;
 	}
 
     /**
-     * Getter $sizeId
+     * Getter sizeId
      * @return {string}
      */
-	public get $sizeId(): string {
-		return this.sizeId;
+	public get sizeId(): string {
+		return this._sizeId;
 	}
 
     /**
-     * Getter $lastLevelCategoryId
+     * Getter lastLevelCategoryId
      * @return {number}
      */
-	public get $lastLevelCategoryId(): number {
-		return this.lastLevelCategoryId;
+	public get lastLevelCategoryId(): number {
+		return this._lastLevelCategoryId;
 	}
 
     /**
-     * Getter $user
+     * Getter user
      * @return {User}
      */
-	public get $user(): User {
-		return this.user;
+	public get user(): User {
+		return this._user;
 	}
 
     /**
-     * Getter $itemFloatingChars
+     * Getter itemFloatingChars
      * @return {ItemFloatingCharRel[]}
      */
-	public get $itemFloatingChars(): ItemFloatingCharRel[] {
-		return this.itemFloatingChars;
+	public get itemFloatingChars(): ItemFloatingCharRel[] {
+		return this._itemFloatingChars;
 	}
 
     /**
-     * Setter $id
+     * Setter id
      * @param {string} value
      */
-	public set $id(value: string) {
-		this.id = value;
+	public set id(value: string) {
+		this._id = value;
 	}
 
     /**
-     * Setter $statusId
+     * Setter statusId
      * @param {number} value
      */
-	public set $statusId(value: number) {
-		this.statusId = value;
+	public set statusId(value: number) {
+		this._statusId = value;
 	}
 
     /**
-     * Setter $itemColorId
+     * Setter itemColorId
      * @param {number} value
      */
-	public set $itemColorId(value: number) {
-		this.itemColorId = value;
+	public set itemColorId(value: number) {
+		this._itemColorId = value;
 	}
 
     /**
-     * Setter $itemTypeCatId
+     * Setter itemTypeCatId
      * @param {number} value
      */
-	public set $itemTypeCatId(value: number) {
-		this.itemTypeCatId = value;
+	public set itemTypeCatId(value: number) {
+		this._itemTypeCatId = value;
 	}
 
     /**
-     * Setter $itemTransactionId
+     * Setter itemTransactionId
      * @param {number} value
      */
-	public set $itemTransactionId(value: number) {
-		this.itemTransactionId = value;
+	public set itemTransactionId(value: number) {
+		this._itemTransactionId = value;
 	}
 
     /**
-     * Setter $name
+     * Setter name
      * @param {string} value
      */
-	public set $name(value: string) {
-		this.name = value;
+	public set name(value: string) {
+		this._name = value;
 	}
 
     /**
-     * Setter $price
+     * Setter price
      * @param {number} value
      */
-	public set $price(value: number) {
-		this.price = value;
+	public set price(value: number) {
+		this._price = value;
 	}
 
     /**
-     * Setter $originalPrice
+     * Setter originalPrice
      * @param {number} value
      */
-	public set $originalPrice(value: number) {
-		this.originalPrice = value;
+	public set originalPrice(value: number) {
+		this._originalPrice = value;
 	}
 
     /**
-     * Setter $discount
+     * Setter discount
      * @param {number} value
      */
-	public set $discount(value: number) {
-		this.discount = value;
+	public set discount(value: number) {
+		this._discount = value;
 	}
 
     /**
-     * Setter $description
+     * Setter description
      * @param {string} value
      */
-	public set $description(value: string) {
-		this.description = value;
+	public set description(value: string) {
+		this._description = value;
 	}
 
     /**
-     * Setter $fleetCost
+     * Setter fleetCost
      * @param {number} value
      */
-	public set $fleetCost(value: number) {
-		this.fleetCost = value;
+	public set fleetCost(value: number) {
+		this._fleetCost = value;
 	}
 
     /**
-     * Setter $sizeId
+     * Setter sizeId
      * @param {string} value
      */
-	public set $sizeId(value: string) {
-		this.sizeId = value;
+	public set sizeId(value: string) {
+		this._sizeId = value;
 	}
 
     /**
-     * Setter $lastLevelCategoryId
+     * Setter lastLevelCategoryId
      * @param {number} value
      */
-	public set $lastLevelCategoryId(value: number) {
-		this.lastLevelCategoryId = value;
+	public set lastLevelCategoryId(value: number) {
+		this._lastLevelCategoryId = value;
 	}
 
     /**
-     * Setter $user
+     * Setter user
      * @param {User} value
      */
-	public set $user(value: User) {
-		this.user = value;
+	public set user(value: User) {
+		this._user = value;
 	}
 
     /**
-     * Setter $itemFloatingChars
+     * Setter itemFloatingChars
      * @param {ItemFloatingCharRel[]} value
      */
-	public set $itemFloatingChars(value: ItemFloatingCharRel[]) {
-		this.itemFloatingChars = value;
+	public set itemFloatingChars(value: ItemFloatingCharRel[]) {
+		this._itemFloatingChars = value;
 	}
-    
+
+
 }
