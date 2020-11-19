@@ -6,13 +6,59 @@ table {
     border-radius: 30px;
   }
   
-  td, th {
+   th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    font-family: montserrat-semiBold;
+    font-size: 10pt;
+    color: #303130;
+  }
+
+  td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-family: montserrat-light;
+    font-size: 12pt;
+    color: #303130;
   }
   
+  mat-panel-title{
+    font-family: montserrat-semiBold;
+    font-size: 11pt;
+    color: #303130;
+  }
+
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+  
+  .type-item-detail{
+    font-family: montserrat-light;
+    font-size: 15pt;
+    color: #303130;
+  }
+
+  .name-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 47pt;
+    color: #303130;
+    line-height: 45px;
+  }
+
+  .price-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 35pt;
+    color: #303130;
+    line-height: 38px;
+  }
+
+  .text-item-detail{
+    padding: 8px;
+    font-family: montserrat-semiBold;
+    font-size: 10pt;
+    color: #303130;
+  }
+
   
