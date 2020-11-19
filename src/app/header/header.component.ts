@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../category-tree/category.service';
+import { FloatingCharsService } from '../floating-chars/floating-chars.service';
+import { InputFilter_header } from '../models/input-filter-header-model';
+import { ItemCategoryModel } from '../models/main-categories-model';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +12,70 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  private mountainFilter: string;
+  private urbanFilter: string;
+  private roadFilter: string;
+  private discoverFilter: string;
+  
+  
+  /** Item Types */
+  private itemTypes: ItemCategoryModel[] = [];
+
+  constructor(
+    private floatingCharsService: FloatingCharsService,
+    private categoryService: CategoryService,
+    private utilsService: UtilsService
+  ) { }
 
   ngOnInit() {
+    this.getCategoryTypesLinkMountain();
+    this.getCategoryTypesLinkRoad();
+    this.getCategoryTypesLinkUrban();
+  }
+
+  getCategoryTypesLinkMountain(): void {
+    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
+      
+      // Mountain
+      const mountainBikes: ItemCategoryModel[] = itemType
+          .filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      const mountainIndex: number = mountainBikes
+          .map(cat => cat.subCategoryName ).indexOf("Montaña");
+      mountainBikes[mountainIndex].isSelected = true;
+      this.mountainFilter = this.utilsService.encodeBase64(new InputFilter_header([], "", [], mountainBikes));
+    });
+  }
+
+  getCategoryTypesLinkRoad(): void {
+    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
+      
+      // road
+      const roadBikes: ItemCategoryModel[] = itemType
+        .filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      const roadIndex: number = roadBikes
+          .map(cat => cat.subCategoryName ).indexOf("Ruta");
+          roadBikes[roadIndex].isSelected = true;
+      this.roadFilter = this.utilsService.encodeBase64(new InputFilter_header([], "", [], roadBikes));
+  
+    });
+  }
+
+  getCategoryTypesLinkUrban(): void {
+    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
+      
+      // Urbain
+      const urbanBikes: ItemCategoryModel[] = itemType
+          .filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      const urbanIndex: number = urbanBikes
+          .map(cat => cat.subCategoryName ).indexOf("Urbana");
+      urbanBikes[urbanIndex].isSelected = true;
+      this.urbanFilter = this.utilsService.encodeBase64(new InputFilter_header([], "", [], urbanBikes));
+    });
+  }
+
+  encodeFilter(inputFilter: InputFilter_header) : string {
+    console.log(inputFilter);
+    return this.utilsService.encodeBase64(inputFilter);
   }
 
 }

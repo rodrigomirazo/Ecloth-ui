@@ -53,7 +53,7 @@
         </div>
         <div class="row search-bar-header" style="color: black;" id="search-bar">
 
-            <mat-form-field appearance="none" style="width: 100%;">
+            <mat-form-field appearance="none" style="width: 100%;" >
                 <mat-label style="color: gray;">Search</mat-label>
                 <input matInput placeholder="">
                 <span matPrefix class="material-icons" >search</span>
@@ -75,10 +75,14 @@
                 <div class="col-md-1 col-sm-1"></div>
 
                 <div class="col-md-4 col-sm-4">
-    
+
                     <div class="row" >
                         <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">COMPRA</div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">VENDE</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">
+                            <a [routerLink]="['/publish' ]">
+                                VENDE
+                            </a>
+                        </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRA HISTORIA</div>
                         <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRO BLOG</div>
                     </div>
@@ -93,10 +97,24 @@
                 <div class="col-md-4 col-sm-3">
     
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">Bicicletas</div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">Montaña</div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">Ruta</div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">Urbana</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">
+                            Bicicletas
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">
+                            <a [routerLink]="['/market-place', mountainFilter ]">
+                                Montaña
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">
+                            <a [routerLink]="['/market-place', roadFilter ]">
+                                Ruta
+                            </a>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side">
+                            <a [routerLink]="['/market-place', urbanFilter ]">
+                                Urbana
+                            </a>
+                        </div>
                     </div>
     
                 </div>

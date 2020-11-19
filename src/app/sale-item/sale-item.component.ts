@@ -9,6 +9,9 @@ import { UserItem } from '../models/Item-user-model';
 import { ItemCategoryModel } from '../models/main-categories-model';
 import { UploadFilesService } from '../services/upload-files.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
+import { InputFilter } from '../models/input-filter-model';
+import { InputFilterYear } from '../models/input-filter-years-model';
 
 @Component({
   selector: 'app-sale-item',
@@ -23,16 +26,15 @@ export class SaleItemComponent implements OnInit {
   private userId: number;
   //Floating Chars
   private itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  private itemTypeSelected: ItemCategoryModel;
+  private yearSelected: InputFilterYear;
+  private textarea: string = "";
 
   /** Category List */
-  private mainCategoryList: ItemCategoryModel[] = [];
-  private hierLevels: Array<number> = [];
   private categoryLevelSelector: number[] = [];
-  private subcategoryLevelOptions: Array<ItemCategoryModel[]> = [];
   private itemFloatingChars: ItemFloatingChars[];
-
-  /** Constants */
-  private initialLevels: number = 3;
+  private itemTypes: ItemCategoryModel[];
+  private years: InputFilterYear[];
 
   /** File Uploading */
   private selectedFiles: FileList;
@@ -63,25 +65,28 @@ export class SaleItemComponent implements OnInit {
       });
       
       this.userId = 1;
-      for (let level = 0; level < this.initialLevels; level++) {
-        this.hierLevels.push(level);
-        this.categoryLevelSelector = this.categoryLevelSelector.concat(-1);
-        this.subcategoryLevelOptions = this.subcategoryLevelOptions.concat([]);
-      }
-      this.categoryLevelSelector[0] = 0;
 
+      this.getFloatingChars();+
       this.getCategoryTypes();
-      this.getFloatingChars();
-
-      //this.fileInfos = this.uploadFilesService.getFiles();
+      this.getYearsCat();
   }
 
   getCategoryTypes(): void {
+
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log(itemType);
-      this.mainCategoryList = itemType;
-      this.subcategoryLevelOptions[0] = this.mainCategoryList;
+      this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      console.log("itemTypes", this.itemTypes);
     });
+  }
+
+  getYearsCat(): void {
+
+    if(!this.years)
+      this.years = [];
+
+    for (let year = 2020; year > 2015; year--) {
+      this.years = this.years.concat(new InputFilterYear(year, false));
+    }
   }
 
   getFloatingChars(): void {
@@ -89,62 +94,17 @@ export class SaleItemComponent implements OnInit {
       this.itemFloatingChars = itemFloatingChars;
       this.itemFloatingChars.forEach(floatingChar => {
         
-        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(new ItemFloatingCharRel(floatingChar.floatingCharId, -1));
+        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(
+            new ItemFloatingCharRel(floatingChar.floatingCharId, floatingChar.floatingCharName, -1, "")
+          );
       });
 
       console.log(this.itemFloatingChars);
     });
   }
 
-  goToNextSection(hierLevel: number, categoryId: number, goToNextSection: number) {
-    
-    let nextCategory: ItemCategoryModel[] = this.mainCategoryList;
-    
-    if( hierLevel + 1 >= this.categoryLevelSelector.length ) {
-      return ;
-    }
-
-    for (let levelIter = 0; levelIter <= hierLevel; levelIter++) {
-      if (!nextCategory)
-        break;
-      
-      // Determine chosen index
-      let pathIndex = 0;
-      for (let i = 0; i < nextCategory.length; i++) {
-        if(nextCategory[i].id == this.categoryLevelSelector[levelIter]) {
-          break;
-        }
-        pathIndex++;
-      }
-      
-      nextCategory = nextCategory[ pathIndex ].subCategories;
-    }
-
-    //Assign next category
-    this.subcategoryLevelOptions[hierLevel+1] = nextCategory;
-
-    //Remove Rest of the Levels options
-    for (let index = hierLevel + 2; index < this.subcategoryLevelOptions.length; index++) {
-      this.subcategoryLevelOptions[index] = [];
-      this.categoryLevelSelector[index] = -1;
-    }
-
-    //Remove Rest of selected levels
-    for (let index = hierLevel + 1; index < this.subcategoryLevelOptions.length; index++) {
-      this.categoryLevelSelector[index] = -1;
-    }
-    
-  }
-
-  getCurrentCategoryName(currentCategory: ItemCategoryModel, hierLevel: number) : string {
-    let nextCategory: ItemCategoryModel = currentCategory;
-    
-    for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
-      if (!nextCategory)
-        break;
-      nextCategory = nextCategory.subCategories[0];
-    }
-    return (nextCategory)? nextCategory.categoryName : "";
+  escapePipe(catName: string): string {
+    return catName.split('|').join(' - ');
   }
 
   selectFiles(event) {
@@ -188,9 +148,41 @@ export class SaleItemComponent implements OnInit {
     
     console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
 
-    this.itemFloatingCharsRel[charIndx].$floatingCharId = floatingCharId;
-    this.itemFloatingCharsRel[charIndx].$floatingCharCatId = floatingCharCatId;
+    this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
+    this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
     console.log(this.itemFloatingCharsRel);
+  }
+
+  filterFloatChar(flaotingChar: string): ItemFloatingCharsCat[] {
+
+    if(!this.itemFloatingChars) {
+      return [];
+    }
+    const charsCatalog: ItemFloatingChars[]  =
+      this.itemFloatingChars
+        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
+    
+    if(charsCatalog.length > 0) {
+      return charsCatalog[0].catalogList;
+    } else {
+      return [];
+    }
+  }
+
+  filterFloatCharRel(flaotingChar: string): ItemFloatingCharRel {
+
+    if(!this.itemFloatingCharsRel) {
+      return null;
+    }
+    const itemFloatingCharsRelFilter: ItemFloatingCharRel[]  =
+      this.itemFloatingCharsRel
+        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
+    
+    if(itemFloatingCharsRelFilter.length > 0) {
+      return itemFloatingCharsRelFilter[0];
+    } else {
+      return null;
+    }
   }
 
   uploadFiles() {
@@ -213,12 +205,12 @@ export class SaleItemComponent implements OnInit {
   }
 
   save() {
-    this.item.$itemFloatingChars = this.itemFloatingCharsRel;
-    this.item.$itemTypeCatId = this.categoryLevelSelector[0];
-    this.item.$lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
-    this.item.$statusId = 1;
+    this.item.itemFloatingChars = this.itemFloatingCharsRel;
+    this.item.itemTypeCatId = this.categoryLevelSelector[0];
+    this.item.lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
+    this.item.statusId = 1;
     //TODO: color catalog
-    this.item.$itemColorId = 85;
+    this.item.itemColorId = 85;
     
     this.itemService.post( this.item ).subscribe(persistedItem => {
       console.log(persistedItem);

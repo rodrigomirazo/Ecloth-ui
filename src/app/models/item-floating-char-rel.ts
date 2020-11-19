@@ -1,49 +1,87 @@
 
 export class ItemFloatingCharRel {
 
-    private floatingCharId: number;
-    private floatingCharCatId: number;
+    private _floatingCharId: number;
+    private _floatingCharName: string;
+    private _floatingCharCatId: number;
+    private _floatingCharCatName: string;
     
-	constructor(floatingCharId?: number, floatingCharCatId?: number) {
-        if(floatingCharId) {
-            this.$floatingCharId = floatingCharId;
-        }
-        if(floatingCharCatId) {
-            this.$floatingCharCatId = floatingCharCatId;
-        }
-        
+
+	constructor(floatingCharId?: number, floatingCharName?: string, floatingCharCatId?: number, floatingCharCatName?: string) {
+        if(floatingCharId)
+            this._floatingCharId = floatingCharId;
+        if(floatingCharName)
+            this._floatingCharName = floatingCharName;
+        if(floatingCharCatId)
+            this._floatingCharCatId = floatingCharCatId;
+        if(floatingCharCatName)
+		    this._floatingCharCatName = floatingCharCatName;
 	}
+    
 
     /**
-     * Getter $floatingCharId
+     * Getter floatingCharId
      * @return {number}
      */
-	public get $floatingCharId(): number {
-		return this.floatingCharId;
+	public get floatingCharId(): number {
+		return this._floatingCharId;
 	}
 
     /**
-     * Getter $floatingCharCatId
+     * Getter floatingCharName
+     * @return {string}
+     */
+	public get floatingCharName(): string {
+		return this._floatingCharName;
+	}
+
+    /**
+     * Getter floatingCharCatId
      * @return {number}
      */
-	public get $floatingCharCatId(): number {
-		return this.floatingCharCatId;
+	public get floatingCharCatId(): number {
+		return this._floatingCharCatId;
 	}
 
     /**
-     * Setter $floatingCharId
-     * @param {number} value
+     * Getter floatingCharCatName
+     * @return {string}
      */
-	public set $floatingCharId(value: number) {
-		this.floatingCharId = value;
+	public get floatingCharCatName(): string {
+		return this._floatingCharCatName;
 	}
 
     /**
-     * Setter $floatingCharCatId
+     * Setter floatingCharId
      * @param {number} value
      */
-	public set $floatingCharCatId(value: number) {
-		this.floatingCharCatId = value;
+	public set floatingCharId(value: number) {
+		this._floatingCharId = value;
 	}
+
+    /**
+     * Setter floatingCharName
+     * @param {string} value
+     */
+	public set floatingCharName(value: string) {
+		this._floatingCharName = value;
+	}
+
+    /**
+     * Setter floatingCharCatId
+     * @param {number} value
+     */
+	public set floatingCharCatId(value: number) {
+		this._floatingCharCatId = value;
+	}
+
+    /**
+     * Setter floatingCharCatName
+     * @param {string} value
+     */
+	public set floatingCharCatName(value: string) {
+		this._floatingCharCatName = value;
+	}
+
 
 }
