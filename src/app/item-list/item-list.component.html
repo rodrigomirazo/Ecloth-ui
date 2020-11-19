@@ -1,26 +1,37 @@
 
 <div class="container-fluid">
 
-    <h4>Items - categoryId: {{categoryId}}</h4>
+    <h4>Items - filters: {{categoryId}}</h4>
 
-    <div class="row">
-
-        <div class="col-xs-6 col-sm-4 col-md-3" *ngFor="let item of items; index as i; first as isFirst">
-            <!-- Item element Begin -->
-
-            <div class="row">
-                <img src="/assets/images/vistas/list_{{i}}.jpg" class="item-img-list" alt="image">
+    <div class="col-xs-6 col-sm-4 col-md-3 item-detail-frame"
+            *ngFor="let item of items; index as i; first as isFirst">
+        
+        <div class="row item-title-frame">
+            <div class="item-title-new-message">
+                Reciente
             </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                    {{item.name}}
-                </div>
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                    {{item.originalPrice}}
-                </div>
+            <div>
+              <mat-icon class="banner-icon" svgIcon="star_active"></mat-icon>
+              <mat-icon class="banner-icon" svgIcon="star_active"></mat-icon>
+              <mat-icon class="banner-icon" svgIcon="star_active"></mat-icon>
+              <mat-icon class="banner-icon" svgIcon="star_inactive"></mat-icon>
+              <mat-icon class="banner-icon" svgIcon="star_inactive"></mat-icon>
             </div>
-
         </div>
+
+        <!-- Item element Begin -->
+        <div class="row item-image-row">
+            <img src="/assets/images/vistas/list_{{i}}.jpg" class="item-img-list" alt="image">
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                {{item.name}}
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                {{item.originalPrice}}
+            </div>
+        </div>
+        <!-- Item element End -->
     </div>
 
 </div>

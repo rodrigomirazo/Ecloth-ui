@@ -1,0 +1,26 @@
+
+.news-background {
+    width: 100%;
+    height: 43em;
+    background: url(/assets/images/home/News.svg);
+    background-repeat: no-repeat, repeat;
+}
+
+.news-subscribe {
+    font-family: bebasNeue-bold;
+    font-size: 35pt;
+    color: #303130;
+    line-height: 29pt;
+}
+
+.news-subscribe-message {
+    font-family: montserrat-light;
+}
+
+.mat-focused .mat-form-field-label {
+    color: #027D7C !important;
+}
+
+.news-email {
+    width: 66%;
+}

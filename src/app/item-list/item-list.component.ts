@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserItem } from '../models/Item-user-model';
 import { ItemService } from './item.service';
+import {MatAccordion} from '@angular/material/expansion';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-item-list',
@@ -9,13 +12,25 @@ import { ItemService } from './item.service';
 })
 export class ItemListComponent implements OnInit {
 
+
   // IO
   //@Input() categoryId: number;
   private _categoryId: number;
 
   private items: UserItem[];
 
-  constructor(private itemService: ItemService) { }
+  constructor(
+    private itemService: ItemService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+    ) {
+    this.matIconRegistry.addSvgIcon("star_inactive",
+    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_active.svg.svg") );
+    
+    this.matIconRegistry.addSvgIcon("star_active",
+    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_inactive.svg.svg") );
+    
+  }
 
   ngOnInit() {
     this.itemService.get(this.categoryId).subscribe((itemsResp: UserItem[]) => {
@@ -37,6 +52,6 @@ export class ItemListComponent implements OnInit {
       this.items = itemsResp;
     });
 		
-	}
-
+  }
+  
 }

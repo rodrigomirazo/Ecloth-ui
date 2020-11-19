@@ -1,0 +1,181 @@
+
+<div *ngIf="item">
+    <div class="col-md-8">
+    imagenes
+    
+    </div>
+
+    <div class="col-md-4">
+        <p>Bicicleta/montaña</p>
+        <b><p>{{item.name}}</p></b>
+        <b><p>Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
+        <b><p>$ {{item.price}}.00</p></b>
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b>  Especificaciones </b>
+                </mat-panel-title>
+                
+              </mat-expansion-panel-header>
+          
+              <table>
+                <tr>
+                <th>Marca</th>
+                <td>{{ filterCatalog('brand', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                <th>Modelo</th>
+                <td>Francisco Chang</td>
+                </tr>
+                <tr>
+                <th>Año</th>
+                <td>Roland Mendel</td>
+                </tr>
+                <tr>
+                <th>Género</th>
+                <td>{{ filterCatalog('genero', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                <th>Frenos</th>
+                <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Llanta</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <td>Palanca de cambio</td>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Multiplicación</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Cambio trasero</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Desviador delantero</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Suspensión</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Ruedas</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Cadena</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+              </table>
+          
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b> Condiciones</b>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="col-md-6">
+                Calificación
+              </div>
+              <div class="col-md-6">
+                Excelente
+              </div>
+              <div class="col-md-6">
+                Cuadro
+              </div>
+              <div class="col-md-6">
+                <span class="material-icons">
+                    lens
+                </span>
+                <span class="material-icons">
+                    lens
+                </span>
+                <span class="material-icons">
+                    lens
+                </span>
+                <span class="material-icons">
+                    lens
+                </span>
+                <span class="material-icons">
+                    panorama_fish_eye
+                </span>
+                </div>
+                <div class="col-md-6">
+                    Rines
+                  </div>
+                  <div class="col-md-6">
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        panorama_fish_eye
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    Llantas
+                  </div>
+                  <div class="col-md-6">
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        panorama_fish_eye
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    Componentes
+                  </div>
+                  <div class="col-md-6">
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        lens
+                    </span>
+                    <span class="material-icons">
+                        panorama_fish_eye
+                    </span>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Modificaciones & detalles</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </mat-accordion>
+          
+    </div>
+</div>

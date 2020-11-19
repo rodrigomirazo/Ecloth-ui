@@ -3,8 +3,10 @@ export class ItemFloatingCharsCat {
     
     private _charId: number;
     private _charName: string;
+    private _isSelected: boolean;
 
 	constructor() {
+        this.isSelected = false;
 	}
 
     /**
@@ -37,6 +39,22 @@ export class ItemFloatingCharsCat {
      */
 	public set charName(value: string) {
 		this._charName = value;
+    }
+    
+    /**
+     * Getter isSelected
+     * @return {boolean}
+     */
+	public get isSelected(): boolean {
+		return this._isSelected;
+	}
+
+    /**
+     * Setter isSelected
+     * @param {boolean} value
+     */
+	public set isSelected(value: boolean) {
+		this._isSelected = value;
 	}
 
 }

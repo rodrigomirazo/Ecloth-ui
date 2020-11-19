@@ -10,3 +10,44 @@
     border: 1px;
     border-color: black;
 }
+
+.example-full-width {
+    width: 300px;
+    align-self: center;
+    left: 33%;
+}
+
+.input-modified-desc {
+    width: 154px;
+    align-self: center;
+    left: 41%;
+    bottom: 69px;
+}
+
+.example-radio-group-label {
+    width: 300px;
+    align-self: center;
+    left: 33%;
+}
+
+:host ::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+    border-top-width: 6px !important;
+    border-color: white;
+    padding-left: 0px;
+    padding-right: 0px;
+    
+}
+
+:host ::ng-deep .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
+    width: 0px;
+    border-top-width: 6px !important;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header::after {
+    border-top-width: 6px !important;
+    border-color: green;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header::before {
+    border-top-width: 6px !important;
+}

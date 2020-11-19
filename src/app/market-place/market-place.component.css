@@ -1,0 +1,11 @@
+
+.market-place-main-div {
+    width: 100%;
+    display: block;
+    margin: auto;
+    padding: initial;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding-left: 8px !important;
+}
