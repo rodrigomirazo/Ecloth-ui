@@ -8,15 +8,17 @@
     <div class="col-md-4">
         <p class="type-item-detail">Bicicleta/montaña</p>
         <b><p class="name-item-detail">{{item.name}}</p></b>
-        <b><p class="price-item-detail">Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
+        <b><p class="size-item-detail">Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
         <b><p class="price-item-detail"> $ {{item.price}}.00</p></b>
+
+        <button mat-stroked-button>Comprar</button>
         <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title >
                     <b>  Especificaciones </b>
                 </mat-panel-title>
-                
+
               </mat-expansion-panel-header>
           
               <table>
@@ -41,7 +43,11 @@
                 <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
-                    <th>Llanta</th>
+                    <th>Material del cuadro</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    </tr>
+                <tr>
+                    <th>Medida de Llanta</th>
                     <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
@@ -65,11 +71,15 @@
                     <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
-                    <th>Ruedas</th>
+                    <th>Ruedos</th>
                     <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
-                    <th>Cadena</th>
+                    <th>Cassette</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Número de serie</th>
                     <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
               </table>
@@ -108,7 +118,7 @@
                 </span>
                 </div>
                 <div class="col-md-6 text-item-detail">
-                    Rines
+                    Ruedos
                   </div>
                   <div class="col-md-6">
                     <span class="material-icons">
@@ -166,7 +176,13 @@
                 <span class="material-icons">
                     panorama_fish_eye
                 </span>
-            </div>
+                </div>
+                <div class="col-md-6 text-item-detail">
+                    Modificaciones
+                  </div>
+                  <div class="col-md-6 text-item-detail">
+                    Sí
+                  </div>
             </mat-expansion-panel>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -174,6 +190,9 @@
                     <b> Detalles</b>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    bla bla bla
+                 </div>
             </mat-expansion-panel>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -181,6 +200,11 @@
                     <b> Compra & devoluciones</b>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div class="normal-txt-detail">
+                    Contáctanos por vía whatsapp ó llamada al
+                    <b>44 48 66 77 77</b> ó vía correo electrónico:
+                <b>contacto@baaw.mx</b>
+                 </div>
             </mat-expansion-panel>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -188,6 +212,9 @@
                     <b> Envío</b>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    bla bla bla
+                 </div>
             </mat-expansion-panel>
           </mat-accordion>
           
