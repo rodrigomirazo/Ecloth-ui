@@ -1,0 +1,23 @@
+h1{
+    font-family: bebasNeue-bold;
+    font-size: 40pt;
+    margin-top: 24px;
+    color: #303130;
+    margin-bottom: 0px;
+    line-height: 45px;
+    margin-left: 2%;
+  }
+
+  hr { 
+    height:9px;
+    border-width:0;
+     background-color: #18c65e;
+     margin-top:0;
+    }
+
+    p {
+        text-align: left;
+        font-family: montserrat-light;
+        font-size: 11pt;
+        color: #303130;
+      }
