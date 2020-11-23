@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
 import { ItemFloatingChars } from '../models/item-floating-char';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
 import { UserItem } from '../models/Item-user-model';
+import { ItemCategoryModel } from '../models/main-categories-model';
 
 @Component({
   selector: 'app-item-detail',
@@ -16,13 +18,18 @@ export class ItemDetailComponent implements OnInit {
 
   private item: UserItem;
   private itemFloatingChars: ItemFloatingChars[];
+  private itemType: ItemCategoryModel[];
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute, private floatingCharsService: FloatingCharsService) {
+  constructor(private itemService: ItemService, private route: ActivatedRoute, 
+    private floatingCharsService: FloatingCharsService,
+    private categoryService: CategoryService) {
     
   }
 
   ngOnInit() {
-
+   //categories 
+    this.getCategoryTypes();
+    
     //floating chars
     this.floatingCharsService.getAll().subscribe( (itemFloatingChars: ItemFloatingChars[]) => {
       this.itemFloatingChars = itemFloatingChars;
@@ -83,4 +90,31 @@ export class ItemDetailComponent implements OnInit {
       return "NA";
     }
   }
+
+  getCategoryTypes(): void {
+
+    this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
+      
+      //if(itemType.length == 0) {
+        this.itemType = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+        console.log("item types = ", this.itemType);
+      //}
+      
+    });
+  }
+
+  filterItemType(type: number) : string {
+    if(!type) {
+      return "";
+    }
+    
+    const filterType = this.itemType.filter( typeCat => typeCat.id == type);
+
+    if(filterType.length > 0) {
+      return filterType[0].subCategoryName;
+    } else {
+      return "NA";
+    }
+  }
+
 }
