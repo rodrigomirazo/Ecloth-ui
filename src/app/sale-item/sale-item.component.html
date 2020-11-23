@@ -265,10 +265,77 @@
         </mat-step>
         <mat-step>
 
-            <item-rate [rate]="3" [enableEdit]="true"></item-rate>
+            <div class="row" style="text-align: center;  margin-bottom: 40px;">
+                <div class="first-step-title">EVALUA TU BICICLETA</div>
+                <p class="first-step-sub-title">Califica el estado de tu bicicleta <br> en una escala de 1 a 5.</p>
+            </div>
+
+            <form [formGroup]="secondFormGroup" class="form-font-family">
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Cuadro </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                                [rate]="item.frameRate"
+                                [enableEdit]="true"
+                                (emitRate)="onEmitFrameRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Ruedos </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                            [rate]="item.ruedosRate"
+                            [enableEdit]="true"
+                            (emitRate)="onEmitRuedosRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Llantas</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                        [rate]="item.wheelsRate"
+                        [enableEdit]="true"
+                        (emitRate)="onEmitWheelsRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Componentes </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                        [rate]="item.componentsRate"
+                        [enableEdit]="true"
+                        (emitRate)="onEmitComponentsRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align: center; margin-top: 40px;">
+                    <div class="item-prince-title">PRECIO DE TU BICICLETA</div>
+                </div>
+
+                <div class="row" style="text-align: center;">
+                    <mat-form-field class="input-text-alignment">
+                        <mat-label>Precio de Venta</mat-label>
+                        <input matInput placeholder="Número de Serie" value="" formControlName="price" type="number">
+                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                    </mat-form-field>
+                </div>
+
+            <!--
+                <div class="row" style="text-align: center;  margin-bottom: 40px; margin-top: 40px;">
+                    <div class="item-prince-title">OPCIONES DE ENVIO</div>
+                </div>
+            -->
+            </form>
 
             <!-- Rate steps -->
-            <div class="row">
+            <div class="row" style="margin-top: 40px;">
                 <div class="col-md-2">
                     <button mat-button matStepperPrevious
                         class="step-next-button" style="width: 70%"> < Regresar </button>

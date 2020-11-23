@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -9,23 +9,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class RateComponent {
 
+  @Output()
+  private emitRate = new EventEmitter<number>();
   
   private _rate: number;
   private _enableEdit: boolean;
 
   private iconRates: boolean[] = [];
+  private initialSetup = false;
 
-  constructor(
-    //private matIconRegistry: MatIconRegistry,
-    //private domSanitizer: DomSanitizer
-  ) {
-    /*
-    this.matIconRegistry.addSvgIcon("circle_active",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/rate/circulos-activo.svg") );
-
-    this.matIconRegistry.addSvgIcon("circle_inactive",
-    this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/rate/circulos-inactivo.svg") );
-*/
+  constructor() {
     for (let i = 0; i < 5; i++) {
       this.iconRates = this.iconRates.concat(false);
     }
@@ -43,11 +36,15 @@ export class RateComponent {
 		return this._rate;
 	}
   public set rate(value: number) {
-    console.log("SET rate: " + value);
-    this._rate = value;
-    this.inactiveAll();
-    this.activate(this.rate);
-		
+    console.log("SET rate: " + value), this._enableEdit;
+    
+    if(this._enableEdit || !this.initialSetup) {
+      this._rate = value;
+      this.emitRate.emit(value);
+      this.inactiveAll();
+      this.activate(this.rate);
+      this.initialSetup = true;
+    }
 	}
 
   inactiveAll() {

@@ -11,15 +11,9 @@
     background-color: #18c65e!important;
 }
 
-/*
-.img-refrense {
-    object-fit: cover;
-    width: 250px;
-    height: 180px;
-    padding-right: 100px;
-    padding-top: 50px;
+:host ::ng-deep .mat-step-icon-state-edit {
+    background-color: #18c65e!important;
 }
-*/
 
 /** Steps **/
 .first-step-title {
@@ -45,30 +39,6 @@
 :host ::ng-deep .form-font-family .ng-star-inserted {
     font-family: montserrat-light;
 }
-/*
-.img-border {
-    border: 1px;
-    border-color: black;
-}
-
-.example-full-width {
-    width: 75%;
-    align-self: center;
-    left: 33%;
-}
-
-.input-modified-desc {
-    width: 154px;
-    align-self: center;
-    left: 41%;
-    bottom: 69px;
-}
-
-.example-radio-group-label {
-    align-self: center;
-    left: 33%;
-}
-*/
 
 .input-text-alignment {
     width: 300px;
@@ -82,21 +52,6 @@
     padding-right: 0px;
     
 }
-/*
-:host ::ng-deep .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
-    width: 0px;
-    border-top-width: 6px !important;
-}
-
-:host ::ng-deep .mat-horizontal-stepper-header::after {
-    border-top-width: 6px !important;
-    border-color: green;
-}
-
-:host ::ng-deep .mat-horizontal-stepper-header::before {
-    border-top-width: 6px !important;
-}
-*/
 
 :host ::ng-deep mat-form-field mat-hint p {
     color: #18c65e !important;
@@ -148,4 +103,16 @@
     border-radius: 35px;
     width: 50%;
     font-family: montserrat-light;
+}
+
+/** Rate **/
+.rate-row {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item-prince-title {
+    font-family: bebasNeue-bold;
+    font-size: 30px;
+    color: #303130;
 }

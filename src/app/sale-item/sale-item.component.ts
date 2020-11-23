@@ -82,7 +82,7 @@ export class SaleItemComponent implements OnInit {
         
       });
       this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required]
+        price: ['', [Validators.required, Validators.min(100), Validators.max(100000)]]
       });
       
       this.userId = 1;
@@ -173,6 +173,23 @@ export class SaleItemComponent implements OnInit {
     }
   }
 
+  onEmitFrameRange($event) {
+    this.item.frameRate = $event;
+  }
+  
+  onEmitRuedosRange($event) {
+    this.item.ruedosRate = $event;
+  }
+
+  onEmitWheelsRange($event) {
+    this.item.wheelsRate = $event;
+  }
+  
+  onEmitComponentsRange($event) {
+    this.item.comments = $event;
+  }
+  
+
   textAreaValidation() {
     console.log(this.firstFormGroup.get("isModified").value);
 
@@ -181,12 +198,6 @@ export class SaleItemComponent implements OnInit {
   }
 
   save() {
-    /*
-    this.item.itemFloatingChars = this.itemFloatingCharsRel;
-    this.item.itemTypeCatId = this.categoryLevelSelector[0];
-    this.item.lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
-    this.item.statusId = 1;
-    */
     //TODO: color catalog
     this.item = this.itemService.adaptFormToItem(this.firstFormGroup);
     
