@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { UploadFilesService } from '../services/upload-files.service';
 
 @Component({
   selector: 'app-sale-item-upload-img',
@@ -7,45 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SaleItemUploadImgComponent implements OnInit {
 
+  @Output()
+  propagate: EventEmitter<File[]> = new EventEmitter<any[]>();
+  
   /** File Uploading */
-  fileData: File = null;
-  previewUrl:any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
-
-  constructor() { }
+  _files: File[];
+  _uploadFlag: boolean;
+  
+  constructor(private uploadFilesService: UploadFilesService) { }
 
   ngOnInit() {
+
   }
 
-  openFile(){
-    console.log('hell')
-    document.querySelector('input').click()
+  @Input()
+	public get files(): File[] {
+		return this._files;
+  }
+	public set files(value: File[]) {
+    this._files = value;
   }
 
-  handle(e){
-    console.log('Change input file')
+  // uploadFlag
+  @Input()
+  public get uploadFlag(): boolean {
+    return this._uploadFlag;
   }
-
-  fileProgress(fileInput: any) {
-    this.fileData = <File>fileInput.target.files[0];
-    this.preview();
-}
-
-preview() {
-  // Show preview 
-  var mimeType = this.fileData.type;
-  if (mimeType.match(/image\/*/) == null) {
-    return;
+  public set uploadFlag(value: boolean) {
+    this._uploadFlag = value;
   }
-
-  var reader = new FileReader();      
-  reader.readAsDataURL(this.fileData); 
-  reader.onload = (_event) => { 
-    this.previewUrl = reader.result; 
-  }
-}
-
-
-
+  
 }

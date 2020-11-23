@@ -13,18 +13,12 @@ export class UploadFilesService {
 
   constructor(private http: HttpClient) { }
 
-  upload(file: File, userId: number, itemId: number): Observable<HttpEvent<any>> {
+  upload(file: File, itemId: string): Observable<any> {
+    console.log("inside uploadService: ", file);
     const formData: FormData = new FormData();
-    
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', this.itemUploadImage + "/" + userId + "/" + itemId, formData, {
-      reportProgress: true,
-      responseType: 'text',
-      
-    });
-
-    return this.http.request(req);
+    return this.http.post(this.itemUploadImage + "/" + itemId, formData);
   }
 
   getFiles(userId: number, itemId: number): Observable<any> {

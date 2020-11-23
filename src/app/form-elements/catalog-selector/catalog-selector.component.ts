@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ItemFloatingCharsCat } from 'src/app/models/item-floating-char-cat';
 import { ItemFloatingCharRel } from 'src/app/models/item-floating-char-rel';
 
@@ -22,7 +23,13 @@ export class CatalogSelectorComponent implements OnInit {
 
   @Input()
   itemFloatingCharRel: ItemFloatingCharRel;
+
+  @Input()
+  inputFormName: string;
   
+  @Input()
+  parentFormGroup: FormGroup;
+
   ngOnChanges(changes: SimpleChanges) {
     if(changes.itemFloatingCharRel) {
 

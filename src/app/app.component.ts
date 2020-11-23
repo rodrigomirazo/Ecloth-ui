@@ -40,6 +40,11 @@ export class AppComponent {
       this.matIconRegistry.addSvgIcon("car_active",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/home/icon_car_active.svg") );
 
+      this.matIconRegistry.addSvgIcon("circle_active",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/rate/circulos-activo.svg") );
+
+      this.matIconRegistry.addSvgIcon("circle_inactive",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/rate/circulos-inactivo.svg") );
   }
 
   onCategoryId(categoryId: number) {

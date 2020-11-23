@@ -6,6 +6,10 @@
 }
 
 
+::ng-deep .floating-selector .cdk-overlay-pane {
+    opacity: 44;
+}
+
 ::ng-deep .mat-form-field-flex {
     border-bottom: solid 1px #18c65e !important;
 }
@@ -13,6 +17,15 @@
 
 
 ::ng-deep .mat-form-field-flex:hover {
+    border-bottom: solid 1px #18c65e !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    border-bottom: solid 1px #18c65e !important;
+    color: #18c65e;
+}
+
+:host ::ng-deep .mat-form-field-underline {
     border-bottom: solid 1px #18c65e !important;
 }
 
