@@ -6,7 +6,7 @@
     </div>
 
     <div class="col-md-4">
-        <p class="type-item-detail">Bicicleta/montaña</p>
+        <p class="type-item-detail"> Bicicleta/ {{ filterItemType(item.itemTypeCatId)}}</p>
         <b><p class="name-item-detail">{{item.name}}</p></b>
         <b><p class="size-item-detail">Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
         <b><p class="price-item-detail"> $ {{item.price}}.00</p></b>
