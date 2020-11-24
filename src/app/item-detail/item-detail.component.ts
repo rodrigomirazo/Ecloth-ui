@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
@@ -10,17 +10,23 @@ import { UserItem } from '../models/Item-user-model';
 import { ItemCategoryModel } from '../models/main-categories-model';
 
 @Component({
-  selector: 'app-item-detail',
+  selector: 'item-detail',
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit {
 
+  @Input()
+  private itemInput: UserItem;
+
+  @Input()
+  private increment: number;
+
   private item: UserItem;
   private itemFloatingChars: ItemFloatingChars[];
   private itemType: ItemCategoryModel[];
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute, 
+  constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
     private categoryService: CategoryService) {
     
@@ -37,43 +43,42 @@ export class ItemDetailComponent implements OnInit {
       //uri params
       this.route.params.subscribe(params => {
         if(params.itemId) {
-          console.log(params);
-
-          //item
+          console.log("at if");
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
-
-
-              this.item = itemResponse;
-              console.log(this.item);
-
-              if(this.item.itemFloatingChars) {
-                for (let j = 0; j < this.item.itemFloatingChars.length; j++) {
-                  //console.log(this.items[i].itemFloatingChars[j]);
-    
-                  // a) find "Float Char"
-                  let floatChar: ItemFloatingChars[] = itemFloatingChars.filter(floatChar => floatChar.floatingCharId == this.item.itemFloatingChars[j].floatingCharId );
-                  // b) find "Float Char Value"
-                  let floatCharCat: ItemFloatingCharsCat[] = [];
-    
-                  // c) verify if Char was found
-                  if(floatChar.length > 0 && this.item.itemFloatingChars[j].floatingCharCatId) {
-                    //console.log("\n floatChar.length", floatChar[0].catalogList, " VS ", itemsResp[i].itemFloatingChars[j].floatingCharsCatId);
-                    floatCharCat = floatChar[0].catalogList.filter(floatCatChar => floatCatChar.charId == this.item.itemFloatingChars[j].floatingCharCatId );
-                  }
-                  
-                  //console.log("floatCharCat: ", floatCharCat[0], floatChar[0]);
-                  // d) assign using validations
-                  this.item.itemFloatingChars[j].floatingCharName = (floatChar.length > 0) ? floatChar[0].floatingCharName : "N/A";
-                  this.item.itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
-                }
-                console.log(this.item);
-              }
-
+            this.assignFloatingChars(itemResponse, itemFloatingChars);
           });
+        } else {
+          console.log("at else", this.itemInput);
+          this.assignFloatingChars(this.itemInput, itemFloatingChars);
         }
 
       });
     });
+  }
+
+  assignFloatingChars(itemResponse: UserItem, itemFloatingChars: ItemFloatingChars[]) {
+    this.item = itemResponse;
+    if(this.item.itemFloatingChars) {
+      for (let j = 0; j < this.item.itemFloatingChars.length; j++) {
+        //console.log(this.items[i].itemFloatingChars[j]);
+
+        // a) find "Float Char"
+        let floatChar: ItemFloatingChars[] = itemFloatingChars.filter(floatChar => floatChar.floatingCharId == this.item.itemFloatingChars[j].floatingCharId );
+        // b) find "Float Char Value"
+        let floatCharCat: ItemFloatingCharsCat[] = [];
+
+        // c) verify if Char was found
+        if(floatChar.length > 0 && this.item.itemFloatingChars[j].floatingCharCatId) {
+          //console.log("\n floatChar.length", floatChar[0].catalogList, " VS ", itemsResp[i].itemFloatingChars[j].floatingCharsCatId);
+          floatCharCat = floatChar[0].catalogList.filter(floatCatChar => floatCatChar.charId == this.item.itemFloatingChars[j].floatingCharCatId );
+        }
+        
+        //console.log("floatCharCat: ", floatCharCat[0], floatChar[0]);
+        // d) assign using validations
+        this.item.itemFloatingChars[j].floatingCharName = (floatChar.length > 0) ? floatChar[0].floatingCharName : "N/A";
+        this.item.itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
+      }
+    }
   }
 
   filterCatalog(floatingCharName: string, itemFloatingChars: ItemFloatingCharRel[]): string {

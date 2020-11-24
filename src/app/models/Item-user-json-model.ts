@@ -1,6 +1,9 @@
 
 import { ItemFloatingCharRel } from './item-floating-char-rel';
+import { ItemFloatingCharRelJson } from './item-floating-char-rel-json';
+import { ItemImgUrlsJson } from './Item-img-urls-json-model';
 import { User } from './Item-user';
+import { UserJson } from './Item-user-json';
 
 export class UserItemJson {
 
@@ -17,8 +20,9 @@ export class UserItemJson {
     private fleetCost: number;
     private sizeId: string;
     private lastLevelCategoryId: number;
-    private user: User;
-    private itemFloatingChars: ItemFloatingCharRel[];
+    private user: UserJson;
+    private itemFloatingChars: ItemFloatingCharRelJson[];
+    private itemImgUrls: ItemImgUrlsJson[];
     private backRear: string;
     private model: string;
     private year: number;
@@ -144,18 +148,26 @@ export class UserItemJson {
 
     /**
      * Getter $user
-     * @return {User}
+     * @return {UserJson}
      */
-	public get $user(): User {
+	public get $user(): UserJson {
 		return this.user;
 	}
 
     /**
      * Getter $itemFloatingChars
-     * @return {ItemFloatingCharRel[]}
+     * @return {ItemFloatingCharRelJson[]}
      */
-	public get $itemFloatingChars(): ItemFloatingCharRel[] {
+	public get $itemFloatingChars(): ItemFloatingCharRelJson[] {
 		return this.itemFloatingChars;
+	}
+
+    /**
+     * Getter $itemImgUrls
+     * @return {ItemImgUrlsJson[]}
+     */
+	public get $itemImgUrls(): ItemImgUrlsJson[] {
+		return this.itemImgUrls;
 	}
 
     /**
@@ -384,18 +396,26 @@ export class UserItemJson {
 
     /**
      * Setter $user
-     * @param {User} value
+     * @param {UserJson} value
      */
-	public set $user(value: User) {
+	public set $user(value: UserJson) {
 		this.user = value;
 	}
 
     /**
      * Setter $itemFloatingChars
-     * @param {ItemFloatingCharRel[]} value
+     * @param {ItemFloatingCharRelJson[]} value
      */
-	public set $itemFloatingChars(value: ItemFloatingCharRel[]) {
+	public set $itemFloatingChars(value: ItemFloatingCharRelJson[]) {
 		this.itemFloatingChars = value;
+	}
+
+    /**
+     * Setter $itemImgUrls
+     * @param {ItemImgUrlsJson[]} value
+     */
+	public set $itemImgUrls(value: ItemImgUrlsJson[]) {
+		this.itemImgUrls = value;
 	}
 
     /**

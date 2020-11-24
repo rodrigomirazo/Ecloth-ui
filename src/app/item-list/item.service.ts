@@ -6,6 +6,10 @@ import { UserItem } from '../models/Item-user-model';
 import { InputFilter } from '../models/input-filter-model';
 import { UserItemJson } from '../models/Item-user-json-model';
 import { FormGroup } from '@angular/forms';
+import { ItemFloatingCharRelJson } from '../models/item-floating-char-rel-json';
+import { UserJson } from '../models/Item-user-json';
+import { User } from '../models/Item-user';
+import { ItemImgUrlsJson } from '../models/Item-img-urls-json-model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +46,7 @@ export class ItemService {
     }
     if(adaptToJson) {
       let itemJson = this.adaptUserItemToJson(item);
-      return this.httpService.post(this.itemUri, item);
+      return this.httpService.post(this.itemUri, itemJson);
     }
     return null;
   }
@@ -51,45 +55,53 @@ export class ItemService {
     return this.httpService.delete(this.itemUri, item);
   }
 
-  adaptFormToItem(firstFormGroup: FormGroup): UserItem {
-    let userItem: UserItem = new UserItem();
-    userItem.id                  = firstFormGroup.value.id;
-    userItem.statusId            = firstFormGroup.value.statusId;
-    userItem.itemColorId         = firstFormGroup.value.itemColorId;
-    userItem.itemTypeCatId       = firstFormGroup.value.itemTypeCatId;
-    userItem.itemTransactionId   = firstFormGroup.value.itemTransactionId;
-    userItem.name                = firstFormGroup.value.name;
-    userItem.price               = firstFormGroup.value.price;
-    userItem.originalPrice       = firstFormGroup.value.originalPrice;
-    userItem.discount            = firstFormGroup.value.discount;
-    userItem.description         = firstFormGroup.value.description;
-    userItem.fleetCost           = firstFormGroup.value.fleetCost;
-    userItem.sizeId              = firstFormGroup.value.sizeId;
-    userItem.lastLevelCategoryId = firstFormGroup.value.lastLevelCategoryId;
-    userItem.user                = firstFormGroup.value.user;
-    //Floating Cahrs are diferent...
-    //userItem.itemFloatingChars   = firstFormGroup.value.itemFloatingChars;
-    userItem.backRear            = firstFormGroup.value.backRear;
-    userItem.frontRear            = firstFormGroup.value.frontRear;
-    userItem.cassette             = firstFormGroup.value.cassette;
-    userItem.model               = firstFormGroup.value.model;
-    userItem.year                = firstFormGroup.value.year;
-    userItem.suspension          = firstFormGroup.value.suspension;
-    userItem.ruedos              = firstFormGroup.value.ruedos;
-    userItem.series              = firstFormGroup.value.series;
-    userItem.gearLevel           = firstFormGroup.value.gearLevel;
-    userItem.multiplication      = firstFormGroup.value.multiplication;
-    userItem.isModified          = firstFormGroup.value.isModified;
-    userItem.comments            = firstFormGroup.value.comments;
-    userItem.frameRate           = firstFormGroup.value.frameRate;
-    userItem.ruedosRate          = firstFormGroup.value.ruedosRate;
-    userItem.wheelsRate          = firstFormGroup.value.wheelsRate;
-    userItem.componentsRate      = firstFormGroup.value.componentsRate;
+  adaptFormToItem(firstFormGroup: FormGroup, userItem: UserItem): UserItem {
+
+    userItem.backRear = 		firstFormGroup.value.backRear;
+    userItem.model = 			firstFormGroup.value.model;
+    userItem.frontRear = 		firstFormGroup.value.frontRear;
+    userItem.year = 			firstFormGroup.value.year;
+    userItem.suspension = 		firstFormGroup.value.suspension;
+    userItem.itemTypeCatId = 	firstFormGroup.value.itemTypeCatId;
+    userItem.ruedos = 			firstFormGroup.value.ruedos;
+    userItem.cassette = 		firstFormGroup.value.cassette;
+    userItem.series = 			firstFormGroup.value.series;
+    userItem.gearLevel = 		firstFormGroup.value.gearLevel;
+    userItem.multiplication = 	firstFormGroup.value.multiplication;
+    userItem.isModified = 		firstFormGroup.value.isModified;
+    userItem.comments = 		firstFormGroup.value.comments;
 
     return userItem;
   }
 
   adaptUserItemToJson(item: UserItem): UserItemJson {
+
+    let userJson: UserJson = new UserJson();
+    userJson.$id = item.user.id;
+
+    /** Floating Chars */
+    let floatCharList: ItemFloatingCharRelJson[] = [];
+    item.itemFloatingChars.forEach(itemFloatingChars => {
+      let floatCharDto: ItemFloatingCharRelJson = new ItemFloatingCharRelJson();
+      floatCharDto.$floatingCharCatId = itemFloatingChars.floatingCharCatId;
+      floatCharDto.$floatingCharCatName = itemFloatingChars.floatingCharCatName;
+      floatCharDto.$floatingCharId = itemFloatingChars.floatingCharId;
+      floatCharDto.$floatingCharName = itemFloatingChars.floatingCharName;
+      floatCharList = floatCharList.concat(floatCharDto);
+    });
+
+    /** Img URLs */
+    let itemImgUrls: ItemImgUrlsJson[] = [];
+    item.itemImgUrls.forEach(itemImgUrl => {
+      let itemImgUrlJson: ItemImgUrlsJson = new ItemImgUrlsJson();
+      itemImgUrlJson.$itemId = itemImgUrl.itemId;
+      itemImgUrlJson.$id = itemImgUrl.id;
+      itemImgUrlJson.$createdTime = itemImgUrl.createdTime;
+      itemImgUrlJson.$imgServer = itemImgUrl.imgServer;
+      itemImgUrlJson.$imgUrl = itemImgUrl.imgUrl;
+      
+      itemImgUrls = itemImgUrls.concat(itemImgUrlJson);
+    });
 
     let userItemJson: UserItemJson = new UserItemJson();
     userItemJson.$id                  = item.id;
@@ -105,8 +117,9 @@ export class ItemService {
     userItemJson.$fleetCost           = item.fleetCost;
     userItemJson.$sizeId              = item.sizeId;
     userItemJson.$lastLevelCategoryId = item.lastLevelCategoryId;
-    userItemJson.$user                = item.user;
-    userItemJson.$itemFloatingChars   = item.itemFloatingChars;
+    userItemJson.$user                = userJson;
+    userItemJson.$itemImgUrls         = itemImgUrls;
+    userItemJson.$itemFloatingChars   = floatCharList;
     userItemJson.$backRear            = item.backRear;
     userItemJson.$model               = item.model;
     userItemJson.$year                = item.year;

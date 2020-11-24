@@ -1,7 +1,7 @@
 <div class="row" style="padding-left: 2.5%; padding-right: 2.5%;">
 
     <!-- TODO: add linear attr -->
-    <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
         <mat-step [stepControl]="firstFormGroup">
             
             <!-- Begin First Step -->
@@ -12,7 +12,6 @@
 
             <form [formGroup]="firstFormGroup" class="form-font-family">
                 <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
-                {{firstFormGroup.erros | json}}
                     <div class="row">
                         <!-- Marca -->
                         <div class="col-md-4 col-md-offset-3">
@@ -87,7 +86,7 @@
                                     <mat-option [value]="">
                                     </mat-option>
                                     <mat-option *ngFor="let itemType of itemTypes; let typeIndex = index"
-                                                [value]="itemType">
+                                                [value]="itemType.id">
                                             {{ escapePipe( itemType.subCategoryName ) }}
                                     </mat-option>
                                 </mat-select>
@@ -202,10 +201,10 @@
                                 class="col-md-6 offset-md-6" formControlName="isModified"
                                 (change)="textAreaValidation()">
                                 <div class="col-md-12">
-                                    <mat-radio-button value="false">No/Original</mat-radio-button>
+                                    <mat-radio-button value="true">No/Original</mat-radio-button>
                                 </div>
                                 <div class="col-md-12">
-                                    <mat-radio-button value="true">Sí</mat-radio-button>
+                                    <mat-radio-button value="false">Sí</mat-radio-button>
                                 </div>
                             </mat-radio-group>
                             <br>
@@ -231,7 +230,7 @@
                     <div class="col-md-8">
                     </div>
                     <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                        <button mat-stroked-button matStepperNext
+                        <button mat-stroked-button matStepperNext (click)="firstStepSave()"
                             class="step-next-button">Siguiente</button>
                     </div>
                 </div>
@@ -240,12 +239,12 @@
           <!-- End first Step -->
         </mat-step>
         
-        <mat-step [stepControl]="secondFormGroup" optional>
+        <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
-
+            <ng-template matStepLabel>Fotos</ng-template>
                 <!-- Upload Image -->
                 <div *ngIf="files.length >= 7">
-                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag"></app-sale-item-upload-img>
+                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id"></app-sale-item-upload-img>
                 </div>
 
             <div class="row" style="margin-top: 40px;">
@@ -256,7 +255,7 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                    <button mat-stroked-button matStepperNext
+                    <button mat-stroked-button matStepperNext (click)="secondStepSave()"
                         class="step-next-button">Siguiente</button>
                 </div>
             </div>
@@ -265,12 +264,15 @@
         </mat-step>
         <mat-step>
 
+            
             <div class="row" style="text-align: center;  margin-bottom: 40px;">
                 <div class="first-step-title">EVALUA TU BICICLETA</div>
                 <p class="first-step-sub-title">Califica el estado de tu bicicleta <br> en una escala de 1 a 5.</p>
             </div>
 
-            <form [formGroup]="secondFormGroup" class="form-font-family">
+            <form [formGroup]="thirdFormGroup" class="form-font-family">
+                <ng-template matStepLabel>Condiciones</ng-template>
+
                 <div class="row rate-row form-font-family">
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Cuadro </div>
@@ -327,8 +329,27 @@
                     </mat-form-field>
                 </div>
                 
-            </form>
+                    <!-- Rate steps -->
+                    <div class="row" style="margin-top: 40px;">
+                        <div class="col-md-2">
+                            <button mat-button matStepperPrevious
+                                class="step-next-button" style="width: 70%"> < Regresar </button>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-3" style="text-align: center;">
+                            <button mat-stroked-button matStepperNext (click)="thirdStepSave()"
+                                class="step-next-button">Siguiente</button>
+                        </div>
+                    </div>
 
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <ng-template matStepLabel>Subir</ng-template>
+            <div *ngIf="item.id">
+                <item-detail [itemInput]="item" [increment]="increment"></item-detail>
+            </div>
             <!-- Rate steps -->
             <div class="row" style="margin-top: 40px;">
                 <div class="col-md-2">
@@ -338,21 +359,13 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-3" style="text-align: center;">
-                    <button mat-stroked-button matStepperNext
-                        class="step-next-button">Siguiente</button>
+                    <button mat-stroked-button matStepperNext (click)="finalStep()"
+                        class="step-next-button">Crear</button>
                 </div>
             </div>
         </mat-step>
 
       </mat-horizontal-stepper>
-
-    <div class="row">
-        <div class="col-md-7"></div>
-        <div class="col-md-2">
-            <button mat-raised-button (click)="save()">Guardar y Publicar</button>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
 
     <div class="row" style="margin-bottom: 25px;"></div>
 

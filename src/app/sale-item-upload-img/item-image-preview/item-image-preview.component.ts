@@ -14,6 +14,9 @@ export class ItemImagePreviewComponent {
   _height: string;
   _uploadFlag: boolean;
 
+  @Input()
+  private itemId: string;
+
   //TODO: change to file type
   @Output()
   propagate: EventEmitter<any> = new EventEmitter<any>();
@@ -21,7 +24,7 @@ export class ItemImagePreviewComponent {
   formData: FormData;
   form: FormGroup = new FormGroup({
     file: new FormControl()
- });
+  });
 
   previewUrl: any = null;
 
@@ -74,7 +77,7 @@ export class ItemImagePreviewComponent {
     if(value == true && this.fileData) {
       console.log("set upload file true", this.fileData);
 
-      this.uploadFilesService.upload(this.fileData, "101")
+      this.uploadFilesService.upload(this.fileData, this.itemId)
       .subscribe(res => {
         console.log(res);
         alert('SUCCESS !!');

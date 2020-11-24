@@ -11,6 +11,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
 import { InputFilterYear } from '../models/input-filter-years-model';
 import { CommentStmt } from '@angular/compiler';
+import { User } from '../models/Item-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale-item',
@@ -44,6 +46,10 @@ export class SaleItemComponent implements OnInit {
   /** Form Groups */
   private firstFormGroup: FormGroup;
   private secondFormGroup: FormGroup;
+  private thirdFormGroup: FormGroup;
+
+  /** update Item Resume */
+  private increment: number = 0;
 
   ngOnInit() {
 
@@ -54,7 +60,20 @@ export class SaleItemComponent implements OnInit {
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
     private uploadFilesService: UploadFilesService,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder,
+    private router: Router) {
+
+      // Initialize itemId
+      this.item.id = null;
+      //Set User
+      this.item.user = new User();
+      this.item.user.id = "1";
+      //Set Status
+      this.item.statusId = 1;
+      //Set Empty Image Array
+      this.item.itemImgUrls = [];
+
+      console.log("this.item.user: ", this.item.user);
 
       this.firstFormGroup = this._formBuilder.group({
         backRear: new FormControl('', Validators.required),
@@ -69,10 +88,10 @@ export class SaleItemComponent implements OnInit {
         series: new FormControl('', Validators.required),
         gearLevel: new FormControl('', Validators.required),
         multiplication: new FormControl('', Validators.required),
-        isModified: new FormControl('', Validators.required),
+        isModified: new FormControl('true', Validators.required),
         comments: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(500)]),
 
-
+        // Floating CHARS
         brand: new FormControl('', Validators.required),
         genere: new FormControl('', Validators.required),
         frameMaterial: new FormControl('', Validators.required),
@@ -82,6 +101,9 @@ export class SaleItemComponent implements OnInit {
         
       });
       this.secondFormGroup = this._formBuilder.group({
+        
+      });
+      this.thirdFormGroup = this._formBuilder.group({
         price: ['', [Validators.required, Validators.min(100), Validators.max(100000)]]
       });
       
@@ -91,7 +113,7 @@ export class SaleItemComponent implements OnInit {
         this.files = this.files.concat(null);
       }
 
-      this.getFloatingChars();+
+      this.getFloatingChars();
       this.getCategoryTypes();
       this.getYearsCat();
   }
@@ -197,23 +219,48 @@ export class SaleItemComponent implements OnInit {
     control.disabled ? control.enable() : control.disable();
   }
 
-  save() {
-    //TODO: color catalog
-    this.item = this.itemService.adaptFormToItem(this.firstFormGroup);
-    
-    //Flaoting Chars
-    this.item.itemFloatingChars = [
-      new ItemFloatingCharRel(this.filterFloatCharRel("brand").floatingCharId, "",       this.firstFormGroup.value.brand),
-      new ItemFloatingCharRel(this.filterFloatCharRel("genero").floatingCharId, "",      this.firstFormGroup.value.genere),
-      new ItemFloatingCharRel(this.filterFloatCharRel("material_de_cuadro").floatingCharId, "",  this.firstFormGroup.value.frameMaterial),
-      new ItemFloatingCharRel(this.filterFloatCharRel("medida_de_llanta").floatingCharId, "",    this.firstFormGroup.value.wheelSize),
-      new ItemFloatingCharRel(this.filterFloatCharRel("tipo_de_freno").floatingCharId, "",       this.firstFormGroup.value.breakType),
-      new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
-    ];
+  firstStepSave() {
+    console.log("this.firstFormGroup.valid: ", this.firstFormGroup.valid);
+    if( this.firstFormGroup.valid
+      ) {
 
-    console.log(this.firstFormGroup.errors);
+      this.item = this.itemService.adaptFormToItem(this.firstFormGroup, this.item);
 
+      //Flaoting Chars
+      this.item.itemFloatingChars = [
+        new ItemFloatingCharRel(this.filterFloatCharRel("brand").floatingCharId, "",       this.firstFormGroup.value.brand),
+        new ItemFloatingCharRel(this.filterFloatCharRel("genero").floatingCharId, "",      this.firstFormGroup.value.genere),
+        new ItemFloatingCharRel(this.filterFloatCharRel("material_de_cuadro").floatingCharId, "",  this.firstFormGroup.value.frameMaterial),
+        new ItemFloatingCharRel(this.filterFloatCharRel("medida_de_llanta").floatingCharId, "",    this.firstFormGroup.value.wheelSize),
+        new ItemFloatingCharRel(this.filterFloatCharRel("tipo_de_freno").floatingCharId, "",       this.firstFormGroup.value.breakType),
+        new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
+      ];
+
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+        console.log("itemRepsonse: ", itemRepsonse);
+        this.item.id = itemRepsonse.id;
+      });
+    }
+  }
+
+  secondStepSave() {
     this.uploadFlag = true;
+  }
+
+  thirdStepSave() {
+    //TODO: color catalog
+    console.log(this.item);
+
+    this.item.price = this.thirdFormGroup.value.price;
+
+    this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+      console.log("itemRepsonse: ", itemRepsonse);
+      this.item.id = itemRepsonse.id;
+    });
+  }
+
+  finalStep() {
+    this.router.navigate(['item-detail/', this.item.id])
   }
 
 }

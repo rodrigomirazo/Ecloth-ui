@@ -1,5 +1,6 @@
 
 import { ItemFloatingCharRel } from './item-floating-char-rel';
+import { ItemImgUrls } from './Item-img-urls-model';
 import { User } from './Item-user';
 
 export class UserItem {
@@ -19,6 +20,7 @@ export class UserItem {
     private _lastLevelCategoryId: number;
     private _user: User;
     private _itemFloatingChars: ItemFloatingCharRel[];
+    private _itemImgUrls: ItemImgUrls[];
     private _backRear: string;
     private _frontRear: string;
     private _model: string;
@@ -37,6 +39,7 @@ export class UserItem {
     private _componentsRate: number;
 
 	constructor() {
+        this._user = new User();
     }
 
     /**
@@ -157,6 +160,14 @@ export class UserItem {
      */
 	public get itemFloatingChars(): ItemFloatingCharRel[] {
 		return this._itemFloatingChars;
+	}
+
+    /**
+     * Getter itemImgUrls
+     * @return {ItemImgUrls[]}
+     */
+	public get itemImgUrls(): ItemImgUrls[] {
+		return this._itemImgUrls;
 	}
 
     /**
@@ -408,6 +419,14 @@ export class UserItem {
 	}
 
     /**
+     * Setter itemImgUrls
+     * @param {ItemImgUrls[]} value
+     */
+	public set itemImgUrls(value: ItemImgUrls[]) {
+		this._itemImgUrls = value;
+	}
+
+    /**
      * Setter backRear
      * @param {string} value
      */
@@ -534,6 +553,6 @@ export class UserItem {
 	public set componentsRate(value: number) {
 		this._componentsRate = value;
 	}
-
+    
 
 }

@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'market-place/:inputFilter', component: MarketPlaceComponent },
   { path: 'publish', component: SaleItemComponent },
   { path: 'item-detail/:itemId', component: ItemDetailComponent},
+  { path: 'item-detail', component: ItemDetailComponent},
   { path: 'terms', component: TermsComponent},
   { path: 'privacy', component: PrivacyComponent},
   { path: 'return-policy', component: ReturnPolicyComponent}

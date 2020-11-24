@@ -8,12 +8,16 @@ import { UploadFilesService } from '../services/upload-files.service';
 })
 export class SaleItemUploadImgComponent implements OnInit {
 
+  @Input()
+  private itemId: string;
+  
   @Output()
   propagate: EventEmitter<File[]> = new EventEmitter<any[]>();
   
   /** File Uploading */
   _files: File[];
   _uploadFlag: boolean;
+  
   
   constructor(private uploadFilesService: UploadFilesService) { }
 
