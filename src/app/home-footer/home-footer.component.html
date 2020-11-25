@@ -1,18 +1,26 @@
 
 <div class="footer-background col-md-12">
 
-    <div class="col-md-2 col-sm-2 col-xs-2">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2">
+    <div class="col-md-3 col-sm-3 col-xs-3">
         <div class="row footer-title">
             acerca
         </div>
         <div class="row footer-links">
-            <p>Entrar a mi cuenta</p>
-            <p>Mis Pedidos</p>
+            <a [routerLink]="['/terms' ]">
+                <p>Términos y Condiciones Generales </p>
+            </a>
+           <!-- <a [routerLink]="['/privacy' ]">--> 
+                <p>Aviso de privacidad</p>
+           <!--  </a>--> 
+            <a [routerLink]="['/return-policy' ]">
+                 <p>Políticas de devolución</p>
+            </a>
+           <!--<p>Mis Pedidos</p>
             <p>Mi lista de deseos</p>
-            <p>Comparar</p>
+            <p>Comparar</p> --> 
         </div>
     </div>
     <div class="col-md-3 col-sm-3 col-xs-3">
@@ -21,36 +29,36 @@
         </div>
         <div class="row footer-links">
             <p>Atención al cliente y contacto</p>
-            <p>Sobre nosotros</p>
+            <!--<p>Sobre nosotros</p>
             <p>Formas de Pago</p>
             <p>Envío y devolución</p>
             <p>Términos y condiciones generales</p>
             <p>Aviso de privacidad</p>
             <p>Mapa del sitio</p>
-            <p>Medidas por el COVID-19</p>
+            <p>Medidas por el COVID-19</p> -->
         </div>
     </div>
     <div class="col-md-5 col-sm-5 col-xs-5">
-        <div class="row footer-title-subscribe">
+      <!--  <div class="row footer-title-subscribe">
 
             <div class="col-md-3 col-sm-3 col-xs-3">
                 suscribete
             </div>
 
-        </div>
+        </div> 
         <div class="row footer-links">
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <p>Recibe las últimas noticias y promociones</p>
             </div>
-        </div>
+        </div> 
 
         <div class="row footer-title-subscribe">
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <img style="width: 90%;" src="/assets/images/footer/subscribe-footer.png"/>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row footer-title-subscribe" style="margin-top: 20px;">
+        <div class="row footer-title-subscribe"><!-- style="margin-top: 20px;">-->
             <div class="col-md-3 col-sm-3 col-xs-3">
                 Síguenos
             </div>
@@ -61,21 +69,21 @@
             <div class="col-md-1 col-sm-1 col-xs-1">
                 <img class="img-footer-social-icons" src="/assets/images/footer/facebook.svg">
             </div>
-            <div class="col-md-1 col-sm-1 col-xs-1">
+         <!--    <div class="col-md-1 col-sm-1 col-xs-1">
                 <img class="img-footer-social-icons" src="/assets/images/footer/instagram.svg">
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
                 <img class="img-footer-social-icons" src="/assets/images/footer/youtube.svg">
             </div>
-            
+             -->
         </div>
-
+ <!-- 
         <div class="row footer-links">
             
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <p style="margin-top: 15px;">Consulta nuestro aviso de privacidad</p>
             </div>
-        </div>
+        </div> -->
     </div>
     
 </div>
