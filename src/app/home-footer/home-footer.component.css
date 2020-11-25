@@ -11,7 +11,7 @@
     color: #ffffff;
 }
 
-.footer-links {
+a, .footer-links {
     font-family: montserrat-light;
     font-size: 11pt;
     color: #ffffff;
