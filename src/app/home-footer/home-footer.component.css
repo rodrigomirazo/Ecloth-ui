@@ -27,3 +27,7 @@ a, .footer-links {
     font-size: 25pt;
     color: #ffffff;
 }
+
+.separator {
+    height: 30pt;
+}
