@@ -4,22 +4,20 @@
     
       <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 item-upload-img-div">
-              <img class="item-upload-img-principal" [src]="principleImg">
+            <img class="item-upload-img-principal" [src]="imgUrl(principleImg)">
           </div>
       </div>
 
+      
       <div class="row" *ngFor="let imgRow of imageRows">
-          
           <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="images[imgRow]">
-              <img class="item-upload-img-button" src="{{images[imgRow]}}" (click)="setPrincipalImage(imgRow)">
+              <img class="item-upload-img-button" [src]="imgUrl(blobImgs[imgRow])" (click)="setPrincipalImage(imgRow)">
           </div>
-
           <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="images[imgRow + 1]">
-              <img class="item-upload-img-button" src="{{images[imgRow + 1]}}" (click)="setPrincipalImage(imgRow + 1)">
+              <img class="item-upload-img-button" [src]="imgUrl(blobImgs[imgRow + 1])" (click)="setPrincipalImage(imgRow + 1)">
           </div>
       </div>
-
-    
+      
     </div>
 
     <div class="col-md-4">

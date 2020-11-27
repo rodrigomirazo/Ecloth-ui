@@ -19,7 +19,7 @@
 
         <!-- Item element Begin -->
         <div class="row item-image-row">
-            <img src="/assets/images/vistas/list_{{i}}.jpg" [src]="imgUrl(item.itemImgUrls[item.itemImgUrls.length - 1].imgUrl)" class="item-detail-img" alt="image">
+            <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
         </div>
         <div class="row">
 

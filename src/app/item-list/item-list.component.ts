@@ -23,8 +23,10 @@ export class ItemListComponent implements OnInit {
   private _changeIncrement: number;
 
   private items: UserItem[];
+  private blobImgs: any[] = [];
 
   constructor(
+    private sanitizer: DomSanitizer,
     private itemService: ItemService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
@@ -95,8 +97,8 @@ export class ItemListComponent implements OnInit {
   }
 
   imgUrl(imageUrl: string) {
-    const url = imageUrl.substr(imageUrl.indexOf("/assets"));
-    return url;
+    
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   /**
@@ -109,9 +111,15 @@ export class ItemListComponent implements OnInit {
       if(this.inputFilter.itemTypes) {
         if(this.inputFilter.itemTypes.length > 0) {
           this.itemService.getFilterItems(this.inputFilter).subscribe((itemsResp: UserItem[]) => {
-              
+            
+            itemsResp.forEach(element => {
+              this.blobImgs = this.blobImgs.concat(null);
+            });
+
             this.items = itemsResp;
             for (let i = 0; i < this.items.length; i++) {
+
+              this.getImageFromService(this.items[i].itemImgUrls[ this.items[i].itemImgUrls.length - 1].imgUrl, i);
 
               if(this.items[i].itemFloatingChars) {
                 for (let j = 0; j < this.items[i].itemFloatingChars.length; j++) {
@@ -145,6 +153,29 @@ export class ItemListComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  getImageFromService(imageName: string, imgIndex: number) {
+    console.log("imageName: ", imageName);
+    this.itemService.getImage(imageName).subscribe(data => {
+      this.createImageFromBlob(data, imgIndex);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(image: Blob, imgIndex: number) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+
+      this.blobImgs[imgIndex] = reader.result;
+
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
   
 }

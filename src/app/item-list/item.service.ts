@@ -10,6 +10,7 @@ import { ItemFloatingCharRelJson } from '../models/item-floating-char-rel-json';
 import { UserJson } from '../models/Item-user-json';
 import { User } from '../models/Item-user';
 import { ItemImgUrlsJson } from '../models/Item-img-urls-json-model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,19 @@ export class ItemService {
 
   private itemUri: string = environment.host + environment.baseUrl + environment.entity.item;
   private filterItemUri: string = environment.host + environment.baseUrl + environment.entity.filterItems;
+  private itemBytesImage: string = environment.host + environment.baseUrl + environment.entity.itemBytesImage;
   
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private http: HttpClient) { }
 
   get(categoryId: number) : Observable<UserItem[]> {
     const catParam = "categoryId=" + categoryId;
     return this.httpService.get(this.itemUri + "?" + catParam);
+  }
+
+  getImage(imgName: string) : Observable<Blob> {
+    return this.http
+      .get(this.itemBytesImage + "/" + imgName, { responseType: 'blob' });
+      //.get("https://i.picsum.photos/id/800/200/300.jpg?hmac=p2lPeodOve_jNKshk2YAKVhKm4UUIJhfUe_Tt4FdnTA");
   }
 
   getFilterItems(itemFilter: InputFilter) : Observable<UserItem[]> {

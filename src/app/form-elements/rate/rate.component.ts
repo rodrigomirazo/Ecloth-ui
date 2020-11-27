@@ -25,18 +25,15 @@ export class RateComponent {
   }
 
   updateRange(index) {
-    console.log("index: " + index);
     this.rate = index;
   }
 
   /** Rate Inputs */
   @Input()
 	public get rate(): number {
-    console.log("GET rate: " + this._rate);
 		return this._rate;
 	}
   public set rate(value: number) {
-    console.log("SET rate: " + value), this._enableEdit;
     
     if(this._enableEdit || !this.initialSetup) {
       this._rate = value;

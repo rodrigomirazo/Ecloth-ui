@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
@@ -23,16 +24,20 @@ export class ItemDetailComponent implements OnInit {
   @Input()
   private increment: number;
 
+  public url: SafeResourceUrl;
+
   private item: UserItem;
   private itemFloatingChars: ItemFloatingChars[];
   private itemType: ItemCategoryModel[];
-  private images: string[] = [];
+  private images: any[] = [];
+  private blobImgs: any[] = [];
   private imageRows: number[] = [];
-  private principleImg: string;
+  private principleImg: any;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private sanitizer: DomSanitizer) {
     
   }
 
@@ -74,25 +79,29 @@ export class ItemDetailComponent implements OnInit {
     // setup image array
     let imgRowIndx = 0;
     itemResponse.itemImgUrls.forEach( (img: any) => {
-      this.images = this.images.concat( this.imgUrl(img.imgUrl) );
+
+      this.images = this.images.concat( img.imgUrl );
+      this.blobImgs = this.blobImgs.concat(null);
       if(img.id % 2) {
         this.imageRows = this.imageRows.concat(imgRowIndx);
         imgRowIndx = imgRowIndx + 2;
       }
     });
-
-    // Define principle image
-    this.principleImg = this.imgUrl(this.images[0]);
+    
+    let i = 0;
+    this.images.forEach(image => {
+      console.log(image, i);
+      this.getImageFromService(image, i);
+      i++;
+    });
   }
 
-  imgUrl(imageUrl: string) {
-    const url = imageUrl.substr(imageUrl.indexOf("/assets") + 1);
-    console.log(url);
-    return url;
+  imgUrl(imageUrl: any) {
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   setPrincipalImage(imageIndex) {
-    this.principleImg = this.images[imageIndex];
+    this.principleImg = this.blobImgs[imageIndex];
   }
 
   assignFloatingChars(itemResponse: UserItem, itemFloatingChars: ItemFloatingChars[]) {
@@ -136,14 +145,9 @@ export class ItemDetailComponent implements OnInit {
   }
 
   getCategoryTypes(): void {
-
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      
-      //if(itemType.length == 0) {
-        this.itemType = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-        console.log("item types = ", this.itemType);
-      //}
-      
+      this.itemType = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
+      console.log("item types = ", this.itemType);
     });
   }
 
@@ -158,6 +162,36 @@ export class ItemDetailComponent implements OnInit {
       return filterType[0].subCategoryName;
     } else {
       return "NA";
+    }
+  }
+
+  imageToShow: any;
+  isImageLoading: boolean;
+
+  getImageFromService(imageName: string, imgIndex: number) {
+    console.log("imageName: ", imageName);
+    this.isImageLoading = true;
+    this.itemService.getImage(imageName).subscribe(data => {
+      this.createImageFromBlob(data, imgIndex);
+      this.isImageLoading = false;
+    }, error => {
+      this.isImageLoading = false;
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(image: Blob, imgIndex: number) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+
+      this.blobImgs[imgIndex] = reader.result;
+      if(imgIndex == 0) {
+        this.principleImg = reader.result;
+      }
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
     }
   }
 
