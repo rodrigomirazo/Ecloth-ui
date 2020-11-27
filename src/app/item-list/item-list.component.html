@@ -19,7 +19,7 @@
 
         <!-- Item element Begin -->
         <div class="row item-image-row">
-            <img src="/assets/images/vistas/list_{{i}}.jpg" class="item-detail-img" alt="image">
+            <img src="/assets/images/vistas/list_{{i}}.jpg" [src]="imgUrl(item.itemImgUrls[item.itemImgUrls.length - 1].imgUrl)" class="item-detail-img" alt="image">
         </div>
         <div class="row">
 
@@ -27,14 +27,14 @@
                 Bicicleta/ {{ filterItemType(item.itemTypeCatId) }}
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 item-name">
-                {{ filterCatalog( 'material_de_cuadro', item.itemFloatingChars) }} {{ filterCatalog( 'talla', item.itemFloatingChars) }}
+                {{ filterCatalog( 'brand', item.itemFloatingChars) }} {{ filterCatalog( 'talla', item.itemFloatingChars) }}
             </div>
             <div style="width: 100%;">
                 <div class="col-xs-6 col-sm-5 col-md-6 item-price">
-                    {{item.originalPrice | currency}}
+                    {{item.price | currency}}
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 item-buy-button">
-                    <button mat-stroked-button color="primary">Comprar</button>
+                    <button mat-stroked-button color="primary" [routerLink]="['/item-detail', item.id ]">Comprar</button>
                 </div>
             </div>
 

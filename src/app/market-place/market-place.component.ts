@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { ItemService } from '../item-list/item.service';
-import { FloatingCharIdsSelected } from '../models/floating-char-Ids-selected';
 import { InputFilter } from '../models/input-filter-model';
 import { InputFilterYear } from '../models/input-filter-years-model';
 import { ItemFloatingChars } from '../models/item-floating-char';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { ItemSelectedFilters } from '../models/item-selected-filters';
 import { ItemCategoryModel } from '../models/main-categories-model';
 import { UtilsService } from '../services/utils.service';
 
@@ -41,6 +38,11 @@ export class MarketPlaceComponent implements OnInit {
     this.route.params.subscribe(params => {
       
       this.inputFilter = this.utilsService.decodeBase64(params.inputFilter);
+
+      // Verify Earch Bar
+      if(params.searchBar) {
+        this.inputFilter.searchBar = params.searchBar;
+      }
       
       // 2. Load Filters From DB
       this.getYearsCat();

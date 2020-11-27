@@ -348,7 +348,9 @@
         <mat-step [stepControl]="secondFormGroup">
             <ng-template matStepLabel>Subir</ng-template>
             <div *ngIf="item.id">
-                <item-detail [itemInput]="item" [increment]="increment"></item-detail>
+                <div *ngIf="item.price">
+                    <item-detail [itemInput]="item" [increment]="increment"></item-detail>
+                </div>
             </div>
             <!-- Rate steps -->
             <div class="row" style="margin-top: 40px;">

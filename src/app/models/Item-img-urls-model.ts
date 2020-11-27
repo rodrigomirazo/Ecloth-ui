@@ -4,8 +4,8 @@ export class ItemImgUrls {
     private _id: number;
     private _itemId: number;
     private _createdTime: number;
-    private _imgUrl: String;
-    private _imgServer: String;
+    private _imgUrl: string;
+    private _imgServer: string;
 
 	constructor() {
     }
@@ -36,17 +36,17 @@ export class ItemImgUrls {
 
     /**
      * Getter imgUrl
-     * @return {String}
+     * @return {string}
      */
-	public get imgUrl(): String {
+	public get imgUrl(): string {
 		return this._imgUrl;
 	}
 
     /**
      * Getter imgServer
-     * @return {String}
+     * @return {string}
      */
-	public get imgServer(): String {
+	public get imgServer(): string {
 		return this._imgServer;
 	}
 
@@ -76,19 +76,18 @@ export class ItemImgUrls {
 
     /**
      * Setter imgUrl
-     * @param {String} value
+     * @param {string} value
      */
-	public set imgUrl(value: String) {
+	public set imgUrl(value: string) {
 		this._imgUrl = value;
 	}
 
     /**
      * Setter imgServer
-     * @param {String} value
+     * @param {string} value
      */
-	public set imgServer(value: String) {
+	public set imgServer(value: string) {
 		this._imgServer = value;
 	}
 
-	
 }

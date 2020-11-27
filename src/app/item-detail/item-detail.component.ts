@@ -6,12 +6,13 @@ import { ItemService } from '../item-list/item.service';
 import { ItemFloatingChars } from '../models/item-floating-char';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
+import { ItemImgUrls } from '../models/Item-img-urls-model';
 import { UserItem } from '../models/Item-user-model';
 import { ItemCategoryModel } from '../models/main-categories-model';
 
 @Component({
   selector: 'item-detail',
-  templateUrl: './item-detail.component.html',
+  templateUrl: './item-detail.component.html?v=${new Date().getTime()}',
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit {
@@ -25,6 +26,9 @@ export class ItemDetailComponent implements OnInit {
   private item: UserItem;
   private itemFloatingChars: ItemFloatingChars[];
   private itemType: ItemCategoryModel[];
+  private images: string[] = [];
+  private imageRows: number[] = [];
+  private principleImg: string;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
@@ -46,14 +50,49 @@ export class ItemDetailComponent implements OnInit {
           console.log("at if");
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
             this.assignFloatingChars(itemResponse, itemFloatingChars);
+            this.orderImages(itemResponse);
           });
         } else {
-          console.log("at else", this.itemInput);
-          this.assignFloatingChars(this.itemInput, itemFloatingChars);
+          this.itemService.getById( parseInt(this.itemInput.id) ).subscribe( (itemResponse: UserItem) => {
+            
+            this.assignFloatingChars(itemResponse, itemFloatingChars);
+            this.orderImages(itemResponse);
+          });
         }
 
       });
     });
+  }
+
+  orderImages(itemResponse: UserItem) {
+    
+    // Sort image array
+    itemResponse.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+      return b.id - a.id;
+    });
+    
+    // setup image array
+    let imgRowIndx = 0;
+    itemResponse.itemImgUrls.forEach( (img: any) => {
+      this.images = this.images.concat( this.imgUrl(img.imgUrl) );
+      if(img.id % 2) {
+        this.imageRows = this.imageRows.concat(imgRowIndx);
+        imgRowIndx = imgRowIndx + 2;
+      }
+    });
+
+    // Define principle image
+    this.principleImg = this.imgUrl(this.images[0]);
+  }
+
+  imgUrl(imageUrl: string) {
+    const url = imageUrl.substr(imageUrl.indexOf("/assets") + 1);
+    console.log(url);
+    return url;
+  }
+
+  setPrincipalImage(imageIndex) {
+    this.principleImg = this.images[imageIndex];
   }
 
   assignFloatingChars(itemResponse: UserItem, itemFloatingChars: ItemFloatingChars[]) {
