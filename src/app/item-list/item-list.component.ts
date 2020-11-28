@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserItem } from '../models/Item-user-model';
+import { UserItem } from '../_models/Item-user-model';
 import { ItemService } from './item.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { InputFilter } from '../models/input-filter-model';
+import { InputFilter } from '../_models/input-filter-model';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 
 @Component({
   selector: 'app-item-list',

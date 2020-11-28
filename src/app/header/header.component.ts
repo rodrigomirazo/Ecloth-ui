@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { InputFilter_header } from '../models/input-filter-header-model';
-import { ItemCategoryModel } from '../models/main-categories-model';
-import { UtilsService } from '../services/utils.service';
+import { InputFilter_header } from '../_models/input-filter-header-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-header',

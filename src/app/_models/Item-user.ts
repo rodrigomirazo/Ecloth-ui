@@ -7,6 +7,7 @@ export class User {
     private _password: string;
     private _createdTime: string;
     private _userProfileImg: string;
+    private _token: string;
 
     constructor(
         id?: string,
@@ -25,8 +26,8 @@ export class User {
 		this._password = password;
 		this._createdTime = createdTime;
 		this._userProfileImg = userProfileImg;
-	}
-
+    }
+    
 
     /**
      * Getter id
@@ -77,6 +78,14 @@ export class User {
 	}
 
     /**
+     * Getter token
+     * @return {string}
+     */
+	public get token(): string {
+		return this._token;
+	}
+
+    /**
      * Setter id
      * @param {string} value
      */
@@ -122,6 +131,14 @@ export class User {
      */
 	public set userProfileImg(value: string) {
 		this._userProfileImg = value;
+	}
+
+    /**
+     * Setter token
+     * @param {string} value
+     */
+	public set token(value: string) {
+		this._token = value;
 	}
 
 

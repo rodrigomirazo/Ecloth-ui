@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { InputFilter_header } from '../models/input-filter-header-model';
-import { InputFilter } from '../models/input-filter-model';
+import { InputFilter_header } from '../_models/input-filter-header-model';
+import { InputFilter } from '../_models/input-filter-model';
 
 @Injectable({
   providedIn: 'root'

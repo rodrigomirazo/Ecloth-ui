@@ -33,6 +33,7 @@ import { RateComponent } from './form-elements/rate/rate.component';
 import { TermsComponent } from './terms-conditions/terms-conditions.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
+import { LoginComponent } from './login/login.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -62,7 +63,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RateComponent,
     TermsComponent,
     PrivacyComponent,
-    ReturnPolicyComponent
+    ReturnPolicyComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

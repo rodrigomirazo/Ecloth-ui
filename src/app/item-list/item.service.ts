@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { UserItem } from '../models/Item-user-model';
-import { InputFilter } from '../models/input-filter-model';
-import { UserItemJson } from '../models/Item-user-json-model';
+import { UserItem } from '../_models/Item-user-model';
+import { InputFilter } from '../_models/input-filter-model';
+import { UserItemJson } from '../_models/Item-user-json-model';
 import { FormGroup } from '@angular/forms';
-import { ItemFloatingCharRelJson } from '../models/item-floating-char-rel-json';
-import { UserJson } from '../models/Item-user-json';
-import { User } from '../models/Item-user';
-import { ItemImgUrlsJson } from '../models/Item-img-urls-json-model';
+import { ItemFloatingCharRelJson } from '../_models/item-floating-char-rel-json';
+import { UserJson } from '../_models/Item-user-json';
+import { User } from '../_models/Item-user';
+import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
-import { ItemImgUrls } from '../models/Item-img-urls-model';
-import { UserItem } from '../models/Item-user-model';
-import { ItemCategoryModel } from '../models/main-categories-model';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
+import { ItemImgUrls } from '../_models/Item-img-urls-model';
+import { UserItem } from '../_models/Item-user-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
 
 @Component({
   selector: 'item-detail',

@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
-import { UserItem } from '../models/Item-user-model';
-import { ItemCategoryModel } from '../models/main-categories-model';
-import { UploadFilesService } from '../services/upload-files.service';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
+import { UserItem } from '../_models/Item-user-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UploadFilesService } from '../_services/upload-files.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { InputFilterYear } from '../models/input-filter-years-model';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { InputFilterYear } from '../_models/input-filter-years-model';
 import { CommentStmt } from '@angular/compiler';
-import { User } from '../models/Item-user';
+import { User } from '../_models/Item-user';
 import { Router } from '@angular/router';
 
 @Component({
