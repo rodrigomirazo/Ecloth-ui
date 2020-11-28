@@ -41,7 +41,6 @@
 }
 
 .banner-menu {
-    height: 600px;
     width: 100%;
 }
 
@@ -85,7 +84,7 @@
 
 .header-menu-left-side {
     font-family: bebasNeue-bold;
-    font-size: 36px;
+    font-size: 230%;
     color: #303130;
 }
 

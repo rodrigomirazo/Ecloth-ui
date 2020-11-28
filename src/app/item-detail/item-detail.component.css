@@ -1,18 +1,114 @@
 
 table {
-    font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
-    border-radius: 30px;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
-  
+    width: 110%;
+    border-radius: 60px;
+}
+
+th {
+  text-align: left;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 25px;
+  font-family: montserrat-semiBold;
+  font-size: 10pt;
+  color: #303130;
+}
+
+td {
+  text-align: left;
+  padding: 4px;
+  font-family: montserrat-light;
+  font-size: 11pt;
+  color: #303130;
+}
+
+.normal-txt-detail {
+  text-align: left;
+  padding: 25px;
+  font-family: montserrat-light;
+  font-size: 11pt;
+  color: #303130;
+}
+
+.item-detail-accordion {
+  background-color: #f2f2f2 !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding-left: 0px !important;
+}
+
+.rate-section {
+  padding-left: 25px;
+}
+
+mat-panel-title{
+  font-family: montserrat-semiBold;
+  font-size: 11pt;
+  color: #303130 !important;
+}   
+
+.item-detail-accordion tr:nth-child(even) {
+  background-color: white;
+}
+
+.type-item-detail{
+  font-family: montserrat-medium;
+  font-size: 14pt;
+  margin-top: 24px;
+  color: #303130;
+}
+
+.name-item-detail{
+  font-family: bebasNeue-bold;
+  font-size: 45pt;
+  color: #303130;
+  line-height: 45px;
+}
+
+.size-item-detail{
+  font-family: bebasNeue-bold;
+  font-size: 32pt;
+  color: #303130;
+  line-height: 38px;
+}
+
+.price-item-detail{
+  font-family: bebasNeue-bold;
+  font-size: 27pt;
+  color: #303130;
+  line-height: 34px;
+}
+
+.text-item-detail{
+  padding: 8px;
+  font-family: montserrat-semiBold;
+  font-size: 10pt;
+  color: #303130;
+}
+
+.mat-button-base {
+  margin: 0px 0px 20px 0px;
+  border-radius: 34px;
+  color: rgb(80, 78, 78);
+  font-family: montserrat-light;
+  font-size: 14px;
+}
+
+.item-upload-img-principal {
+  height: 400px;
+  margin-top: 18px;
+}
+
+.item-upload-img-div {
+  text-align: center;
+}
+
+.item-upload-img-button {
+  height: 250px;
+  width: 250px;
+  margin-top: 18px;
+  object-fit: cover;
+}

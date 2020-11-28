@@ -7,13 +7,13 @@
 
 .footer-title {
     font-family: bebasNeue-bold;
-    font-size: 25pt;
+    font-size: 26pt;
     color: #ffffff;
 }
 
-.footer-links {
+a, .footer-links {
     font-family: montserrat-light;
-    font-size: 10pt;
+    font-size: 11pt;
     color: #ffffff;
 }
 
@@ -26,4 +26,8 @@
     font-family: bebasNeue-bold;
     font-size: 25pt;
     color: #ffffff;
+}
+
+.separator {
+    height: 30pt;
 }

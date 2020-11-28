@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { InputFilter_header } from '../models/input-filter-header-model';
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit {
   private urbanFilter: string;
   private roadFilter: string;
   private discoverFilter: string;
-  
+  private searchFormGroup: FormGroup;
   
   /** Item Types */
   private itemTypes: ItemCategoryModel[] = [];
@@ -24,13 +26,24 @@ export class HeaderComponent implements OnInit {
   constructor(
     private floatingCharsService: FloatingCharsService,
     private categoryService: CategoryService,
-    private utilsService: UtilsService
-  ) { }
+    private utilsService: UtilsService,
+    private router: Router,
+    private _formBuilder: FormBuilder
+  ) {
+    this.searchFormGroup = this._formBuilder.group({
+      searchBar: new FormControl(''),
+    });
+  }
 
   ngOnInit() {
     this.getCategoryTypesLinkMountain();
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
+  }
+
+  submit() {
+    console.log("submit", this.searchFormGroup.value.searchBar);
+    this.router.navigate(['/market-place', 'null', this.searchFormGroup.value.searchBar ])
   }
 
   getCategoryTypesLinkMountain(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserItem } from '../models/Item-user-model';
 import { ItemService } from './item.service';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -23,8 +23,10 @@ export class ItemListComponent implements OnInit {
   private _changeIncrement: number;
 
   private items: UserItem[];
+  private blobImgs: any[] = [];
 
   constructor(
+    private sanitizer: DomSanitizer,
     private itemService: ItemService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
@@ -94,6 +96,11 @@ export class ItemListComponent implements OnInit {
     }
   }
 
+  imgUrl(imageUrl: string) {
+    
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+
   /**
    * @description This Function requests the List of Items based on current Input Filters
    */
@@ -103,10 +110,16 @@ export class ItemListComponent implements OnInit {
 
       if(this.inputFilter.itemTypes) {
         if(this.inputFilter.itemTypes.length > 0) {
-          this.itemService.getFilterItems(this.inputFilter).subscribe((itemsResp: any[]) => {
-              
+          this.itemService.getFilterItems(this.inputFilter).subscribe((itemsResp: UserItem[]) => {
+            
+            itemsResp.forEach(element => {
+              this.blobImgs = this.blobImgs.concat(null);
+            });
+
             this.items = itemsResp;
             for (let i = 0; i < this.items.length; i++) {
+
+              this.getImageFromService(this.items[i].itemImgUrls[ this.items[i].itemImgUrls.length - 1].imgUrl, i);
 
               if(this.items[i].itemFloatingChars) {
                 for (let j = 0; j < this.items[i].itemFloatingChars.length; j++) {
@@ -118,13 +131,19 @@ export class ItemListComponent implements OnInit {
                   let floatCharCat: ItemFloatingCharsCat[] = [];
 
                   // c) verify if Char was found
-                  if(floatChar.length > 0 && itemsResp[i].itemFloatingChars[j].floatingCharsCatId) {
+                  if(floatChar.length > 0 && itemsResp[i].itemFloatingChars[j].floatingCharCatId) {
                     //console.log("\n floatChar.length", floatChar[0].catalogList, " VS ", itemsResp[i].itemFloatingChars[j].floatingCharsCatId);
                     floatCharCat = floatChar[0].catalogList.filter(floatCatChar => floatCatChar.charId == this.items[i].itemFloatingChars[j].floatingCharCatId );
                   }
                   
                   //console.log("floatCharCat: ", floatCharCat[0], floatChar[0]);
                   // d) assign using validations
+                  console.log("-");
+                  console.log("floatChar: ", floatChar);
+                  console.log("floatCharCat: ", floatCharCat);
+                  console.log("floatingCharCatId: ", this.items[i].itemFloatingChars[j].floatingCharCatId);
+                  
+                  
                   this.items[i].itemFloatingChars[j].floatingCharName = (floatChar.length > 0) ? floatChar[0].floatingCharName : "N/A";
                   this.items[i].itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
                 }
@@ -134,6 +153,29 @@ export class ItemListComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  getImageFromService(imageName: string, imgIndex: number) {
+    console.log("imageName: ", imageName);
+    this.itemService.getImage(imageName).subscribe(data => {
+      this.createImageFromBlob(data, imgIndex);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(image: Blob, imgIndex: number) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+
+      this.blobImgs[imgIndex] = reader.result;
+
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
   
 }

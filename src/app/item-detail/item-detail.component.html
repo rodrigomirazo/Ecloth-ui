@@ -1,22 +1,39 @@
 
 <div *ngIf="item">
-    <div class="col-md-8">
-    imagenes
+    <div class="col-md-8" *ngIf="images">
     
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 item-upload-img-div">
+            <img class="item-upload-img-principal" [src]="imgUrl(principleImg)">
+          </div>
+      </div>
+
+      
+      <div class="row" *ngFor="let imgRow of imageRows">
+          <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="images[imgRow]">
+              <img class="item-upload-img-button" [src]="imgUrl(blobImgs[imgRow])" (click)="setPrincipalImage(imgRow)">
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="images[imgRow + 1]">
+              <img class="item-upload-img-button" [src]="imgUrl(blobImgs[imgRow + 1])" (click)="setPrincipalImage(imgRow + 1)">
+          </div>
+      </div>
+      
     </div>
 
     <div class="col-md-4">
-        <p>Bicicleta/montaña</p>
-        <b><p>{{item.name}}</p></b>
-        <b><p>Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
-        <b><p>$ {{item.price}}.00</p></b>
-        <mat-accordion class="example-headers-align" multi>
-            <mat-expansion-panel>
+        <p class="type-item-detail"> Bicicleta/ {{ filterItemType(item.itemTypeCatId)}}</p>
+        <b><p class="name-item-detail">{{item.model}}</p></b>
+        <b><p class="size-item-detail">Talla {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
+        <b><p class="price-item-detail"> {{item.price | currency}}</p></b>
+
+        <button mat-stroked-button>Comprar</button>
+        <mat-accordion multi>
+            <mat-expansion-panel class="item-detail-accordion" >
               <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title >
                     <b>  Especificaciones </b>
                 </mat-panel-title>
-                
+
               </mat-expansion-panel-header>
           
               <table>
@@ -26,11 +43,11 @@
                 </tr>
                 <tr>
                 <th>Modelo</th>
-                <td>Francisco Chang</td>
+                <td>{{item.model}}</td>
                 </tr>
                 <tr>
                 <th>Año</th>
-                <td>Roland Mendel</td>
+                <td>{{item.year}}</td>
                 </tr>
                 <tr>
                 <th>Género</th>
@@ -41,16 +58,20 @@
                 <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
-                    <th>Llanta</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <th>Material del cuadro</th>
+                    <td>{{ filterCatalog('material_de_cuadro', item.itemFloatingChars) }}</td>
+                    </tr>
+                <tr>
+                    <th>Medida de Llanta</th>
+                    <td>{{ filterCatalog('medida_de_llanta', item.itemFloatingChars) }}</td>
                 </tr>
                 <tr>
-                    <td>Palanca de cambio</td>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <th>Palanca de cambio</th>
+                    <td>{{ item.gearLevel }}</td>
                 </tr>
                 <tr>
                     <th>Multiplicación</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <td>{{ item.multiplication }}</td>
                 </tr>
                 <tr>
                     <th>Cambio trasero</th>
@@ -62,118 +83,117 @@
                 </tr>
                 <tr>
                     <th>Suspensión</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <td>{{ item.suspension}}</td>
                 </tr>
                 <tr>
-                    <th>Ruedas</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <th>Ruedos</th>
+                    <td>{{ item.ruedos }}</td>
                 </tr>
                 <tr>
-                    <th>Cadena</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <th>Cassette</th>
+                    <td>{{  item.casette }}</td>
+                </tr>
+                <tr>
+                    <th>Número de serie</th>
+                    <td>{{ item.series }}</td>
                 </tr>
               </table>
           
             </mat-expansion-panel>
-            <mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                     <b> Condiciones</b>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <div class="col-md-6">
-                Calificación
-              </div>
-              <div class="col-md-6">
-                Excelente
-              </div>
-              <div class="col-md-6">
-                Cuadro
-              </div>
-              <div class="col-md-6">
-                <span class="material-icons">
-                    lens
-                </span>
-                <span class="material-icons">
-                    lens
-                </span>
-                <span class="material-icons">
-                    lens
-                </span>
-                <span class="material-icons">
-                    lens
-                </span>
-                <span class="material-icons">
-                    panorama_fish_eye
-                </span>
+              <div class="rate-section">
+
+                <div class="row">
+
+                  <div class="col-md-6 text-item-detail">
+                      Calificación
+                  </div>
+                  <div class="col-md-6 text-item-detail">
+                      {{ filterCatalog('condition', item.itemFloatingChars) }}
+                  </div>
                 </div>
-                <div class="col-md-6">
-                    Rines
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                    Cuadro
                   </div>
                   <div class="col-md-6">
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        panorama_fish_eye
-                    </span>
+                    <item-rate [rate]="item.frameRate" [enableEdit]="false"></item-rate>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                    Llantas
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                    Ruedos
                   </div>
                   <div class="col-md-6">
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        panorama_fish_eye
-                    </span>
-                </div>
-                <div class="col-md-6">
-                    Componentes
+                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false"></item-rate>
                   </div>
-                  <div class="col-md-6">
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        lens
-                    </span>
-                    <span class="material-icons">
-                        panorama_fish_eye
-                    </span>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 text-item-detail">
+                        Llantas
+                      </div>
+                      <div class="col-md-6">
+                      <item-rate [rate]="item.wheelsRate" [enableEdit]="false"></item-rate>
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="col-md-6 text-item-detail">
+                        Componentes
+                      </div>
+                    <div class="col-md-6">
+                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false"></item-rate>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                      Modificaciones
+                    </div>
+                    <div  *ngIf=" item.isModified == true" class="col-md-6 text-item-detail">
+                      Si
+                  </div>
+                  <div *ngIf="item.isModified == false" class="col-md-6 text-item-detail">
+                      No
+                </div>
+        
+              </div>
+            </div>
             </mat-expansion-panel>
-            <mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    <b> Modificaciones & detalles</b>
+                    <b> Detalles</b>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    {{item.comments}}
+                 </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Compra & devoluciones</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="normal-txt-detail">
+                    Contáctanos por vía whatsapp ó llamada al
+                    <b>44 48 66 77 77</b> ó vía correo electrónico:
+                <b>contacto@baaw.mx</b>
+                 </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Envío</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    A cargo del comprador
+                 </div>
             </mat-expansion-panel>
           </mat-accordion>
           

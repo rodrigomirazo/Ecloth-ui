@@ -1,0 +1,13 @@
+
+<div (click)="file.click()">
+    <div *ngIf="!previewUrl">
+        <img class="item-upload-img-principal-button" src="assets/images/publish/upload_img_principal.svg">
+    </div>
+    <div *ngIf="previewUrl" class="item-upload-img-div">
+        <img [src]="previewUrl" class="item-upload-img-selected" [ngStyle]="heightStyle()"/>
+    </div>
+    
+    <form [formGroup]="form">
+        <input type="file" name="image" (change)="fileProgress($event)" #file style="display: none;" />
+    </form>
+</div>

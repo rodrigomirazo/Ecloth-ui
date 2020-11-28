@@ -1,5 +1,6 @@
 
 import { ItemFloatingCharRel } from './item-floating-char-rel';
+import { ItemImgUrls } from './Item-img-urls-model';
 import { User } from './Item-user';
 
 export class UserItem {
@@ -19,10 +20,27 @@ export class UserItem {
     private _lastLevelCategoryId: number;
     private _user: User;
     private _itemFloatingChars: ItemFloatingCharRel[];
+    private _itemImgUrls: ItemImgUrls[];
+    private _backRear: string;
+    private _frontRear: string;
+    private _model: string;
+    private _year: number;
+    private _suspension: string;
+    private _ruedos: string;
+    private _cassette: string;
+    private _series: string;
+    private _gearLevel: string;
+    private _multiplication: string;
+    private _isModified: boolean;
+    private _comments: string;
+    private _frameRate: number;
+    private _ruedosRate: number;
+    private _wheelsRate: number;
+    private _componentsRate: number;
 
 	constructor() {
+        this._user = new User();
     }
-
 
     /**
      * Getter id
@@ -145,6 +163,142 @@ export class UserItem {
 	}
 
     /**
+     * Getter itemImgUrls
+     * @return {ItemImgUrls[]}
+     */
+	public get itemImgUrls(): ItemImgUrls[] {
+		return this._itemImgUrls;
+	}
+
+    /**
+     * Getter backRear
+     * @return {string}
+     */
+	public get backRear(): string {
+		return this._backRear;
+	}
+
+    /**
+     * Getter frontRear
+     * @return {string}
+     */
+	public get frontRear(): string {
+		return this._frontRear;
+	}
+
+    /**
+     * Getter model
+     * @return {string}
+     */
+	public get model(): string {
+		return this._model;
+	}
+
+    /**
+     * Getter year
+     * @return {number}
+     */
+	public get year(): number {
+		return this._year;
+	}
+
+    /**
+     * Getter suspension
+     * @return {string}
+     */
+	public get suspension(): string {
+		return this._suspension;
+	}
+
+    /**
+     * Getter ruedos
+     * @return {string}
+     */
+	public get ruedos(): string {
+		return this._ruedos;
+	}
+
+    /**
+     * Getter cassette
+     * @return {string}
+     */
+	public get cassette(): string {
+		return this._cassette;
+	}
+
+    /**
+     * Getter series
+     * @return {string}
+     */
+	public get series(): string {
+		return this._series;
+	}
+
+    /**
+     * Getter gearLevel
+     * @return {string}
+     */
+	public get gearLevel(): string {
+		return this._gearLevel;
+	}
+
+    /**
+     * Getter multiplication
+     * @return {string}
+     */
+	public get multiplication(): string {
+		return this._multiplication;
+	}
+
+    /**
+     * Getter isModified
+     * @return {boolean}
+     */
+	public get isModified(): boolean {
+		return this._isModified;
+	}
+
+    /**
+     * Getter comments
+     * @return {string}
+     */
+	public get comments(): string {
+		return this._comments;
+	}
+
+    /**
+     * Getter frameRate
+     * @return {number}
+     */
+	public get frameRate(): number {
+		return this._frameRate;
+	}
+
+    /**
+     * Getter ruedosRate
+     * @return {number}
+     */
+	public get ruedosRate(): number {
+		return this._ruedosRate;
+	}
+
+    /**
+     * Getter wheelsRate
+     * @return {number}
+     */
+	public get wheelsRate(): number {
+		return this._wheelsRate;
+	}
+
+    /**
+     * Getter componentsRate
+     * @return {number}
+     */
+	public get componentsRate(): number {
+		return this._componentsRate;
+	}
+
+    /**
      * Setter id
      * @param {string} value
      */
@@ -264,5 +418,141 @@ export class UserItem {
 		this._itemFloatingChars = value;
 	}
 
+    /**
+     * Setter itemImgUrls
+     * @param {ItemImgUrls[]} value
+     */
+	public set itemImgUrls(value: ItemImgUrls[]) {
+		this._itemImgUrls = value;
+	}
+
+    /**
+     * Setter backRear
+     * @param {string} value
+     */
+	public set backRear(value: string) {
+		this._backRear = value;
+	}
+
+    /**
+     * Setter frontRear
+     * @param {string} value
+     */
+	public set frontRear(value: string) {
+		this._frontRear = value;
+	}
+
+    /**
+     * Setter model
+     * @param {string} value
+     */
+	public set model(value: string) {
+		this._model = value;
+	}
+
+    /**
+     * Setter year
+     * @param {number} value
+     */
+	public set year(value: number) {
+		this._year = value;
+	}
+
+    /**
+     * Setter suspension
+     * @param {string} value
+     */
+	public set suspension(value: string) {
+		this._suspension = value;
+	}
+
+    /**
+     * Setter ruedos
+     * @param {string} value
+     */
+	public set ruedos(value: string) {
+		this._ruedos = value;
+	}
+
+    /**
+     * Setter cassette
+     * @param {string} value
+     */
+	public set cassette(value: string) {
+		this._cassette = value;
+	}
+
+    /**
+     * Setter series
+     * @param {string} value
+     */
+	public set series(value: string) {
+		this._series = value;
+	}
+
+    /**
+     * Setter gearLevel
+     * @param {string} value
+     */
+	public set gearLevel(value: string) {
+		this._gearLevel = value;
+	}
+
+    /**
+     * Setter multiplication
+     * @param {string} value
+     */
+	public set multiplication(value: string) {
+		this._multiplication = value;
+	}
+
+    /**
+     * Setter isModified
+     * @param {boolean} value
+     */
+	public set isModified(value: boolean) {
+		this._isModified = value;
+	}
+
+    /**
+     * Setter comments
+     * @param {string} value
+     */
+	public set comments(value: string) {
+		this._comments = value;
+	}
+
+    /**
+     * Setter frameRate
+     * @param {number} value
+     */
+	public set frameRate(value: number) {
+		this._frameRate = value;
+	}
+
+    /**
+     * Setter ruedosRate
+     * @param {number} value
+     */
+	public set ruedosRate(value: number) {
+		this._ruedosRate = value;
+	}
+
+    /**
+     * Setter wheelsRate
+     * @param {number} value
+     */
+	public set wheelsRate(value: number) {
+		this._wheelsRate = value;
+	}
+
+    /**
+     * Setter componentsRate
+     * @param {number} value
+     */
+	public set componentsRate(value: number) {
+		this._componentsRate = value;
+	}
+    
 
 }

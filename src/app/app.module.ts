@@ -27,6 +27,12 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { CatalogSelectorComponent } from './form-elements/catalog-selector/catalog-selector.component';
 import { SaleItemUploadImgComponent } from './sale-item-upload-img/sale-item-upload-img.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { ItemImagePreviewComponent } from './sale-item-upload-img/item-image-preview/item-image-preview.component';
+import { SaleItemInputTextComponent } from './sale-item-upload-img/sale-item-input-text/sale-item-input-text.component';
+import { RateComponent } from './form-elements/rate/rate.component';
+import { TermsComponent } from './terms-conditions/terms-conditions.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -50,7 +56,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     HomePageComponent,
     CatalogSelectorComponent,
     SaleItemUploadImgComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    ItemImagePreviewComponent,
+    SaleItemInputTextComponent,
+    RateComponent,
+    TermsComponent,
+    PrivacyComponent,
+    ReturnPolicyComponent
   ],
   imports: [
     BrowserModule,

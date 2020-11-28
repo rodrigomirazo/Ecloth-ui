@@ -17,7 +17,8 @@
                     <div class="col-md-4 col-sm-4">
         
                         <div class="row" >
-                            <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">COMPRA</div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">
+                                <a [routerLink]="['/market-place', 'null' ]">COMPRA</a></div>
                             <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">VENDE</div>
                             <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRA HISTORIA</div>
                             <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRO BLOG</div>
@@ -67,18 +68,15 @@
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-2"></div>
                     <div class="col-md-10 col-sm-10 col-xs-10">
-                        COMPRA, VENDE, RUEDA
+                        COMPRA, RUEDA, VENDE, REPITE
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-5"></div>
                     <div class="col-md-2 col-sm-2 col-xs-2">
-                        <a [routerLink]="['/market-place', 'null' ]">
-                            <button mat-stroked-button style="border-radius: 25px; width: 170px; border-color: white;">
-                                Descubre
-                            </button>
-                        </a>
-
+                        <button mat-stroked-button style="border-radius: 25px; width: 170px; border-color: white;" [routerLink]="['/market-place', 'null' ]">
+                            Descubre
+                        </button>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-5"></div>
                 </div>
@@ -105,14 +103,16 @@
         <app-home-carousel></app-home-carousel>
     </div>
 
-
+<!--
     <div id="home-categories" style="padding-top: 80px">
         <app-home-categories></app-home-categories>
     </div>
+-->
 
-
+<!--
     <div id="home-news" style="padding-top: 80px">
         <app-home-news></app-home-news>
     </div>
+-->
 
 </div>

@@ -1,252 +1,373 @@
-<div style="padding-left: 2.5%;">
+<div class="row" style="padding-left: 2.5%; padding-right: 2.5%;">
 
-    <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <!-- TODO: add linear attr -->
+    <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
         <mat-step [stepControl]="firstFormGroup">
+            
             <!-- Begin First Step -->
+            <div class="row" style="text-align: center;">
+                <div class="first-step-title">CUÉNTANOS DE TU BICICLETA</div>
+                <p class="first-step-sub-title">Necesitamos saber qué tipo de bicicleta tienes</p>
+            </div>
 
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
+            <form [formGroup]="firstFormGroup" class="form-font-family">
+                <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
+                    <div class="row">
+                        <!-- Marca -->
+                        <div class="col-md-4 col-md-offset-3">
+                            <app-catalog-selector
+                            [inputTitle]="'Marca'"
+                            [inputFormName]="'brand'"
+                            [parentFormGroup]="firstFormGroup"
+                            [itemFloatingChar]="filterFloatChar('brand')"
+                            [itemFloatingCharRel]="filterFloatCharRel('brand')" ></app-catalog-selector>
+                        </div>
+                        <!-- Cambio Trasero -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Cambio Trasero</mat-label>
+                                <input matInput placeholder="Cambio Trasero" value="" formControlName="backRear">
+                                <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-            <div class="row">
+                    <div class="row">
+                        <!-- Modelo -->
+                        <div class="col-md-4 col-md-offset-3">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Modelo</mat-label>
+                                <input matInput placeholder="Modelo" value="" formControlName="model">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- Desviador Delantero -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Desviador Delantero</mat-label>
+                                <input matInput placeholder="Cambio Delantero" value="" formControlName="frontRear">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-                <div class="col-md-12">
-                    <h4>Modelo de Bicicleta</h4>
-                </div>
+                    <div class="row">
+                        <!-- Año -->
+                        <div class="col-md-4 col-md-offset-3" *ngIf="years">
+                            <mat-form-field appearance="fill" style="width: 300px;" *ngIf="years.length > 0">
+                                <mat-label>Año</mat-label>
+                                <mat-select  name="typeSelected" formControlName="year">
+                                    <mat-option [value]=""></mat-option>
 
-                <div class="col-md-6">
-                    <app-catalog-selector
-                    [inputTitle]="'Marca'"
-                    [itemFloatingChar]="filterFloatChar('brand')"
-                    [itemFloatingCharRel]="filterFloatCharRel('brand')" ></app-catalog-selector>
-                </div>
+                                    <mat-option *ngFor="let year of years; let yearIndex = index"
+                                                [value]="year.year">
+                                            {{ year.year }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- Suspension -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Suspensión</mat-label>
+                                <input matInput placeholder="Cambio Delantero" value="" formControlName="suspension">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-                <div class="col-md-6" *ngIf="itemTypes">
+                    <div class="row">
+                        <!-- Modalidad -->
+                        <div class="col-md-4 col-md-offset-3" *ngIf="itemTypes">
+                            <mat-form-field appearance="fill" style="width: 300px;" *ngIf="itemTypes.length > 0">
+                                <mat-label>Modalidad</mat-label>
+                                <mat-select  name="typeSelected" formControlName="itemTypeCatId">
+                                    <mat-option [value]="">
+                                    </mat-option>
+                                    <mat-option *ngFor="let itemType of itemTypes; let typeIndex = index"
+                                                [value]="itemType.id">
+                                            {{ escapePipe( itemType.subCategoryName ) }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- Ruedos -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Ruedos</mat-label>
+                                <input matInput placeholder="Ruedos" value="" formControlName="ruedos">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-                    <mat-form-field appearance="fill" style="width: 300px;" *ngIf="itemTypes.length > 0">
-                        <mat-label>Modalidad</mat-label>
+                    <div class="row">
+                        <!-- Genero -->
+                        <div class="col-md-4 col-md-offset-3">
+                            <app-catalog-selector
+                            [inputTitle]="'Genero'"
+                            [inputFormName]="'genere'"
+                            [parentFormGroup]="firstFormGroup"
+                            [itemFloatingChar]="filterFloatChar('genero')"
+                            [itemFloatingCharRel]="filterFloatCharRel('genero')" ></app-catalog-selector>
+                        </div>
+                        <!-- Cassette -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Cassette</mat-label>
+                                <input matInput placeholder="Cassette" value="" formControlName="cassette">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-                        <mat-select  name="typeSelected" [(ngModel)]="itemTypeSelected"
-                                    [ngModelOptions]="{standalone: true}">
-                            <mat-option [value]="">
-                            
-                            </mat-option>
-                
-                            <mat-option *ngFor="let itemType of itemTypes; let typeIndex = index"
-                                        [value]="itemType">
-                                    {{ escapePipe( itemType.subCategoryName ) }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <mat-form-field style="width: 300px;">
-                        <mat-label>Modelo</mat-label>
-                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.model" [ngModelOptions]="{standalone: true}">
-                      </mat-form-field>
-                </div>
-
-                <div class="col-md-6">
-                    <app-catalog-selector
-                        [inputTitle]="'Medida de la Llanta'"
-                        [itemFloatingChar]="filterFloatChar('medida_de_llanta')"
-                        [itemFloatingCharRel]="filterFloatCharRel('medida_de_llanta')" ></app-catalog-selector>
-                </div>
-
-                <div class="col-md-6" *ngIf="years">
-
-                    <mat-form-field appearance="fill" style="width: 300px;" *ngIf="years.length > 0">
-                        <mat-label>Año</mat-label>
-
-                        <mat-select  name="typeSelected" [(ngModel)]="yearSelected"
-                                    [ngModelOptions]="{standalone: true}">
-                            <mat-option [value]=""></mat-option>
-
-                            <mat-option *ngFor="let year of years; let yearIndex = index"
-                                        [value]="year.isSelected">
-                                    {{ year.year }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                
-                <div class="col-md-6">
-                    <mat-form-field style="width: 300px;">
-                        <mat-label>Numero de Serie</mat-label>
-                        <input matInput placeholder="Este campo es obligatorio" value="" [(ngModel)]="item.series" [ngModelOptions]="{standalone: true}">
-                      </mat-form-field>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="col-md-6" style="padding-right: 0px; padding-left: 0px;">
-                        <app-catalog-selector
+                    <div class="row">
+                        <!-- Material del Cuadro -->
+                        <div class="col-md-4 col-md-offset-3">
+                            <app-catalog-selector
                             [inputTitle]="'Material del Cuadro'"
+                            [inputFormName]="'frameMaterial'"
+                            [parentFormGroup]="firstFormGroup"
                             [itemFloatingChar]="filterFloatChar('material_de_cuadro')"
                             [itemFloatingCharRel]="filterFloatCharRel('material_de_cuadro')" ></app-catalog-selector>
-                        
-                        <app-catalog-selector
-                            [inputTitle]="'Genero'"
-                            [itemFloatingChar]="filterFloatChar('genero')"
-                            [itemFloatingCharRel]="filterFloatCharRel('genero')" ></app-catalog-selector>
-                        
-                        <app-catalog-selector
-                            [inputTitle]="'Talla'"
-                            [itemFloatingChar]="filterFloatChar('talla')"
-                            [itemFloatingCharRel]="filterFloatCharRel('talla')" ></app-catalog-selector>
-                        
-                        <app-catalog-selector
-                            [inputTitle]="'Palanca de Cambios'"
-                            [itemFloatingChar]="filterFloatChar('genero')"
-                            [itemFloatingCharRel]="filterFloatCharRel('genero')" ></app-catalog-selector>
-                        
-                        <app-catalog-selector
-                            [inputTitle]="'Multiplicacion'"
-                            [itemFloatingChar]="filterFloatChar('genero')"
-                            [itemFloatingCharRel]="filterFloatCharRel('genero')" ></app-catalog-selector>
-                        
+                        </div>
+                        <!-- Numero de Serie -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Número de Serie</mat-label>
+                                <input matInput placeholder="Número de Serie" value="" formControlName="series">
+                                <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
                     </div>
-                    <div class="col-md-6" style="padding-right: 0px; padding-left: 0px;">
-                        <label class="col-md-12">¿Tiene alguna modificación?</label>
-                        <mat-radio-group aria-label="Select an option" class="col-md-6 offset-md-6">
-                            <div class="col-md-12">
-                                <mat-radio-button value="false">No/Original</mat-radio-button>
-                            </div>
-                            <div class="col-md-12">
-                                <mat-radio-button value="true">Sí</mat-radio-button>
-                            </div>
-                        </mat-radio-group>
-                        <br>
-                        <mat-form-field class="col-md-8">
-                            <mat-label>¿Cuéntanos sobre sus modificaciones y detalles?</mat-label>
-                            <textarea matInput placeholder=""
-                            rows="5" cols="120"
-                            [(ngModel)]='textarea'
-                            [ngModelOptions]="{standalone: true}"></textarea>
-                            <mat-hint>{{textarea.length}} / 500</mat-hint>
-                        </mat-form-field>
-                    </div>
+                    
 
+                    <div class="row">
+                        <!-- LEFT SIDE BEGIN -->
+                        <div class="col-md-4 col-md-offset-3" style="padding-right: 0px; padding-left: 0px;">
+                            <!-- Medida de Llanta -->
+                            <div class="col-md-12">
+                                <app-catalog-selector
+                                    [inputTitle]="'Medida de Llanta'"
+                                    [inputFormName]="'wheelSize'"
+                                    [parentFormGroup]="firstFormGroup"
+                                    [itemFloatingChar]="filterFloatChar('medida_de_llanta')"
+                                    [itemFloatingCharRel]="filterFloatCharRel('medida_de_llanta')" ></app-catalog-selector>
+                            </div>
+                            <!-- Tipo de Freno -->
+                            <div class="col-md-12">
+                                <app-catalog-selector
+                                    [inputTitle]="'Tipo de Freno'"
+                                    [inputFormName]="'breakType'"
+                                    [parentFormGroup]="firstFormGroup"
+                                    [itemFloatingChar]="filterFloatChar('tipo_de_freno')"
+                                    [itemFloatingCharRel]="filterFloatCharRel('tipo_de_freno')" ></app-catalog-selector>
+                            </div>
+                            <!-- Talla -->
+                            <div class="col-md-12">
+                                <app-catalog-selector
+                                    [inputTitle]="'Talla'"
+                                    [inputFormName]="'talla'"
+                                    [parentFormGroup]="firstFormGroup"
+                                    [itemFloatingChar]="filterFloatChar('talla')"
+                                    [itemFloatingCharRel]="filterFloatCharRel('talla')" ></app-catalog-selector>
+                            </div>
+                            <!-- Palanca de Cambios -->
+                            <div class="col-md-12">
+                                <mat-form-field class="input-text-alignment">
+                                    <mat-label>Palanca de Cambios</mat-label>
+                                    <input matInput placeholder="Palanca de Cambios" value=""
+                                        formControlName="gearLevel">
+                                    <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <!-- Multiplicacion -->
+                            <div class="col-md-12">
+                                <mat-form-field class="input-text-alignment">
+                                    <mat-label>Multiplicación</mat-label>
+                                    <input matInput placeholder="Multiplicacion" value="" formControlName="multiplication">
+                                    <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- LEFT SIDE END -->
+
+                        <!-- RIGHT SIDE BEGIN -->
+                        <div class="col-md-4" style="margin-top: 30px;">
+                            <label class="col-md-12">¿Tiene alguna modificación?</label>
+                            <mat-radio-group aria-label="Select an option"
+                                class="col-md-6 offset-md-6" formControlName="isModified"
+                                (change)="textAreaValidation()">
+                                <div class="col-md-12">
+                                    <mat-radio-button value="true">No/Original</mat-radio-button>
+                                </div>
+                                <div class="col-md-12">
+                                    <mat-radio-button value="false">Sí</mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                            <br>
+                            <mat-form-field class="col-md-8">
+                                <mat-label>¿Cuéntanos sobre sus modificaciones y detalles?</mat-label>
+                                <textarea matInput
+                                            [disabled]="firstFormGroup.value.isModified"
+                                            placeholder=""
+                                            rows="5" cols="120"
+                                            formControlName="comments"></textarea>
+                                <mat-hint>
+                                    <div *ngIf="firstFormGroup.value.comments">
+                                        {{firstFormGroup.value.comments.length | json}} / 500
+                                    </div>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- RIGHT SIDE END -->
+
+                    </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                    </div>
+                    <div class="col-md-3" style="text-align: center; margin-top: 40px;">
+                        <button mat-stroked-button matStepperNext (click)="firstStepSave()"
+                            class="step-next-button">Siguiente</button>
+                    </div>
                 </div>
-            
-            </div>
-
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
+            </form>
 
           <!-- End first Step -->
         </mat-step>
         
-        <mat-step [stepControl]="secondFormGroup" optional>
+        <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fotos</ng-template>
+                <!-- Upload Image -->
+                <div *ngIf="files.length >= 7">
+                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id"></app-sale-item-upload-img>
+                </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Agrega hasta 12 Fotos</h4>
-                    <p>
-                        Sube fotos claras usando las siguientes imagenes
-                        como referencia
-                    </p>
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-md-2">
+                    <button mat-button matStepperPrevious
+                        class="step-next-button" style="width: 70%; margin-top: 40px;"> < Regresar </button>
                 </div>
                 <div class="col-md-6">
-                    <label class="btn btn-default">
-                        <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-                    </label>
+                </div>
+                <div class="col-md-3" style="text-align: center; margin-top: 40px;">
+                    <button mat-stroked-button matStepperNext (click)="secondStepSave()"
+                        class="step-next-button">Siguiente</button>
                 </div>
             </div>
-
-            <div class="row">
-
-                <div class="col-md-6">
-                    <!-- Image Model Begin -->
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-1.jpg" class="img-refrense" alt="image">
-                        </div>
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-2.jpg" class="img-refrense" alt="image">
-                        </div>
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-3.jpg" class="img-refrense" alt="image">
-                        </div>
-                        
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-4.jpg" class="img-refrense" alt="image">
-                        </div>
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-5.jpg" class="img-refrense" alt="image">
-                        </div>
-                        <div class="col-xs-6 col-md-4">
-                            <img src="/assets/images/vistas/bicicleta-ejemplo-vista-6.jpg" class="img-refrense" alt="image">
-                        </div>
-                    <!-- Image Model Begin -->
-                </div>
-
-                <div class="col-md-6">
-                    <!-- Upload Imnages Begin -->
-                    <div *ngFor="let progressInfo of progressInfos" class="mb-2">
-                        <span>{{ progressInfo.fileName }}</span>
-                        <div class="progress">
-                        <div
-                            class="progress-bar progress-bar-info progress-bar-striped"
-                            role="progressbar"
-                            attr.aria-valuenow="{{ progressInfo.percentage }}"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            [ngStyle]="{ width: progressInfo.percentage + '%' }">
-                            {{ progressInfo.percentage }}%
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        
-
-                        <div *ngIf="fileInfos">
-                            <div *ngIf="fileInfos.length >= 1">
-
-                                <div class="list-group list-group-flush" *ngFor="let file of fileInfos">
-
-                                    <div class="col-xs-6 col-md-4">
-                                        <img src="{{ file }}" class="img-refrense" alt="image">
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Upload Imnages End -->
-                </div>
-
-            </div>
-    
-
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
+            
           </form>
         </mat-step>
         <mat-step>
-            <!-- Upload Image -->
-            <app-sale-item-upload-img></app-sale-item-upload-img>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+
+            
+            <div class="row" style="text-align: center;  margin-bottom: 40px;">
+                <div class="first-step-title">EVALUA TU BICICLETA</div>
+                <p class="first-step-sub-title">Califica el estado de tu bicicleta <br> en una escala de 1 a 5.</p>
+            </div>
+
+            <form [formGroup]="thirdFormGroup" class="form-font-family">
+                <ng-template matStepLabel>Condiciones</ng-template>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Cuadro </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                                [rate]="item.frameRate"
+                                [enableEdit]="true"
+                                (emitRate)="onEmitFrameRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Ruedos </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                            [rate]="item.ruedosRate"
+                            [enableEdit]="true"
+                            (emitRate)="onEmitRuedosRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Llantas</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                        [rate]="item.wheelsRate"
+                        [enableEdit]="true"
+                        (emitRate)="onEmitWheelsRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row rate-row form-font-family">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> Componentes </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <item-rate
+                        [rate]="item.componentsRate"
+                        [enableEdit]="true"
+                        (emitRate)="onEmitComponentsRange($event)"></item-rate>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align: center; margin-top: 40px;">
+                    <div class="item-prince-title">PRECIO DE TU BICICLETA</div>
+                </div>
+
+                <div class="row" style="text-align: center;">
+                    <mat-form-field class="input-text-alignment">
+                        <mat-label>Precio de Venta</mat-label>
+                        <input matInput placeholder="Número de Serie" value="" formControlName="price" type="number">
+                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                    </mat-form-field>
+                </div>
+                
+                    <!-- Rate steps -->
+                    <div class="row" style="margin-top: 40px;">
+                        <div class="col-md-2">
+                            <button mat-button matStepperPrevious
+                                class="step-next-button" style="width: 70%"> < Regresar </button>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-3" style="text-align: center;">
+                            <button mat-stroked-button matStepperNext (click)="thirdStepSave()"
+                                class="step-next-button">Siguiente</button>
+                        </div>
+                    </div>
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <ng-template matStepLabel>Subir</ng-template>
+            <div *ngIf="item.id">
+                <div *ngIf="item.price">
+                    <item-detail [itemInput]="item" [increment]="increment"></item-detail>
+                </div>
+            </div>
+            <!-- Rate steps -->
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-md-2">
+                    <button mat-button matStepperPrevious
+                        class="step-next-button" style="width: 70%"> < Regresar </button>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-3" style="text-align: center;">
+                    <button mat-stroked-button matStepperNext (click)="finalStep()"
+                        class="step-next-button">Crear</button>
+                </div>
             </div>
         </mat-step>
 
       </mat-horizontal-stepper>
-
-    <div class="row">
-        <div class="col-md-7"></div>
-        <div class="col-md-2">
-            <button mat-raised-button (click)="save()">Guardar y Publicar</button>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
 
     <div class="row" style="margin-bottom: 25px;"></div>
 

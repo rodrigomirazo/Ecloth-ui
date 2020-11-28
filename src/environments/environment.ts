@@ -11,6 +11,8 @@ export const environment = {
     filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",
+    itemBytesImage: "/item/image",
+    
     
     types: "/itemTypeCat",
     categoryType: "/itemCat",

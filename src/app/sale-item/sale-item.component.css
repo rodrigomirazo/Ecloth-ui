@@ -1,32 +1,48 @@
-.img-refrense {
-    object-fit: cover;
-    width: 250px;
-    height: 180px;
-    padding-right: 100px;
-    padding-top: 50px;
+
+/** Step Navigation **/
+
+:host ::ng-deep .mat-horizontal-stepper-header-container {
+    text-align: center;
+    width: 50%;
+    margin-left: 24%;
 }
 
-.img-border {
-    border: 1px;
-    border-color: black;
+:host ::ng-deep .mat-step-icon-selected {
+    background-color: #18c65e!important;
 }
 
-.example-full-width {
+:host ::ng-deep .mat-step-icon-state-edit {
+    background-color: #18c65e!important;
+}
+
+/** Steps **/
+.first-step-title {
+    font-family: bebasNeue-bold;
+    font-size: 39px;
+    color: #303130;
+}
+
+.first-step-sub-title {
+    font-family: montserrat-semiBold;
+    font-size: 15px;
+    color: #303130;
+}
+
+.form-font-family {
+    font-family: montserrat-light;
+}
+
+.form-font-family mat-radio-button {
+    font-family: montserrat-light;
+}
+
+:host ::ng-deep .form-font-family .ng-star-inserted {
+    font-family: montserrat-light;
+}
+
+.input-text-alignment {
     width: 300px;
-    align-self: center;
-    left: 33%;
-}
-
-.input-modified-desc {
-    width: 154px;
-    align-self: center;
-    left: 41%;
-    bottom: 69px;
-}
-
-.example-radio-group-label {
-    align-self: center;
-    left: 33%;
+    bottom: -12px;
 }
 
 :host ::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
@@ -37,16 +53,70 @@
     
 }
 
-:host ::ng-deep .mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
-    width: 0px;
-    border-top-width: 6px !important;
+:host ::ng-deep mat-form-field mat-hint p {
+    color: #18c65e !important;
 }
 
-:host ::ng-deep .mat-horizontal-stepper-header::after {
-    border-top-width: 6px !important;
-    border-color: green;
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    border-bottom: solid 1px #18c65e !important;
+    color: #18c65e;
 }
 
-:host ::ng-deep .mat-horizontal-stepper-header::before {
-    border-top-width: 6px !important;
+:host ::ng-deep .mat-form-field-underline {
+    border-bottom: solid 1px #18c65e !important;
+}
+
+::ng-deep .mat-select-content {
+    background: red;
+}
+
+::ng-deep .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+    background-color: white;
+}
+
+::ng-deep .mat-form-field-infix label .ng-star-inserted {
+    float: left;
+    margin-left: 0px;
+}
+
+::ng-deep .mat-form-field-flex {
+    padding-left: 0px !important;
+}
+
+::ng-deep mat-select span .mat-form-field-label {
+    top: 25px !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #18c65e;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #18c65e;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:#18c65e;
+}
+
+.step-next-button {
+    border-radius: 35px;
+    width: 50%;
+    font-family: montserrat-light;
+}
+
+/** Rate **/
+.rate-row {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item-prince-title {
+    font-family: bebasNeue-bold;
+    font-size: 30px;
+    color: #303130;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
 }

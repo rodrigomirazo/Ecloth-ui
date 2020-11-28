@@ -1,4 +1,3 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
@@ -8,10 +7,12 @@ import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
 import { UserItem } from '../models/Item-user-model';
 import { ItemCategoryModel } from '../models/main-categories-model';
 import { UploadFilesService } from '../services/upload-files.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { InputFilter } from '../models/input-filter-model';
 import { InputFilterYear } from '../models/input-filter-years-model';
+import { CommentStmt } from '@angular/compiler';
+import { User } from '../models/Item-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale-item',
@@ -37,14 +38,18 @@ export class SaleItemComponent implements OnInit {
   private years: InputFilterYear[];
 
   /** File Uploading */
-  private selectedFiles: FileList;
-  private progressInfos = [];
-  private fileInfos =  [];
-  private fileResult =  [];
+  private fileCounter; number = 0;
+  private files: File[] = [];
+  private filesToUpload: File[] = [];
+  private uploadFlag: boolean = false;
 
   /** Form Groups */
   private firstFormGroup: FormGroup;
   private secondFormGroup: FormGroup;
+  private thirdFormGroup: FormGroup;
+
+  /** update Item Resume */
+  private increment: number = 0;
 
   ngOnInit() {
 
@@ -55,18 +60,60 @@ export class SaleItemComponent implements OnInit {
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
     private uploadFilesService: UploadFilesService,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder,
+    private router: Router) {
+
+      // Initialize itemId
+      this.item.id = null;
+      //Set User
+      this.item.user = new User();
+      this.item.user.id = "1";
+      //Set Status
+      this.item.statusId = 1;
+      //Set Empty Image Array
+      this.item.itemImgUrls = [];
+
+      console.log("this.item.user: ", this.item.user);
 
       this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required]
+        backRear: new FormControl('', Validators.required),
+        model: new FormControl('', Validators.required),
+        frontRear: new FormControl('', Validators.required),
+        year: new FormControl('', Validators.required),
+        suspension: new FormControl('', Validators.required),
+        itemTypeCatId: new FormControl('', Validators.required),
+
+        ruedos: new FormControl('', Validators.required),
+        cassette: new FormControl('', Validators.required),
+        series: new FormControl('', Validators.required),
+        gearLevel: new FormControl('', Validators.required),
+        multiplication: new FormControl('', Validators.required),
+        isModified: new FormControl('true', Validators.required),
+        comments: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(500)]),
+
+        // Floating CHARS
+        brand: new FormControl('', Validators.required),
+        genere: new FormControl('', Validators.required),
+        frameMaterial: new FormControl('', Validators.required),
+        wheelSize: new FormControl('', Validators.required),
+        breakType: new FormControl('', Validators.required),
+        talla: new FormControl('', Validators.required)
+        
       });
       this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required]
+        
+      });
+      this.thirdFormGroup = this._formBuilder.group({
+        price: ['', [Validators.required, Validators.min(100), Validators.max(100000)]]
       });
       
       this.userId = 1;
 
-      this.getFloatingChars();+
+      for (let i = 0; i < 8; i++) {
+        this.files = this.files.concat(null);
+      }
+
+      this.getFloatingChars();
       this.getCategoryTypes();
       this.getYearsCat();
   }
@@ -105,43 +152,6 @@ export class SaleItemComponent implements OnInit {
 
   escapePipe(catName: string): string {
     return catName.split('|').join(' - ');
-  }
-
-  selectFiles(event) {
-    this.progressInfos = [];
-
-    console.log(event.target.files);
-    const files = event.target.files;
-    let isImage = true;
-    this.fileInfos = [];
-
-    for (let i = 0; i < files.length; i++) {
-      if (files.item(i).type.match('image.*')) {
-
-        var reader = new FileReader();
-
-        reader.onload = (event:any) => {
-          console.log(event.target.result);
-           this.fileInfos.push(event.target.result); 
-        }
-
-        reader.readAsDataURL(event.target.files[i]);
-
-        continue;
-      } else {
-        isImage = false;
-        alert('invalid format!');
-        break;
-      }
-    }
-  
-    if (isImage) {
-      this.selectedFiles = event.target.files;
-    } else {
-      this.selectedFiles = undefined;
-      event.srcElement.percentage = null;
-    }
-    console.log(this.selectedFiles);
   }
 
   selectFloatingChar(charIndx: number, floatingCharId: number, floatingCharCatId: number) {
@@ -185,39 +195,72 @@ export class SaleItemComponent implements OnInit {
     }
   }
 
-  uploadFiles() {
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
+  onEmitFrameRange($event) {
+    this.item.frameRate = $event;
+  }
+  
+  onEmitRuedosRange($event) {
+    this.item.ruedosRate = $event;
+  }
+
+  onEmitWheelsRange($event) {
+    this.item.wheelsRate = $event;
+  }
+  
+  onEmitComponentsRange($event) {
+    this.item.comments = $event;
+  }
+  
+
+  textAreaValidation() {
+    console.log(this.firstFormGroup.get("isModified").value);
+
+    let control = this.firstFormGroup.get('comments');
+    control.disabled ? control.enable() : control.disable();
+  }
+
+  firstStepSave() {
+    console.log("this.firstFormGroup.valid: ", this.firstFormGroup.valid);
+    if( this.firstFormGroup.valid
+      ) {
+
+      this.item = this.itemService.adaptFormToItem(this.firstFormGroup, this.item);
+
+      //Flaoting Chars
+      this.item.itemFloatingChars = [
+        new ItemFloatingCharRel(this.filterFloatCharRel("brand").floatingCharId, "",       this.firstFormGroup.value.brand),
+        new ItemFloatingCharRel(this.filterFloatCharRel("genero").floatingCharId, "",      this.firstFormGroup.value.genere),
+        new ItemFloatingCharRel(this.filterFloatCharRel("material_de_cuadro").floatingCharId, "",  this.firstFormGroup.value.frameMaterial),
+        new ItemFloatingCharRel(this.filterFloatCharRel("medida_de_llanta").floatingCharId, "",    this.firstFormGroup.value.wheelSize),
+        new ItemFloatingCharRel(this.filterFloatCharRel("tipo_de_freno").floatingCharId, "",       this.firstFormGroup.value.breakType),
+        new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
+      ];
+
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+        console.log("itemRepsonse: ", itemRepsonse);
+        this.item.id = itemRepsonse.id;
+      });
     }
   }
 
-  upload(idx, file) {
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
-    
-    this.uploadFilesService.upload(file, this.userId, 1).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.fileResult = this.fileResult.concat(file.name);
-        }
-      });
+  secondStepSave() {
+    this.uploadFlag = true;
   }
 
-  save() {
-    this.item.itemFloatingChars = this.itemFloatingCharsRel;
-    this.item.itemTypeCatId = this.categoryLevelSelector[0];
-    this.item.lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
-    this.item.statusId = 1;
+  thirdStepSave() {
     //TODO: color catalog
-    this.item.itemColorId = 85;
-    
-    this.itemService.post( this.item ).subscribe(persistedItem => {
-      console.log(persistedItem);
+    console.log(this.item);
 
-      this.uploadFiles();
+    this.item.price = this.thirdFormGroup.value.price;
 
+    this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+      console.log("itemRepsonse: ", itemRepsonse);
+      this.item.id = itemRepsonse.id;
     });
+  }
+
+  finalStep() {
+    this.router.navigate(['item-detail/', this.item.id])
   }
 
 }

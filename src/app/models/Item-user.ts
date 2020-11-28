@@ -7,10 +7,25 @@ export class User {
     private _password: string;
     private _createdTime: string;
     private _userProfileImg: string;
-    
 
-	constructor() {
-    }
+    constructor(
+        id?: string,
+        username?: string,
+        email?: string,
+        password?: string,
+        createdTime?: string,
+        userProfileImg?: string) {
+
+        if(id)
+            this._id = id;
+        if(username)
+        this._username = username;
+        if(email)
+		this._email = email;
+		this._password = password;
+		this._createdTime = createdTime;
+		this._userProfileImg = userProfileImg;
+	}
 
 
     /**
@@ -108,5 +123,6 @@ export class User {
 	public set userProfileImg(value: string) {
 		this._userProfileImg = value;
 	}
+
 
 }

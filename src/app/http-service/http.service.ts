@@ -13,6 +13,10 @@ export class HttpService {
     return this.http.get(url);
   }
 
+  getWithHeaders(url: string, headers: any): Observable<any> {
+    return this.http.get(url, headers);
+  }
+
   getBodyRequest(url: string, body: any): Observable<any> {
     return this.http.get(url, body);
   }
