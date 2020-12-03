@@ -18,5 +18,7 @@ export const environment = {
     categoryType: "/itemCat",
     floatingChars: "/itemFloatingChars",
     floatingCharsCat: "/itemFloatingCharsCat",
+
+    userAuth: "/user/authenticate"
   }
 };

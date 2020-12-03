@@ -34,6 +34,7 @@ import { TermsComponent } from './terms-conditions/terms-conditions.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 import { LoginComponent } from './login/login.component';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -64,7 +65,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     TermsComponent,
     PrivacyComponent,
     ReturnPolicyComponent,
-    LoginComponent
+    LoginComponent,
+    //ErrorInterceptor
   ],
   imports: [
     BrowserModule,
