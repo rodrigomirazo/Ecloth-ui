@@ -36,11 +36,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       function authenticate() {
           const { username, password } = body;
-          const user = users.find(x => x.username === username && x.password === password);
+          const user = users.find(x => x.userName === username && x.password === password);
           if (!user) return error('Username or password is incorrect');
           return ok({
               id: user.id,
-              username: user.username,
+              userName: user.userName,
               name: user.name,
               lastname: user.lastname,
               token: 'fake-jwt-token'

@@ -5,6 +5,7 @@ import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
+import { AuthenticationService } from '../_services/authentication.service';
 import { UtilsService } from '../_services/utils.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   private roadFilter: string;
   private discoverFilter: string;
   private searchFormGroup: FormGroup;
+  private saleEnable: boolean = false;
   
   /** Item Types */
   private itemTypes: ItemCategoryModel[] = [];
@@ -28,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private categoryService: CategoryService,
     private utilsService: UtilsService,
     private router: Router,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {
     this.searchFormGroup = this._formBuilder.group({
       searchBar: new FormControl(''),
@@ -39,6 +42,7 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkMountain();
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
+    this.isUserValid();
   }
 
   submit() {
@@ -83,6 +87,15 @@ export class HeaderComponent implements OnInit {
           .map(cat => cat.subCategoryName ).indexOf("Urbana");
       urbanBikes[urbanIndex].isSelected = true;
       this.urbanFilter = this.utilsService.encodeBase64(new InputFilter_header([], "", [], urbanBikes));
+    });
+  }
+
+  isUserValid(): void {
+
+    this.authenticationService.tokenIsValid().subscribe((isUserToeknEnable: boolean) => {
+      // Urbain
+      this.saleEnable = isUserToeknEnable;
+      console.log("isUserToeknEnable: ", isUserToeknEnable);
     });
   }
 

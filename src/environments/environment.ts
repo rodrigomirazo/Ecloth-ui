@@ -19,6 +19,7 @@ export const environment = {
     floatingChars: "/itemFloatingChars",
     floatingCharsCat: "/itemFloatingCharsCat",
 
-    userAuth: "/user/authenticate"
+    userAuth: "/user/authenticate",
+    userTokenIsValid: "/user/profile/isValid"
   }
 };
