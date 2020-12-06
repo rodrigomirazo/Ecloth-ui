@@ -3,10 +3,10 @@
     <div *ngFor="let iconRate of iconRates; index as index">
         <div (click)="updateRange(index)" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <div  *ngIf="iconRate == true">
-                <img src="assets/images/rate/circulos-activo.svg" class="svg-icon-rate">
+                <img [src]="iconActivePath" class="svg-icon-rate">
             </div>
             <div *ngIf="iconRate == false">
-                <img src="assets/images/rate/circulos-inactivo.svg" class="svg-icon-rate">
+                <img [src]="iconInactivePath" class="svg-icon-rate">
             </div>
         </div>
     </div>

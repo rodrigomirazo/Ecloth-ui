@@ -1,0 +1,45 @@
+
+<div  class="row login-main-div">
+    
+
+        <div class="login-square col-lg-4 col-md-4 col-sm-4 col-xs-8" style="text-align: center;">
+            <p class="login-tittle">INICIA SESIÓN EN <BR> TU CUENTA </p>
+            <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                    <div  class="row">
+                        <mat-form-field class="input-text-alignment">
+                            <mat-label>Dirección de correo</mat-label>
+                            <input  matInput placeholder="Dirección de correo" value="" formControlName="username"
+                                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                            <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <div  class="row">
+                        <mat-form-field class="input-text-alignment">
+                            <mat-label>Contraseña</mat-label>
+                            <input  matInput placeholder="Contraseña" value="" formControlName="password"
+                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password">
+                            <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
+                        </mat-form-field>
+                    </div>
+                    
+                    <br>
+
+                    <div class="col-md-12" style="margin-top: 25px;">
+                        <button mat-stroked-button class="step-next-button">Iniciar Sesión</button>
+                    </div>
+                    
+                    <div class="row" style="margin-top: 6em;" *ngIf="error">
+                        <div  class="alert alert-danger">
+                            Usuario y/o Contraseña Incorrecta
+                        </div>
+                    </div>
+            </form>
+
+        </div>
+    </div>
+    
+    
+</div>

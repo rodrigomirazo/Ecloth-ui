@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { UploadFilesService } from 'src/app/services/upload-files.service';
+import { UploadFilesService } from 'src/app/_services/upload-files.service';
 
 @Component({
   selector: 'app-item-image-preview',

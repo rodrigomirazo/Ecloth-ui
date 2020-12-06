@@ -19,10 +19,7 @@
 
     <!-- LGO -->
     <div class="col-md-2 col-sm-1 col-xs-1 logo-header" [routerLink]="['/index' ]">
-
-        <img  
-                    src="/assets/images/home/logo-27.svg" alt="Baawroom"
-                    width="250" height="100">
+        <img src="/assets/images/home/logo-27.svg" alt="Baawroom" width="250" height="100">
     </div>
 
     <!-- separator (2) -->
@@ -64,7 +61,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/market-place', 'null' ]">
                             COMPRA
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/publish' ]">
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/publish' ]" *ngIf="saleEnable">
                             VENDE
                         </div>
                         <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRA HISTORIA</div> -->

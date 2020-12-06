@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { UploadFilesService } from '../services/upload-files.service';
+import { UploadFilesService } from '../_services/upload-files.service';
 
 @Component({
   selector: 'app-sale-item-upload-img',

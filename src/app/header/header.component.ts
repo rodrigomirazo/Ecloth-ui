@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { InputFilter_header } from '../models/input-filter-header-model';
-import { ItemCategoryModel } from '../models/main-categories-model';
-import { UtilsService } from '../services/utils.service';
+import { InputFilter_header } from '../_models/input-filter-header-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
+import { AuthenticationService } from '../_services/authentication.service';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   private roadFilter: string;
   private discoverFilter: string;
   private searchFormGroup: FormGroup;
+  private saleEnable: boolean = false;
   
   /** Item Types */
   private itemTypes: ItemCategoryModel[] = [];
@@ -28,8 +30,10 @@ export class HeaderComponent implements OnInit {
     private categoryService: CategoryService,
     private utilsService: UtilsService,
     private router: Router,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {
+    this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
       searchBar: new FormControl(''),
     });
@@ -39,10 +43,12 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkMountain();
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
+    
+    //private _router: Router
   }
 
   submit() {
-    console.log("submit", this.searchFormGroup.value.searchBar);
+    
     this.router.navigate(['/market-place', 'null', this.searchFormGroup.value.searchBar ])
   }
 
@@ -86,8 +92,16 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  isUserValid(): void {
+
+    this.authenticationService.tokenIsValid().subscribe((isUserToeknEnable: boolean) => {
+      // Urbain
+      this.saleEnable = isUserToeknEnable;
+    });
+  }
+
   encodeFilter(inputFilter: InputFilter_header) : string {
-    console.log(inputFilter);
+    
     return this.utilsService.encodeBase64(inputFilter);
   }
 
