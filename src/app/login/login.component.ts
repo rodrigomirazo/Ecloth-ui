@@ -57,7 +57,8 @@ export class LoginComponent implements OnInit {
           .subscribe(
               data => {
                 console.log("this.returnUrl: ", this.returnUrl);
-                  this.router.navigate([this.returnUrl]);
+                window.location.replace(window.location.href);
+                
               },
               error => {
                   this.error = error;

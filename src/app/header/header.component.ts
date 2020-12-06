@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
   ) {
+    this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
       searchBar: new FormControl(''),
     });
@@ -42,11 +43,12 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkMountain();
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
-    this.isUserValid();
+    
+    //private _router: Router
   }
 
   submit() {
-    console.log("submit", this.searchFormGroup.value.searchBar);
+    
     this.router.navigate(['/market-place', 'null', this.searchFormGroup.value.searchBar ])
   }
 
@@ -95,12 +97,11 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.tokenIsValid().subscribe((isUserToeknEnable: boolean) => {
       // Urbain
       this.saleEnable = isUserToeknEnable;
-      console.log("isUserToeknEnable: ", isUserToeknEnable);
     });
   }
 
   encodeFilter(inputFilter: InputFilter_header) : string {
-    console.log(inputFilter);
+    
     return this.utilsService.encodeBase64(inputFilter);
   }
 

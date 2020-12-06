@@ -114,7 +114,7 @@
                       Calificación
                   </div>
                   <div class="col-md-6 text-item-detail">
-                      {{ filterCatalog('condition', item.itemFloatingChars) }}
+                      {{ item.score }} - {{ item.scoreName }}
                   </div>
                 </div>
                 <div class="row">
@@ -122,7 +122,8 @@
                     Cuadro
                   </div>
                   <div class="col-md-6">
-                    <item-rate [rate]="item.frameRate" [enableEdit]="false"></item-rate>
+                    item.frameRate = {{item.frameRate}}
+                    <item-rate [rate]="item.frameRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
                   </div>
                 </div>
                 <div class="row">
@@ -130,7 +131,8 @@
                     Ruedos
                   </div>
                   <div class="col-md-6">
-                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false"></item-rate>
+                    item.ruedosRate = {{item.ruedosRate}}
+                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
                   </div>
                 </div>
                 <div class="row">
@@ -138,7 +140,7 @@
                         Llantas
                       </div>
                       <div class="col-md-6">
-                      <item-rate [rate]="item.wheelsRate" [enableEdit]="false"></item-rate>
+                      <item-rate [rate]="item.wheelsRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
                     </div>
                 </div>
                     <div class="row">
@@ -146,7 +148,7 @@
                         Componentes
                       </div>
                     <div class="col-md-6">
-                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false"></item-rate>
+                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
                     </div>
                 </div>
                 <div class="row">

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { InputFilter } from '../_models/input-filter-model';
+import { UserItem } from '../_models/Item-user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,22 @@ export class UtilsService {
       console.log("catch error", new InputFilter_header([], "", [], []));
       
       return new InputFilter_header([], "", [], []);
+    }
+  }
+
+  itemGeneralRate(item: UserItem): string {
+    
+    let rate: number = (item.frameRate + item.ruedosRate + item.wheelsRate + item.componentsRate + 4) / 4;
+    if( rate >= 19 && rate <= 20 ) {
+      return "Excelente";
+    } if ( rate >= 16 && rate <= 18 ) {
+      return "Muy Buena";
+    } if ( rate >= 13 && rate <= 15 ) {
+      return "BUena";
+    } if ( rate >= 10 && rate <= 12 ) {
+      return "Regular";
+    } else {
+      return "Mala";
     }
   }
 

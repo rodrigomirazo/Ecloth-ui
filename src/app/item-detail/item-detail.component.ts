@@ -52,7 +52,7 @@ export class ItemDetailComponent implements OnInit {
       //uri params
       this.route.params.subscribe(params => {
         if(params.itemId) {
-          console.log("at if");
+          
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
             this.assignFloatingChars(itemResponse, itemFloatingChars);
             this.orderImages(itemResponse);
@@ -90,7 +90,7 @@ export class ItemDetailComponent implements OnInit {
     
     let i = 0;
     this.images.forEach(image => {
-      console.log(image, i);
+      
       this.getImageFromService(image, i);
       i++;
     });
@@ -108,7 +108,7 @@ export class ItemDetailComponent implements OnInit {
     this.item = itemResponse;
     if(this.item.itemFloatingChars) {
       for (let j = 0; j < this.item.itemFloatingChars.length; j++) {
-        //console.log(this.items[i].itemFloatingChars[j]);
+        
 
         // a) find "Float Char"
         let floatChar: ItemFloatingChars[] = itemFloatingChars.filter(floatChar => floatChar.floatingCharId == this.item.itemFloatingChars[j].floatingCharId );
@@ -117,11 +117,9 @@ export class ItemDetailComponent implements OnInit {
 
         // c) verify if Char was found
         if(floatChar.length > 0 && this.item.itemFloatingChars[j].floatingCharCatId) {
-          //console.log("\n floatChar.length", floatChar[0].catalogList, " VS ", itemsResp[i].itemFloatingChars[j].floatingCharsCatId);
           floatCharCat = floatChar[0].catalogList.filter(floatCatChar => floatCatChar.charId == this.item.itemFloatingChars[j].floatingCharCatId );
         }
         
-        //console.log("floatCharCat: ", floatCharCat[0], floatChar[0]);
         // d) assign using validations
         this.item.itemFloatingChars[j].floatingCharName = (floatChar.length > 0) ? floatChar[0].floatingCharName : "N/A";
         this.item.itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
@@ -147,7 +145,7 @@ export class ItemDetailComponent implements OnInit {
   getCategoryTypes(): void {
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       this.itemType = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      console.log("item types = ", this.itemType);
+      
     });
   }
 
@@ -169,14 +167,14 @@ export class ItemDetailComponent implements OnInit {
   isImageLoading: boolean;
 
   getImageFromService(imageName: string, imgIndex: number) {
-    console.log("imageName: ", imageName);
+    
     this.isImageLoading = true;
     this.itemService.getImage(imageName).subscribe(data => {
       this.createImageFromBlob(data, imgIndex);
       this.isImageLoading = false;
     }, error => {
       this.isImageLoading = false;
-      console.log(error);
+      
     });
   }
 

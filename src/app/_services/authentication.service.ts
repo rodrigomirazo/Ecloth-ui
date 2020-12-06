@@ -36,7 +36,7 @@ export class AuthenticationService {
     return this.http.post<any>(this.loginUser, { username, password })
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          console.log("user: ", user);
+          
           let encripted: string = JSON.stringify(user);
           
           localStorage.setItem(this.currentUserCookie, encripted);
@@ -59,7 +59,7 @@ export class AuthenticationService {
     }
 
     const storage = JSON.parse(localStorage.getItem(this.currentUserCookie));
-    console.log("storage: ", storage);
+    
     user.id = storage.id;
     user.name = storage.name;
     user.lastname = storage.lastname;
@@ -83,7 +83,7 @@ export class AuthenticationService {
     }
 
     let userJson: UserJson = new UserJson(user);
-    console.log("userJson: ", userJson);
+    
     return this.http.post<boolean>(this.validateLoginUser, userJson);
   }
 
@@ -92,7 +92,7 @@ export class AuthenticationService {
     try {
       return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptSecretKey).toString();
     } catch (e) {
-      console.log(e);
+      
     }
   }
 

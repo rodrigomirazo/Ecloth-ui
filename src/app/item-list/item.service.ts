@@ -11,6 +11,7 @@ import { UserJson } from '../_models/Item-user-json';
 import { User } from '../_models/Item-user';
 import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
 import { HttpClient } from '@angular/common/http';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,36 +26,51 @@ export class ItemService {
 
   get(categoryId: number) : Observable<UserItem[]> {
     const catParam = "categoryId=" + categoryId;
-    return this.httpService.get(this.itemUri + "?" + catParam);
+    
+    return this.httpService.get(this.itemUri + "?" + catParam)
+      .pipe( map(
+          (items: UserItem[]) => {
+            return items.map( (item: UserItem) => {return this.itemScore(item);} );
+          })
+      );
   }
 
   getImage(imgName: string) : Observable<Blob> {
-    return this.http
-      .get(this.itemBytesImage + "/" + imgName, { responseType: 'blob' });
-      //.get("https://i.picsum.photos/id/800/200/300.jpg?hmac=p2lPeodOve_jNKshk2YAKVhKm4UUIJhfUe_Tt4FdnTA");
+    return this.http.get(this.itemBytesImage + "/" + imgName, { responseType: 'blob' });
   }
 
   getFilterItems(itemFilter: InputFilter) : Observable<UserItem[]> {
     
-    return this.httpService.post(this.filterItemUri, itemFilter);
+    return this.httpService.post(this.filterItemUri, itemFilter).pipe( map(
+      (items: UserItem[]) => {
+        return items.map( (item: UserItem) => {return this.itemScore(item);} );
+      })
+    );
   }
   getById(itemId: number) : Observable<UserItem> {
-    return this.httpService.get(this.itemUri + "/" + itemId);
+    return this.httpService.get(this.itemUri + "/" + itemId).pipe( map(
+      (item: UserItem) => {return this.itemScore(item); } ));
   }
 
   getByUser(userId: number) : Observable<UserItem[]> {
     const catParam = "userId=" + userId;
-    return this.httpService.get(this.itemUri + "/user/" + userId);
+    return this.httpService.get(this.itemUri + "/user/" + userId).pipe( map(
+      (items: UserItem[]) => {
+        return items.map( (item: UserItem) => {return this.itemScore(item) } )
+      })
+    );
   }
 
   post(item: UserItem, adaptToJson?: boolean) : Observable<UserItem> {
 
     if(!adaptToJson) {
-      return this.httpService.post(this.itemUri, item);
+      return this.httpService.post(this.itemUri, item).pipe( map(
+        (item: UserItem) => {return this.itemScore(item); } ));
     }
     if(adaptToJson) {
       let itemJson = this.adaptUserItemToJson(item);
-      return this.httpService.post(this.itemUri, itemJson);
+      return this.httpService.post(this.itemUri, itemJson).pipe( map(
+        (item: UserItem) => {return this.itemScore(item); } ));
     }
     return null;
   }
@@ -145,6 +161,32 @@ export class ItemService {
     userItemJson.$componentsRate      = item.componentsRate;
 
     return userItemJson;
+  }
+
+  itemScore(item: UserItem) {
+
+    let rate: number = (item.frameRate + item.ruedosRate + item.wheelsRate + item.componentsRate + 4);
+
+    if( rate >= 19 ) {
+        item.scoreName = "Excelente";
+        item.score = 4;
+    } if ( rate >= 16 && rate <= 18 ) {
+        item.scoreName =  "Muy Buena";
+        item.score = 3;
+    } if ( rate >= 13 && rate <= 15 ) {
+        item.scoreName =  "Buena";
+        item.score = 2;
+    } if ( rate >= 10 && rate <= 12 ) {
+        item.scoreName =  "Regular";
+        item.score = 1;
+    }
+
+    if ( rate <= 9 ){
+        item.scoreName =  "Mala";
+        item.score = 0;
+    }
+
+    return item;
   }
 
 }
