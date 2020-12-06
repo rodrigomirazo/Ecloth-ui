@@ -35,6 +35,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
+import { CustomerServiceComponent } from './customer-service/customer-service.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -67,6 +69,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ReturnPolicyComponent,
     LoginComponent,
     //ErrorInterceptor
+    GenericDialogComponent,
+    CustomerServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +87,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     provide: SWIPER_CONFIG,
     useValue: DEFAULT_SWIPER_CONFIG
   }],
+  entryComponents: [
+    GenericDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
