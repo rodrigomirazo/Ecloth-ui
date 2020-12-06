@@ -90,12 +90,31 @@
 
 
     <div id="separation-banner">
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px; padding-left: 0px;">
-
-            <img    class="home-page-separation-banner"
-                    src="/assets/images/home/banner-separation.png"
-                    alt="separation-banner">
-
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px; padding-left: 0px; background-color: black;">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <img    class="home-page-separation-banner black-icon"
+                        (click)="openPopUp('/assets/images/home/popup_bici.svg')"
+                        src="/assets/images/home/ic_bici.svg"
+                        alt="separation-banner">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <img    class="home-page-separation-banner black-icon"
+                        src="/assets/images/home/ic_garantia.svg"
+                        alt="separation-banner"
+                        (click)="openPopUp('/assets/images/home/popup_garan.svg')">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 ">
+                <img    class="home-page-separation-banner black-icon"
+                        src="/assets/images/home/iconos-25.svg"
+                        (click)="openPopUp('/assets/images/home/popup_vend.svg')"
+                        alt="separation-banner">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <img    class="home-page-separation-banner black-icon"
+                        src="/assets/images/home/ic_ases.svg"
+                        (click)="openPopUp('/assets/images/home/popup_ases.svg')"
+                        alt="separation-banner">
+            </div>
         </div>
     </div>
 

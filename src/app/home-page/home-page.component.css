@@ -43,6 +43,14 @@
     margin: 10px;
 }
 
+.black-icon{
+    display: table-cell;
+    height: 150px;
+    vertical-align: middle;
+    margin: auto;
+    padding-left: 39px;
+    padding-right: 39px;
+}
 /* Side nav content */
 
 .side-nav-content {
