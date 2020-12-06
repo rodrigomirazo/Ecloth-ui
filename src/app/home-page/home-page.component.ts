@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 
 @Component({
   selector: 'app-home-page',
@@ -15,7 +17,8 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    public dialog: MatDialog
   ){
       this.matIconRegistry.addSvgIcon("love_inactive",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/home/icon_love_inactive.svg") );
@@ -43,4 +46,18 @@ export class HomePageComponent implements OnInit {
 
   }
 
+  openPopUp(popup: string) {
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      width: '300px',
+      height: '218px',
+      data: {
+        image: popup
+      }
+    })
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    
+  }
 }

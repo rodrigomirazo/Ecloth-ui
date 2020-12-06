@@ -13,6 +13,8 @@ import { InputFilterYear } from '../models/input-filter-years-model';
 import { CommentStmt } from '@angular/compiler';
 import { User } from '../models/Item-user';
 import { Router } from '@angular/router';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale-item',
@@ -50,12 +52,13 @@ export class SaleItemComponent implements OnInit {
 
   /** update Item Resume */
   private increment: number = 0;
-
+  
   ngOnInit() {
 
   }
 
   constructor(
+    public dialog: MatDialog,
     private categoryService: CategoryService,
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
@@ -260,7 +263,20 @@ export class SaleItemComponent implements OnInit {
   }
 
   finalStep() {
-    this.router.navigate(['item-detail/', this.item.id])
+    //openDialog
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      width: '250px',
+      height: '200px',
+      data: {
+        image: "/assets/images/publish/cargada-error-12.svg"
+      }
+    })
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+      this.router.navigate(['item-detail/', this.item.id])
+    });
   }
 
 }
