@@ -14,9 +14,12 @@ export class RateComponent {
   
   private _rate: number;
   private _enableEdit: boolean;
+  private _iconType: string;
 
   private iconRates: boolean[] = [];
   private initialSetup = false;
+  private iconActivePath: string;
+  private iconInactivePath: string;
 
   constructor() {
     for (let i = 0; i < 5; i++) {
@@ -62,5 +65,21 @@ export class RateComponent {
 	}
 	public set enableEdit(value: boolean) {
 		this._enableEdit = value;
+  }
+  
+  @Input()
+	public get iconType(): string {
+		return this._iconType;
+	}
+	public set iconType(value: string) {
+    if(value == "circle") {
+      this.iconActivePath = "assets/images/rate/circulos-activo.svg";
+      this.iconInactivePath = "assets/images/rate/circulos-activo.svg";
+      
+    } if(value == "star") {
+      this.iconActivePath = "assets/images/market-place/icon_star_active.svg";
+      this.iconInactivePath = "assets/images/market-place/icon_star_inactive.svg";
+    }
+		this._iconType = value;
 	}
 }

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { InputFilter } from '../models/input-filter-model';
-import { InputFilterYear } from '../models/input-filter-years-model';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { ItemCategoryModel } from '../models/main-categories-model';
-import { UtilsService } from '../services/utils.service';
+import { InputFilter } from '../_models/input-filter-model';
+import { InputFilterYear } from '../_models/input-filter-years-model';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-market-place',

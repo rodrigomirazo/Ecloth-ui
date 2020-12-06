@@ -37,6 +37,8 @@ export class UserItem {
     private _ruedosRate: number;
     private _wheelsRate: number;
     private _componentsRate: number;
+    private _score: number;
+    private _scoreName: string;
 
 	constructor() {
         this._user = new User();
@@ -299,6 +301,22 @@ export class UserItem {
 	}
 
     /**
+     * Getter score
+     * @return {number}
+     */
+	public get score(): number {
+		return this._score;
+	}
+
+    /**
+     * Getter scoreName
+     * @return {string}
+     */
+	public get scoreName(): string {
+		return this._scoreName;
+	}
+
+    /**
      * Setter id
      * @param {string} value
      */
@@ -553,6 +571,22 @@ export class UserItem {
 	public set componentsRate(value: number) {
 		this._componentsRate = value;
 	}
-    
+
+    /**
+     * Setter score
+     * @param {number} value
+     */
+	public set score(value: number) {
+		this._score = value;
+	}
+
+    /**
+     * Setter scoreName
+     * @param {string} value
+     */
+	public set scoreName(value: string) {
+		this._scoreName = value;
+	}
+
 
 }

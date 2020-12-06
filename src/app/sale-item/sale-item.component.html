@@ -25,7 +25,7 @@
                         <!-- Cambio Trasero -->
                         <div class="col-md-4">
                             <mat-form-field class="input-text-alignment">
-                                <mat-label>Cambio Trasero</mat-label>
+                                <mat-label>Dirección de correo</mat-label>
                                 <input matInput placeholder="Cambio Trasero" value="" formControlName="backRear">
                                 <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
                             </mat-form-field>
@@ -280,6 +280,7 @@
                         <item-rate
                                 [rate]="item.frameRate"
                                 [enableEdit]="true"
+                                [iconType]="'circle'"
                                 (emitRate)="onEmitFrameRange($event)"></item-rate>
                     </div>
                 </div>
@@ -291,6 +292,7 @@
                         <item-rate
                             [rate]="item.ruedosRate"
                             [enableEdit]="true"
+                            [iconType]="'circle'"
                             (emitRate)="onEmitRuedosRange($event)"></item-rate>
                     </div>
                 </div>
@@ -302,6 +304,7 @@
                         <item-rate
                         [rate]="item.wheelsRate"
                         [enableEdit]="true"
+                        [iconType]="'circle'"
                         (emitRate)="onEmitWheelsRange($event)"></item-rate>
                     </div>
                 </div>
@@ -313,6 +316,7 @@
                         <item-rate
                         [rate]="item.componentsRate"
                         [enableEdit]="true"
+                        [iconType]="'circle'"
                         (emitRate)="onEmitComponentsRange($event)"></item-rate>
                     </div>
                 </div>
