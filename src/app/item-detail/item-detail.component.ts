@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { ItemService } from '../item-list/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
@@ -37,7 +39,8 @@ export class ItemDetailComponent implements OnInit {
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
     private categoryService: CategoryService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog) {
     
   }
 
@@ -191,6 +194,21 @@ export class ItemDetailComponent implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
+  }
+
+  openPopUp() {
+    const dialogRef = this.dialog.open(GenericDialogComponent, {
+      width: '280px',
+      height: '137px',
+      data: {
+        image: "assets/images/item-detail/popup_compra.svg"
+      }
+    })
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    
   }
 
 }

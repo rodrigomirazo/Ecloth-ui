@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private _router: Router,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ){
       this.matIconRegistry.addSvgIcon("love_inactive",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/home/icon_love_inactive.svg") );
