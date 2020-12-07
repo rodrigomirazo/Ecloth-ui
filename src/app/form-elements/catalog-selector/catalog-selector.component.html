@@ -1,0 +1,25 @@
+
+<div *ngIf="itemFloatingCharRel" class="catalog-selector">
+    <form [formGroup]="parentFormGroup" class="form-font-family">
+        <mat-form-field appearance="fill" style="width: 300px;">
+            <mat-label >{{ inputTitle | titlecase}}</mat-label>
+
+            <div class="floating-selector">
+                <!-- [(ngModel)]="itemFloatingCharRel.floatingCharCatId" -->
+                <mat-select
+                        name="floatingCatId"
+                        formControlName="{{inputFormName}}"
+                        (selectionChange)="selectFloatingChar($event)">
+                    <mat-option [value]="">
+                    
+                    </mat-option>
+
+                    <mat-option *ngFor="let floatingCat of itemFloatingChar" [value]="floatingCat.charId">
+                        {{floatingCat.charName | titlecase}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint>
+        </mat-form-field>
+    </form>
+</div>

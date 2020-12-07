@@ -1,0 +1,126 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.category-sidenav-container {
+    height: 100%;
+}
+
+#categorySnav {
+    width: 20%;
+}
+
+.home-page-header {
+    height: 0px;
+    background: #fafafa;
+}
+
+.home-page-banner {
+    
+    height: 690px;
+    background: url(/assets/images/home/principal_banner.png);
+    background-position-x: center;
+    background-position-y: top;
+}
+
+.home-page-separation-banner {
+    width: 100%;
+}
+
+.banner-icon {
+    height: 40px;
+    width: 40px;
+    -webkit-filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, .5));
+    filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.banner-menu {
+    height: 600px;
+    opacity: 0.8;
+}
+
+.menu-slide {
+    margin: 10px;
+}
+
+.black-icon{
+    display: table-cell;
+    height: 150px;
+    vertical-align: middle;
+    margin: auto;
+    padding-left: 39px;
+    padding-right: 39px;
+}
+/* Side nav content */
+
+.side-nav-content {
+    margin: 0 0 10px;
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 400%;
+    color: #fdfdfd;
+    bottom: 35px;
+    z-index: 1;
+    font-size: 70pt;
+    font-family: bebasNeue-bold;
+}
+
+.logo-header {
+    color: black;
+}
+
+.header-menu-title {
+    color: #303130;
+    font-size: 25px;
+    font-family: montserrat-regular;
+}
+
+.header-menu-left-side {
+    font-family: bebasNeue-bold;
+    font-size: 36px;
+    color: #303130;
+}
+
+.header-menu-right-side {
+    font-family: montserrat-semiBold;
+    font-size: 26px;
+    color: #303130;
+}
+
+.header-menu-botton-side {
+    font-family: bebasNeue-regular;
+    font-size: 26px;
+    color: #303130;
+}
+
+.header-menu-right-side:hover,
+.header-menu-left-side:hover,
+.header-menu-botton-side:hover {
+    color: #18c65e;
+}
+
+button.mat-button {
+    border-radius: 0;
+ }
+
+ /* Search bar */
+
+
+.search-bar ::ng-deep .mat-form-field-prefix {
+    top: -12px;
+    left: 7px;
+}
+
+.search-bar ::ng-deep .mat-form-field-flex {
+    border-radius: 12px;
+    height: 47px;
+    position: inherit;
+    top: 25px;
+    background-image: linear-gradient(to right, rgba(255,0,0,0), #3333332e 90%);
+}
+
+.search-bar ::ng-deep .mat-form-field-infix {
+    left: 10px;
+    top: -19px;
+}
+

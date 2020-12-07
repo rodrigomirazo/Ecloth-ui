@@ -8,12 +8,18 @@ export const environment = {
   baseUrl: "/ecommerce/bicicle/api/v1",
   entity: {
     item: "/item",
+    filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",
+    itemBytesImage: "/item/image",
+    
     
     types: "/itemTypeCat",
     categoryType: "/itemCat",
     floatingChars: "/itemFloatingChars",
     floatingCharsCat: "/itemFloatingCharsCat",
+
+    userAuth: "/user/authenticate",
+    userTokenIsValid: "/user/profile/isValid"
   }
 };

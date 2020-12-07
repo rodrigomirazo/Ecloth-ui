@@ -1,26 +1,47 @@
 
 <div class="container-fluid">
 
-    <h4>Items - categoryId: {{categoryId}}</h4>
-
-    <div class="row">
-
-        <div class="col-xs-6 col-sm-4 col-md-3" *ngFor="let item of items; index as i; first as isFirst">
-            <!-- Item element Begin -->
-
-            <div class="row">
-                <img src="/assets/images/vistas/list_{{i}}.jpg" class="item-img-list" alt="image">
+    <div class="col-xs-6 col-sm-4 col-md-3 item-detail-frame"
+            *ngFor="let item of items; index as i; first as isFirst">
+        
+        <div class="item-title-frame row">
+            <div class="item-title-new-message col-xs-4" *ngIf="isRecent( item.itemImgUrls[0].createdTime )">
+                Reciente
             </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                    {{item.name}}
+
+            <div class="item-title-old-message col-xs-4" *ngIf="!isRecent( item.itemImgUrls[0].createdTime )">
+            </div>
+
+            <div class="star-rate-div col-xs-2"></div>
+            
+            <div class="star-rate-div col-xs-6">
+              <item-rate [rate]="item.ruedosRate" [enableEdit]="false" [iconType]="'star'"></item-rate>
+            </div>
+        </div>
+
+        <!-- Item element Begin -->
+        <div class="row item-image-row">
+            <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-md-12 item-type">
+                Bicicleta/ {{ filterItemType(item.itemTypeCatId) }}
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 item-name">
+                {{ filterCatalog( 'brand', item.itemFloatingChars) }} {{ filterCatalog( 'talla', item.itemFloatingChars) }}
+            </div>
+            <div style="width: 100%;">
+                <div class="col-xs-6 col-sm-5 col-md-6 item-price">
+                    {{item.price | currency}}
                 </div>
-                <div class="col-xs-6 col-sm-4 col-md-3">
-                    {{item.originalPrice}}
+                <div class="col-xs-6 col-sm-6 col-md-6 item-buy-button">
+                    <button mat-stroked-button color="primary" [routerLink]="['/item-detail', item.id ]">Ver</button>
                 </div>
             </div>
 
         </div>
+        <!-- Item element End -->
     </div>
 
 </div>

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpService } from '../http-service/http.service';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharsCat } from '../models/item-floating-char-cat';
-import { ItemFloatingCharsEntity } from '../models/item-floating-char-entity';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { ItemFloatingCharsEntity } from '../_models/item-floating-char-entity';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,30 @@
+
+.item-upload-img-title {
+    text-align: center;
+    font-family: bebasNeue-bold;
+    font-size: 36px;
+}
+
+.item-upload-img-sub-title {
+    text-align: center;
+    font-family: bebasNeue-regular;
+    font-size: 18px;
+    line-height: 11px;
+}
+
+.item-upload-img-example-title {
+    text-align: center;
+    font-family: bebasNeue-bold;
+    font-size: 30px;
+    float: left;
+}
+
+.item-upload-img-principal-example {
+    width: 97.5%;
+    margin-top: 18px;
+}
+
+.item-upload-img-button {
+    width: 68%;
+    margin-top: 18px;
+}
