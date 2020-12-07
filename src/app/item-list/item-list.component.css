@@ -23,14 +23,25 @@
 
 .item-title-frame {
     padding-top: 5px;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .item-title-new-message {
     background-color: #18c65e;
     color: white;
-    width: 60px;
     margin: auto;
-    float: left;
+    left: -7%;
+    padding-left: 1px;
+}
+
+.item-title-old-message {
+    margin: auto;
+    left: -7%;
+    padding-left: 1px;
 }
 
 .item-image-row {
@@ -40,7 +51,10 @@
 }
 
 .star-rate-div {
-    float: right;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .item-detail-img {

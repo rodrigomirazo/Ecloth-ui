@@ -8,11 +8,13 @@ import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+  styleUrls: ['./item-list.component.css'],
+  providers: [ DatePipe ]
 })
 export class ItemListComponent implements OnInit {
 
@@ -24,6 +26,7 @@ export class ItemListComponent implements OnInit {
 
   private items: UserItem[];
   private blobImgs: any[] = [];
+  private systDate: Date;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -31,7 +34,9 @@ export class ItemListComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private floatingCharsService: FloatingCharsService,
+    private datePipe: DatePipe
     ) {
+    this.systDate = new Date();
     this.matIconRegistry.addSvgIcon("star_inactive",
     this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_inactive.svg") );
     
@@ -176,6 +181,14 @@ export class ItemListComponent implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
+  }
+
+  isRecent(date: string) : boolean {
+    
+    let inputDate: Date = new Date(date);
+    var Difference_In_Time = this.systDate.getTime() - inputDate.getTime();
+    
+    return Difference_In_Time / (1000 * 3600 * 24) < 10 ? true : false;
   }
   
 }
