@@ -74,7 +74,7 @@ export class RateComponent {
 	public set iconType(value: string) {
     if(value == "circle") {
       this.iconActivePath = "assets/images/rate/circulos-activo.svg";
-      this.iconInactivePath = "assets/images/rate/circulos-activo.svg";
+      this.iconInactivePath = "assets/images/rate/circulos-inactivo.svg";
       
     } if(value == "star") {
       this.iconActivePath = "assets/images/market-place/icon_star_active.svg";

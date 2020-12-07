@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row" *ngIf="iconType == 'circle' ">
     <div *ngFor="let iconRate of iconRates; index as index">
         <div (click)="updateRange(index)" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
             <div  *ngIf="iconRate == true">
@@ -10,4 +10,19 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="col-xs-12 div-star-wrapper" *ngIf="iconType == 'star' ">
+    <span class="text-nowrap">
+        <div *ngFor="let iconRate of iconRates; index as index">
+            <div (click)="updateRange(index)" class="col-xs-1 div-img-wrapper">
+                <div  *ngIf="iconRate">
+                    <img [src]="iconActivePath" class="svg-icon-rate">
+                </div>
+                <div *ngIf="!iconRate">
+                    <img [src]="iconInactivePath" class="svg-icon-rate">
+                </div>
+            </div>
+        </div>
+    </span>
 </div>
