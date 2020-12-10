@@ -28,6 +28,7 @@
     padding-left: 0px;
     margin-left: 0px;
     margin-right: 0px;
+    margin-bottom: 10px;
 }
 
 .item-title-new-message {
@@ -62,6 +63,17 @@
     width: 99%;
     display: block;
     object-fit: cover;
+}
+
+.item-micro-img {
+    height: 45px;
+    width: 35px;
+    display: block;
+    object-fit: cover;
+    bottom: 6px;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .item-type {
