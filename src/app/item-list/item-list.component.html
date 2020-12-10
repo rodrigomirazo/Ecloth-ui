@@ -12,9 +12,9 @@
             <div class="item-title-old-message col-xs-4" *ngIf="!isRecent( item.itemImgUrls[0].createdTime )">
             </div>
 
-            <div class="star-rate-div col-xs-2"></div>
+            <div class="star-rate-div col-xs-3"></div>
             
-            <div class="star-rate-div col-xs-6">
+            <div class="star-rate-div col-xs-5" style="left: 10%">
               <item-rate [rate]="item.ruedosRate" [enableEdit]="false" [iconType]="'star'"></item-rate>
             </div>
         </div>
@@ -23,6 +23,14 @@
         <div class="row item-image-row">
             <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
         </div>
+<!--
+        <div class="row">
+            <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
+            <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
+            <img [src]="imgUrl(blobImgs[i])" class="item-detail-img" alt="image">
+        </div>
+    -->
+
         <div class="row">
 
             <div class="col-xs-12 col-sm-12 col-md-12 item-type">

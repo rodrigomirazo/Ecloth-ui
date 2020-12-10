@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../_models/Item-user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class HttpService {
 
   post(url: string, requestBody: any): Observable<any> {
     return this.http.post(url, requestBody);
+  }
+
+  postAuth(url: string, requestBody: any, user: User): Observable<any> {
+    console.log("User: ", user);
+
+    let headers = new HttpHeaders().set('Authorization', "Bearer " + user.token);
+    
+    return this.http.post(url, requestBody, {headers} );
   }
 
   put(url: string, requestBody: any): Observable<any> {

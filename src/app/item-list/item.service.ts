@@ -10,8 +10,9 @@ import { ItemFloatingCharRelJson } from '../_models/item-floating-char-rel-json'
 import { UserJson } from '../_models/Item-user-json';
 import { User } from '../_models/Item-user';
 import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ItemService {
   private filterItemUri: string = environment.host + environment.baseUrl + environment.entity.filterItems;
   private itemBytesImage: string = environment.host + environment.baseUrl + environment.entity.itemBytesImage;
   
-  constructor(private httpService: HttpService, private http: HttpClient) { }
+  constructor(private httpService: HttpService, private http: HttpClient, private authService: AuthenticationService) { }
 
   get(categoryId: number) : Observable<UserItem[]> {
     const catParam = "categoryId=" + categoryId;
@@ -64,12 +65,12 @@ export class ItemService {
   post(item: UserItem, adaptToJson?: boolean) : Observable<UserItem> {
 
     if(!adaptToJson) {
-      return this.httpService.post(this.itemUri, item).pipe( map(
+      return this.httpService.postAuth(this.itemUri, item, this.authService.getSessionUser() ).pipe( map(
         (item: UserItem) => {return this.itemScore(item); } ));
     }
     if(adaptToJson) {
       let itemJson = this.adaptUserItemToJson(item);
-      return this.httpService.post(this.itemUri, itemJson).pipe( map(
+      return this.httpService.postAuth(this.itemUri, itemJson, this.authService.getSessionUser()).pipe( map(
         (item: UserItem) => {return this.itemScore(item); } ));
     }
     return null;
