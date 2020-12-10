@@ -268,7 +268,7 @@ export class SaleItemComponent implements OnInit {
       width: '250px',
       height: '200px',
       data: {
-        image: "/assets/images/publish/cargada-error-12.svg"
+        image: "/assets/images/publish/cargada-error-11.svg"
       }
     })
     
