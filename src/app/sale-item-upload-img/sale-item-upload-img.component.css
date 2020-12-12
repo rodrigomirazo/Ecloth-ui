@@ -26,5 +26,15 @@
 
 .item-upload-img-button {
     width: 68%;
-    margin-top: 18px;
+    margin-top: 5px;
+}
+
+.item-upload-img-div {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.item-upload-img-div-desc {
+    margin-top: 20px;
+    text-align: center;
 }
