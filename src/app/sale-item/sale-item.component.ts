@@ -24,34 +24,34 @@ import { MatDialog } from '@angular/material/dialog';
 export class SaleItemComponent implements OnInit {
 
   // Item
-  private item: UserItem = new UserItem();
+  item: UserItem = new UserItem();
   // User
-  private userId: number;
+  userId: number;
   //Floating Chars
-  private itemFloatingCharsRel: ItemFloatingCharRel[] = [];
-  private itemTypeSelected: ItemCategoryModel;
-  private yearSelected: InputFilterYear;
-  private textarea: string = "";
+  itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  itemTypeSelected: ItemCategoryModel;
+  yearSelected: InputFilterYear;
+  textarea: string = "";
 
   /** Category List */
-  private categoryLevelSelector: number[] = [];
-  private itemFloatingChars: ItemFloatingChars[];
-  private itemTypes: ItemCategoryModel[];
-  private years: InputFilterYear[];
+  categoryLevelSelector: number[] = [];
+  itemFloatingChars: ItemFloatingChars[];
+  itemTypes: ItemCategoryModel[];
+  years: InputFilterYear[];
 
   /** File Uploading */
-  private fileCounter; number = 0;
-  private files: File[] = [];
-  private filesToUpload: File[] = [];
-  private uploadFlag: boolean = false;
+  fileCounter; number = 0;
+  files: File[] = [];
+  filesToUpload: File[] = [];
+  uploadFlag: boolean = false;
 
   /** Form Groups */
-  private firstFormGroup: FormGroup;
-  private secondFormGroup: FormGroup;
-  private thirdFormGroup: FormGroup;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   /** update Item Resume */
-  private increment: number = 0;
+  increment: number = 0;
   
   ngOnInit() {
 

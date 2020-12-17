@@ -15,7 +15,7 @@ import { ItemCategoryModel } from '../_models/main-categories-model';
 
 @Component({
   selector: 'item-detail',
-  templateUrl: './item-detail.component.html?v=${new Date().getTime()}',
+  templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit {
@@ -28,13 +28,13 @@ export class ItemDetailComponent implements OnInit {
 
   public url: SafeResourceUrl;
 
-  private item: UserItem;
-  private itemFloatingChars: ItemFloatingChars[];
-  private itemType: ItemCategoryModel[];
-  private images: any[] = [];
-  private blobImgs: any[] = [];
-  private imageRows: number[] = [];
-  private principleImg: any;
+  public item: UserItem;
+  public itemFloatingChars: ItemFloatingChars[];
+  public itemType: ItemCategoryModel[];
+  public images: any[] = [];
+  public blobImgs: any[] = [];
+  public imageRows: number[] = [];
+  public principleImg: any;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,

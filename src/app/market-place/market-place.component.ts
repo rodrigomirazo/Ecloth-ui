@@ -16,14 +16,14 @@ import { UtilsService } from '../_services/utils.service';
 })
 export class MarketPlaceComponent implements OnInit {
 
-  private inputFilter: InputFilter;
-  private outputFilter: InputFilter;
+  inputFilter: InputFilter;
+  outputFilter: InputFilter;
 
   /** Catalogs */
-  private selectedYears: number[] = [];
+  selectedYears: number[] = [];
 
   /** Change Detector */
-  private changeIncrement: number = 0;
+  changeIncrement: number = 0;
 
   constructor(
     private route: ActivatedRoute,

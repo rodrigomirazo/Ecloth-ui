@@ -21,12 +21,12 @@ export class ItemListComponent implements OnInit {
 
   // IO
   //@Input() categoryId: number;
-  private _inputFilter: any;
-  private _changeIncrement: number;
+  _inputFilter: any;
+  _changeIncrement: number;
 
-  private items: UserItem[];
-  private blobImgs: any[] = [];
-  private systDate: Date;
+  items: UserItem[];
+  blobImgs: any[] = [];
+  systDate: Date;
 
   constructor(
     private sanitizer: DomSanitizer,

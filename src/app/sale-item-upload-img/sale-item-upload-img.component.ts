@@ -9,7 +9,7 @@ import { UploadFilesService } from '../_services/upload-files.service';
 export class SaleItemUploadImgComponent implements OnInit {
 
   @Input()
-  private itemId: string;
+  itemId: string;
   
   @Output()
   propagate: EventEmitter<File[]> = new EventEmitter<any[]>();

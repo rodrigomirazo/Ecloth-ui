@@ -15,15 +15,15 @@ import { UtilsService } from '../_services/utils.service';
 })
 export class HeaderComponent implements OnInit {
 
-  private mountainFilter: string;
-  private urbanFilter: string;
-  private roadFilter: string;
-  private discoverFilter: string;
-  private searchFormGroup: FormGroup;
-  private saleEnable: boolean = false;
+  mountainFilter: string;
+  urbanFilter: string;
+  roadFilter: string;
+  discoverFilter: string;
+  searchFormGroup: FormGroup;
+  saleEnable: boolean = false;
   
   /** Item Types */
-  private itemTypes: ItemCategoryModel[] = [];
+  itemTypes: ItemCategoryModel[] = [];
 
   constructor(
     private floatingCharsService: FloatingCharsService,
