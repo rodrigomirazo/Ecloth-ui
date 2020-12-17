@@ -15,6 +15,7 @@ import { User } from '../_models/Item-user';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-sale-item',
@@ -59,6 +60,7 @@ export class SaleItemComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private authService: AuthenticationService,
     private categoryService: CategoryService,
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
@@ -69,8 +71,10 @@ export class SaleItemComponent implements OnInit {
       // Initialize itemId
       this.item.id = null;
       //Set User
+      const userSession = this.authService.getSessionUser();
       this.item.user = new User();
-      this.item.user.id = "1";
+      this.item.user.id = userSession.id;
+      console.log("user: ", this.item.user);
       //Set Status
       this.item.statusId = 1;
       //Set Empty Image Array

@@ -82,6 +82,9 @@ export class ItemService {
 
   adaptFormToItem(firstFormGroup: FormGroup, userItem: UserItem): UserItem {
 
+    console.log("firstFormGroup.value : " + firstFormGroup.value);
+    console.log("firstFormGroup: " + firstFormGroup);
+    
     userItem.backRear = 		firstFormGroup.value.backRear;
     userItem.model = 			firstFormGroup.value.model;
     userItem.frontRear = 		firstFormGroup.value.frontRear;
