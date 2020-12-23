@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   host: "http://31.220.108.148:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
+  indexPage: "http://baaw.mx/#/index",
   entity: {
     item: "/item",
     filterItems: "/item/criteria",

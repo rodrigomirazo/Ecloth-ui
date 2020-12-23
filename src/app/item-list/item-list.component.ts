@@ -143,12 +143,6 @@ export class ItemListComponent implements OnInit {
                   
                   //console.log("floatCharCat: ", floatCharCat[0], floatChar[0]);
                   // d) assign using validations
-                  console.log("-");
-                  console.log("floatChar: ", floatChar);
-                  console.log("floatCharCat: ", floatCharCat);
-                  console.log("floatingCharCatId: ", this.items[i].itemFloatingChars[j].floatingCharCatId);
-                  
-                  
                   this.items[i].itemFloatingChars[j].floatingCharName = (floatChar.length > 0) ? floatChar[0].floatingCharName : "N/A";
                   this.items[i].itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
                 }

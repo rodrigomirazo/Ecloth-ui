@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
           .subscribe(
               data => {
                 console.log("this.returnUrl: ", this.returnUrl);
-                window.location.replace(window.location.href);
+                window.location.replace(environment.indexPage);
                 
               },
               error => {

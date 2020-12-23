@@ -75,6 +75,7 @@
 .logo-header {
     color: black;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .header-menu-title {
@@ -87,12 +88,14 @@
     font-family: bebasNeue-bold;
     font-size: 230%;
     color: #303130;
+    cursor: pointer;
 }
 
 .header-menu-right-side {
     font-family: montserrat-semiBold;
     font-size: 26px;
     color: #303130;
+    cursor: pointer;
 }
 
 .header-menu-botton-side {
