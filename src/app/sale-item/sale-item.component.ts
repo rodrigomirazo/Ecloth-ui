@@ -268,7 +268,7 @@ export class SaleItemComponent implements OnInit {
 
   finalStep() {
     //openDialog
-    const dialogRef = this.dialog.open(GenericDialogComponent, {
+   /* const dialogRef = this.dialog.open(GenericDialogComponent, {
       width: '250px',
       height: '200px',
       data: {
@@ -279,8 +279,9 @@ export class SaleItemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
 
-      this.router.navigate(['item-detail/', this.item.id])
-    });
+     
+    });*/
+    this.router.navigate(['item-detail/', this.item.id]);
   }
 
 }
