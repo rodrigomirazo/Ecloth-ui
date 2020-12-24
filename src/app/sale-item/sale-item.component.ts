@@ -111,7 +111,7 @@ export class SaleItemComponent implements OnInit {
         
       });
       this.thirdFormGroup = this._formBuilder.group({
-        price: ['', [Validators.required, Validators.min(100), Validators.max(100000)]]
+        price: ['', [Validators.required, Validators.min(100), Validators.max(100000), Validators.pattern(/^[0-9]\d*$/)]]
       });
       
       this.userId = 1;
