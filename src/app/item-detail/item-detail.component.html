@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <th>Cambio trasero</th>
-                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                    <td>{{  item.backRear }}</td>
                 </tr>
                 <tr>
                     <th>Desviador delantero</th>
@@ -153,10 +153,10 @@
                   <div class="col-md-6 text-item-detail">
                       Modificaciones
                     </div>
-                    <div  *ngIf=" item.isModified == true" class="col-md-6 text-item-detail">
+                    <div  *ngIf=" item.isModified == false" class="col-md-6 text-item-detail">
                       Si
                   </div>
-                  <div *ngIf="item.isModified == false" class="col-md-6 text-item-detail">
+                  <div *ngIf="item.isModified == true" class="col-md-6 text-item-detail">
                       No
                 </div>
         
