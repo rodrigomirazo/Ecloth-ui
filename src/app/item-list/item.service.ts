@@ -149,6 +149,7 @@ export class ItemService {
     userItemJson.$itemImgUrls         = itemImgUrls;
     userItemJson.$itemFloatingChars   = floatCharList;
     userItemJson.$backRear            = item.backRear;
+    userItemJson.$frontRear           = item.frontRear;
     userItemJson.$model               = item.model;
     userItemJson.$year                = item.year;
     userItemJson.$suspension          = item.suspension;

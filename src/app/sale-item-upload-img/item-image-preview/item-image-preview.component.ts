@@ -75,12 +75,9 @@ export class ItemImagePreviewComponent {
   public set uploadFlag(value: boolean) {
 
     if(value == true && this.fileData) {
-      console.log("set upload file true", this.fileData);
-
       this.uploadFilesService.upload(this.fileData, this.itemId)
       .subscribe(res => {
-        console.log(res);
-        alert('SUCCESS !!');
+        console.log("Succes on upload file");
       });
 
     } else {

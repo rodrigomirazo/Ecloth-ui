@@ -256,19 +256,18 @@ export class SaleItemComponent implements OnInit {
 
   thirdStepSave() {
     //TODO: color catalog
-    console.log(this.item);
-
+    
     this.item.price = this.thirdFormGroup.value.price;
 
     this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
-      console.log("itemRepsonse: ", itemRepsonse);
       this.item.id = itemRepsonse.id;
     });
   }
 
   finalStep() {
     //openDialog
-   /* const dialogRef = this.dialog.open(GenericDialogComponent, {
+    /*
+   const dialogRef = this.dialog.open(GenericDialogComponent, {
       width: '250px',
       height: '200px',
       data: {
@@ -277,10 +276,9 @@ export class SaleItemComponent implements OnInit {
     })
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
-     
-    });*/
+      console.log('The dialog was closed');     
+    });
+    */
     this.router.navigate(['item-detail/', this.item.id]);
   }
 

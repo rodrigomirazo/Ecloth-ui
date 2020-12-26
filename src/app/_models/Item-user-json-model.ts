@@ -24,6 +24,7 @@ export class UserItemJson {
     private itemFloatingChars: ItemFloatingCharRelJson[];
     private itemImgUrls: ItemImgUrlsJson[];
     private backRear: string;
+    private frontRear: string;
     private model: string;
     private year: number;
     private suspension: string;
@@ -176,6 +177,14 @@ export class UserItemJson {
      */
 	public get $backRear(): string {
 		return this.backRear;
+	}
+
+    /**
+     * Getter $frontRear
+     * @return {string}
+     */
+	public get $frontRear(): string {
+		return this.frontRear;
 	}
 
     /**
@@ -424,6 +433,14 @@ export class UserItemJson {
      */
 	public set $backRear(value: string) {
 		this.backRear = value;
+	}
+
+    /**
+     * Setter $frontRear
+     * @param {string} value
+     */
+	public set $frontRear(value: string) {
+		this.frontRear = value;
 	}
 
     /**
