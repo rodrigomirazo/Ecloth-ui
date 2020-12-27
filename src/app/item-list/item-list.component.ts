@@ -117,14 +117,16 @@ export class ItemListComponent implements OnInit {
         if(this.inputFilter.itemTypes.length > 0) {
           this.itemService.getFilterItems(this.inputFilter).subscribe((itemsResp: UserItem[]) => {
             
-            itemsResp.forEach(element => {
-              this.blobImgs = this.blobImgs.concat(null);
-            });
-
             this.items = itemsResp;
             for (let i = 0; i < this.items.length; i++) {
 
-              this.getImageFromService(this.items[i].itemImgUrls[ this.items[i].itemImgUrls.length - 1].imgUrl, i);
+              if(this.items[i].itemImgUrls[0]) {
+                this.blobImgs = this.blobImgs.concat(this.items[i].itemImgUrls[0].imgUrl);
+              } else {
+                this.blobImgs = this.blobImgs.concat(null);
+              }
+
+              //this.getImageFromService(this.items[i].itemImgUrls[ this.items[i].itemImgUrls.length - 1].imgUrl, i);
 
               if(this.items[i].itemFloatingChars) {
                 for (let j = 0; j < this.items[i].itemFloatingChars.length; j++) {
@@ -154,27 +156,14 @@ export class ItemListComponent implements OnInit {
     });
   }
 
+  getImgBaseUrl() {
+    return "http://31.220.108.148/uploadedItemImg/";
+  }
+
 
   getImageFromService(imageName: string, imgIndex: number) {
     console.log("imageName: ", imageName);
-    this.itemService.getImage(imageName).subscribe(data => {
-      this.createImageFromBlob(data, imgIndex);
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  createImageFromBlob(image: Blob, imgIndex: number) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-
-      this.blobImgs[imgIndex] = reader.result;
-
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+    this.blobImgs[imgIndex] = imageName;
   }
 
   isRecent(date: string) : boolean {
@@ -184,5 +173,7 @@ export class ItemListComponent implements OnInit {
     
     return Difference_In_Time / (1000 * 3600 * 24) < 10 ? true : false;
   }
+
+
   
 }

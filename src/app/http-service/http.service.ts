@@ -27,7 +27,6 @@ export class HttpService {
   }
 
   postAuth(url: string, requestBody: any, user: User): Observable<any> {
-    console.log("User: ", user);
 
     let headers = new HttpHeaders().set('Authorization', "Bearer " + user.token);
     

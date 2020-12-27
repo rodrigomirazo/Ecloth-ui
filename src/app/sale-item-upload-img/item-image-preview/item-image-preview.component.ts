@@ -45,6 +45,7 @@ export class ItemImagePreviewComponent {
   }
 
   fileProgress(fileInput: any) {
+    fileInput.preventDefault();
     this.fileData = <File>fileInput.target.files[0];
 
     // Show preview
@@ -65,23 +66,19 @@ export class ItemImagePreviewComponent {
   public get uploadFlag(): boolean {
 
     if(this.uploadFlag == true) {
-      console.log("Get upload file true", this.fileData);
+      //console.log("Get upload file true", this.fileData);
     } else {
-      console.log("Get upload file false");
+      //console.log("Get upload file false");
     }
 
     return this._uploadFlag;
   }
+
   public set uploadFlag(value: boolean) {
-
-    if(value == true && this.fileData) {
-      this.uploadFilesService.upload(this.fileData, this.itemId)
-      .subscribe(res => {
-        console.log("Succes on upload file");
-      });
-
-    } else {
-      console.log("set upload file false");
+    console.log("this.itemId = " + this.itemId);
+    if(value == true && this.fileData && this.itemId != null) {
+      console.log("Before upload");
+      this.uploadFilesService.upload(this.fileData, this.itemId);
     }
     this._uploadFlag = value;
   }
@@ -93,6 +90,10 @@ export class ItemImagePreviewComponent {
   }
 	public set height(value: string) {
     this._height = value;
+  }
+
+  onSubmit($event: any) {
+    $event.preventDefault();
   }
 
 }

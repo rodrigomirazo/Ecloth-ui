@@ -74,13 +74,10 @@ export class SaleItemComponent implements OnInit {
       const userSession = this.authService.getSessionUser();
       this.item.user = new User();
       this.item.user.id = userSession.id;
-      console.log("user: ", this.item.user);
       //Set Status
       this.item.statusId = 1;
       //Set Empty Image Array
       this.item.itemImgUrls = [];
-
-      console.log("this.item.user: ", this.item.user);
 
       this.firstFormGroup = this._formBuilder.group({
         backRear: new FormControl('', Validators.required),
@@ -111,7 +108,7 @@ export class SaleItemComponent implements OnInit {
         
       });
       this.thirdFormGroup = this._formBuilder.group({
-        price: ['', [Validators.required, Validators.min(100), Validators.max(100000), Validators.pattern(/^[0-9]\d*$/)]]
+        price: ['', [Validators.required, Validators.min(1000), Validators.max(500000), Validators.pattern(/^[0-9]\d*$/)]]
       });
       
       this.userId = 1;
@@ -129,7 +126,6 @@ export class SaleItemComponent implements OnInit {
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      console.log("itemTypes", this.itemTypes);
     });
   }
 
@@ -152,8 +148,6 @@ export class SaleItemComponent implements OnInit {
             new ItemFloatingCharRel(floatingChar.floatingCharId, floatingChar.floatingCharName, -1, "")
           );
       });
-
-      console.log(this.itemFloatingChars);
     });
   }
 
@@ -163,11 +157,8 @@ export class SaleItemComponent implements OnInit {
 
   selectFloatingChar(charIndx: number, floatingCharId: number, floatingCharCatId: number) {
     
-    console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
-
     this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
     this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
-    console.log(this.itemFloatingCharsRel);
   }
 
   filterFloatChar(flaotingChar: string): ItemFloatingCharsCat[] {
@@ -215,19 +206,17 @@ export class SaleItemComponent implements OnInit {
   }
   
   onEmitComponentsRange($event) {
-    this.item.comments = $event;
+    this.item.componentsRate = $event;
   }
   
 
   textAreaValidation() {
-    console.log(this.firstFormGroup.get("isModified").value);
-
     let control = this.firstFormGroup.get('comments');
     control.disabled ? control.enable() : control.disable();
   }
 
-  firstStepSave() {
-    console.log("this.firstFormGroup.valid: ", this.firstFormGroup.valid);
+  firstStepSave($event: any) {
+    $event.preventDefault();
     if( this.firstFormGroup.valid
       ) {
 
@@ -244,14 +233,19 @@ export class SaleItemComponent implements OnInit {
       ];
 
       this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
-        console.log("itemRepsonse: ", itemRepsonse);
+
         this.item.id = itemRepsonse.id;
       });
     }
   }
 
-  secondStepSave() {
+  secondStepSave($event: any) {
+    $event.preventDefault();
     this.uploadFlag = true;
+  }
+
+  onSubmit($event: any) {
+    $event.preventDefault();
   }
 
   thirdStepSave() {
@@ -261,6 +255,7 @@ export class SaleItemComponent implements OnInit {
 
     this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
       this.item.id = itemRepsonse.id;
+      this.router.navigate(['item-detail/', this.item.id]);
     });
   }
 
@@ -276,10 +271,34 @@ export class SaleItemComponent implements OnInit {
     })
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');     
     });
     */
-    this.router.navigate(['item-detail/', this.item.id]);
+  }
+
+  populate() {
+
+    //text
+    this.firstFormGroup.controls['backRear'].setValue("backRear");
+    this.firstFormGroup.controls['model'].setValue("model 1");
+    this.firstFormGroup.controls['frontRear'].setValue("front Rear");
+    this.firstFormGroup.controls['year'].setValue(2020);
+    this.firstFormGroup.controls['suspension'].setValue("Suspension 1");
+    this.firstFormGroup.controls['ruedos'].setValue("Ruedos nombre");
+    this.firstFormGroup.controls['cassette'].setValue("Cassette nombre");
+    this.firstFormGroup.controls['series'].setValue("Serie 1");
+    this.firstFormGroup.controls['gearLevel'].setValue("gear level");
+    this.firstFormGroup.controls['multiplication'].setValue("Multiplicacion nombre");
+    this.firstFormGroup.controls['isModified'].setValue(true);
+    this.firstFormGroup.controls['comments'].setValue("Comments 1");
+
+    //Options
+    this.firstFormGroup.controls['brand'].setValue(106);
+    this.firstFormGroup.controls['genere'].setValue(72);
+    this.firstFormGroup.controls['frameMaterial'].setValue(67);
+    this.firstFormGroup.controls['breakType'].setValue(74);
+    this.firstFormGroup.controls['talla'].setValue(108);
+    this.firstFormGroup.controls['itemTypeCatId'].setValue(182);
+    this.firstFormGroup.controls['wheelSize'].setValue(96);
   }
 
 }

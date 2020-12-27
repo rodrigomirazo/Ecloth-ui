@@ -7,7 +7,7 @@
         <img [src]="previewUrl" class="item-upload-img-selected" [ngStyle]="heightStyle()"/>
     </div>
     
-    <form [formGroup]="form">
+    <form [formGroup]="form" (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
         <input type="file" name="image" (change)="fileProgress($event)" #file style="display: none;" />
     </form>
 </div>

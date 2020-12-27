@@ -10,7 +10,7 @@
                 <p class="first-step-sub-title">Necesitamos saber qué tipo de bicicleta tienes</p>
             </div>
 
-            <form [formGroup]="firstFormGroup" class="form-font-family">
+            <form [formGroup]="firstFormGroup" class="form-font-family"  (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
                 <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
                     <div class="row">
                         <!-- Marca -->
@@ -230,8 +230,13 @@
                     <div class="col-md-8">
                     </div>
                     <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                        <button mat-stroked-button matStepperNext (click)="firstStepSave()"
+                        <button mat-stroked-button matStepperNext (click)="firstStepSave($event)"
                             class="step-next-button">Siguiente</button>
+
+                            <!--
+                        <button mat-stroked-button matStepperNext (click)="populate()"
+                            class="step-next-button">Populate Values</button>
+                    -->
                     </div>
                 </div>
             </form>
@@ -240,7 +245,7 @@
         </mat-step>
         
         <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+          <form [formGroup]="secondFormGroup" (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
             <ng-template matStepLabel>Fotos</ng-template>
                 <!-- Upload Image -->
                 <div *ngIf="files.length >= 7">
@@ -255,7 +260,7 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                    <button mat-stroked-button matStepperNext (click)="secondStepSave()"
+                    <button mat-stroked-button matStepperNext (click)="secondStepSave($event)"
                         class="step-next-button">Siguiente</button>
                 </div>
             </div>
@@ -270,7 +275,7 @@
                 <p class="first-step-sub-title">Califica el estado de tu bicicleta <br> en una escala de 1 a 5.</p>
             </div>
 
-            <form [formGroup]="thirdFormGroup" class="form-font-family">
+            <form [formGroup]="thirdFormGroup" class="form-font-family"  (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
                 <ng-template matStepLabel>Condiciones</ng-template>
 
                 <div class="row rate-row form-font-family">
@@ -343,12 +348,13 @@
                         </div>
                         <div class="col-md-3" style="text-align: center;">
                             <button mat-stroked-button matStepperNext (click)="thirdStepSave()"
-                                class="step-next-button">Siguiente</button>
+                                class="step-next-button">Subir</button>
                         </div>
                     </div>
 
             </form>
         </mat-step>
+        <!--
         <mat-step [stepControl]="secondFormGroup">
             <ng-template matStepLabel>Subir</ng-template>
             <div *ngIf="item.id">
@@ -356,7 +362,7 @@
                     <item-detail [itemInput]="item" [increment]="increment"></item-detail>
                 </div>
             </div>
-            <!-- Rate steps -->
+            
             <div class="row" style="margin-top: 40px;">
                 <div class="col-md-2">
                     <button mat-button matStepperPrevious
@@ -370,6 +376,7 @@
                 </div>
             </div>
         </mat-step>
+    -->
 
       </mat-horizontal-stepper>
 

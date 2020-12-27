@@ -34,7 +34,7 @@ export class ItemDetailComponent implements OnInit {
   public images: any[] = [];
   public blobImgs: any[] = [];
   public imageRows: number[] = [];
-  public principleImg: any;
+  public principleImg: string = "";
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
@@ -57,12 +57,19 @@ export class ItemDetailComponent implements OnInit {
         if(params.itemId) {
           
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
+
+            console.log(itemResponse.itemImgUrls[0]);
+            this.principleImg = itemResponse.itemImgUrls[0].imgUrl;
+
             this.assignFloatingChars(itemResponse, itemFloatingChars);
             this.orderImages(itemResponse);
           });
         } else {
           this.itemService.getById( parseInt(this.itemInput.id) ).subscribe( (itemResponse: UserItem) => {
             
+            console.log(itemResponse.itemImgUrls[0]);
+            this.principleImg = itemResponse.itemImgUrls[0].imgUrl;
+
             this.assignFloatingChars(itemResponse, itemFloatingChars);
             this.orderImages(itemResponse);
           });
@@ -76,7 +83,7 @@ export class ItemDetailComponent implements OnInit {
     
     // Sort image array
     itemResponse.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
-      return b.id - a.id;
+      return a.id - b.id;
     });
     
     // setup image array
@@ -90,6 +97,7 @@ export class ItemDetailComponent implements OnInit {
         imgRowIndx = imgRowIndx + 2;
       }
     });
+    this.imageRows = this.imageRows.concat(imgRowIndx);
     
     let i = 0;
     this.images.forEach(image => {
@@ -99,14 +107,14 @@ export class ItemDetailComponent implements OnInit {
     });
   }
 
-  imgUrl(imageUrl: any) {
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
-
   setPrincipalImage(imageIndex) {
-    this.principleImg = this.blobImgs[imageIndex];
+    this.principleImg = imageIndex;
   }
-
+  /**
+   * 
+   * @param itemResponse 
+   * @param itemFloatingChars 
+   */
   assignFloatingChars(itemResponse: UserItem, itemFloatingChars: ItemFloatingChars[]) {
     this.item = itemResponse;
     if(this.item.itemFloatingChars) {
@@ -170,30 +178,12 @@ export class ItemDetailComponent implements OnInit {
   isImageLoading: boolean;
 
   getImageFromService(imageName: string, imgIndex: number) {
-    
     this.isImageLoading = true;
-    this.itemService.getImage(imageName).subscribe(data => {
-      this.createImageFromBlob(data, imgIndex);
-      this.isImageLoading = false;
-    }, error => {
-      this.isImageLoading = false;
-      
-    });
+    this.blobImgs[imgIndex] = imageName;
   }
 
-  createImageFromBlob(image: Blob, imgIndex: number) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-
-      this.blobImgs[imgIndex] = reader.result;
-      if(imgIndex == 0) {
-        this.principleImg = reader.result;
-      }
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+  getImgBaseUrl() {
+    return "http://31.220.108.148/uploadedItemImg/";
   }
 
   openPopUp() {

@@ -81,9 +81,6 @@ export class ItemService {
   }
 
   adaptFormToItem(firstFormGroup: FormGroup, userItem: UserItem): UserItem {
-
-    console.log("firstFormGroup.value : " + firstFormGroup.value);
-    console.log("firstFormGroup: " + firstFormGroup);
     
     userItem.backRear = 		firstFormGroup.value.backRear;
     userItem.model = 			firstFormGroup.value.model;
@@ -190,6 +187,13 @@ export class ItemService {
         item.scoreName =  "Mala";
         item.score = 0;
     }
+
+    console.log();
+    console.log("item.scoreName = " + rate);
+    console.log("item.frameRate = " + item.frameRate);
+    console.log("item.ruedosRate = " + item.ruedosRate);
+    console.log("item.wheelsRate = " + item.wheelsRate);
+    console.log("item.componentsRate = " + item.componentsRate);
 
     return item;
   }
