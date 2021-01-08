@@ -21,6 +21,9 @@ export class ItemImagePreviewComponent {
   @Output()
   propagate: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+  imgSelectEmit = new EventEmitter<boolean>();
+
   formData: FormData;
   form: FormGroup = new FormGroup({
     file: new FormControl()
@@ -56,7 +59,7 @@ export class ItemImagePreviewComponent {
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
-      
+      this.imgSelectEmit.emit(false);
       this.previewUrl = reader.result;
     }
   }

@@ -1,7 +1,7 @@
 
 import { ItemFloatingCharRel } from './item-floating-char-rel';
 import { ItemImgUrls } from './Item-img-urls-model';
-import { User } from './Item-user';
+import { User } from './User';
 
 export class UserItem {
 

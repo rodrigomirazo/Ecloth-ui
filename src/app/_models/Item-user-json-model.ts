@@ -2,8 +2,8 @@
 import { ItemFloatingCharRel } from './item-floating-char-rel';
 import { ItemFloatingCharRelJson } from './item-floating-char-rel-json';
 import { ItemImgUrlsJson } from './Item-img-urls-json-model';
-import { User } from './Item-user';
-import { UserJson } from './Item-user-json';
+import { User } from './User';
+import { UserJson } from './User-json';
 
 export class UserItemJson {
 

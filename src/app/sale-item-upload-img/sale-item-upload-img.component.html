@@ -67,43 +67,43 @@
         <div class="item-upload-img-example-title">
             <p> &nbsp; </p>
         </div>
-
+        {{fileChecks | json}}
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 item-upload-img-div-desc">
-                <app-item-image-preview [height]="320" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="320" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(0)"></app-item-image-preview>
                 <p>Bicicleta de perfil</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(1)"></app-item-image-preview>
                 <p>Detalle de Suspension / Tijera</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(2)"></app-item-image-preview>
                 <p>Detalle vista trasera</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(3)"></app-item-image-preview>
                 <p>Detalle vista lateral</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(4)"></app-item-image-preview>
                 <p>Detalle de manubrio</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(5)"></app-item-image-preview>
                 <p>Multiplicación</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId"></app-item-image-preview>
+                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(6, true)"></app-item-image-preview>
                 <p>Factura / Ticket</p>
             </div>
         </div>

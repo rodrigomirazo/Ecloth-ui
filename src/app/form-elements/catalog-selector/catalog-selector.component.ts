@@ -13,7 +13,11 @@ export class CatalogSelectorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
+
+  @Input()
+  tittlaCase: boolean;
 
   @Input()
   inputTitle: string;
@@ -30,11 +34,18 @@ export class CatalogSelectorComponent implements OnInit {
   @Input()
   parentFormGroup: FormGroup;
 
+  sortBy(itemFloatingChar: string) {
+    return 
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if(changes.itemFloatingCharRel) {
 
       if(changes.itemFloatingChar) {
         this.itemFloatingChar = changes.itemFloatingChar.currentValue;
+
+        this.itemFloatingChar = this.itemFloatingChar
+        .sort( (a, b) => a.charName > b.charName ? 1 : -1);
       }
       if(changes.itemFloatingCharRel) {
         this.itemFloatingCharRel = changes.itemFloatingCharRel.currentValue;

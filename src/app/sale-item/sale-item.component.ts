@@ -11,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { InputFilterYear } from '../_models/input-filter-years-model';
 import { CommentStmt } from '@angular/compiler';
-import { User } from '../_models/Item-user';
+import { User } from '../_models/User';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -45,6 +45,7 @@ export class SaleItemComponent implements OnInit {
   files: File[] = [];
   filesToUpload: File[] = [];
   uploadFlag: boolean = false;
+  imgSelectionValid: boolean = false;
 
   /** Form Groups */
   firstFormGroup: FormGroup;
@@ -239,6 +240,10 @@ export class SaleItemComponent implements OnInit {
     }
   }
 
+  onValidImgSelections($event) {
+    this.imgSelectionValid = true;
+  }
+
   secondStepSave($event: any) {
     $event.preventDefault();
     this.uploadFlag = true;
@@ -249,14 +254,14 @@ export class SaleItemComponent implements OnInit {
   }
 
   thirdStepSave() {
-    //TODO: color catalog
-    
-    this.item.price = this.thirdFormGroup.value.price;
+    if( this.thirdFormGroup.valid ) {
+      this.item.price = this.thirdFormGroup.value.price;
 
-    this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
-      this.item.id = itemRepsonse.id;
-      this.router.navigate(['item-detail/', this.item.id]);
-    });
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+        this.item.id = itemRepsonse.id;
+        this.router.navigate(['item-detail/', this.item.id]);
+      });
+    }
   }
 
   finalStep() {

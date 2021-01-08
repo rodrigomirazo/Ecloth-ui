@@ -16,6 +16,7 @@
                         <!-- Marca -->
                         <div class="col-md-4 col-md-offset-3">
                             <app-catalog-selector
+                            [tittlaCase]="true"
                             [inputTitle]="'Marca'"
                             [inputFormName]="'brand'"
                             [parentFormGroup]="firstFormGroup"
@@ -107,6 +108,7 @@
                         <!-- Genero -->
                         <div class="col-md-4 col-md-offset-3">
                             <app-catalog-selector
+                            [tittlaCase]="true"
                             [inputTitle]="'Genero'"
                             [inputFormName]="'genere'"
                             [parentFormGroup]="firstFormGroup"
@@ -127,6 +129,7 @@
                         <!-- Material del Cuadro -->
                         <div class="col-md-4 col-md-offset-3">
                             <app-catalog-selector
+                            [tittlaCase]="true"
                             [inputTitle]="'Material del Cuadro'"
                             [inputFormName]="'frameMaterial'"
                             [parentFormGroup]="firstFormGroup"
@@ -150,6 +153,7 @@
                             <!-- Medida de Llanta -->
                             <div class="col-md-12">
                                 <app-catalog-selector
+                                    [tittlaCase]="true"
                                     [inputTitle]="'Medida de Llanta'"
                                     [inputFormName]="'wheelSize'"
                                     [parentFormGroup]="firstFormGroup"
@@ -159,6 +163,7 @@
                             <!-- Tipo de Freno -->
                             <div class="col-md-12">
                                 <app-catalog-selector
+                                    [tittlaCase]="true"
                                     [inputTitle]="'Tipo de Freno'"
                                     [inputFormName]="'breakType'"
                                     [parentFormGroup]="firstFormGroup"
@@ -168,6 +173,7 @@
                             <!-- Talla -->
                             <div class="col-md-12">
                                 <app-catalog-selector
+                                    [tittlaCase]="false"
                                     [inputTitle]="'Talla'"
                                     [inputFormName]="'talla'"
                                     [parentFormGroup]="firstFormGroup"
@@ -233,10 +239,10 @@
                         <button mat-stroked-button matStepperNext (click)="firstStepSave($event)"
                             class="step-next-button">Siguiente</button>
 
-                            <!--
+                            
                         <button mat-stroked-button matStepperNext (click)="populate()"
                             class="step-next-button">Populate Values</button>
-                    -->
+                    
                     </div>
                 </div>
             </form>
@@ -249,7 +255,7 @@
             <ng-template matStepLabel>Fotos</ng-template>
                 <!-- Upload Image -->
                 <div *ngIf="files.length >= 7">
-                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id"></app-sale-item-upload-img>
+                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id" (imgSelectIsValid)="onValidImgSelections($event)"></app-sale-item-upload-img>
                 </div>
 
             <div class="row" style="margin-top: 40px;">
@@ -261,6 +267,7 @@
                 </div>
                 <div class="col-md-3" style="text-align: center; margin-top: 40px;">
                     <button mat-stroked-button matStepperNext (click)="secondStepSave($event)"
+                        [disabled]="!imgSelectionValid"
                         class="step-next-button">Siguiente</button>
                 </div>
             </div>

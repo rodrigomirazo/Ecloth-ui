@@ -15,11 +15,12 @@
                     </mat-option>
 
                     <mat-option *ngFor="let floatingCat of itemFloatingChar" [value]="floatingCat.charId">
-                        {{floatingCat.charName | titlecase}}
+                        <div *ngIf="tittlaCase">{{floatingCat.charName | titlecase}}</div>
+                        <div *ngIf="!tittlaCase">{{floatingCat.charName}}</div>                        
                     </mat-option>
                 </mat-select>
             </div>
-            <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint>
+            <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint> 
         </mat-form-field>
     </form>
 </div>
