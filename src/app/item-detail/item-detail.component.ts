@@ -10,7 +10,7 @@ import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
 
 @Component({

@@ -37,6 +37,9 @@ import { LoginComponent } from './login/login.component';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
 import { CustomerServiceComponent } from './customer-service/customer-service.component';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -70,7 +73,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     LoginComponent,
     //ErrorInterceptor
     GenericDialogComponent,
-    CustomerServiceComponent
+    CustomerServiceComponent,
+    PaymentConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     SlickCarouselModule,
-    SwiperModule
+    SwiperModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
   providers: [{
     provide: SWIPER_CONFIG,

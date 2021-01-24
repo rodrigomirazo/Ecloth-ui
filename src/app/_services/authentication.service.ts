@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User, UserJson } from '../_models/User';
+import { User, UserJson } from '../_models/User-model';
 import { environment } from 'src/environments/environment';
 import { SESSION_PREFIX, SESSION_USER, SHA_CRIPT_STRING } from '../_helpers/constants';
 import * as CryptoJS from 'crypto-js'; 

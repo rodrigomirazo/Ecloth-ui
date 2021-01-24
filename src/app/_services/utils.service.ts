@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { InputFilter } from '../_models/input-filter-model';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 
 @Injectable({
   providedIn: 'root'

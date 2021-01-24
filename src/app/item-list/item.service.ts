@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../http-service/http.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 import { InputFilter } from '../_models/input-filter-model';
-import { UserItemJson } from '../_models/Item-user-json-model';
+import { UserItemJson } from '../_models/Item-json-model';
 import { FormGroup } from '@angular/forms';
 import { ItemFloatingCharRelJson } from '../_models/item-floating-char-rel-json';
-import { UserJson } from '../_models/User-json';
-import { User } from '../_models/User';
+import { UserJson } from '../_models/User-json-model';
+import { User } from '../_models/User-model';
 import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
@@ -87,6 +87,8 @@ export class ItemService {
     userItem.frontRear = 		firstFormGroup.value.frontRear;
     userItem.year = 			firstFormGroup.value.year;
     userItem.suspension = 		firstFormGroup.value.suspension;
+    userItem.backSuspension = 		firstFormGroup.value.backSuspension;
+    
     userItem.itemTypeCatId = 	firstFormGroup.value.itemTypeCatId;
     userItem.ruedos = 			firstFormGroup.value.ruedos;
     userItem.cassette = 		firstFormGroup.value.cassette;
@@ -150,6 +152,7 @@ export class ItemService {
     userItemJson.$model               = item.model;
     userItemJson.$year                = item.year;
     userItemJson.$suspension          = item.suspension;
+    userItemJson.$backSuspension      = item.backSuspension;
     userItemJson.$ruedos              = item.ruedos;
     userItemJson.$cassette             = item.cassette;
     userItemJson.$series              = item.series;

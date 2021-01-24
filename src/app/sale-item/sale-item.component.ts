@@ -4,14 +4,14 @@ import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemService } from '../item-list/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
 import { UploadFilesService } from '../_services/upload-files.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { InputFilterYear } from '../_models/input-filter-years-model';
 import { CommentStmt } from '@angular/compiler';
-import { User } from '../_models/User';
+import { User } from '../_models/User-model';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -86,10 +86,11 @@ export class SaleItemComponent implements OnInit {
         frontRear: new FormControl('', Validators.required),
         year: new FormControl('', Validators.required),
         suspension: new FormControl('', Validators.required),
+        backSuspension: new FormControl('', ),
         itemTypeCatId: new FormControl('', Validators.required),
 
         ruedos: new FormControl('', Validators.required),
-        cassette: new FormControl('', Validators.required),
+        cassette: new FormControl('', Validators.required), 
         series: new FormControl('', Validators.required),
         gearLevel: new FormControl('', Validators.required),
         multiplication: new FormControl('', Validators.required),
@@ -98,12 +99,22 @@ export class SaleItemComponent implements OnInit {
 
         // Floating CHARS
         brand: new FormControl('', Validators.required),
-        genere: new FormControl('', Validators.required),
-        frameMaterial: new FormControl('', Validators.required),
-        wheelSize: new FormControl('', Validators.required),
-        breakType: new FormControl('', Validators.required),
-        talla: new FormControl('', Validators.required)
+        brandSearchBar: new FormControl(),
         
+        genere: new FormControl('', Validators.required),
+        genereSearchBar: new FormControl(),
+        
+        frameMaterial: new FormControl('', Validators.required),
+        frameMaterialSearchBar: new FormControl(),
+
+        wheelSize: new FormControl('', Validators.required),
+        wheelSizeSearchBar: new FormControl(),
+
+        breakType: new FormControl('', Validators.required),
+        breakTypeSearchBar: new FormControl(),
+
+        talla: new FormControl('', Validators.required),
+        tallaSearchBar: new FormControl()
       });
       this.secondFormGroup = this._formBuilder.group({
         
@@ -135,7 +146,7 @@ export class SaleItemComponent implements OnInit {
     if(!this.years)
       this.years = [];
 
-    for (let year = 2020; year > 2015; year--) {
+    for (let year = 2021; year > 2015; year--) {
       this.years = this.years.concat(new InputFilterYear(year, false));
     }
   }
@@ -288,6 +299,7 @@ export class SaleItemComponent implements OnInit {
     this.firstFormGroup.controls['frontRear'].setValue("front Rear");
     this.firstFormGroup.controls['year'].setValue(2020);
     this.firstFormGroup.controls['suspension'].setValue("Suspension 1");
+    this.firstFormGroup.controls['backSuspension'].setValue("Suspension Trasera 1");
     this.firstFormGroup.controls['ruedos'].setValue("Ruedos nombre");
     this.firstFormGroup.controls['cassette'].setValue("Cassette nombre");
     this.firstFormGroup.controls['series'].setValue("Serie 1");

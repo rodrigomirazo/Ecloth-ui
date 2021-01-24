@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   host: "http://31.220.108.148:8081",
+  //host: "http://localhost:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://localhost:4200/#/index",
   entity: {
