@@ -59,8 +59,8 @@ export class HomeCarouselComponent {
     hideOnClick: false
   };
 
-  @ViewChild(SwiperComponent, { static: false }) componentRef?: SwiperComponent;
-  @ViewChild(SwiperDirective, { static: false }) directiveRef?: SwiperDirective;
+  @ViewChild(SwiperComponent) componentRef?: SwiperComponent;
+  @ViewChild(SwiperDirective) directiveRef?: SwiperDirective;
 
   constructor(private categoryService: CategoryService, private utilsService: UtilsService) {}
 

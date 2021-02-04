@@ -21,7 +21,7 @@ export class CatalogSelectorComponent implements OnInit, AfterViewInit, OnDestro
   public filteredBanks: ReplaySubject<ItemFloatingCharsCat[]> = new ReplaySubject<ItemFloatingCharsCat[]>(1);
   protected _onDestroy = new Subject<void>();
 
-  @ViewChild('singleSelect', { static: false })
+  @ViewChild('singleSelect')
   singleSelect: MatSelect;
   
   constructor() { }
