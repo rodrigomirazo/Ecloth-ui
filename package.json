@@ -33,7 +33,7 @@
     "ngx-paypal": "^7.0.0",
     "ngx-slick-carousel": "^0.5.1",
     "ngx-swiper-wrapper": "^10.0.0",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.6.3",
     "slick-carousel": "^1.8.1",
     "swiper": "^6.4.1",
     "tslib": "^1.14.1",
