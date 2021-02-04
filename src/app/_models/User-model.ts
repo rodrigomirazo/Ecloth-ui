@@ -1,5 +1,5 @@
-import { UserAdressJson } from "./User-address-json-model";
-import { UserAdress } from "./User-address-model";
+import { UserAddressJson } from "./User-address-json-model";
+import { UserAddress } from "./User-address-model";
 
 export class User {
 
@@ -13,7 +13,7 @@ export class User {
     private _userProfileImg: string;
     private _description: string;
     private _token: string;
-    private _userAdress: UserAdress;
+    private _userAdress: UserAddressJson;
 
 	constructor(username?: string, password?: string, token?: string) {
 		this._userName = username;
@@ -21,7 +21,6 @@ export class User {
 		this._token = token;
     }
     
-
     /**
      * Getter id
      * @return {string}
@@ -103,6 +102,14 @@ export class User {
 	}
 
     /**
+     * Getter userAdress
+     * @return {UserAddressJson}
+     */
+	public get userAdress(): UserAddressJson {
+		return this._userAdress;
+	}
+
+    /**
      * Setter id
      * @param {string} value
      */
@@ -180,29 +187,17 @@ export class User {
      */
 	public set token(value: string) {
 		this._token = value;
-    }
-    
-
-    /**
-     * Getter userAdress
-     * @return {UserAdress}
-     */
-	public get userAdress(): UserAdress {
-		return this._userAdress;
 	}
 
     /**
      * Setter userAdress
-     * @param {UserAdress} value
+     * @param {UserAddressJson} value
      */
-	public set userAdress(value: UserAdress) {
+	public set userAdress(value: UserAddressJson) {
 		this._userAdress = value;
 	}
 
-
 }
-
-
 export class UserJson {
 
     private id: string;
@@ -215,7 +210,7 @@ export class UserJson {
     private userProfileImg: string;
     private description: string;
     private token: string;
-    private _userAdressJson: UserAdressJson;
+    private userAdressJson: UserAddressJson;
 
 	constructor(user: User) {
         if(user != null) {
@@ -314,6 +309,14 @@ export class UserJson {
 	}
 
     /**
+     * Getter $userAdressJson
+     * @return {UserAddressJson}
+     */
+	public get $userAdressJson(): UserAddressJson {
+		return this.userAdressJson;
+	}
+
+    /**
      * Setter $id
      * @param {string} value
      */
@@ -391,23 +394,14 @@ export class UserJson {
      */
 	public set $token(value: string) {
 		this.token = value;
-    }
-    
-
-    /**
-     * Getter userAdressJson
-     * @return {UserAdressJson}
-     */
-	public get userAdressJson(): UserAdressJson {
-		return this._userAdressJson;
 	}
 
     /**
-     * Setter userAdressJson
-     * @param {UserAdressJson} value
+     * Setter $userAdressJson
+     * @param {UserAddressJson} value
      */
-	public set userAdressJson(value: UserAdressJson) {
-		this._userAdressJson = value;
+	public set $userAdressJson(value: UserAddressJson) {
+		this.userAdressJson = value;
 	}
     
 

@@ -13,6 +13,8 @@ import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
+import { ItemImgUrls } from '../_models/Item-img-urls-model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,6 +170,78 @@ export class ItemService {
     return userItemJson;
   }
 
+
+  adaptUserItemToModel(userItemJson: UserItemJson): UserItem {
+
+    let userJson: User = new User();
+    userJson.id = userItemJson.$user.$id;
+
+    /** Floating Chars */
+    let floatCharList: ItemFloatingCharRel[] = [];
+
+    userItemJson.$itemFloatingChars.forEach(itemFloatingChars => {
+      let floatCharDto: ItemFloatingCharRel = new ItemFloatingCharRel();
+      floatCharDto.floatingCharCatId = itemFloatingChars.$floatingCharCatId;
+      floatCharDto.floatingCharCatName = itemFloatingChars.$floatingCharCatName;
+      floatCharDto.floatingCharId = itemFloatingChars.$floatingCharId;
+      floatCharDto.floatingCharName = itemFloatingChars.$floatingCharName;
+      floatCharList = floatCharList.concat(floatCharDto);
+    });
+
+    /** Img URLs */
+    let itemImgUrls: ItemImgUrls[] = [];
+    userItemJson.$itemImgUrls.forEach(itemImgUrl => {
+      
+      let itemImgUrlJson: ItemImgUrls = new ItemImgUrls();
+      itemImgUrlJson.itemId = itemImgUrl.$itemId;
+      itemImgUrlJson.id = itemImgUrl.$id;
+      itemImgUrlJson.createdTime = itemImgUrl.$createdTime;
+      itemImgUrlJson.imgServer = itemImgUrl.$imgServer;
+      itemImgUrlJson.imgUrl = itemImgUrl.$imgUrl;
+      
+      itemImgUrls = itemImgUrls.concat(itemImgUrlJson);
+    });
+
+    let userItem: UserItem = new UserItem();
+    
+    userItem.user                = userJson;
+    userItem.itemImgUrls         = itemImgUrls;
+    userItem.itemFloatingChars   = floatCharList;
+
+    userItem.id                  = userItemJson.$id;
+    userItem.statusId            = userItemJson.$statusId;
+    userItem.itemColorId         = userItemJson.$itemColorId;
+    userItem.itemTypeCatId       = userItemJson.$itemTypeCatId;
+    userItem.itemTransactionId   = userItemJson.$itemTransactionId;
+    userItem.name                = userItemJson.$name;
+    userItem.price               = userItemJson.$price;
+    userItem.originalPrice       = userItemJson.$originalPrice;
+    userItem.discount            = userItemJson.$discount;
+    userItem.description         = userItemJson.$description;
+    userItem.fleetCost           = userItemJson.$fleetCost;
+    userItem.sizeId              = userItemJson.$sizeId;
+    userItem.lastLevelCategoryId = userItemJson.$lastLevelCategoryId;
+    userItem.backRear            = userItemJson.$backRear;
+    userItem.frontRear           = userItemJson.$frontRear;
+    userItem.model               = userItemJson.$model;
+    userItem.year                = userItemJson.$year;
+    userItem.suspension          = userItemJson.$suspension;
+    userItem.backSuspension      = userItemJson.$backSuspension;
+    userItem.ruedos              = userItemJson.$ruedos;
+    userItem.cassette            = userItemJson.$cassette;
+    userItem.series              = userItemJson.$series;
+    userItem.gearLevel           = userItemJson.$gearLevel;
+    userItem.multiplication      = userItemJson.$multiplication;
+    userItem.isModified          = userItemJson.$isModified;
+    userItem.comments            = userItemJson.$comments;
+    userItem.frameRate           = userItemJson.$frameRate;
+    userItem.ruedosRate          = userItemJson.$ruedosRate;
+    userItem.wheelsRate          = userItemJson.$wheelsRate;
+    userItem.componentsRate      = userItemJson.$componentsRate;
+
+    return userItem;
+  }
+
   itemScore(item: UserItem) {
 
     let rate: number = (item.frameRate + item.ruedosRate + item.wheelsRate + item.componentsRate + 4);
@@ -190,14 +264,6 @@ export class ItemService {
         item.scoreName =  "Mala";
         item.score = 0;
     }
-
-    console.log();
-    console.log("item.scoreName = " + rate);
-    console.log("item.frameRate = " + item.frameRate);
-    console.log("item.ruedosRate = " + item.ruedosRate);
-    console.log("item.wheelsRate = " + item.wheelsRate);
-    console.log("item.componentsRate = " + item.componentsRate);
-
     return item;
   }
 

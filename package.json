@@ -28,6 +28,7 @@
     "jquery": "^3.5.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-mat-select-search": "^3.2.0",
+    "ngx-paypal": "^7.0.0",
     "ngx-slick-carousel": "^0.5.1",
     "ngx-swiper-wrapper": "^10.0.0",
     "rxjs": "~6.4.0",

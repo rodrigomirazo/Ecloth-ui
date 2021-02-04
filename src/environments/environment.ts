@@ -4,12 +4,15 @@
 
 export const environment = {
   production: false,
-  host: "http://31.220.108.148:8081",
+  server: "http://localhost",
+  host: "http://localhost:8081",
   //host: "http://localhost:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://localhost:4200/#/index",
   entity: {
     item: "/item",
+    itemTransaction: "/itemTransaction",
+    
     filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",
@@ -21,6 +24,7 @@ export const environment = {
     floatingChars: "/itemFloatingChars",
     floatingCharsCat: "/itemFloatingCharsCat",
 
+    userAddres: "/userAddress",
     userAuth: "/user/authenticate",
     userTokenIsValid: "/user/profile/isValid"
   }

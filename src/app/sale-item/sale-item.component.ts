@@ -56,7 +56,7 @@ export class SaleItemComponent implements OnInit {
   increment: number = 0;
   
   ngOnInit() {
-
+    
   }
 
   constructor(

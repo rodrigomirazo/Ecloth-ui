@@ -1,113 +1,57 @@
 
-.adress-section {
-    background-color: #303130;
+.login-main-div {
+    min-height: calc(72vh - 10em);
+    margin: auto;  
+    padding: 10px;
+    padding-top: 40px;
+    background-image: url(/assets/images/home/principal_banner.png);
+}
+
+.login-main-div:before {
+    background-image: url(/assets/images/home/principal_banner.png);
+}
+
+.login-square {
+    background-color: white;
     border-radius: 14px;
-    color: white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    position: relative;
+    left: 33%;
+    top: 50%;
 }
 
-.product-section {
-    background-color: #f1f1f1;
-    border-radius: 14px;
-    margin-bottom: 25px;
-}
-
-
-.type-item-detail{
-    font-family: montserrat-medium;
-    font-size: 14pt;
-    margin-top: 24px;
-    color: #303130;
-  }
-  
-  .name-item-detail{
+.login-tittle {
     font-family: bebasNeue-bold;
-    font-size: 32pt;
-    color: #303130;
-    line-height: 41px;
-  }
-  
-  .size-item-detail{
-    font-family: bebasNeue-regular;
-    font-size: 16pt;
-    color: #303130;
-    line-height: 0px;
-  }
-  
-  .price-item-detail{
-    font-family: bebasNeue-bold;
-    font-size: 27pt;
-    color: #303130;
-    line-height: 34px;
-  }
-  
-.address-title {
-    font-size: 16px;
-    font-family: 'montserrat-semiBold';
-}
-
-.table-ammounts {
-    width: 83%;
-    margin-left: 15px;
-    border-top: black 1px solid;
-}
-
-.table-ammounts-name {
-    font-family: 'montserrat-light';
-}
-
-.table-ammounts-number {
-    font-family: 'montserrat-semiBold';
+    font-size: 36px;
 }
 
 
-.address-hint {
-    font-size: 12px;
+.home-page-banner {
+    height: 690px;
+    background: url(/assets/images/home/principal_banner.png);
+    background-position-x: center;
+    background-position-y: top;
 }
 
-.address-separation-form {
-    margin-top: 25px;
-}
+/** Green **/
 
-.adress-input-1 {
-    width: 90%;
-}
 
-.adress-input-2 {
-
-}
-
-.adress-input-3 {
-
-}
-
-:host ::ng-deep .adress-section mat-label {
-    color: white;
-    font-size: 12px;
-    font-family: 'montserrat-light';
-}
-
-.adress-section .ng-touched::-webkit-input-placeholder {
-    color: red;
-}
-
-.adress-section .ng-untouched::-webkit-input-placeholder {
-    color: #cccccc;
-    font-size: 12px;
-    font-family: montserrat-light;
-}
+/** Step Navigation **/
 
 :host ::ng-deep .mat-horizontal-stepper-header-container {
     text-align: center;
-    margin-left: 24%;
     width: 50%;
+    margin-left: 24%;
 }
 
 :host ::ng-deep .mat-step-icon-selected {
-    background-color: #ffffff !important;
+    background-color: #18c65e!important;
 }
 
 :host ::ng-deep .mat-step-icon-state-edit {
-    /* background-color: #ffffff !important; */
+    background-color: #18c65e!important;
 }
 
 /** Steps **/
@@ -135,11 +79,10 @@
     font-family: montserrat-light;
 }
 
-/*
 .input-text-alignment {
+    width: 90%;
     bottom: -12px;
 }
-*/
 
 :host ::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
     border-top-width: 6px !important;
@@ -150,16 +93,16 @@
 }
 
 :host ::ng-deep mat-form-field mat-hint p {
-    color: #ffffff !important;
+    color: #18c65e !important;
 }
 
 :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-    border-bottom: solid 1px #ffffff !important;
-    color: #ffffff;
+    border-bottom: solid 1px #18c65e !important;
+    color: #18c65e;
 }
 
 :host ::ng-deep .mat-form-field-underline {
-    border-bottom: solid 1px #ffffff !important;
+    border-bottom: solid 1px #18c65e !important;
 }
 
 ::ng-deep .mat-select-content {
@@ -184,15 +127,15 @@
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: #ffffff;
+    background-color: #18c65e;
 }
 
 ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-    border-color: #ffffff;
+    border-color: #18c65e;
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color:#ffffff;
+    background-color:#18c65e;
 }
 
 .step-next-button {
@@ -215,10 +158,4 @@
 
 ::ng-deep .mat-horizontal-stepper-header {
     pointer-events: none !important;
-}
-
-
-.light-button {
-    border: 1px solid #ffffff !important;
-    border-radius: 20px;
 }

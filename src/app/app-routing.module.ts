@@ -1,4 +1,3 @@
-import { OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomerServiceComponent } from './customer-service/customer-service.component';
@@ -8,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { MarketPlaceComponent } from './market-place/market-place.component';
 import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 import { SaleItemComponent } from './sale-item/sale-item.component';
 import { TermsComponent } from './terms-conditions/terms-conditions.component';
@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent},
   { path: 'return-policy', component: ReturnPolicyComponent},
   { path: 'customer-service', component: CustomerServiceComponent},
+  { path: 'register', component: RegisterUserComponent},
 
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] }
 ];

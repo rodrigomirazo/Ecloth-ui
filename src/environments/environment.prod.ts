@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  server: "http://31.220.108.148",
   host: "http://31.220.108.148:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://baaw.mx/#/index",

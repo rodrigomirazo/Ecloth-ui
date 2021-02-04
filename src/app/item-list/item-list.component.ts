@@ -9,7 +9,7 @@ import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { DatePipe } from '@angular/common';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -18,7 +18,8 @@ import { DatePipe } from '@angular/common';
 })
 export class ItemListComponent implements OnInit {
 
-
+  server: string = environment.host + environment.server;
+  
   // IO
   //@Input() categoryId: number;
   _inputFilter: any;

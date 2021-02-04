@@ -41,6 +41,8 @@ export class UserItemJson {
     private wheelsRate: number;
     private componentsRate: number;
     private createdTime: number;
+    private approvedByAdmnin: boolean;
+    private paymentConfirmed: boolean;
 
 	constructor() {
     }
@@ -587,6 +589,39 @@ export class UserItemJson {
      */
 	public set $createdTime(value: number) {
 		this.createdTime = value;
+    }
+    
+    /**
+     * Getter $approvedByAdmnin
+     * @return {boolean}
+     */
+	public get $approvedByAdmnin(): boolean {
+		return this.approvedByAdmnin;
 	}
+
+    /**
+     * Getter $paymentConfirmed
+     * @return {boolean}
+     */
+	public get $paymentConfirmed(): boolean {
+		return this.paymentConfirmed;
+	}
+
+    /**
+     * Setter $approvedByAdmnin
+     * @param {boolean} value
+     */
+	public set $approvedByAdmnin(value: boolean) {
+		this.approvedByAdmnin = value;
+	}
+
+    /**
+     * Setter $paymentConfirmed
+     * @param {boolean} value
+     */
+	public set $paymentConfirmed(value: boolean) {
+		this.paymentConfirmed = value;
+	}
+
 
 }

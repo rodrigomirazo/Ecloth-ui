@@ -41,7 +41,8 @@ export class UserItem {
     private _score: number;
     private _scoreName: string;
     private _createdTime: number;
-    
+    private _approvedByAdmnin: boolean;
+    private _paymentConfirmed: boolean;
 
 	constructor() {
         this._user = new User();
@@ -622,6 +623,37 @@ export class UserItem {
 	public set createdTime(value: number) {
 		this._createdTime = value;
 	}
-    
 
+    /**
+     * Getter approvedByAdmnin
+     * @return {boolean}
+     */
+	public get approvedByAdmnin(): boolean {
+		return this._approvedByAdmnin;
+	}
+
+    /**
+     * Getter paymentConfirmed
+     * @return {boolean}
+     */
+	public get paymentConfirmed(): boolean {
+		return this._paymentConfirmed;
+	}
+
+    /**
+     * Setter approvedByAdmnin
+     * @param {boolean} value
+     */
+	public set approvedByAdmnin(value: boolean) {
+		this._approvedByAdmnin = value;
+	}
+
+    /**
+     * Setter paymentConfirmed
+     * @param {boolean} value
+     */
+	public set paymentConfirmed(value: boolean) {
+		this._paymentConfirmed = value;
+	}
+    
 }
