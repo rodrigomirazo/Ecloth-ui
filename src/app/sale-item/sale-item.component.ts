@@ -10,12 +10,11 @@ import { UploadFilesService } from '../_services/upload-files.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { InputFilterYear } from '../_models/input-filter-years-model';
-import { CommentStmt } from '@angular/compiler';
 import { User } from '../_models/User-model';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../_services/authentication.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale-item',

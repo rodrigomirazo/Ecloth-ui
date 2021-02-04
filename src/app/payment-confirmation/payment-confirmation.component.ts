@@ -16,7 +16,7 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { PaypalServiceService } from '../_services/paypal-service.service';
 import { UserService } from '../_services/user.service';
 import { UserAddressService } from '../_services/user-address.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionDialogComponent } from './transaction-dialog/transaction-dialog.component';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { ItemFloatingChars } from '../_models/item-floating-char';
