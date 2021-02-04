@@ -44,10 +44,25 @@ import { SubModuleTitleComponent } from './ADMIN_CONSOLE/sub-module-title/sub-mo
 import { NgxPayPalModule } from 'ngx-paypal';
 import { TransactionDialogComponent } from './payment-confirmation/transaction-dialog/transaction-dialog.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto'
+};
+
+const googleAuthConfig = {
+  apiKey: "AIzaSyC7A9QWrUGoaGasGz6E2xOWDU5YpfwVKoo",
+  authDomain: "baaw-797ba.firebaseapp.com",
+  databaseURL: "https://baaw-797ba-default-rtdb.firebaseio.com",
+  projectId: "baaw-797ba",
+  storageBucket: "baaw-797ba.appspot.com",
+  messagingSenderId: "824333940764",
+  appId: "1:824333940764:web:f1f229a2fff7e0875c07d9",
+  measurementId: "G-GQWWVD43TQ"
 };
 
 @NgModule({
@@ -96,6 +111,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatFormFieldModule,
     NgxMatSelectSearchModule,
     NgxPayPalModule,
+    AngularFireModule.initializeApp(googleAuthConfig),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule // storage
   ],
   providers: [{
     provide: SWIPER_CONFIG,

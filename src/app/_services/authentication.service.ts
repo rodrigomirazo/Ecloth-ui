@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { SESSION_PREFIX, SESSION_USER, SHA_CRIPT_STRING } from '../_helpers/constants';
 import * as CryptoJS from 'crypto-js'; 
 import { Subscriber } from 'rxjs/internal/Subscriber';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,15 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private db: AngularFirestore,
+    ) {
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.currentUserCookie)));
       this.currentUser = this.currentUserSubject.asObservable();
+
+      const things = db.collection('things').valueChanges();
+      things.subscribe(console.log);
   }
 
   public get currentUserValue(): User {
