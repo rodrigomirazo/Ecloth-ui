@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'return-policy', component: ReturnPolicyComponent},
   { path: 'customer-service', component: CustomerServiceComponent},
   { path: 'register', component: RegisterUserComponent},
-
+  
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] }
 ];
 
