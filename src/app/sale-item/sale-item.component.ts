@@ -58,6 +58,7 @@ export class SaleItemComponent implements OnInit {
     
   }
 
+  
   constructor(
     public dialog: MatDialog,
     private authService: AuthenticationService,

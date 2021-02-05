@@ -115,5 +115,20 @@ export class AuthenticationService {
       console.log(e);
     }
   }
+/*
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }  
 
+  // Auth logic to run auth providers
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+    .then((result) => {
+        console.log('You have been successfully logged in!')
+    }).catch((error) => {
+        console.log(error)
+    })
+  }
+*/
 }
