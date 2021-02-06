@@ -10,6 +10,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 import { SaleItemComponent } from './sale-item/sale-item.component';
+import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
 import { TermsComponent } from './terms-conditions/terms-conditions.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
@@ -28,8 +29,16 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent},
   { path: 'return-policy', component: ReturnPolicyComponent},
   { path: 'customer-service', component: CustomerServiceComponent},
-  { path: 'register', component: RegisterUserComponent},
   
+  { path: 'register', component: RegisterUserComponent},
+
+  { path: 'sign-in', component: SignInComponent },
+  /*
+  { path: 'register-user', component: SignUpComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+  */
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] }
 ];
 

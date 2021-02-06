@@ -96,6 +96,11 @@ export class HeaderComponent implements OnInit {
 
     this.authenticationService.tokenIsValid().subscribe((isUserToeknEnable: boolean) => {
       // Urbain
+      console.log("isValid:", isUserToeknEnable);
+      if(!isUserToeknEnable) {
+        this.authenticationService.logout();
+      }
+
       this.saleEnable = isUserToeknEnable;
     });
   }

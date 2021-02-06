@@ -4,6 +4,7 @@ import { UserAddress } from "./User-address-model";
 export class User {
 
     private _id: string;
+    private _uid: any;
     private _name: string;
     private _lastname: string;
     private _userName: string;
@@ -197,10 +198,28 @@ export class User {
 		this._userAdress = value;
 	}
 
+    /**
+     * Getter uid
+     * @return {any}
+     */
+	public get uid(): any {
+		return this._uid;
+	}
+
+    /**
+     * Setter uid
+     * @param {any} value
+     */
+	public set uid(value: any) {
+		this._uid = value;
+	}
+
 }
+
 export class UserJson {
 
     private id: string;
+    private uid: any;
     private name: string;
     private lastname: string;
     private userName: string;
@@ -404,5 +423,20 @@ export class UserJson {
 		this.userAdressJson = value;
 	}
     
+    /**
+     * Getter $uid
+     * @return {any}
+     */
+	public get $uid(): any {
+		return this.uid;
+	}
+
+    /**
+     * Setter $uid
+     * @param {any} value
+     */
+	public set $uid(value: any) {
+		this.uid = value;
+	}
 
 }

@@ -49,6 +49,11 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AuthenticationService } from './_services/authentication.service';
+import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
+import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -98,6 +103,10 @@ const googleAuthConfig = {
     SubModuleTitleComponent,
     TransactionDialogComponent,
     RegisterUserComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,10 +126,13 @@ const googleAuthConfig = {
     AngularFireAuthModule, // auth
     AngularFireStorageModule // storage
   ],
-  providers: [{
-    provide: SWIPER_CONFIG,
-    useValue: DEFAULT_SWIPER_CONFIG
-  }],
+  providers: [
+    AuthenticationService,
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG,
+    }
+  ],
   entryComponents: [
     GenericDialogComponent
   ],
