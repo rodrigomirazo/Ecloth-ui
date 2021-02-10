@@ -1,0 +1,20 @@
+<div class="market-place-main-div">
+
+    <div class="col-xs-2 col-sm-2 col-md-2">
+        <user-menu></user-menu>
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10" style="min-height: calc(72vh - 10em); margin-left: 0px; margin-right: 0px" *ngIf="section">
+        
+        <div *ngIf="section == 'compras' ">     <user-shopping  ></user-shopping>   </div>
+        <div *ngIf="section == 'ventas' ">      <user-sales     ></user-sales>      </div>
+        <div *ngIf="section == 'diagnostico' "> <item-diagnosis ></item-diagnosis>  </div>
+        <div *ngIf="section == 'adminventas' "> <shopping-admin ></shopping-admin>  </div>
+        <div *ngIf="section == 'favoritos' ">   <user-favourites></user-favourites> </div>
+        <div *ngIf="section == 'perfil' ">      <user-profile   ></user-profile>    </div>
+        
+        
+
+    </div>
+
+</div>

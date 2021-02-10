@@ -1,0 +1,99 @@
+<div class="user-prfile-place-main-div">
+
+    section: {{section}}<br><br>
+    <mat-accordion class="filters-accordion" hideToggle>
+
+        <!-- Categorías -->
+        <mat-expansion-panel [expanded]="section === 'compras'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'compras' ]">
+                <mat-panel-title    class="user-menu-section"
+                                [ngClass]="{'user-menu-section-selected': section === 'compras'}">
+                    Compras
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+        <!-- Year -->
+        <mat-expansion-panel [expanded]="section === 'ventas'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'ventas' ]">
+            <mat-panel-title    class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'ventas'}">
+                Ventas
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+        <!-- Frame Material -->
+        <mat-expansion-panel [expanded]="section === 'diagnostico'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'diagnostico' ]">
+            <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'diagnostico'}">
+                Diagnostico
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
+                [ngClass]="'first second'">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'adminventas'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'adminventas' ]">
+            <mat-panel-title class="user-menu-section"
+                        [ngClass]="{'user-menu-section-selected': section === 'adminventas'}">
+                Administrador de Ventas
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+        
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'favoritos'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'favoritos' ]">
+                <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'favoritos'}">
+                    Favoritos
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'perfil'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'perfil' ]">
+                <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'perfil'}">
+                    Perfil
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+</div>

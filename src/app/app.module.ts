@@ -54,6 +54,14 @@ import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
 import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
+import { UserConsoleComponent } from './ADMIN_CONSOLE/user-console/user-console.component';
+import { UserMenuComponent } from './ADMIN_CONSOLE/user-menu/user-menu.component';
+import { UserSalesComponent } from './ADMIN_CONSOLE/user-sales/user-sales.component';
+import { UserShoppingComponent } from './ADMIN_CONSOLE/user-shopping/user-shopping.component';
+import { ItemDiagnosisComponent } from './ADMIN_CONSOLE/item-diagnosis/item-diagnosis.component';
+import { ShoppingAdminComponent } from './ADMIN_CONSOLE/shopping-admin/shopping-admin.component';
+import { UserFavouritesComponent } from './ADMIN_CONSOLE/user-favourites/user-favourites.component';
+import { UserProfileComponent } from './ADMIN_CONSOLE/user-profile/user-profile.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -107,6 +115,14 @@ const googleAuthConfig = {
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
+    UserConsoleComponent,
+    UserMenuComponent,
+    UserSalesComponent,
+    UserShoppingComponent,
+    ItemDiagnosisComponent,
+    ShoppingAdminComponent,
+    UserFavouritesComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

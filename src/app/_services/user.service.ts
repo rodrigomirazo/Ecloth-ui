@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PROFILE_BAAW_PARTNER } from '../_helpers/constants';
 import { ItemTransactionHistoryJson } from '../_models/item-transaction-history-model-json';
 import { User, UserJson } from '../_models/User-model';
 import { UserAddressService } from './user-address.service';
@@ -9,6 +10,15 @@ import { UserAddressService } from './user-address.service';
 export class UserService {
 
   constructor(private userAddressService: UserAddressService) {}
+
+  getUserProfiles(user: User) : string[] {
+     return user.content.trim().split(",");
+  }
+
+  isBaawPartner(user: User) {
+    let profiles: string[] = this.getUserProfiles(user);
+    return profiles.includes(PROFILE_BAAW_PARTNER);
+  }
 
   adaptUserToJson(user: User) : UserJson {
 

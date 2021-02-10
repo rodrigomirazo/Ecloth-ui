@@ -13,11 +13,13 @@ import { SaleItemComponent } from './sale-item/sale-item.component';
 import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
 import { TermsComponent } from './terms-conditions/terms-conditions.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
+import { UserConsoleComponent } from './ADMIN_CONSOLE/user-console/user-console.component';
 
 const routes: Routes = [
   { path: 'index', component: HomePageComponent, runGuardsAndResolvers: 'always' },
-  { path: 'login', component: LoginComponent },
-  
   { path: '', redirectTo: 'index', pathMatch: 'full', runGuardsAndResolvers: 'always'},
   { path: 'market-place/:inputFilter', component: MarketPlaceComponent },
   { path: 'market-place/:inputFilter/:searchBar', component: MarketPlaceComponent },
@@ -32,14 +34,16 @@ const routes: Routes = [
   
   { path: 'register', component: RegisterUserComponent},
 
+  { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
-  /*
+  
   { path: 'register-user', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  */
-  { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] }
+  { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] },
+
+  { path: 'console/:section', component: UserConsoleComponent, canActivate: [ AuthGuard ] },
+  
 ];
 
 

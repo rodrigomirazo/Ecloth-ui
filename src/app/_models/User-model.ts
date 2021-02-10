@@ -1,6 +1,7 @@
 import { UserAddressJson } from "./User-address-json-model";
 import { UserAddress } from "./User-address-model";
 
+
 export class User {
 
     private _id: string;
@@ -14,6 +15,7 @@ export class User {
     private _userProfileImg: string;
     private _description: string;
     private _token: string;
+    private _content: string;
     private _userAdress: UserAddressJson;
 
 	constructor(username?: string, password?: string, token?: string) {
@@ -214,6 +216,22 @@ export class User {
 		this._uid = value;
 	}
 
+    /**
+     * Getter content
+     * @return {string}
+     */
+	public get content(): string {
+		return this._content;
+	}
+
+    /**
+     * Setter content
+     * @param {string} value
+     */
+	public set content(value: string) {
+		this._content = value;
+	}
+
 }
 
 export class UserJson {
@@ -229,6 +247,7 @@ export class UserJson {
     private userProfileImg: string;
     private description: string;
     private token: string;
+    private content: string;
     private userAdressJson: UserAddressJson;
 
 	constructor(user: User) {
@@ -437,6 +456,22 @@ export class UserJson {
      */
 	public set $uid(value: any) {
 		this.uid = value;
+	}
+
+    /**
+     * Getter $content
+     * @return {string}
+     */
+	public get $content(): string {
+		return this.content;
+	}
+
+    /**
+     * Setter $content
+     * @param {string} value
+     */
+	public set $content(value: string) {
+		this.content = value;
 	}
 
 }

@@ -77,7 +77,6 @@ export class AuthenticationService {
     }
 
     const storage = JSON.parse(localStorage.getItem(this.currentUserCookie));
-    
     user.id = storage.id;
     user.name = storage.name;
     user.lastname = storage.lastname;
@@ -88,6 +87,7 @@ export class AuthenticationService {
     user.userProfileImg = storage.userProfileImg;
     user.description = storage.description;
     user.token = storage.token;
+    user.content = storage.content;
 
     return user;
   }
