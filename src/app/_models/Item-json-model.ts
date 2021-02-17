@@ -41,8 +41,9 @@ export class UserItemJson {
     private wheelsRate: number;
     private componentsRate: number;
     private createdTime: number;
-    private approvedByAdmnin: boolean;
     private paymentConfirmed: boolean;
+    private diagnostApproved: boolean;
+    private diagnostTime: Date;
 
 	constructor() {
     }
@@ -592,27 +593,11 @@ export class UserItemJson {
     }
     
     /**
-     * Getter $approvedByAdmnin
-     * @return {boolean}
-     */
-	public get $approvedByAdmnin(): boolean {
-		return this.approvedByAdmnin;
-	}
-
-    /**
      * Getter $paymentConfirmed
      * @return {boolean}
      */
 	public get $paymentConfirmed(): boolean {
 		return this.paymentConfirmed;
-	}
-
-    /**
-     * Setter $approvedByAdmnin
-     * @param {boolean} value
-     */
-	public set $approvedByAdmnin(value: boolean) {
-		this.approvedByAdmnin = value;
 	}
 
     /**
@@ -624,4 +609,36 @@ export class UserItemJson {
 	}
 
 
+    /**
+     * Getter $diagnostApproved
+     * @return {boolean}
+     */
+	public get $diagnostApproved(): boolean {
+		return this.diagnostApproved;
+	}
+
+    /**
+     * Getter $diagnostTime
+     * @return {Date}
+     */
+	public get $diagnostTime(): Date {
+		return this.diagnostTime;
+	}
+
+    /**
+     * Setter $diagnostApproved
+     * @param {boolean} value
+     */
+	public set $diagnostApproved(value: boolean) {
+		this.diagnostApproved = value;
+	}
+
+    /**
+     * Setter $diagnostTime
+     * @param {Date} value
+     */
+	public set $diagnostTime(value: Date) {
+		this.diagnostTime = value;
+	}
+    
 }

@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
-import { ItemService } from '../item-list/item.service';
+import { ItemService } from '../_services/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';

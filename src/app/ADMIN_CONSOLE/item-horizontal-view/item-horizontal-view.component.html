@@ -1,0 +1,44 @@
+
+<table class="item-transaction-table">
+    <tr class="item-row-title">
+        <td class="item-cell-title">
+            <b><p class="saled-date-item-title">Fecha de Venta</p></b>
+            <b><p class="saled-date-item-detail">{{itemTransaction.item.model}}</p></b>
+        </td>
+        <td>
+            Dirección de envío
+            <br>
+
+        </td>
+        <td>
+            Detalle de Compra
+        </td>
+        <td>
+            Detalle de Compra
+        </td>
+    </tr>
+    <tr class="item-detail-row">
+        <td style="width: 25%">
+            <div class="col-md-11 col-sm-11 col-xs-11" *ngIf="itemTransaction.item">
+                <!-- <img [src]=" itemTransaction.item.itemImgUrls[0].imgUrl"> -->
+                <img src="/assets/uploaded/item_file_126_62"  class="img-item">
+            </div>
+        </td>
+        <td style="width: 25%">
+            <div *ngIf="itemTransaction.item">
+                <b><p class="name-item-detail">{{itemTransaction.item.model}}</p></b>
+                <b><p class="size-item-detail" *ngIf="itemType"> Talla {{ filterCatalog('talla') }} {{ filterItemType(itemTransaction.item.itemTypeCatId)}} {{itemTransaction.item.year}} </p></b>
+                
+                <b><p class="price-item-detail">{{itemTransaction.item.price | currency}}</p></b>
+                <b><p class="sku-item-detail">Número de producto {{itemTransaction.item.id}}</p></b>
+
+            </div>
+        </td>
+        <td style="width: 25%">
+        </td>
+        <td style="width: 25%">
+        </td>
+
+    </tr>
+    
+</table>

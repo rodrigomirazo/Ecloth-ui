@@ -41,8 +41,9 @@ export class UserItem {
     private _score: number;
     private _scoreName: string;
     private _createdTime: number;
-    private _approvedByAdmnin: boolean;
     private _paymentConfirmed: boolean;
+    private _diagnostApproved: boolean;
+    private _diagnostTime: Date;
 
 	constructor() {
         this._user = new User();
@@ -625,27 +626,11 @@ export class UserItem {
 	}
 
     /**
-     * Getter approvedByAdmnin
-     * @return {boolean}
-     */
-	public get approvedByAdmnin(): boolean {
-		return this._approvedByAdmnin;
-	}
-
-    /**
      * Getter paymentConfirmed
      * @return {boolean}
      */
 	public get paymentConfirmed(): boolean {
 		return this._paymentConfirmed;
-	}
-
-    /**
-     * Setter approvedByAdmnin
-     * @param {boolean} value
-     */
-	public set approvedByAdmnin(value: boolean) {
-		this._approvedByAdmnin = value;
 	}
 
     /**
@@ -655,5 +640,38 @@ export class UserItem {
 	public set paymentConfirmed(value: boolean) {
 		this._paymentConfirmed = value;
 	}
+
+    /**
+     * Getter diagnostApproved
+     * @return {boolean}
+     */
+	public get diagnostApproved(): boolean {
+		return this._diagnostApproved;
+	}
+
+    /**
+     * Getter diagnostTime
+     * @return {Date}
+     */
+	public get diagnostTime(): Date {
+		return this._diagnostTime;
+	}
+
+    /**
+     * Setter diagnostApproved
+     * @param {boolean} value
+     */
+	public set diagnostApproved(value: boolean) {
+		this._diagnostApproved = value;
+	}
+
+    /**
+     * Setter diagnostTime
+     * @param {Date} value
+     */
+	public set diagnostTime(value: Date) {
+		this._diagnostTime = value;
+	}
+
     
 }

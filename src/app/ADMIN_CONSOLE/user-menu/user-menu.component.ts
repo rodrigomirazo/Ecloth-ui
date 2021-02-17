@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PROFILE_BAAW_PARTNER } from 'src/app/_helpers/constants';
 import { User } from 'src/app/_models/User-model';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -33,6 +34,13 @@ export class UserMenuComponent implements OnInit {
 
   isSelected(section: string) {
     if(section == this.selectedMenuOption) {
+      return true;
+    }
+    return false;
+  }
+
+  content() {
+    if(this.user.content == PROFILE_BAAW_PARTNER) {
       return true;
     }
     return false;

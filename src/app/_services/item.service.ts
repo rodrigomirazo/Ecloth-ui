@@ -12,7 +12,7 @@ import { User } from '../_models/User-model';
 import { ItemImgUrlsJson } from '../_models/Item-img-urls-json-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from './authentication.service';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
 
@@ -22,6 +22,10 @@ import { ItemImgUrls } from '../_models/Item-img-urls-model';
 export class ItemService {
 
   private itemUri: string = environment.host + environment.baseUrl + environment.entity.item;
+  
+  private approvedOrRejectedUri: string = environment.host + environment.baseUrl + environment.entity.approvedOrRejected;
+  private notYetApprovedUri: string = environment.host + environment.baseUrl + environment.entity.notYetApproved;
+  
   private filterItemUri: string = environment.host + environment.baseUrl + environment.entity.filterItems;
   private itemBytesImage: string = environment.host + environment.baseUrl + environment.entity.itemBytesImage;
   
@@ -82,6 +86,44 @@ export class ItemService {
     return this.httpService.delete(this.itemUri, item);
   }
 
+  // Appoved or Rejected Items
+  approvedOrRejected(diagnostApproved: boolean, start: Date, end: Date, pageNum: number, pageSize: number) : Observable<UserItem[]> {
+
+    //2020-06-01T00:00:15
+
+    console.log("toLocaleDateString: " + start.toLocaleDateString());
+    console.log("toLocaleDateString: " + start.toLocaleString());
+    console.log("toLocaleDateString: " + start.toUTCString());
+    
+    const params =  "?diagnostApproved=" + diagnostApproved +
+                    "&start=" + start + "&end=" + end +
+                    "&pageNum=" + pageNum + "&pageSize=" + pageSize;
+
+    return this.httpService.get(this.approvedOrRejectedUri + params).pipe( map(
+      (items: UserItem[]) => {
+        return items.map( (item: UserItem) => {return this.itemScore(item) } )
+      })
+    );
+  }
+
+  // Appoved or Rejected Items
+  notYetApproved(start: Date, end: Date, pageNum: number, pageSize: number) : Observable<UserItem[]> {
+    
+    //2020-06-01T00:00:15
+    
+    console.log("toLocaleDateString: " + start.toLocaleDateString());
+    console.log("toLocaleDateString: " + start.toLocaleString());
+    console.log("toLocaleDateString: " + start.toUTCString());
+    
+    const params = "?start="+start+"&end="+end+"&pageNum="+pageNum+"&pageSize="+pageSize;
+
+    return this.httpService.get(this.notYetApprovedUri + params).pipe( map(
+      (items: UserItem[]) => {
+        return items.map( (item: UserItem) => {return this.itemScore(item) } )
+      })
+    );
+  }
+  
   adaptFormToItem(firstFormGroup: FormGroup, userItem: UserItem): UserItem {
     
     userItem.backRear = 		firstFormGroup.value.backRear;

@@ -24,3 +24,7 @@ export const WEB_SITE_PAYPAL_PERCENTAJE = .03;
 export const WEB_SITE_TAX = .0;
 
 export const PROFILE_BAAW_PARTNER = "BAAW_PARTNER";
+
+export const MAIL_SHOP_BUYER =  "MAIL_SHOP_BUYER";
+export const MAIL_SHOP_SELLER =  "MAIL_SHOP_SELLER";
+export const MAIL_SHOP_ADMINS =  "MAIL_SHOP_ADMINS";

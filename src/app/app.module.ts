@@ -62,6 +62,9 @@ import { ItemDiagnosisComponent } from './ADMIN_CONSOLE/item-diagnosis/item-diag
 import { ShoppingAdminComponent } from './ADMIN_CONSOLE/shopping-admin/shopping-admin.component';
 import { UserFavouritesComponent } from './ADMIN_CONSOLE/user-favourites/user-favourites.component';
 import { UserProfileComponent } from './ADMIN_CONSOLE/user-profile/user-profile.component';
+import { FrequentAnswersComponent } from './ADMIN_CONSOLE/frequent-answers/frequent-answers.component';
+import { ItemHorizontalViewComponent } from './ADMIN_CONSOLE/item-horizontal-view/item-horizontal-view.component';
+import { FilterElementsComponent } from './ADMIN_CONSOLE/filter-elements/filter-elements.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -123,6 +126,9 @@ const googleAuthConfig = {
     ShoppingAdminComponent,
     UserFavouritesComponent,
     UserProfileComponent,
+    FrequentAnswersComponent,
+    ItemHorizontalViewComponent,
+    FilterElementsComponent,
   ],
   imports: [
     BrowserModule,

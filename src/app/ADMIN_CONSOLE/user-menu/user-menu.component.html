@@ -1,19 +1,26 @@
-<div class="user-prfile-place-main-div">
+<div class="user-prfile-place-main-div" *ngIf="user">
 
-    section: {{section}}<br><br>
+
     <mat-accordion class="filters-accordion" hideToggle>
 
         <!-- Categorías -->
-        <mat-expansion-panel [expanded]="section === 'compras'">
+        <mat-expansion-panel [expanded]="section === 'compras' || section === 'frequent-answers'">
             <mat-expansion-panel-header [routerLink]="['/console', 'compras' ]">
                 <mat-panel-title    class="user-menu-section"
-                                [ngClass]="{'user-menu-section-selected': section === 'compras'}">
+                                [ngClass]="{'user-menu-section-selected': section === 'compras' || section === 'frequent-answers'}">
                     Compras
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <section class="example-section">
-                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
-                    Section Name
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
+                [routerLink]="['/console', 'compras' ]"
+                [ngClass]="{'user-menu-section-selected': section === 'compras' }">
+                    Compras
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
+                [routerLink]="['/console', 'frequent-answers' ]"
+                [ngClass]="{'user-menu-section-selected': section === 'frequent-answers'}">
+                    Preguntas
                 </div>
             </section>
         </mat-expansion-panel>
@@ -34,7 +41,8 @@
         </mat-expansion-panel>
 
         <!-- Frame Material -->
-        <mat-expansion-panel [expanded]="section === 'diagnostico'">
+        <mat-expansion-panel [expanded]="section === 'diagnostico'"
+                *ngIf="content()">
             <mat-expansion-panel-header [routerLink]="['/console', 'diagnostico' ]">
             <mat-panel-title class="user-menu-section"
                             [ngClass]="{'user-menu-section-selected': section === 'diagnostico'}">
@@ -50,10 +58,11 @@
         </mat-expansion-panel>
 
         <!-- Genere -->
-        <mat-expansion-panel [expanded]="section === 'adminventas'">
-            <mat-expansion-panel-header [routerLink]="['/console', 'adminventas' ]">
+        <mat-expansion-panel [expanded]="section === 'admin-ventas'"
+                            *ngIf="content()">
+            <mat-expansion-panel-header [routerLink]="['/console', 'admin-ventas' ]">
             <mat-panel-title class="user-menu-section"
-                        [ngClass]="{'user-menu-section-selected': section === 'adminventas'}">
+                        [ngClass]="{'user-menu-section-selected': section === 'admin-ventas'}">
                 Administrador de Ventas
             </mat-panel-title>
             </mat-expansion-panel-header>

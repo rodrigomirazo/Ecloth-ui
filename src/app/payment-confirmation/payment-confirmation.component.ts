@@ -2,7 +2,7 @@ import { User, UserJson } from '../_models/User-model';
 import { UserItem } from '../_models/Item-model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../item-list/item.service';
+import { ItemService } from '../_services/item.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ItemTransactionService } from '../_services/item-transaction.service';
 import { ItemTransactionJson } from '../_models/Item-transaction-model-json';

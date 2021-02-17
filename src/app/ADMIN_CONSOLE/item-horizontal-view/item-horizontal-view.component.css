@@ -1,0 +1,67 @@
+
+.item-transaction-table {
+    margin-bottom: 7em;
+}
+
+.name-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 30pt;
+    color: #303130;
+    line-height: 41px;
+}
+
+.size-item-detail{
+    font-family: bebasNeue-regular;
+    font-size: 16pt;
+    color: #303130;
+    line-height: 0px;
+}
+
+.price-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 18pt;
+    color: #303130;
+    line-height: 28px;
+}
+
+.sku-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 12pt;
+    color: #303130;
+    line-height: 0px;
+}
+
+.img-item {
+    width: 100%;
+    height: 105px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.item-detail-row {
+    line-height: 10px;
+}
+
+.item-row-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f2f2f2;
+}
+
+.item-cell-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f2f2f2;
+}
+
+.saled-date-item-title {
+    font-family: bebasNeue-regular;
+    font-size: 16pt;
+}
+.saled-date-item-detail {
+    font-family: bebasNeue-bold;
+    font-size: 16pt;
+}

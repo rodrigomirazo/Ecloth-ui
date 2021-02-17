@@ -8,6 +8,15 @@
     font-size: 16px;
 }
 
+.user-menu-sub-section:hover {
+    color: #18c65e;
+    cursor: pointer;
+}
+
+.user-menu-sub-section-selected {
+    color: #18c65e;
+}
+
 .user-menu-section-selected {
     color: #18c65e;
     font-size: 15px;
@@ -16,9 +25,6 @@
 .user-menu-sub-section {
     color: white;
     font-family: 'montserrat-light';
-}
-.user-menu-sub-section:hover {
-    color: #18c65e;
 }
 
 ::ng-deep .mat-expansion-panel-body {

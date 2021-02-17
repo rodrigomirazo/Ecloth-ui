@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { ItemService } from '../item-list/item.service';
+import { ItemService } from '../_services/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { UserItem } from '../_models/Item-model';

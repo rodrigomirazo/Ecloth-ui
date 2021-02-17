@@ -4,17 +4,16 @@
         <user-menu></user-menu>
     </div>
 
-    <div class="col-xs-10 col-sm-10 col-md-10" style="min-height: calc(72vh - 10em); margin-left: 0px; margin-right: 0px" *ngIf="section">
-        
-        <div *ngIf="section == 'compras' ">     <user-shopping  ></user-shopping>   </div>
-        <div *ngIf="section == 'ventas' ">      <user-sales     ></user-sales>      </div>
-        <div *ngIf="section == 'diagnostico' "> <item-diagnosis ></item-diagnosis>  </div>
-        <div *ngIf="section == 'adminventas' "> <shopping-admin ></shopping-admin>  </div>
-        <div *ngIf="section == 'favoritos' ">   <user-favourites></user-favourites> </div>
-        <div *ngIf="section == 'perfil' ">      <user-profile   ></user-profile>    </div>
-        
-        
+    <div class="col-xs-1 col-sm-1 col-md-1"></div>
 
+    <div class="col-xs-9 col-sm-9 col-md-9" style="min-height: calc(72vh - 10em); margin-left: 0px; margin-right: 0px" *ngIf="section && itemType">
+        <div *ngIf="section == 'compras' ">             <user-shopping    [itemType]="itemType"></user-shopping>   </div>
+        <div *ngIf="section == 'ventas' ">              <user-sales       [itemType]="itemType"></user-sales>      </div>
+        <div *ngIf="section == 'diagnostico' ">         <item-diagnosis   [itemType]="itemType"></item-diagnosis>  </div>
+        <div *ngIf="section == 'admin-ventas' ">        <shopping-admin   [itemType]="itemType"></shopping-admin>  </div>
+        <div *ngIf="section == 'favoritos' ">           <user-favourites  [itemType]="itemType"></user-favourites> </div>
+        <div *ngIf="section == 'perfil' ">              <user-profile                          ></user-profile>    </div>
+        <div *ngIf="section == 'frequent-answers' ">    <frequent-answers                      ></frequent-answers></div>
     </div>
 
 </div>

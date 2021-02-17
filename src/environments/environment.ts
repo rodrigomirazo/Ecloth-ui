@@ -13,6 +13,16 @@ export const environment = {
     item: "/item",
     itemTransaction: "/itemTransaction",
     
+    approvedOrRejected: "/approvedOrRejected",
+    notYetApproved: "/notYetApproved",
+
+    transactionService: "/service",
+    transactionSent: "/sent",
+    transactionReceive: "/receive",
+    
+    buyerTransaction: "/userBuyer",
+    vendorTransaction: "/userVendor",
+    
     filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",

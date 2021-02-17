@@ -1,1 +1,10 @@
 <p>user-favourites works!</p>
+
+<div class="row" *ngIf="items">
+
+    <div *ngFor="let itemTransaction of items; let i=index">
+        <item-horizontal-view [itemTransaction]="itemTransaction" [itemType]="itemType"></item-horizontal-view>
+    </div>
+
+</div>
+
