@@ -88,8 +88,7 @@ export class PaymentConfirmationComponent implements OnInit {
     this.route.params.subscribe(params => {
 
       let user: User = this.authService.getSessionUser();
-      console.log("user ", user);
-
+      
       if (user) {
         if (params.itemId) {
 
@@ -162,6 +161,8 @@ export class PaymentConfirmationComponent implements OnInit {
     this.itemTransaction.$paymentMethod = PAYMENT_METHOD_PAYPAL;
     //Transaction history
     this.itemTransaction.$itemTransactionHistory = [];
+
+    console.log(this.itemTransaction);
   }
 
   webSiteComission() {

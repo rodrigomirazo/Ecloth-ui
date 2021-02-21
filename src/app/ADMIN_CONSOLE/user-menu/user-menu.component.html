@@ -33,13 +33,7 @@
                 Ventas
             </mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="example-section">
-                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
-                    Section Name
-                </div>
-            </section>
         </mat-expansion-panel>
-
         <!-- Frame Material -->
         <mat-expansion-panel [expanded]="section === 'diagnostico'"
                 *ngIf="content()">
@@ -49,14 +43,7 @@
                 Diagnostico
             </mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="example-section">
-                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
-                [ngClass]="'first second'">
-                    Section Name
-                </div>
-            </section>
         </mat-expansion-panel>
-
         <!-- Genere -->
         <mat-expansion-panel [expanded]="section === 'admin-ventas'"
                             *ngIf="content()">

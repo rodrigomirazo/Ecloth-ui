@@ -42,6 +42,7 @@ export class ItemTransactionService {
   }
 
   getByUserBuyer() : Observable<ItemTransactionJson[]> {
+    console.log("user shopping");
     return this.httpService.getWithHeaders(this.itemTransactionsByBuyer + "/" + this.authService.getSessionUser().userName, this.authService.getSessionUser());
   }
 

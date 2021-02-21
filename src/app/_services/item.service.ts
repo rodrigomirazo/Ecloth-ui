@@ -22,9 +22,10 @@ import { ItemImgUrls } from '../_models/Item-img-urls-model';
 export class ItemService {
 
   private itemUri: string = environment.host + environment.baseUrl + environment.entity.item;
+  private itemDiagnostUri: string = environment.host + environment.baseUrl + environment.entity.itemDiagnost;
   
-  private approvedOrRejectedUri: string = environment.host + environment.baseUrl + environment.entity.approvedOrRejected;
-  private notYetApprovedUri: string = environment.host + environment.baseUrl + environment.entity.notYetApproved;
+  private approvedOrRejectedUri: string = environment.host + environment.baseUrl + environment.entity.item + environment.entity.approvedOrRejected;
+  private notYetApprovedUri: string = environment.host + environment.baseUrl + environment.entity.item + environment.entity.notYetApproved;
   
   private filterItemUri: string = environment.host + environment.baseUrl + environment.entity.filterItems;
   private itemBytesImage: string = environment.host + environment.baseUrl + environment.entity.itemBytesImage;
@@ -86,17 +87,25 @@ export class ItemService {
     return this.httpService.delete(this.itemUri, item);
   }
 
+  diagnost(itemId: string, approved: boolean, comments: string) : Observable<UserItem> {
+
+    const params = '/' + itemId + '/' + approved + '/' + btoa(comments);
+    console.log("params",params);
+
+    return this.httpService.postAuth(this.itemDiagnostUri + params, {}, this.authService.getSessionUser()).pipe( map(
+      (item: UserItem) => {return this.itemScore(item); } ));
+  }
+
   // Appoved or Rejected Items
   approvedOrRejected(diagnostApproved: boolean, start: Date, end: Date, pageNum: number, pageSize: number) : Observable<UserItem[]> {
 
     //2020-06-01T00:00:15
 
-    console.log("toLocaleDateString: " + start.toLocaleDateString());
-    console.log("toLocaleDateString: " + start.toLocaleString());
-    console.log("toLocaleDateString: " + start.toUTCString());
+    const startFormat = start.toISOString().substr(0, start.toISOString().indexOf("."));
+    const endFormat = end.toISOString().substr(0, end.toISOString().indexOf("."));
     
     const params =  "?diagnostApproved=" + diagnostApproved +
-                    "&start=" + start + "&end=" + end +
+                    "&start=" + startFormat + "&end=" + endFormat +
                     "&pageNum=" + pageNum + "&pageSize=" + pageSize;
 
     return this.httpService.get(this.approvedOrRejectedUri + params).pipe( map(
@@ -110,12 +119,14 @@ export class ItemService {
   notYetApproved(start: Date, end: Date, pageNum: number, pageSize: number) : Observable<UserItem[]> {
     
     //2020-06-01T00:00:15
+    //2021-01-17T23:29:20.585Z
     
-    console.log("toLocaleDateString: " + start.toLocaleDateString());
-    console.log("toLocaleDateString: " + start.toLocaleString());
-    console.log("toLocaleDateString: " + start.toUTCString());
+    const startFormat = start.toISOString().substr(0, start.toISOString().indexOf("."));
+    const endFormat = end.toISOString().substr(0, end.toISOString().indexOf("."));
+
+    console.log("toISOString: " + start.toISOString().replace("Z", "") );
     
-    const params = "?start="+start+"&end="+end+"&pageNum="+pageNum+"&pageSize="+pageSize;
+    const params = "?start=" + startFormat + "&end=" + endFormat + "&pageNum=" + pageNum + "&pageSize=" + pageSize;
 
     return this.httpService.get(this.notYetApprovedUri + params).pipe( map(
       (items: UserItem[]) => {

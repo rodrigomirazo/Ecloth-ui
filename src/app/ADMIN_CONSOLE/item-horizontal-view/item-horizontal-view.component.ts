@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryService } from 'src/app/category-tree/category.service';
 import { ItemFloatingCharRel } from 'src/app/_models/item-floating-char-rel';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
+import { ItemService } from 'src/app/_services/item.service';
 
 @Component({
   selector: 'item-horizontal-view',
@@ -14,14 +16,26 @@ export class ItemHorizontalViewComponent implements OnInit {
   @Input()
   public itemTransaction: any;
 
-  @Input()
-  public itemType: ItemCategoryModel[];
-  
+  // Columns and Header
+  @Input() public itemType: ItemCategoryModel[];
+  @Input() public rowHeader: boolean;
+  @Input() public dateAndIdColumn: boolean;
+
+  // Diagnost
+  @Input() public diagnostCommentInput: boolean;
+  @Input() public diagnostCommentComplete: boolean;
+  public diagnostComment: string;
+  public itemApproved: boolean = false;
+  public diagnosted: boolean = false;
+
+
   constructor(
+    private itemService: ItemService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
-    console.log("itemType", this.itemType);
+    //console.log("itemType", this.itemType);
   }
 
   filterItemType(type: number) : string {
@@ -48,6 +62,30 @@ export class ItemHorizontalViewComponent implements OnInit {
     } else {
       return "NA";
     }
+  }
+
+  dateFormat(date: string) {
+    return new Date(date);
+  }
+
+  sendDiagnosist() {
+    console.log("this.diagnostComment", this.diagnostComment);
+    console.log("itemApproved", this.itemApproved);
+    this.diagnosted = true;
+
+    this.itemService.diagnost(
+      this.itemTransaction.item.id, this.itemApproved,
+      this.diagnostComment
+    ).subscribe( (resp: any) => {
+      this.diagnosted = true;
+      this.openSnackBar("Diagnostico Enviado", "Deshacer");
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

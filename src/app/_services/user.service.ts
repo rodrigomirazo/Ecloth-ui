@@ -12,7 +12,10 @@ export class UserService {
   constructor(private userAddressService: UserAddressService) {}
 
   getUserProfiles(user: User) : string[] {
-     return user.content.trim().split(",");
+      if(user.content == undefined)
+        return [];
+
+      return user.content.trim().split(",");
   }
 
   isBaawPartner(user: User) {

@@ -1,6 +1,6 @@
 
 <table class="item-transaction-table">
-    <tr class="item-row-title">
+    <tr class="item-row-title" *ngIf="rowHeader">
         <td class="item-cell-title">
             <b><p class="saled-date-item-title">Fecha de Venta</p></b>
             <b><p class="saled-date-item-detail">{{itemTransaction.item.model}}</p></b>
@@ -8,7 +8,6 @@
         <td>
             Dirección de envío
             <br>
-
         </td>
         <td>
             Detalle de Compra
@@ -18,13 +17,13 @@
         </td>
     </tr>
     <tr class="item-detail-row">
-        <td style="width: 25%">
-            <div class="col-md-11 col-sm-11 col-xs-11" *ngIf="itemTransaction.item">
+        <td style="width: 20%">
+            <div class="col-md-12 col-sm-11 col-xs-12" *ngIf="itemTransaction.item">
                 <!-- <img [src]=" itemTransaction.item.itemImgUrls[0].imgUrl"> -->
                 <img src="/assets/uploaded/item_file_126_62"  class="img-item">
             </div>
         </td>
-        <td style="width: 25%">
+        <td style="width: 18%">
             <div *ngIf="itemTransaction.item">
                 <b><p class="name-item-detail">{{itemTransaction.item.model}}</p></b>
                 <b><p class="size-item-detail" *ngIf="itemType"> Talla {{ filterCatalog('talla') }} {{ filterItemType(itemTransaction.item.itemTypeCatId)}} {{itemTransaction.item.year}} </p></b>
@@ -34,10 +33,63 @@
 
             </div>
         </td>
-        <td style="width: 25%">
+        <td style="width: 20%" class="date-format" *ngIf="dateAndIdColumn">
+            Fecha de Solicitud: {{ dateFormat(itemTransaction.item.createdTime) | date: 'dd/MM/yyyy'}} <br>
+            Numero de Producto: {{itemTransaction.item.id }}
         </td>
-        <td style="width: 25%">
+
+        <!-- Diagnost form Begin -->
+        <td style="width: 28%" *ngIf="diagnostCommentInput">
+                <mat-form-field class="diagnost-full-width">
+                  <mat-label>Comentario de Diagnostico</mat-label>
+                  <textarea matInput placeholder="Ej. Articulo Invalido..."
+                            [disabled]="diagnosted"
+                            name="textComments"
+                            ngDefaultControl
+                            [(ngModel)]="diagnostComment"
+                            [ngModelOptions]="{standalone: true}"
+                            style="height: 5em; width: 100%;"></textarea>
+                </mat-form-field> <br>
+                <section class="approved-section">
+                    <mat-checkbox
+                        class="approved-margin"
+                        [(ngModel)]="itemApproved"
+                        [ngModelOptions]="{standalone: true}"
+                        name="approvedComments"
+                        [disabled]="diagnosted"
+                        ngDefaultControl>Aprovado</mat-checkbox>
+                </section>
         </td>
+        <!-- Diagnost form End -->
+
+        <!-- Payment Details Begin -->
+        <td style="width: 25%" *ngIf="payment Details">
+            <p class="diagnost-comments">{{itemTransaction.item.diagnostComments}}</p>
+        </td>
+        <!-- Payment Details End -->
+
+        <!-- Diagnost Comments Begin -->
+        <td style="width: 25%" *ngIf="diagnostCommentComplete">
+            <p class="diagnost-comments">{{itemTransaction.item.diagnostComments}}</p>
+        </td>
+        <!-- Diagnost Comments End -->
+
+        <!-- Diagnost Status Begin -->
+        <td style="width: 25%;" *ngIf="diagnostCommentInput">
+
+            <div *ngIf="itemApproved && diagnosted">
+                Aprovado
+            </div>
+            <div *ngIf="!itemApproved && diagnosted">
+                Desaprobado
+            </div>
+
+            <button class="submit-button"
+                    (click)="sendDiagnosist()"
+                    *ngIf="!diagnosted"
+                    mat-raised-button color="primary"> Diagnosticar </button>
+        </td>
+        <!-- Diagnost Status End -->
 
     </tr>
     

@@ -27,7 +27,7 @@ export const environment = {
     itemImage: "/item/uploadImg",
     getItemImage: "/item/uploadImg",
     itemBytesImage: "/item/image",
-    
+    itemDiagnost: "/item/diagnost",
     
     types: "/itemTypeCat",
     categoryType: "/itemCat",
