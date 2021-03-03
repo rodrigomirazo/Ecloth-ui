@@ -12,7 +12,8 @@ export const environment = {
   entity: {
     item: "/item",
     itemTransaction: "/itemTransaction",
-    
+    itemTransactionByStatus: "/itemTransaction/status",
+
     approvedOrRejected: "/approvedOrRejected",
     notYetApproved: "/notYetApproved",
 

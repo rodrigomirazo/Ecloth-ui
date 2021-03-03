@@ -1,8 +1,32 @@
 
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xm-4
+                col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+        <filter-elements    [startDate]="startDate" [endDate]="endDate"
+        (dateOutput)="getStartDate($event)" ></filter-elements>
+    </div>
+    
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xm-7" style="margin-top: 15px;">
+        <table style="width: 100%;">
+            <tr>
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="statusFilter" (change)="loadTransactions()">
+                    <td style="width: 40%;"> <mat-radio-button [value]="'CLIENT_AUTHORIZATION'">Compra Autorizada</mat-radio-button> </td>
+                    <td style="width: 40%;"> <mat-radio-button [value]="'SERVICED_COMPLETED'">Servicio/Empaquetado</mat-radio-button> </td>
+                    <td style="width: 40%;"> <mat-radio-button [value]="'SENT_TO_BUYER'">Enviada</mat-radio-button> </td>
+                    <td style="width: 40%;"> <mat-radio-button [value]="'RECEIVED_TO_BUYER'">Entregado</mat-radio-button> </td>
+                </mat-radio-group>
+            </tr>
+        </table>
+    </div>    
+</div>
+
 <div class="row" *ngIf="items">
 
     <div *ngFor="let itemTransaction of items; let i=index">
-        <item-horizontal-view [itemTransaction]="itemTransaction" [itemType]="itemType"></item-horizontal-view>
+        <item-horizontal-view
+            [itemTransaction]="itemTransaction"
+            [itemType]="itemType"
+            [serviceColumn]="true"></item-horizontal-view>
     </div>
 
 </div>

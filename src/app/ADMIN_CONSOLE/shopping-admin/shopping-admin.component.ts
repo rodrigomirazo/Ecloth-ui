@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FloatingCharsService } from 'src/app/floating-chars/floating-chars.service';
+import { TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED, TRANSACT_STATUS_CLIENT_AUTHORIZATION } from 'src/app/_helpers/constants';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { User } from 'src/app/_models/User-model';
@@ -15,7 +16,11 @@ export class ShoppingAdminComponent implements OnInit {
 
   @Input()
   public itemType: ItemCategoryModel[];
-  
+
+  private startDate: Date = new Date();
+  private endDate: Date = new Date();
+  public statusFilter = TRANSACT_STATUS_CLIENT_AUTHORIZATION;
+
   public itemsTranaction: ItemTransactionJson[];
   public items: ItemTransactionJson[];
   private user: User;
@@ -30,10 +35,28 @@ export class ShoppingAdminComponent implements OnInit {
     console.log("itemType", this.itemType);
     this.user = this.authService.getSessionUser();
     //TODO: get sopping admin transactions
-    this.itemTransactService.getByUserBuyer().subscribe( (itemsResp: ItemTransactionJson[]) => {
-      this.items = itemsResp;
-    });
+
+    this.startDate.setMonth(this.startDate.getMonth()-2);
+
+    this.loadTransactions();
   }
 
+  getStartDate($event) {
+    this.startDate = new Date($event.start);
+    this.endDate = new Date($event.end);
+    this.loadTransactions();
 
+    console.log( new Date($event.start).toLocaleDateString() );
+  }
+
+  loadTransactions() {
+
+    this.itemTransactService.getByStatus(
+      this.statusFilter, this.startDate, this.endDate
+    )
+    .subscribe( (itemsResp: ItemTransactionJson[]) => {
+      this.items = itemsResp;
+    });
+
+  }
 }

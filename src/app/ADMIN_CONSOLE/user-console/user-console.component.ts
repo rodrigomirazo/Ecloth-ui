@@ -16,6 +16,7 @@ export class UserConsoleComponent implements OnInit {
   private baawPartner: boolean = false;
   public itemType: ItemCategoryModel[];
   public section: string;
+  public itemId: number;
   private user: User;
 
   constructor(
@@ -32,6 +33,11 @@ export class UserConsoleComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.section = params.section;
       this.section.toLowerCase();
+
+      if(this.section.toLocaleLowerCase() == ("shoppingFollowUp").toLocaleLowerCase() ) {
+        this.itemId = params.itemId;
+      }
+
     });
   }
 

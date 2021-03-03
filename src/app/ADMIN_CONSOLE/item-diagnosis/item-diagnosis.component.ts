@@ -25,8 +25,8 @@ export class ItemDiagnosisComponent implements OnInit {
 
   public diagnostFilter: string;
   private approved: boolean;
-  private startDate: Date;
-  private endDate: Date;
+  private startDate: Date = new Date();
+  private endDate: Date = new Date();
 
   pageEvent: PageEvent;
 
@@ -39,16 +39,13 @@ export class ItemDiagnosisComponent implements OnInit {
   ngOnInit(): void {
 
     this.diagnostFilter = "notReviewed";
-
-    this.startDate = new Date();
-    this.endDate = new Date();
-
+    
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageEvent.pageSize = 6;
     this.pageEvent.length = 100;
 
-    this.startDate.setMonth(this.startDate.getMonth()-6);
+    this.startDate.setMonth(this.startDate.getMonth()-2);
 
     this.user = this.authService.getSessionUser();
     //TODO: get transactions for admins

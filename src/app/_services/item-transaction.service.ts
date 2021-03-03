@@ -28,6 +28,8 @@ export class ItemTransactionService {
   private itemTransactionsByBuyer: string =  environment.host + environment.baseUrl + environment.entity.itemTransaction + environment.entity.buyerTransaction;
   private itemTransactionsByVendor: string = environment.host + environment.baseUrl + environment.entity.itemTransaction + environment.entity.vendorTransaction;
 
+  private itemTransactionsByStatusUri: string = environment.host + environment.baseUrl + environment.entity.itemTransactionByStatus;
+
   constructor(
     private httpService: HttpService,
     private http: HttpClient,
@@ -37,7 +39,7 @@ export class ItemTransactionService {
     private userService: UserService,
     private itemTransactionHistoryService: ItemTransactionHistoryService) { }
 
-  get(itemTransactionId, adaptToJson: boolean) : Observable<ItemTransactionJson> {
+  get(itemTransactionId) : Observable<ItemTransactionJson> {
       return this.httpService.getWithHeaders(this.itemTransactionUri + "/" + itemTransactionId, this.authService.getSessionUser());
   }
 
@@ -48,6 +50,18 @@ export class ItemTransactionService {
 
   getByUserVendor() : Observable<ItemTransactionJson[]> {
     return this.httpService.getWithHeaders(this.itemTransactionsByVendor + "/" + this.authService.getSessionUser().userName, this.authService.getSessionUser());
+  }
+
+  getByStatus(statusArray: string, startDate: Date, endDate: Date) : Observable<ItemTransactionJson[]> {
+
+    const startFormat = startDate.toISOString().substr(0, startDate.toISOString().indexOf("."));
+    const endFormat = endDate.toISOString().substr(0, endDate.toISOString().indexOf("."));
+
+    const params = "?start=" + startFormat + "&end=" + endFormat + "&transationStatusB64=" + btoa(statusArray.toString());
+
+    console.log(params);
+
+    return this.httpService.getWithHeaders(this.itemTransactionsByStatusUri + params, this.authService.getSessionUser());
   }
 
   save(itemTransaction: ItemTransactionJson) : Observable<ItemTransactionJson> {
@@ -82,6 +96,31 @@ export class ItemTransactionService {
   itemReceived(itemTransactionId, receive: boolean) : Observable<ItemTransactionJson> {
     return this.httpService.getWithHeaders(
       this.itemTransactionUri + "/" + itemTransactionId + this.transactionServiceUri + "/" + receive,
+      this.authService.getSessionUser()
+    );
+  }
+
+  serviceFlow(
+    itemTransactionId: number,
+    transactionStatus: string,
+    service: boolean,
+    sent: boolean,
+    receive: boolean,
+    trackerCompany: string,
+    trackingNumber: string
+    ) : Observable<ItemTransactionJson> {
+
+      const params =
+        "/" + itemTransactionId +
+        "/status/" + transactionStatus +
+        "/service/" + service +
+        "/sent/" + sent +
+        "/receive/" + receive +
+        "/trackerCompany/" + trackerCompany +
+        "/trackingNumber/" + trackingNumber;
+      
+    return this.httpService.getWithHeaders(
+      this.itemTransactionUri + params,
       this.authService.getSessionUser()
     );
   }

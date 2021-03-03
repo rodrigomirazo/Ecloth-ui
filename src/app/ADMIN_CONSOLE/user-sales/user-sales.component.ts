@@ -16,7 +16,7 @@ export class UserSalesComponent implements OnInit {
   public itemType: ItemCategoryModel[];
   
   public items: ItemTransactionJson[];
-  private user: User
+  private user: User;
 
   constructor(
     private authService: AuthenticationService,

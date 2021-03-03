@@ -1,9 +1,13 @@
-<p>user-sales works!</p>
 
 <div class="row" *ngIf="items">
 
     <div *ngFor="let itemTransaction of items; let i=index">
-        <item-horizontal-view [itemTransaction]="itemTransaction" [itemType]="itemType"></item-horizontal-view>
+        <item-horizontal-view
+                [itemTransaction]="itemTransaction"
+                [itemType]="itemType"
+                [rowHeader]="true"
+                [dateAndIdColumn]="false"
+                [diagnostCommentInput]="false"
+                [paymentDetails]="true" ></item-horizontal-view>
     </div>
-
 </div>

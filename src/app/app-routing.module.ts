@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] },
 
   { path: 'console/:section', component: UserConsoleComponent, canActivate: [ AuthGuard ] },
-  
+  { path: 'console/:section/:itemId', component: UserConsoleComponent, canActivate: [ AuthGuard ] }
 ];
 
 

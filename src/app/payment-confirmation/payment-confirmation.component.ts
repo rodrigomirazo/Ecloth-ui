@@ -254,7 +254,7 @@ export class PaymentConfirmationComponent implements OnInit {
   getTransaction() {
 
     this.addressFormToDto(true);
-    this.itemTransactService.get(this.itemTransaction.$id, false)
+    this.itemTransactService.get(this.itemTransaction.$id)
       .subscribe( (resp: ItemTransactionJson) => {
         this.itemTransaction = resp;
         console.log(resp);

@@ -33,7 +33,7 @@
                 [diagnostCommentInput]="true"
         ></item-horizontal-view>
 
-        <item-horizontal-view 
+        <item-horizontal-view
             *ngIf="diagnostFilter === 'accepted' || diagnostFilter === 'rejected' "
                 [itemTransaction]="tranasactionWrapper( itemTransaction )"
                 [itemType]="itemType"
