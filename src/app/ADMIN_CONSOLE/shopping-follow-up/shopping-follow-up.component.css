@@ -173,6 +173,7 @@
 .saled-date-item-title {
     font-family: 'montserrat-regular';
     font-size: 10pt;
+    width: 90%;
 }
 .saled-date-item-detail {
     font-family: montserrat-semibold;

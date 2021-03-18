@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { InputFilter_header } from '../_models/input-filter-header-model';
@@ -31,7 +32,8 @@ export class HeaderComponent implements OnInit {
     private utilsService: UtilsService,
     private router: Router,
     private _formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
   ) {
     this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
@@ -44,12 +46,29 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
     
-    //private _router: Router
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      if(params) {
+        if(params.refresh) {
+          if(params.refresh == "true" ) {
+            this.saleEnable = true;
+            window.location.replace(environment.indexPage + "?refresh=false");
+            this.saleEnable = true;
+          }
+        }
+      }
+    });
   }
 
   submit() {
     
     this.router.navigate(['/market-place', 'null', this.searchFormGroup.value.searchBar ])
+  }
+
+  closeSession() {
+    this.authenticationService.logout();
+    this.saleEnable = false;
+    this.router.navigate(['/index'],  { queryParams: { refresh: true } } );
   }
 
   getCategoryTypesLinkMountain(): void {

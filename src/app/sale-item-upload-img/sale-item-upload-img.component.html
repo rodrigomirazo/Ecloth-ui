@@ -44,11 +44,24 @@
             </div>
         </div>
 
+    <!--
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_4.png">
+                <p>Multiplicación / Desviador</p>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div">
+                <img class="item-upload-img-button" src="assets/images/publish/bici_5.png">
+                <p>Ruedos</p>
+            </div>
+        </div>
+    -->
+
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div">
 
                 <img class="item-upload-img-button" src="assets/images/publish/bici_6.png">
-                <p>Multiplicación / Desviador</p>
+                <p>Serie</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div">
                 <img class="item-upload-img-button" src="assets/images/publish/bici_7.png">
@@ -67,43 +80,54 @@
         <div class="item-upload-img-example-title">
             <p> &nbsp; </p>
         </div>
-        {{fileChecks | json}}
+        <!-- {{fileChecks | json}} -->
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 item-upload-img-div-desc">
-                <app-item-image-preview [height]="320" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(0)"></app-item-image-preview>
+                <app-item-image-preview [height]="15" [width]="29" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(0)"></app-item-image-preview>
                 <p>Bicicleta de perfil</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(1)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(1)"></app-item-image-preview>
                 <p>Detalle de Suspension / Tijera</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(2)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(2)"></app-item-image-preview>
                 <p>Detalle Desviador Trasero</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(3)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(3)"></app-item-image-preview>
                 <p>Detalle Vista Lado Izquierdo</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(4)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(4)"></app-item-image-preview>
                 <p>Detalle de manubrio</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(5)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(5)"></app-item-image-preview>
                 <p>Multiplicación / Desviador</p>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
-                <app-item-image-preview [height]="200" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(6, true)"></app-item-image-preview>
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(6)"></app-item-image-preview>
+                <p>Ruedos</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(7)"></app-item-image-preview>
+                <p>Serie</p>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div-desc">
+                <app-item-image-preview [height]="8" [width]="12" [uploadFlag]="uploadFlag" [itemId]="itemId" (imgSelectEmit)="checkImg(8, true)"></app-item-image-preview>
                 <p>Factura / Ticket</p>
             </div>
         </div>

@@ -72,12 +72,12 @@ export class ItemService {
   post(item: UserItem, adaptToJson?: boolean) : Observable<UserItem> {
 
     if(!adaptToJson) {
-      return this.httpService.postAuth(this.itemUri, item, this.authService.getSessionUser() ).pipe( map(
+      return this.httpService.postAuth(this.itemUri + "/" + this.authService.getSessionUser().id, item, this.authService.getSessionUser() ).pipe( map(
         (item: UserItem) => {return this.itemScore(item); } ));
     }
     if(adaptToJson) {
       let itemJson = this.adaptUserItemToJson(item);
-      return this.httpService.postAuth(this.itemUri, itemJson, this.authService.getSessionUser()).pipe( map(
+      return this.httpService.postAuth(this.itemUri + "/" + this.authService.getSessionUser().id, itemJson, this.authService.getSessionUser()).pipe( map(
         (item: UserItem) => {return this.itemScore(item); } ));
     }
     return null;

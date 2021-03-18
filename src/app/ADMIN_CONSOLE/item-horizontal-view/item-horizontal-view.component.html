@@ -20,10 +20,10 @@
         </td>
     </tr>
     <tr class="item-detail-row">
-        <td style="width: 20%">
-            <div class="col-md-12 col-sm-11 col-xs-12" *ngIf="itemTransaction.item">
-                <!-- <img [src]=" itemTransaction.item.itemImgUrls[0].imgUrl"> -->
-                <img src="/assets/uploaded/item_file_126_62"  class="img-item">
+        <td style="width: 20%" *ngIf="itemTransaction.item.itemImgUrls[0]">
+            
+            <div class="col-md-12 col-sm-11 col-xs-12" *ngIf="itemTransaction.item.itemImgUrls[0].imgUrl">
+                <img [src]=" 'http://151.106.109.11/uploadedItemImg/' + itemTransaction.item.itemImgUrls[0].imgUrl" class="img-item">
             </div>
         </td>
         <td style="width: 18%">

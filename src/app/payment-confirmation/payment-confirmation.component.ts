@@ -1,6 +1,6 @@
 import { User, UserJson } from '../_models/User-model';
 import { UserItem } from '../_models/Item-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../_services/item.service';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -41,8 +41,7 @@ export class PaymentConfirmationComponent implements OnInit {
   itemTransaction: ItemTransactionJson = new ItemTransactionJson();
   addressFormGroup: FormGroup;
   discountFormGroup: FormGroup;
-  appServer: string = environment.server;
-  
+  server: string = environment.server;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +53,8 @@ export class PaymentConfirmationComponent implements OnInit {
     private paypalService: PaypalServiceService,
     private floatingCharsService: FloatingCharsService,
     private categoryService: CategoryService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -131,7 +131,7 @@ export class PaymentConfirmationComponent implements OnInit {
   }
 
   sendMail() {
-    this.utilsService.mail();
+    this.router.navigate(['/console', 'compras'])
   }
   
   getCategoryTypes(): void {
@@ -240,7 +240,7 @@ export class PaymentConfirmationComponent implements OnInit {
 
   saveUserAddress() {
 
-    if(this.addressFormGroup.valid) {
+    if(this.addressFormGroup.status == "VALID") {
       this.addressFormToDto(true);
 
       console.log(this.itemTransaction.$buyerAddress);
@@ -390,6 +390,7 @@ export class PaymentConfirmationComponent implements OnInit {
           .subscribe( (itemTransactResp: any) => {
               this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
               this.itemTransaction.$item.paymentConfirmed = true;
+
         });
       },
       onCancel: (data, actions) => {

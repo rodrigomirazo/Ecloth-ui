@@ -229,7 +229,8 @@ export class SaleItemComponent implements OnInit {
 
   firstStepSave($event: any) {
     $event.preventDefault();
-    if( this.firstFormGroup.valid
+    console.log(this.firstFormGroup);
+    if( this.firstFormGroup.status == "VALID"
       ) {
 
       this.item = this.itemService.adaptFormToItem(this.firstFormGroup, this.item);
@@ -244,11 +245,24 @@ export class SaleItemComponent implements OnInit {
         new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
       ];
 
+      console.log("this.userId: ", this.userId);
       this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
 
         this.item.id = itemRepsonse.id;
       });
     }
+  }
+
+  rateCompleted() : boolean {
+    if(
+      this.item.frameRate &&
+      this.item.ruedosRate &&
+      this.item.wheelsRate &&
+      this.item.componentsRate
+      ) {
+        return true;
+      }
+      return false;
   }
 
   onValidImgSelections($event) {
@@ -265,7 +279,7 @@ export class SaleItemComponent implements OnInit {
   }
 
   thirdStepSave() {
-    if( this.thirdFormGroup.valid ) {
+    if( this.thirdFormGroup.status == "VALID" && this.rateCompleted() ) {
       this.item.price = this.thirdFormGroup.value.price;
 
       this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {

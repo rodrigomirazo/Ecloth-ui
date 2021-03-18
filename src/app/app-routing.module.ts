@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   
-  { path: 'register-user', component: SignUpComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] },

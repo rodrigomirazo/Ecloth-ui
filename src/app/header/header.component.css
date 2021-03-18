@@ -46,6 +46,7 @@
 
 .menu-slide {
     margin: 10px;
+    margin-right: 50px;
 }
 
 ::ng-deep .cdk-overlay-pane {
@@ -100,6 +101,10 @@
 
 .header-menu-botton-side {
     font-family: bebasNeue-regular;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
     font-size: 26px;
     color: #303130;
 }

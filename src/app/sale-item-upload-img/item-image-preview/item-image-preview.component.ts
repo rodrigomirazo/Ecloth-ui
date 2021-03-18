@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadFilesService } from 'src/app/_services/upload-files.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class ItemImagePreviewComponent {
 
   fileData: File;
   _height: string;
+  _width: string;
   _uploadFlag: boolean;
 
   @Input()
@@ -33,11 +35,23 @@ export class ItemImagePreviewComponent {
 
   constructor(private uploadFilesService: UploadFilesService,
     private http: HttpClient,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar) { }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 6000,
+    });
+  }
 
   heightStyle() {
     let styles = {
-      'height': this.height + 'px',
+      'height': this.height + 'em',
+      'width': this.width + 'em',
+      'display': 'block',
+      'margin-left': 'auto',
+      'margin-right': 'auto',
+      'object-fit': 'cover',
     };
     return styles;
   }
@@ -53,9 +67,24 @@ export class ItemImagePreviewComponent {
 
     // Show preview
     var mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
+    if (
+        mimeType.toLowerCase() == ("image/jpeg").toLowerCase() ||
+        mimeType.toLowerCase() == ("image/PNG").toLowerCase() ||
+        mimeType.toLowerCase() == ("image/JPG").toLowerCase() ||
+        mimeType.toLowerCase() == ("image/jpg").toLowerCase()
+      ) {
+      console.log("Correct format: " + mimeType);
+    } else {
+      this.openSnackBar("El Formato de la imagen solo puede ser JPEG, JPG, PNG o JPG", "Cerrar");
       return;
     }
+
+    var sizeInK = this.fileData.size / 1024;
+    if ( sizeInK > 500) {
+      this.openSnackBar("El Tamaño de la imagen debe ser menor de los 500 KB", "Cerrar");
+      return;
+    }
+
     var reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
@@ -95,6 +124,15 @@ export class ItemImagePreviewComponent {
     this._height = value;
   }
 
+  @Input()
+	public get width(): string {
+		return this._width;
+  }
+	public set width(value: string) {
+    this._width = value;
+  }
+
+  
   onSubmit($event: any) {
     $event.preventDefault();
   }

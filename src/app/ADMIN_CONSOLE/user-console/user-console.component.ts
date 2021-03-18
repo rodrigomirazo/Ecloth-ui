@@ -34,8 +34,12 @@ export class UserConsoleComponent implements OnInit {
       this.section = params.section;
       this.section.toLowerCase();
 
-      if(this.section.toLocaleLowerCase() == ("shoppingFollowUp").toLocaleLowerCase() ) {
+      if(
+        this.section.toLocaleLowerCase() == ("shoppingFollowUp").toLocaleLowerCase() ||
+        this.section.toLocaleLowerCase() == ("purchaseDetail").toLocaleLowerCase()
+        ) {
         this.itemId = params.itemId;
+        console.log(this.itemId);
       }
 
     });

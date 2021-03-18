@@ -14,7 +14,7 @@
             <div class="saled-date-item-title"> Numero de Guia </div>
             <div class="saled-date-item-detail"> {{transaction.trackingNumber }} </div>
         </td>
-        <td>
+        <td style="width: 20%;">
             <div class="saled-date-item-title"> Numero de Producto </div>
             <div class="saled-date-item-detail"> {{transaction.item.id }} </div>
         </td>
@@ -78,7 +78,7 @@
         </td>
         <td style="width: 75%;" colspan="3">
 
-            <mat-horizontal-stepper #stepper style="width: 105%; margin-left: 10px;" [selectedIndex]="currentStep">
+            <mat-horizontal-stepper #stepper style="width: 100%; margin-left: 10px;" [selectedIndex]="currentStep">
 
                 <ng-template matStepperIcon="edit">
                     <mat-icon>done</mat-icon>
@@ -111,12 +111,26 @@
     </tr>
 
     <tr>
-        <td colspan="3"></td>
-        <td> <button
-            [routerLink]="['/console/compras' ]"
-            mat-stroked-button style="float: right;
-            margin-top: -30px;
-            border-radius: 21px;
-            font-family: 'montserrat-light';"> Regresar </button> </td>
+        <td colspan="2"></td>
+        <td>
+        </td>
+        <td>
+
+            <button
+                [routerLink]="['/console/purchaseDetail/' + transaction.id ]"
+                mat-stroked-button style="float: right;
+                background-color: #18c65e;
+                margin-top: -30px;
+                border-radius: 21px;
+                color: white;
+                font-family: 'montserrat-light';"> Detalle de Compra </button>
+            <button
+                [routerLink]="['/console/compras' ]"
+                mat-stroked-button style="float: right;
+                margin-top: -30px;
+                margin-right: 5px;
+                border-radius: 21px;
+                font-family: 'montserrat-light';"> Regresar </button>
+        </td>
     </tr>
 </table>

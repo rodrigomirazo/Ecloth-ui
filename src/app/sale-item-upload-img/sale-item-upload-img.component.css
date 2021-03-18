@@ -20,13 +20,25 @@
 }
 
 .item-upload-img-principal-example {
-    width: 97.5%;
     margin-top: 18px;
+
+    height: 15em;
+    width: 29em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
 }
 
 .item-upload-img-button {
-    width: 68%;
+    
     margin-top: 5px;
+    height: 8em;
+    width: 12em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
 }
 
 .item-upload-img-div {

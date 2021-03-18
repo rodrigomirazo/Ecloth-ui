@@ -1,1 +1,151 @@
-<p>purchase-detail works!</p>
+
+<table class="item-transaction-table" *ngIf="transaction">
+    <tr class="item-row-title">
+
+        <td class="item-cell-title">
+            <div class="saled-date-item-title">Fecha de Venta</div>
+            <div class="saled-date-item-detail">{{ dateFormat(transaction.item.createdTime) | date: 'dd/MM/yyyy'}}</div>
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Status de Producto </div>
+            {{transaction.transactionStatus }}
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Numero de Guia </div>
+            <div class="saled-date-item-detail"> {{transaction.trackingNumber }} </div>
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Numero de Producto </div>
+            <div class="saled-date-item-detail"> {{transaction.item.id }} </div>
+        </td>
+    </tr>
+
+    <!-- Payment Detail Begin -->
+    <tr>
+        <td style="width: 100%;" colspan="4">
+            <br>
+            <div class="item-detail-frame" *ngIf="transaction">
+
+                <table>
+                    <tr class="tr-subtitle">
+                        <td></td>
+                        <td class="td-subtitle">Direccion de Envio:</td>
+                        <td class="td-subtitle" colspan="3">Forma de Pago:</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 1.5%;"></td>
+                        <td style="width: 26%;" colspan="2">
+                        
+                            <span style="font-family: montserrat-bold;">
+                                {{ transaction.userBuyer.userAddresses[0].name }} {{ transaction.userBuyer.userAddresses[0].lastnames }}
+                            </span>
+                            <br>
+                            <span style="font-family: montserrat-light">
+                                {{ transaction.userBuyer.userAddresses[0].state }},
+                                {{ transaction.userBuyer.userAddresses[0].city }},
+                                cp {{ transaction.userBuyer.userAddresses[0].zipCode }},
+                                col. {{ transaction.userBuyer.userAddresses[0].suburb }}
+                            </span>
+                            <br>
+                            <span style="font-family: montserrat-light">
+                                calle {{ transaction.userBuyer.userAddresses[0].street }},
+                                ext. {{ transaction.userBuyer.userAddresses[0].extNumber }},
+                                int. {{ transaction.userBuyer.userAddresses[0].intNumber }}
+                            </span>
+                            <br>
+                            <span style="font-family: montserrat-light">
+                                Referencias: {{ transaction.userBuyer.userAddresses[0].reference }}
+                            </span>
+                            <br>
+                            <span style="font-family: montserrat-light">
+                                Entre Calles: {{ transaction.userBuyer.userAddresses[0].streetRef }}
+                            </span>
+                            <br>
+                        </td>
+                        <td style="width: 20%;">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <img src="assets/images/payment/paypal.svg" alt="">
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <!-- Item element Begin -->
+
+
+                <div class="row">
+
+                </div>
+                <!-- Item element End -->
+            </div>
+        </td>
+    </tr>
+
+    <!-- Item Detail begin -->
+    <tr>
+        <td style="width: 100%;" colspan="4">
+            <br>
+            <div class="item-detail-frame" *ngIf="transaction">
+                <table>
+                    <tr class="tr-subtitle">
+                        <td></td>
+                        <td class="td-subtitle">Producto:</td>
+                        <td class="td-subtitle">Nombre:</td>
+                        <td class="td-subtitle">Precio:</td>
+                        <td class="td-subtitle">Total:</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 1.5%;"></td>
+                        <td style="width: 18%;">
+                            <div class="row item-image-row" *ngIf="transaction.item.itemImgUrls[0]">
+                                <!-- <img [src]=" getImgBaseUrl() + blobImgs[i]" class="item-detail-img" alt="image"> -->
+                                <img src="/assets/uploaded/item_file_126_62"  class="item-detail-img">
+                            </div>
+                        </td>
+                        <td style="width: 20%;">
+                            <div class="col-xs-12 col-sm-12 col-md-12 item-type">
+                                Bicicleta/ {{ filterItemType(transaction.item.itemTypeCatId) }}
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 item-name">
+                                Talla {{ filterCatalog('brand') }}
+                                {{ filterCatalog( 'brand', transaction.item.itemFloatingChars) }} {{ filterCatalog( 'talla', transaction.item.itemFloatingChars) }}
+                            </div>
+                            
+                        </td>
+                        <td style="width: 20%;">
+                            <div style="width: 100%;">
+                                <div class="col-xs-6 col-sm-5 col-md-6 item-price">
+                                    {{transaction.item.price | currency}}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 20%;">
+                            <div style="width: 100%;">
+                                <div class="col-xs-6 col-sm-5 col-md-6 item-price-total">
+                                    {{transaction.item.price | currency}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!-- Item element Begin -->
+
+
+                <div class="row">
+
+                </div>
+                <!-- Item element End -->
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3"></td>
+        <td> <button
+            [routerLink]="['/console/compras' ]"
+            mat-stroked-button style="float: right;
+            height: 30px;
+            border-radius: 21px;
+            font-family: 'montserrat-light';"> Regresar </button> </td>
+    </tr>
+</table>

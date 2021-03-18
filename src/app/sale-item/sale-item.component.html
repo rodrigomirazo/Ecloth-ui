@@ -238,6 +238,8 @@
                             <br>
                             <mat-form-field class="col-md-8">
                                 <mat-label>¿Cuéntanos sobre sus modificaciones y detalles?</mat-label>
+
+                                <!-- [disabled]="firstFormGroup.value.isModified" -->
                                 <textarea matInput
                                             [disabled]="firstFormGroup.value.isModified"
                                             placeholder=""
@@ -258,12 +260,12 @@
                     <div class="col-md-8">
                     </div>
                     <div class="col-md-3" style="text-align: center; margin-top: 40px;">
+                        <!-- [disabled]="firstFormGroup.status != 'VALID' " -->
                         <button mat-stroked-button matStepperNext (click)="firstStepSave($event)"
+                            [disabled]="firstFormGroup.status != 'VALID' "
                             class="step-next-button">Siguiente</button>
 
-                            
-                        <button mat-stroked-button matStepperNext (click)="populate()"
-                            class="step-next-button">Populate Values</button>
+                        <!-- <button mat-stroked-button matStepperNext (click)="populate()" class="step-next-button">Populate Values</button> -->
                     
                     </div>
                 </div>
@@ -290,7 +292,7 @@
                 <div class="col-md-3" style="text-align: center; margin-top: 40px;">
                     <!-- [disabled]="!imgSelectionValid" -->
                     <button mat-stroked-button matStepperNext (click)="secondStepSave($event)"
-                        
+                        [disabled]="!imgSelectionValid"
                         class="step-next-button">Siguiente</button>
                 </div>
             </div>

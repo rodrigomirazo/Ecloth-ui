@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           .subscribe(
               data => {
                 console.log("this.returnUrl: ", this.returnUrl);
-                window.location.replace(environment.indexPage);
+                window.location.replace(environment.indexPage + "?refresh=true");
                 
               },
               error => {

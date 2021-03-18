@@ -183,7 +183,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   getImgBaseUrl() {
-    return "http://31.220.108.148/uploadedItemImg/";
+    return "http://151.106.109.11/uploadedItemImg/";
   }
 
   openPopUp() {

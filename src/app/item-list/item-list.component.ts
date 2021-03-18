@@ -19,7 +19,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ItemListComponent implements OnInit {
 
-  server: string = environment.host + environment.server;
+  server: string = environment.server;
   
   _inputFilter: any;
   _changeIncrement: number;
@@ -189,7 +189,7 @@ export class ItemListComponent implements OnInit {
   }
 
   getImgBaseUrl() {
-    return "http://31.220.108.148/uploadedItemImg/";
+    return "http://151.106.109.11/uploadedItemImg/";
   }
 
 

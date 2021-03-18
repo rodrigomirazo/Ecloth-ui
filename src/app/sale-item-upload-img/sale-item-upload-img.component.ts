@@ -26,7 +26,7 @@ export class SaleItemUploadImgComponent implements OnInit {
   constructor(private uploadFilesService: UploadFilesService) { }
 
   ngOnInit() {
-    for (let i = 0; i < 6; i++)
+    for (let i = 0; i < 8; i++)
       this.fileChecks = this.fileChecks.concat(false);
   }
 
