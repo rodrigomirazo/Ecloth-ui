@@ -1,27 +1,23 @@
 
 <div  class="row login-main-div">
-    
+  
+  <!--
+  <div class="login-square col-lg-4 col-md-4 col-sm-4 col-xs-8" style="text-align: center;">
+    <p class="login-tittle-mail"> Te hemos enviado un correo <br> para verificar tu cuenta! </p>
+  </div>
+  -->
 
   <div class="login-square col-lg-4 col-md-4 col-sm-4 col-xs-8" style="text-align: center;">
       <p class="login-tittle"> CONVIÉRTETE EN UN <BR> BAAW MEMBER! </p>
       <div class="card-body">
-          <form [formGroup]=" " (ngSubmit)="onSubmit()">
-
-              <div  class="row">
-                  <mat-form-field class="input-text-alignment">
-                      <mat-label>Nombre de Usuario</mat-label>
-                      <input  matInput placeholder="Ej. juanCabrera" value="" formControlName="username"
-                              [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-                      <mat-hint> <p style="color: #18c65e; ">Su nombre solo puede contener numeros y letras</p></mat-hint>
-                  </mat-form-field>
-              </div>
-
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
               <div  class="row">
                   <mat-form-field class="input-text-alignment">
                       <mat-label>Dirección de correo</mat-label>
                       <input  matInput placeholder="Dirección de correo" value="" formControlName="usermail"
-                              [ngClass]="{ 'is-invalid': submitted && f.usermail.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && f.usermail.errors }"
+                              type="email" name="email" ngModel [email]="true" #userEmail>
                       <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
                   </mat-form-field>
               </div>
@@ -29,32 +25,30 @@
               <div  class="row">
                   <mat-form-field class="input-text-alignment">
                       <mat-label>Contraseña</mat-label>
-                      <input  matInput placeholder="Contraseña" value="" formControlName="password"
-                              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password">
+                      <input matInput placeholder="Contraseña" value="" formControlName="password"
+                              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password" #userPwd>
                       <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
                   </mat-form-field>
               </div>
-
-              <!--
-              <div class="formGroup">
-                  <button type="button" class="btn googleBtn" (click)="authenticationService.GoogleAuth()">
-                    <i class="fab fa-google-plus-g"></i>
-                    Log in with Google
-                  </button>
-                </div>
-              -->
-              
               <br>
-
-              <div class="col-md-12" style="margin-top: 25px;">
-                  <button mat-stroked-button class="step-next-button">Iniciar Sesión</button>
+              
+              <div class="col-md-12" style="margin-top: 25px; margin-bottom: 10px;">
+                  <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
               </div>
               
-              <div class="row" style="margin-top: 6em;" *ngIf="error">
-                  <div  class="alert alert-danger">
-                      Usuario y/o Contraseña Incorrecta
-                  </div>
+              <div class="formGroup">
+                <br>
+                <span class="or"><span class="orInner">Ó</span></span>
               </div>
+        
+              <!-- Continue with Google -->
+              <div class="formGroup">
+                
+                <input  type="image" src="/assets/images/crossOrigin/google/btn_google_normal.png"
+                        style="width: 16em;"
+                        (click)="authService.GoogleAuth()"/>
+              </div>
+
       </form>
 
   </div>
@@ -63,50 +57,3 @@
 
 </div>
 
-
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Sign Up</h3>
-  
-        <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPwd required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
-        </div>
-  
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div>
-  
-        <!-- Continue with Google -->
-        <div class="formGroup">
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Continue with Google
-          </button>
-        </div>
-  
-        <!-- Continue with Facebook -->
-        <div class="formGroup">
-          <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
-            <i class="fab fa-facebook"></i>
-            Continue with Facebook
-          </button>
-        </div>
-      </div>
-  
-      <div class="redirectToLogin">
-        <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
-      </div>
-    </div>
-  
-  </div>
-  

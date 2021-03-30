@@ -21,11 +21,13 @@ export class AuthenticationService {
   private encryptSecretKey: string = SHA_CRIPT_STRING;
   private loginUser: string = environment.host + environment.baseUrl + environment.entity.userAuth;
   private validateLoginUser: string = environment.host + environment.baseUrl + environment.entity.userTokenIsValid;
+  public crossLogin: string = environment.host + environment.baseUrl + environment.entity.crossLogin;
   
-  private currentUserCookie: string = SESSION_PREFIX + SESSION_USER;
+  public currentUserCookie: string = SESSION_PREFIX + SESSION_USER;
 
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  userData: any; // Save logged in user data
 
   constructor(
     private http: HttpClient,
@@ -42,6 +44,17 @@ export class AuthenticationService {
 
       const things = db.collection('things').valueChanges();
       things.subscribe(console.log);
+
+      this.afAuth.authState.subscribe(user => {
+        if (user) {
+          this.userData = user;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        } else {
+          localStorage.setItem('user', null);
+          JSON.parse(localStorage.getItem('user'));
+        }
+      })
   }
 
   public get currentUserValue(): User {
@@ -49,7 +62,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    let user: User = new User(username, password);
+    //let user: User = new User(username, password);
     return this.http.post<any>(this.loginUser, { username, password })
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -143,12 +156,13 @@ export class AuthenticationService {
   }
   
     // Sign up with email/password
-    SignUp(email, password) {
+    SignUp(email: string, password: string) {
+      console.log(email, password);
       return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
         .then((result) => {
           /* Call the SendVerificaitonMail() function when new user sign 
           up and returns promise */
-          this.SendVerificationMail();
+          this.SendVerificationMail(email, password);
           this.SetUserData(result.user);
         }).catch((error) => {
           window.alert(error.message)
@@ -156,7 +170,7 @@ export class AuthenticationService {
     }
   
     // Send email verfificaiton when new user sign up
-    SendVerificationMail() {
+    SendVerificationMail(email: string, password: string) {
       
       return this.afAuth.auth.currentUser.sendEmailVerification()
       .then(() => {
@@ -182,21 +196,27 @@ export class AuthenticationService {
   
     // Sign in with Google
     GoogleAuth() {
-      return this.AuthLogin(new auth.GoogleAuthProvider());
+      this.AuthLogin(new auth.GoogleAuthProvider());
     }
   
     // Auth logic to run auth providers
     AuthLogin(provider) {
-      return this.afAuth.auth.signInWithPopup(provider)
-      .then((result) => {
+      this.afAuth.auth.signInWithPopup(provider)
+      .then((result: any) => {
         console.log(result);
-        this.ngZone.run(() => {
-          this.router.navigate(['index']);
-        })
         this.SetUserData(result.user);
+        this.ngZone.run(() => {
+          let userName = result.additionalUserInfo.profile.email;
+          let password = result.additionalUserInfo.profile.id;
+
+          this.router.navigate(['/login'], { queryParams: { crossLogin: true } });
+          
+        })
       }).catch((error) => {
         window.alert(error)
       })
+
+      //112579174647624640564
     }
 
     /* Setting up user data when sign in with username/password,
@@ -223,5 +243,23 @@ export class AuthenticationService {
         this.router.navigate(['sign-in']);
       });
     }
+
+    handleResetPassword(actionCode, continueUrl, lang) {
+
+      this.afAuth.auth.applyActionCode(actionCode).then(function(resp) {
+        // Email address has been verified.
+
+        // TODO: Display a confirmation message to the user.
+        // You could also provide the user with a link back to the app.
+
+        // TODO: If a continue URL is available, display a button which on
+        // click redirects the user back to the app via continueUrl with
+        // additional state determined from that URL's parameters.
+      }).catch(function(error) {
+        // Code is invalid or expired. Ask the user to verify their email address
+        // again.
+      });
+    }
+
 
 }

@@ -17,6 +17,7 @@ import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
 import { UserConsoleComponent } from './ADMIN_CONSOLE/user-console/user-console.component';
+import { InterceptVerificationComponent } from './_authComponents/intercept-verification/intercept-verification.component';
 
 const routes: Routes = [
   { path: 'index', component: HomePageComponent, runGuardsAndResolvers: 'always' },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
+  { path: 'auth/verification', component: InterceptVerificationComponent },
   { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] },
 
   { path: 'console/:section', component: UserConsoleComponent, canActivate: [ AuthGuard ] },

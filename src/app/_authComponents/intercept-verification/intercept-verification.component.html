@@ -1,0 +1,34 @@
+
+<div  class="row login-main-div">
+    <div class="login-square col-lg-4 col-md-4 col-sm-4 col-xs-8" style="text-align: center;">
+        <div *ngIf="verificationMode">
+            <p class="login-tittle">
+                {{verificationTitle}}
+            </p>
+        </div>
+        <div class="card-body">
+            <div *ngIf="verificationMode == 'verifyEmail' ">
+                <div *ngIf="correctCode">
+                    <p class="text-center">Felicidades, hemos verificado tu cuenta correctamente.</p>
+                    <p class="text-center">
+                        Por favor, ingresa a tu cuenta dando click aqui:
+                        <a [routerLink]="['/login' ]" style="cursor: pointer;">Login</a>
+                    </p>
+                </div>
+                <div *ngIf="!correctCode">
+                    <p class="text-center">
+                        <strong>
+                            La verificacion es invalida.
+                        </strong>
+                    </p>
+                    <p class="text-center">
+                        Por favor, intenta de nuevo dando click en
+                        <a [routerLink]="['/sign-up' ]" style="cursor: pointer;">Registro</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

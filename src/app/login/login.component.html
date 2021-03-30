@@ -4,8 +4,8 @@
 
         <div class="login-square col-lg-4 col-md-4 col-sm-4 col-xs-8" style="text-align: center;">
             <p class="login-tittle">INICIA SESIÓN EN <BR> TU CUENTA </p>
-            <div class="card-body">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="card-body" (ngSubmit)="onSubmit()">
+                <form [formGroup]="loginForm">
 
                     <div  class="row">
                         <mat-form-field class="input-text-alignment">
@@ -25,15 +25,6 @@
                         </mat-form-field>
                     </div>
 
-                    <!--
-                    <div class="formGroup">
-                        <button type="button" class="btn googleBtn" (click)="authenticationService.GoogleAuth()">
-                          <i class="fab fa-google-plus-g"></i>
-                          Log in with Google
-                        </button>
-                      </div>
-                    -->
-                    
                     <br>
 
                     <div class="col-md-12" style="margin-top: 25px;">
@@ -47,6 +38,9 @@
                     </div>
             </form>
 
+            <input  type="image" src="/assets/images/crossOrigin/google/btn_google_normal.png"
+                    style="width: 16em;"
+                    (click)="authService.GoogleAuth()" />
         </div>
     </div>
     

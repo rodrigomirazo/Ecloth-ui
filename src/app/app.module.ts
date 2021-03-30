@@ -67,6 +67,7 @@ import { ItemHorizontalViewComponent } from './ADMIN_CONSOLE/item-horizontal-vie
 import { FilterElementsComponent } from './ADMIN_CONSOLE/filter-elements/filter-elements.component';
 import { ShoppingFollowUpComponent } from './ADMIN_CONSOLE/shopping-follow-up/shopping-follow-up.component';
 import { PurchaseDetailComponent } from './ADMIN_CONSOLE/purchase-detail/purchase-detail.component';
+import { InterceptVerificationComponent } from './_authComponents/intercept-verification/intercept-verification.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -133,6 +134,7 @@ const googleAuthConfig = {
     FilterElementsComponent,
     ShoppingFollowUpComponent,
     PurchaseDetailComponent,
+    InterceptVerificationComponent,
   ],
   imports: [
     BrowserModule,

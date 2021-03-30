@@ -47,7 +47,6 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkUrban();
     
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if(params) {
         if(params.refresh) {
           if(params.refresh == "true" ) {
