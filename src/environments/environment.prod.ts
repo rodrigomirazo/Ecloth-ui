@@ -36,6 +36,12 @@ export const environment: any = {
 
     userAddres: "/userAddress",
     userAuth: "/user/authenticate",
-    userTokenIsValid: "/user/profile/isValid"
+    userTokenIsValid: "/user/profile/isValid",
+    crossLogin: "/user/register",
+    userUpdate: "/userUpdate",
+    passwordUpdate: "/passwordUpdate",
+    userFavorites: "/userFavorites",
+    userAddFavorites: "/userAddFavorites",
+    userRemoveFavorites: "/userRemoveFavorites",
   }
 };

@@ -16,6 +16,7 @@ export class UserAddress {
     private reference: string;
     private phoneNumber: string;
     private savedInProfile: boolean;
+    private streetRef: string;
 
 	constructor() {
     }
@@ -242,6 +243,22 @@ export class UserAddress {
      */
 	public set $savedInProfile(value: boolean) {
 		this.savedInProfile = value;
+	}
+
+    /**
+     * Getter $streetRef
+     * @return {string}
+     */
+	public get $streetRef(): string {
+		return this.streetRef;
+	}
+
+    /**
+     * Setter $streetRef
+     * @param {string} value
+     */
+	public set $streetRef(value: string) {
+		this.streetRef = value;
 	}
 
 

@@ -5,6 +5,7 @@ import { first, map } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { SESSION_GOOGLE_USER, SESSION_PREFIX } from '../_helpers/constants';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+  public googleUserCookie: string = SESSION_PREFIX + SESSION_GOOGLE_USER;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,8 +30,13 @@ export class LoginComponent implements OnInit {
   ) { 
       console.log("const login");
       // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) { 
-          this.router.navigate(['/']);
+      
+      if (this.authenticationService.currentUserValue) {
+          if(this.authService.tokenIsValid()) {
+            this.router.navigate(['/']);
+          } else {
+            this.authService.logout();
+          }
       }
   }
 
@@ -49,16 +56,23 @@ export class LoginComponent implements OnInit {
             if(params.crossLogin) {
                 //let user: User = new User(userName, password);
 
-                let cookie = JSON.parse(localStorage.getItem('user'));
-                cookie = JSON.parse(localStorage.getItem('user'));
+                if(
+                  localStorage.getItem(this.googleUserCookie) == null ||
+                  localStorage.getItem(this.googleUserCookie) == "null"
+                  ) {
+                  window.location.reload();
+                }
+
+                let cookie = JSON.parse(localStorage.getItem(this.googleUserCookie));
+                cookie = JSON.parse(localStorage.getItem(this.googleUserCookie));
                 
                 let userName = cookie.email;
                 let password = cookie.uid;
 
                 console.log("before cross login " + { userName, password });
-                
+
                 this.loading = true;
-                this.authenticationService.login(userName, password)
+                this.authenticationService.googleLogin(userName, password)
                     .pipe(first())
                     .subscribe(
                         data => {
@@ -70,21 +84,6 @@ export class LoginComponent implements OnInit {
                             this.error = error;
                             this.loading = false;
                         });
-
-                /*
-                this.http.post<any>(this.authService.crossLogin, { userName, password })
-                .pipe(map(user => {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    
-                    console.log("inside cross login");
-                    let encripted: string = JSON.stringify(user);
-                    
-                    localStorage.setItem(this.authService.currentUserCookie, encripted);
-                    this.authService.currentUserSubject.next(user);
-
-                    user;
-                }));
-                */
             }
         }
     });

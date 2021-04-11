@@ -28,7 +28,7 @@
                     <br>
 
                     <div class="col-md-12" style="margin-top: 25px;">
-                        <button mat-stroked-button class="step-next-button">Iniciar Sesión</button>
+                        <button mat-stroked-button class="step-next-button" (click)="onSubmit()">Iniciar Sesión</button>
                     </div>
                     
                     <div class="row" style="margin-top: 6em;" *ngIf="error">

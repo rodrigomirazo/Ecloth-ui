@@ -1,6 +1,7 @@
 
 export const SESSION_PREFIX = "baaw_commerce_";
 export const SESSION_USER = "user";
+export const SESSION_GOOGLE_USER = "google_user";
 
 export const AUTH_HEADER = "Authorization";
 

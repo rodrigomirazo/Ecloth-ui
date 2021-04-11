@@ -377,6 +377,9 @@ export class PaymentConfirmationComponent implements OnInit {
           this.itemTransactService.save(this.itemTransaction)
               .subscribe( (itemTransactResp: any) => {
                 this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
+
+                this.router.navigate(['/console', 'compras']);
+                
           });
 
         });

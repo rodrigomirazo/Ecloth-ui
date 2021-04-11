@@ -56,6 +56,14 @@ export class HeaderComponent implements OnInit {
           }
         }
       }
+      this.authenticationService.tokenIsValid().subscribe( isValid => {
+        if(isValid) {
+          this.saleEnable = true;
+        } else {
+          this.saleEnable = false;
+        }
+      });
+
     });
   }
 
@@ -65,9 +73,10 @@ export class HeaderComponent implements OnInit {
   }
 
   closeSession() {
+    this.saleEnable = false;
     this.authenticationService.logout();
     this.saleEnable = false;
-    this.router.navigate(['/index'],  { queryParams: { refresh: true } } );
+    this.router.navigate(['/index'],  { queryParams: { refresh: false } } );
   }
 
   getCategoryTypesLinkMountain(): void {

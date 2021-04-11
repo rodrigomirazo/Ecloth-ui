@@ -284,7 +284,7 @@ export class SaleItemComponent implements OnInit {
 
       this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
         this.item.id = itemRepsonse.id;
-        this.router.navigate(['item-detail/', this.item.id]);
+        this.router.navigate(['/market-place', 'null', null ]);
       });
     }
   }

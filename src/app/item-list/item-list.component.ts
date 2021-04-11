@@ -11,6 +11,9 @@ import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { PageEvent } from '@angular/material/paginator';
+import { UserService } from '../_services/user.service';
+import { User } from '../_models/User-model';
+import { AuthenticationService } from '../_services/authentication.service';
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -31,13 +34,20 @@ export class ItemListComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
+  user: User;
+
+  itemFavorite = false;
+  favorites: number[] = [];
+
   constructor(
     private sanitizer: DomSanitizer,
     private itemService: ItemService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private floatingCharsService: FloatingCharsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private userService: UserService,
+    private authService: AuthenticationService,
     ) {
     
     this.pageEvent = new PageEvent();
@@ -45,17 +55,53 @@ export class ItemListComponent implements OnInit {
     this.pageEvent.pageSize = 9;
     this.pageEvent.length = 100;
 
+    this.user = this.authService.getSessionUser();
+
     this.systDate = new Date();
     this.matIconRegistry.addSvgIcon("star_inactive",
     this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_inactive.svg") );
     
     this.matIconRegistry.addSvgIcon("star_active",
     this.domSanitizer.bypassSecurityTrustResourceUrl("assets/images/market-place/icon_star_active.svg") );
-    
+    this.getfavorites();
   }
 
   ngOnInit() {
     
+  }
+
+  getfavorites() {
+    this.userService.userFavorites(this.user).subscribe((items: any[]) => {
+      
+      this.favorites = [];
+      console.log(items);
+      items.forEach(item => {
+        this.favorites = this.favorites.concat(item.id);
+      });
+    });
+  }
+
+  isFavorite(itemId: number) {
+    if(this.favorites.includes(itemId)) {
+      return true;
+    }
+    return false;
+  }
+
+  addTofavorites(itemId) {
+    console.log("ading", this.user);
+    this.userService.userAddFavorites(this.user, itemId).subscribe((items: any[]) => {
+      this.itemFavorite = true;
+      this.getfavorites();
+    });
+  }
+
+  removeFromfavorites(itemId) {
+    console.log("removing");
+    this.userService.userRemoveFavorites(this.user, itemId).subscribe((items: any[]) => {
+      this.itemFavorite = false;
+      this.getfavorites();
+    });
   }
 
   /** Detect Changes */
@@ -123,8 +169,6 @@ export class ItemListComponent implements OnInit {
    * @description This Function requests the List of Items based on current Input Filters
    */
   resquestItems(setPageSizeOptionsInput: any) {
-    console.log(setPageSizeOptionsInput);
-
     this.floatingCharsService.getAll().subscribe( (itemFloatingChars: ItemFloatingChars[]) => {
 
       if(this.inputFilter.itemTypes) {
@@ -139,18 +183,13 @@ export class ItemListComponent implements OnInit {
             let min = this.pageEvent.pageSize * (this.pageEvent.pageIndex);
             let max = this.pageEvent.pageSize * (this.pageEvent.pageIndex + 1);
 
-            console.log("this.pageEvent.length : ", min );
-            console.log("this.pageEvent.pageIndex : ", max );
-
             itemsResp.forEach(itemResp => {
               
               if ( i >= min && i < max ) {
-                  console.log(i);
                   this.items = this.items.concat(itemResp);
               }
               i++;
             });
-            console.log(this.items);
 
             for (let i = 0; i < this.items.length; i++) {
 
@@ -194,7 +233,6 @@ export class ItemListComponent implements OnInit {
 
 
   getImageFromService(imageName: string, imgIndex: number) {
-    console.log("imageName: ", imageName);
     this.blobImgs[imgIndex] = imageName;
   }
 

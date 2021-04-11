@@ -28,6 +28,12 @@ export class UserAddressService {
       this.authService.getSessionUser() );
   }
 
+  saveJson(userAddress: UserAddress) : Observable<UserAddress> {
+    
+    return this.httpService.postAuth(this.userAddressUri, userAddress,
+      this.authService.getSessionUser() );
+  }
+
   adaptUserAddressToJson(userAddress: UserAddress) : UserAddressJson {
 
     let userAddressJson: UserAddressJson = new UserAddressJson();

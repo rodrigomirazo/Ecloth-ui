@@ -248,7 +248,7 @@ export class UserJson {
     private description: string;
     private token: string;
     private content: string;
-    private userAdressJson: UserAddressJson;
+    private userAdress: UserAddressJson;
 
 	constructor(user: User) {
         if(user != null) {
@@ -272,6 +272,14 @@ export class UserJson {
      */
 	public get $id(): string {
 		return this.id;
+	}
+
+    /**
+     * Getter $uid
+     * @return {any}
+     */
+	public get $uid(): any {
+		return this.uid;
 	}
 
     /**
@@ -347,11 +355,19 @@ export class UserJson {
 	}
 
     /**
-     * Getter $userAdressJson
+     * Getter $content
+     * @return {string}
+     */
+	public get $content(): string {
+		return this.content;
+	}
+
+    /**
+     * Getter $userAdress
      * @return {UserAddressJson}
      */
-	public get $userAdressJson(): UserAddressJson {
-		return this.userAdressJson;
+	public get $userAdress(): UserAddressJson {
+		return this.userAdress;
 	}
 
     /**
@@ -360,6 +376,14 @@ export class UserJson {
      */
 	public set $id(value: string) {
 		this.id = value;
+	}
+
+    /**
+     * Setter $uid
+     * @param {any} value
+     */
+	public set $uid(value: any) {
+		this.uid = value;
 	}
 
     /**
@@ -435,43 +459,19 @@ export class UserJson {
 	}
 
     /**
-     * Setter $userAdressJson
-     * @param {UserAddressJson} value
-     */
-	public set $userAdressJson(value: UserAddressJson) {
-		this.userAdressJson = value;
-	}
-    
-    /**
-     * Getter $uid
-     * @return {any}
-     */
-	public get $uid(): any {
-		return this.uid;
-	}
-
-    /**
-     * Setter $uid
-     * @param {any} value
-     */
-	public set $uid(value: any) {
-		this.uid = value;
-	}
-
-    /**
-     * Getter $content
-     * @return {string}
-     */
-	public get $content(): string {
-		return this.content;
-	}
-
-    /**
      * Setter $content
      * @param {string} value
      */
 	public set $content(value: string) {
 		this.content = value;
+	}
+
+    /**
+     * Setter $userAdress
+     * @param {UserAddressJson} value
+     */
+	public set $userAdress(value: UserAddressJson) {
+		this.userAdress = value;
 	}
 
 }

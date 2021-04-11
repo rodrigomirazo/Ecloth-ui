@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User, UserJson } from '../_models/User-model';
 import { environment } from 'src/environments/environment';
-import { SESSION_PREFIX, SESSION_USER, SHA_CRIPT_STRING } from '../_helpers/constants';
+import { SESSION_GOOGLE_USER, SESSION_PREFIX, SESSION_USER, SHA_CRIPT_STRING } from '../_helpers/constants';
 import * as CryptoJS from 'crypto-js';
 import { Subscriber } from 'rxjs/internal/Subscriber';
 import { auth } from 'firebase/app';
@@ -24,6 +24,7 @@ export class AuthenticationService {
   public crossLogin: string = environment.host + environment.baseUrl + environment.entity.crossLogin;
   
   public currentUserCookie: string = SESSION_PREFIX + SESSION_USER;
+  public googleUserCookie: string = SESSION_PREFIX + SESSION_GOOGLE_USER;
 
   public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
@@ -48,11 +49,11 @@ export class AuthenticationService {
       this.afAuth.authState.subscribe(user => {
         if (user) {
           this.userData = user;
-          localStorage.setItem('user', JSON.stringify(this.userData));
-          JSON.parse(localStorage.getItem('user'));
+          localStorage.setItem(this.googleUserCookie, JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem(this.googleUserCookie));
         } else {
-          localStorage.setItem('user', null);
-          JSON.parse(localStorage.getItem('user'));
+          localStorage.setItem(this.googleUserCookie, null);
+          JSON.parse(localStorage.getItem(this.googleUserCookie));
         }
       })
   }
@@ -64,6 +65,27 @@ export class AuthenticationService {
   login(username: string, password: string) {
     //let user: User = new User(username, password);
     return this.http.post<any>(this.loginUser, { username, password })
+      .pipe(map(user => {
+          return this.setLogin(user);
+      }));
+  }
+
+  public setLogin(user: User) : User {
+
+    // store user details and jwt token in local storage
+    // to keep user logged in between page refreshes
+    
+    let encripted: string = JSON.stringify(user);
+    
+    localStorage.setItem(this.currentUserCookie, encripted);
+    this.currentUserSubject.next(user);
+
+    return 
+  }
+
+  googleLogin(username: string, password: string) {
+    //let user: User = new User(username, password);
+    return this.http.post<any>(this.crossLogin, { username, password })
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           
@@ -80,6 +102,7 @@ export class AuthenticationService {
       console.log("login out");
       localStorage.removeItem(this.currentUserCookie);
       this.currentUserSubject.next(null);
+      //this.SignOut();
   }
 
   getSessionUser(): User {
@@ -101,6 +124,41 @@ export class AuthenticationService {
     user.description = storage.description;
     user.token = storage.token;
     user.content = storage.content;
+    console.log(storage.userAdresses);
+    if(storage.userAdresses) {
+      if(storage.userAdresses.length > 0) {
+        user.userAdress = storage.userAdresses[0];
+      }
+    }
+
+    return user;
+  }
+
+  getSessionUserJson(): UserJson {
+    let user: UserJson = new UserJson(null);
+    
+    if( localStorage.getItem(this.currentUserCookie) == null) {
+      return null;
+    }
+
+    const storage = JSON.parse(localStorage.getItem(this.currentUserCookie));
+    user.$id = storage.id;
+    user.$name = storage.name;
+    user.$lastname = storage.lastname;
+    user.$userName = storage.userName;
+    user.$email = storage.email;
+    user.$password = storage.password;
+    user.$createdTime = storage.createdTime;
+    user.$userProfileImg = storage.userProfileImg;
+    user.$description = storage.description;
+    user.$token = storage.token;
+    user.$content = storage.content;
+
+    if(storage.userAddresses) {
+      if(storage.userAddresses.length > 0) {
+        user.$userAdress = storage.userAddresses[0];
+      }
+    }
 
     return user;
   }
@@ -190,7 +248,7 @@ export class AuthenticationService {
   
     // Returns true when user is looged in and email is verified
     get isLoggedIn(): boolean {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem(this.googleUserCookie));
       return (user !== null && user.emailVerified !== false) ? true : false;
     }
   
@@ -238,9 +296,10 @@ export class AuthenticationService {
     
     // Sign out 
     SignOut() {
+      console.log("sign out");
       return this.afAuth.auth.signOut().then(() => {
-        localStorage.removeItem('user');
-        this.router.navigate(['sign-in']);
+        localStorage.removeItem(this.googleUserCookie);
+        //this.router.navigate(['sign-in']);
       });
     }
 

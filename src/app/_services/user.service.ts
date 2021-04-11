@@ -3,13 +3,27 @@ import { PROFILE_BAAW_PARTNER } from '../_helpers/constants';
 import { ItemTransactionHistoryJson } from '../_models/item-transaction-history-model-json';
 import { User, UserJson } from '../_models/User-model';
 import { UserAddressService } from './user-address.service';
+import { HttpService } from '../http-service/http.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private userAddressService: UserAddressService) {}
+  private userUpdate: string = environment.host + environment.baseUrl + environment.entity.userUpdate;
+  private passwordUpdate: string = environment.host + environment.baseUrl + environment.entity.passwordUpdate;
+  private userFavoritesUrl: string = environment.host + environment.baseUrl + environment.entity.userFavorites;
+  private userAddFavoritesUrl: string = environment.host + environment.baseUrl + environment.entity.userAddFavorites;
+  private userRemoveFavoritesUrl: string = environment.host + environment.baseUrl + environment.entity.userRemoveFavorites;
+
+  constructor(
+    private userAddressService: UserAddressService,
+    private httpService: HttpService,
+    private authService: AuthenticationService,
+    ) {}
 
   getUserProfiles(user: User) : string[] {
       if(user.content == undefined)
@@ -58,5 +72,32 @@ export class UserService {
 
     return user;
   }
+
+  update(user: User) : Observable<User> {
+    let userJson = this.adaptUserToJson(user);
+    return this.httpService.postAuth(this.userUpdate, userJson, this.authService.getSessionUser());
+  }
+
+  updatePassword(user: User) : Observable<User> {
+    let userJson = this.adaptUserToJson(user);
+    return this.httpService.postAuth(this.passwordUpdate, userJson, this.authService.getSessionUser());
+  }
+
+  userFavorites(user: User) : Observable<any[]> {
+    let userJson = this.adaptUserToJson(user);
+    return this.httpService.getWithHeaders(this.userFavoritesUrl + "/" + user.userName, this.authService.getSessionUser());
+  }
+
+  userAddFavorites(user: User, itemId: number) : Observable<any[]> {
+    
+    console.log("service adding", this.userAddFavoritesUrl + "/" + user.userName + "/" + itemId);
+    return this.httpService.getWithHeaders(this.userAddFavoritesUrl + "/" + user.userName + "/" + itemId, this.authService.getSessionUser());
+  }
+
+  userRemoveFavorites(user: User, itemId: number) : Observable<any[]> {
+    
+    return this.httpService.getWithHeaders(this.userRemoveFavoritesUrl + "/" + user.userName + "/" + itemId, this.authService.getSessionUser());
+  }
+
 
 }

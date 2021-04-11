@@ -28,9 +28,17 @@ export class HttpService {
 
   postAuth(url: string, requestBody: any, user: User): Observable<any> {
 
+    console.log(url);
     let headers = new HttpHeaders().set('Authorization', "Bearer " + user.token);
     
     return this.http.post(url, requestBody, {headers} );
+  }
+
+  putAuth(url: string, requestBody: any, user: User): Observable<any> {
+
+    let headers = new HttpHeaders().set('Authorization', "Bearer " + user.token);
+    
+    return this.http.put<User>(url, requestBody, {headers} );
   }
 
   put(url: string, requestBody: any): Observable<any> {

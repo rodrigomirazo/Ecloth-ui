@@ -3,6 +3,13 @@
 
     <mat-accordion class="filters-accordion" hideToggle>
 
+        <mat-expansion-panel>
+            <mat-expansion-panel-header [routerLink]="['/console', 'perfil' ]" style="padding-left: 19px;">
+                <mat-panel-title style="font-size: 14px; color: white; font-family: 'montserrat-light';">
+                    <mat-icon style="color: #18c65e;">person</mat-icon> Rider {{user.name}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
         <!-- Categorías -->
         <mat-expansion-panel [expanded]="section === 'compras' || section === 'frequent-answers'">
             <mat-expansion-panel-header [routerLink]="['/console', 'compras' ]">
@@ -68,11 +75,6 @@
                     Favoritos
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="example-section">
-                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
-                    Section Name
-                </div>
-            </section>
         </mat-expansion-panel>
 
         <!-- Genere -->
@@ -83,11 +85,6 @@
                     Perfil
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="example-section">
-                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
-                    Section Name
-                </div>
-            </section>
         </mat-expansion-panel>
 
     </mat-accordion>
