@@ -186,8 +186,8 @@ export class UserProfileComponent implements OnInit {
     .subscribe( (userAddress: any) => {
       let user: any = this.authService.getSessionUserJson();
 
-      user.userAdresses = [ userAddress ];
-      console.log("user.userAdress", user.userAdresses);
+      user.userAddresses = [ userAddress ];
+      console.log("user.userAdress", user.userAddresses);
       this.authService.setLogin(user);
 
       this.editAddress = !this.editAddress;

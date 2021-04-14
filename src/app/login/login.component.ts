@@ -60,7 +60,8 @@ export class LoginComponent implements OnInit {
                   localStorage.getItem(this.googleUserCookie) == null ||
                   localStorage.getItem(this.googleUserCookie) == "null"
                   ) {
-                  window.location.reload();
+                    console.log("if(params.crossLogin) {");
+                    window.location.reload();
                 }
 
                 let cookie = JSON.parse(localStorage.getItem(this.googleUserCookie));
@@ -93,6 +94,8 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
+
+      console.log("onSubmit() fro login");
       this.submitted = true;
 
       // stop here if form is invalid
@@ -100,6 +103,8 @@ export class LoginComponent implements OnInit {
           return;
       }
 
+      this.authenticationService.SignIn(this.f.username.value, this.f.password.value);
+/*
       this.loading = true;
       this.authenticationService.login(this.f.username.value, this.f.password.value)
           .pipe(first())
@@ -113,5 +118,7 @@ export class LoginComponent implements OnInit {
                   this.error = error;
                   this.loading = false;
               });
+              */
   }
+
 }

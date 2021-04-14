@@ -110,7 +110,10 @@ export class ItemImagePreviewComponent {
     console.log("this.itemId = " + this.itemId);
     if(value == true && this.fileData && this.itemId != null) {
       console.log("Before upload");
-      this.uploadFilesService.upload(this.fileData, this.itemId);
+      this.uploadFilesService.upload(this.fileData, this.itemId)
+      .subscribe((resp: any) => {
+
+      });
     }
     this._uploadFlag = value;
   }

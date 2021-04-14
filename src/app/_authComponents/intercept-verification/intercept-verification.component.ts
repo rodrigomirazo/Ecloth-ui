@@ -70,8 +70,8 @@ export class InterceptVerificationComponent implements OnInit {
   
       // TODO: Display a confirmation message to the user.
       // You could also provide the user with a link back to the app.
+      console.log("resp: ", resp);
       this.correctCode = true;
-  
       // TODO: If a continue URL is available, display a button which on
       // click redirects the user back to the app via continueUrl with
       // additional state determined from that URL's parameters.

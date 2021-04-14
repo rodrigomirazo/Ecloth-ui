@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { User, UserJson } from '../_models/User-model';
 import { environment } from 'src/environments/environment';
 import { SESSION_GOOGLE_USER, SESSION_PREFIX, SESSION_USER, SHA_CRIPT_STRING } from '../_helpers/constants';
@@ -21,7 +21,9 @@ export class AuthenticationService {
   private encryptSecretKey: string = SHA_CRIPT_STRING;
   private loginUser: string = environment.host + environment.baseUrl + environment.entity.userAuth;
   private validateLoginUser: string = environment.host + environment.baseUrl + environment.entity.userTokenIsValid;
-  public crossLogin: string = environment.host + environment.baseUrl + environment.entity.crossLogin;
+  private preRegister: string = environment.host + environment.baseUrl + environment.entity.preRegister;
+  private crossLogin: string = environment.host + environment.baseUrl + environment.entity.crossLogin;
+  private enableUser: string = environment.host + environment.baseUrl + environment.entity.enableUser;
   
   public currentUserCookie: string = SESSION_PREFIX + SESSION_USER;
   public googleUserCookie: string = SESSION_PREFIX + SESSION_GOOGLE_USER;
@@ -83,6 +85,14 @@ export class AuthenticationService {
     return 
   }
 
+  preRegisterUser(username: string, password: string) {
+    return this.http.post<any>(this.preRegister, { username, password })
+  }
+
+  enableByUsername(userName: string, password: string) {
+    return this.http.post<any>(this.enableUser, { userName, password })
+  }
+
   googleLogin(username: string, password: string) {
     //let user: User = new User(username, password);
     return this.http.post<any>(this.crossLogin, { username, password })
@@ -124,10 +134,10 @@ export class AuthenticationService {
     user.description = storage.description;
     user.token = storage.token;
     user.content = storage.content;
-    console.log(storage.userAdresses);
-    if(storage.userAdresses) {
-      if(storage.userAdresses.length > 0) {
-        user.userAdress = storage.userAdresses[0];
+    console.log(storage.userAddresses);
+    if(storage.userAddresses) {
+      if(storage.userAddresses.length > 0) {
+        user.userAdress = storage.userAddresses[0];
       }
     }
 
@@ -166,6 +176,7 @@ export class AuthenticationService {
   tokenIsValid(): Observable<boolean> {
 
     let user: User = this.getSessionUser();
+    console.log(user);
     if(user == null) {
       return new Observable<boolean>(
         (subscriber: Subscriber<boolean>) => subscriber.next(false));
@@ -205,9 +216,19 @@ export class AuthenticationService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+
+          
+          this.SetUserData(result.user);
+          this.login(email, password)
+          .subscribe(
+              data => {
+                //console.log("this.returnUrl: ", this.returnUrl);
+                window.location.replace(environment.indexPage + "?refresh=true");
+                
+              });
+
         });
-        this.SetUserData(result.user);
+        
       }).catch((error) => {
         window.alert(error.message)
       });
@@ -220,8 +241,17 @@ export class AuthenticationService {
         .then((result) => {
           /* Call the SendVerificaitonMail() function when new user sign 
           up and returns promise */
-          this.SendVerificationMail(email, password);
-          this.SetUserData(result.user);
+
+          console.log("Before Pregister");
+
+          this.preRegisterUser(email, password)
+            .subscribe( (user: any) => {
+              console.log("Send Verification Mail");
+              this.SendVerificationMail(email, password);
+              this.SetUserData(result.user);
+            });
+
+          
         }).catch((error) => {
           window.alert(error.message)
         })
@@ -259,6 +289,7 @@ export class AuthenticationService {
   
     // Auth logic to run auth providers
     AuthLogin(provider) {
+      console.log("GoogleAuth");
       this.afAuth.auth.signInWithPopup(provider)
       .then((result: any) => {
         console.log(result);
@@ -267,6 +298,7 @@ export class AuthenticationService {
           let userName = result.additionalUserInfo.profile.email;
           let password = result.additionalUserInfo.profile.id;
 
+          console.log("navigate to login");
           this.router.navigate(['/login'], { queryParams: { crossLogin: true } });
           
         })

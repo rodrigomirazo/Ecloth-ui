@@ -22,11 +22,11 @@ export class RegisterUserComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
   ) { 
       console.log("const login");
       // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) { 
+      if (this.authenticationService.currentUserValue) {
           this.router.navigate(['/']);
       }
   }

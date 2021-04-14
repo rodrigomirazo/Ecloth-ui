@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
   ) {
-    this.isUserValid();
+    //this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
       searchBar: new FormControl(''),
     });
@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit {
 
   closeSession() {
     this.saleEnable = false;
+    console.log("closeSession() from header component");
     this.authenticationService.logout();
     this.saleEnable = false;
     this.router.navigate(['/index'],  { queryParams: { refresh: false } } );
