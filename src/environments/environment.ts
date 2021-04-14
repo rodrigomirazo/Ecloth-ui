@@ -9,6 +9,7 @@ export const environment: any = {
   host: "http://localhost:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://localhost:4200/#/index",
+  uploadedImgDir: "/uploadedItemImg/",
   entity: {
     item: "/item",
     itemTransaction: "/itemTransaction",

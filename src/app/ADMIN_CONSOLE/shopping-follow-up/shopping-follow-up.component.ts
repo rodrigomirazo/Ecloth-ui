@@ -8,6 +8,7 @@ import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { User } from 'src/app/_models/User-model';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ItemTransactionService } from 'src/app/_services/item-transaction.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'shopping-follow-up',
@@ -27,6 +28,7 @@ export class ShoppingFollowUpComponent implements OnInit, AfterViewInit {
   public currentStep: number = 0;
   public transaction: any;
   public user: User;
+  public uploadedImgDir: string = environment.uploadedImgDir;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;

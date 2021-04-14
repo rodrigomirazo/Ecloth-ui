@@ -7,6 +7,7 @@ import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { ItemTransactionService } from 'src/app/_services/item-transaction.service';
 import { ItemService } from 'src/app/_services/item.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'item-horizontal-view',
@@ -40,7 +41,8 @@ export class ItemHorizontalViewComponent implements OnInit {
   public trackerCompany: string;
   public trackingNumber: string;
   public transactionStatus: string;
-  
+  public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
 
   // Sales
   @Input() public paymentDetails: boolean;

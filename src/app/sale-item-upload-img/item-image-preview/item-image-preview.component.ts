@@ -19,6 +19,9 @@ export class ItemImagePreviewComponent {
   @Input()
   private itemId: string;
 
+  @Input()
+  private imgId: string;
+
   //TODO: change to file type
   @Output()
   propagate: EventEmitter<any> = new EventEmitter<any>();
@@ -110,7 +113,7 @@ export class ItemImagePreviewComponent {
     console.log("this.itemId = " + this.itemId);
     if(value == true && this.fileData && this.itemId != null) {
       console.log("Before upload");
-      this.uploadFilesService.upload(this.fileData, this.itemId)
+      this.uploadFilesService.upload(this.fileData, this.itemId, this.imgId)
       .subscribe((resp: any) => {
 
       });
