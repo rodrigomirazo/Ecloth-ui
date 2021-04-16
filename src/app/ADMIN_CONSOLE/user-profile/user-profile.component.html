@@ -1,5 +1,5 @@
 
-<div class="profile" *ngIf="userSession && profileFormGroup && addressFormGroup">
+<div class="profile" *ngIf="profileFormGroup.value && profileFormGroup && addressFormGroup">
 
     <div class="row row-height">
         <div class="col-md-6 col-sm-12 col-xs-12">
@@ -28,8 +28,8 @@
                             <td class="card-title">
                                 <div *ngIf="!editProfile">
                                     <p class="field-name">Nombre de Usuario</p>
-                                    <p class="field-value" *ngIf="userSession.userName" >{{ userSession.userName }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userName">
+                                    <p class="field-value" *ngIf="profileFormGroup.value.userName" >{{ profileFormGroup.value.userName }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.userName">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -48,8 +48,8 @@
                             <td class="card-title">
                                 <div *ngIf="!editProfile">
                                     <p class="field-name">Nombre</p>
-                                    <p class="field-value" *ngIf="userSession.name" >{{ userSession.name }}</p>
-                                    <p class="field-value" *ngIf="!userSession.name">
+                                    <p class="field-value" *ngIf="profileFormGroup.value.name" >{{ profileFormGroup.value.name }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.name">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -68,10 +68,10 @@
                             <td class="card-title">
                                 <div *ngIf="!editProfile">
                                     <p class="field-name">Apellidos</p>
-                                    <p class="field-value" *ngIf="userSession.lastname">
-                                        {{ userSession.lastname }}
+                                    <p class="field-value" *ngIf="profileFormGroup.value.lastname">
+                                        {{ profileFormGroup.value.lastname }}
                                     </p>
-                                    <p class="field-value" *ngIf="!userSession.lastname">
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.lastname">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -91,8 +91,8 @@
                             <td class="card-title">
                                 <div *ngIf="!editProfile">
                                     <p class="field-name">Mail</p>
-                                    <p class="field-value" *ngIf="userSession.email" >{{ userSession.email }}</p>
-                                    <p class="field-value" *ngIf="!userSession.email">Sin Definir</p>
+                                    <p class="field-value" *ngIf="profileFormGroup.value.email" >{{ profileFormGroup.value.email }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.email">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editProfile">
                                     <mat-form-field class="input-text-alignment">
@@ -228,14 +228,14 @@
                     </table>
 
                     <form [formGroup]="addressFormGroup">
-                    <table class="card-header" *ngIf="userSession.userAdress">
+                    <table class="card-header">
                         <!-- name -->
                         <tr class="row-height">
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Nombre</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.name" >{{ userSession.userAdress.name }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.name">
+                                    <p class="field-value" *ngIf="addressFormGroup.value.name" >{{ addressFormGroup.value.name }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.name">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -254,8 +254,8 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Apellidos</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.lastnames" >{{ userSession.userAdress.lastnames }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.lastnames">
+                                    <p class="field-value" *ngIf="addressFormGroup.value.lastnames" >{{ addressFormGroup.value.lastnames }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.lastnames">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -274,10 +274,10 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Calle</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.street">
-                                        {{ userSession.userAdress.street }}
+                                    <p class="field-value" *ngIf="addressFormGroup.value.street">
+                                        {{ addressFormGroup.value.street }}
                                     </p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.street">
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.street">
                                         Sin Definir
                                     </p>
                                 </div>
@@ -297,8 +297,8 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">No. Interior</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.intNumber" >{{ userSession.userAdress.intNumber }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.intNumber">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.intNumber" >{{ addressFormGroup.value.intNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.intNumber">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -315,9 +315,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">No. Exterior</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.extNumber" >
-                                        {{ userSession.userAdress.extNumber }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.extNumber">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.extNumber" >
+                                        {{ addressFormGroup.value.extNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.extNumber">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -334,9 +334,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Código Postal</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.zipCode" >
-                                        {{ userSession.userAdress.zipCode}}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.zipCode">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.zipCode" >
+                                        {{ addressFormGroup.value.zipCode}}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.zipCode">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -353,9 +353,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Estado</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.state" >
-                                        {{ userSession.userAdress.state }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.state">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.state" >
+                                        {{ addressFormGroup.value.state }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.state">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -372,9 +372,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Ciudad</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.city" >
-                                        {{ userSession.userAdress.city }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.city">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.city" >
+                                        {{ addressFormGroup.value.city }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.city">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -391,9 +391,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Colonia</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.suburb" >
-                                        {{ userSession.userAdress.suburb }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.suburb">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.suburb" >
+                                        {{ addressFormGroup.value.suburb }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.suburb">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -410,9 +410,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Referencia</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.reference" >
-                                        {{ userSession.userAdress.reference }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.reference">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.reference" >
+                                        {{ addressFormGroup.value.reference }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.reference">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -429,9 +429,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Telefono</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.phoneNumber" >
-                                        {{ userSession.userAdress.phoneNumber }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.phoneNumber">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.phoneNumber" >
+                                        {{ addressFormGroup.value.phoneNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.phoneNumber">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">
@@ -448,9 +448,9 @@
                             <td class="card-title">
                                 <div *ngIf="!editAddress">
                                     <p class="field-name">Entre Calles</p>
-                                    <p class="field-value" *ngIf="userSession.userAdress.streetRef" >
-                                        {{ userSession.userAdress.streetRef }}</p>
-                                    <p class="field-value" *ngIf="!userSession.userAdress.streetRef">Sin Definir</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.streetRef" >
+                                        {{ addressFormGroup.value.streetRef }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.streetRef">Sin Definir</p>
                                 </div>
                                 <div *ngIf="editAddress">
                                     <mat-form-field class="input-text-alignment">

@@ -14,6 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { UserService } from '../_services/user.service';
 import { User } from '../_models/User-model';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ItemImgUrls } from '../_models/Item-img-urls-model';
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -22,8 +23,9 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class ItemListComponent implements OnInit {
 
-  server: string = environment.server;
-  
+  public server: string = environment.server;
+  public uploadedImgDir: string = environment.uploadedImgDir;
+
   _inputFilter: any;
   _changeIncrement: number;
 
@@ -193,6 +195,10 @@ export class ItemListComponent implements OnInit {
 
             for (let i = 0; i < this.items.length; i++) {
 
+              this.items[i].itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+                return a.imgUrl.localeCompare(b.imgUrl);
+              });
+
               if(this.items[i].itemImgUrls[0]) {
                 this.blobImgs = this.blobImgs.concat(this.items[i].itemImgUrls[0].imgUrl);
               } else {
@@ -228,7 +234,7 @@ export class ItemListComponent implements OnInit {
   }
 
   getImgBaseUrl() {
-    return "http://151.106.109.11/uploadedItemImg/";
+    return this.server + this.uploadedImgDir;
   }
 
 

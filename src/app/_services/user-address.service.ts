@@ -22,8 +22,25 @@ export class UserAddressService {
     return this.httpService.getWithHeaders(this.userAddressUri + "/" + userName, this.authService.getSessionUser());
   }
 
-  save(userAddress: UserAddressJson) : Observable<UserAddressJson> {
+  save(userAddress: any) : Observable<UserAddressJson> {
     
+    /*
+    let address = {
+      "userId": userAddress._userId,
+      "name": userAddress._name,
+      "lastnames": userAddress._lastnames,
+      "street": userAddress._street,
+      "intNumber": userAddress._intNumber,
+      "extNumber": userAddress._extNumber,
+      "zipCode": userAddress._zipCode,
+      "state": userAddress._state,
+      "city": userAddress._city,
+      "suburb": userAddress._suburb,
+      "reference": userAddress._reference,
+      "phoneNumber": userAddress._phoneNumber,
+      "savedInProfile": userAddress._savedInProfile,
+    };*/
+
     return this.httpService.postAuth(this.userAddressUri, userAddress,
       this.authService.getSessionUser() );
   }

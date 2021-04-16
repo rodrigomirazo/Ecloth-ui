@@ -8,6 +8,7 @@ export const environment: any = {
   host: "http://151.106.109.11:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://baaw.mx/#/index",
+  uploadedImgDir: "/uploadedItemImg/",
   entity: {
     item: "/item",
     itemTransaction: "/itemTransaction",

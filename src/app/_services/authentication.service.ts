@@ -11,6 +11,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { HttpService } from '../http-service/http.service';
 
 
 @Injectable({
@@ -20,6 +21,7 @@ export class AuthenticationService {
 
   private encryptSecretKey: string = SHA_CRIPT_STRING;
   private loginUser: string = environment.host + environment.baseUrl + environment.entity.userAuth;
+  private userInfo: string = environment.host + environment.baseUrl + environment.entity.user;
   private validateLoginUser: string = environment.host + environment.baseUrl + environment.entity.userTokenIsValid;
   private preRegister: string = environment.host + environment.baseUrl + environment.entity.preRegister;
   private crossLogin: string = environment.host + environment.baseUrl + environment.entity.crossLogin;
@@ -39,7 +41,8 @@ export class AuthenticationService {
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private httpService: HttpService
     
     ) {
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.currentUserCookie)));
@@ -70,6 +73,10 @@ export class AuthenticationService {
       .pipe(map(user => {
           return this.setLogin(user);
       }));
+  }
+
+  getUser(username: string): Observable<User> {
+    return this.httpService.getWithHeaders(this.userInfo + "/" + username, this.getSessionUser());
   }
 
   public setLogin(user: User) : User {
@@ -109,7 +116,6 @@ export class AuthenticationService {
 
   logout() {
       // remove user from local storage to log user out
-      console.log("login out");
       localStorage.removeItem(this.currentUserCookie);
       this.currentUserSubject.next(null);
       //this.SignOut();
@@ -134,7 +140,6 @@ export class AuthenticationService {
     user.description = storage.description;
     user.token = storage.token;
     user.content = storage.content;
-    console.log(storage.userAddresses);
     if(storage.userAddresses) {
       if(storage.userAddresses.length > 0) {
         user.userAdress = storage.userAddresses[0];
@@ -176,7 +181,6 @@ export class AuthenticationService {
   tokenIsValid(): Observable<boolean> {
 
     let user: User = this.getSessionUser();
-    console.log(user);
     if(user == null) {
       return new Observable<boolean>(
         (subscriber: Subscriber<boolean>) => subscriber.next(false));
@@ -222,7 +226,6 @@ export class AuthenticationService {
           this.login(email, password)
           .subscribe(
               data => {
-                //console.log("this.returnUrl: ", this.returnUrl);
                 window.location.replace(environment.indexPage + "?refresh=true");
                 
               });
@@ -236,17 +239,13 @@ export class AuthenticationService {
   
     // Sign up with email/password
     SignUp(email: string, password: string) {
-      console.log(email, password);
       return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
         .then((result) => {
           /* Call the SendVerificaitonMail() function when new user sign 
           up and returns promise */
 
-          console.log("Before Pregister");
-
           this.preRegisterUser(email, password)
             .subscribe( (user: any) => {
-              console.log("Send Verification Mail");
               this.SendVerificationMail(email, password);
               this.SetUserData(result.user);
             });
@@ -289,16 +288,12 @@ export class AuthenticationService {
   
     // Auth logic to run auth providers
     AuthLogin(provider) {
-      console.log("GoogleAuth");
       this.afAuth.auth.signInWithPopup(provider)
       .then((result: any) => {
-        console.log(result);
         this.SetUserData(result.user);
         this.ngZone.run(() => {
           let userName = result.additionalUserInfo.profile.email;
           let password = result.additionalUserInfo.profile.id;
-
-          console.log("navigate to login");
           this.router.navigate(['/login'], { queryParams: { crossLogin: true } });
           
         })
@@ -328,7 +323,6 @@ export class AuthenticationService {
     
     // Sign out 
     SignOut() {
-      console.log("sign out");
       return this.afAuth.auth.signOut().then(() => {
         localStorage.removeItem(this.googleUserCookie);
         //this.router.navigate(['sign-in']);

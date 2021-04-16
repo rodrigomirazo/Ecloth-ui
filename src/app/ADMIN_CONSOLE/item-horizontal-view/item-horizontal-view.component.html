@@ -23,7 +23,7 @@
         <td style="width: 20%" *ngIf="itemTransaction.item.itemImgUrls[0]">
             
             <div class="col-md-12 col-sm-11 col-xs-12" *ngIf="itemTransaction.item.itemImgUrls[0].imgUrl">
-                <img [src]=" server + '/uploadedItemImg/' + itemTransaction.item.itemImgUrls[0].imgUrl" class="img-item">
+                <img [src]=" server + uploadedImgDir + itemTransaction.item.itemImgUrls[0].imgUrl" class="img-item">
             </div>
         </td>
         <td style="width: 18%">

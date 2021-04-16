@@ -6,7 +6,9 @@ import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UserAddressJson } from '../_models/User-address-json-model';
 import { AuthenticationService } from '../_services/authentication.service';
+import { UserAddressService } from '../_services/user-address.service';
 import { UtilsService } from '../_services/utils.service';
 
 @Component({
@@ -22,6 +24,7 @@ export class HeaderComponent implements OnInit {
   discoverFilter: string;
   searchFormGroup: FormGroup;
   saleEnable: boolean = false;
+  profileComplete: boolean = false;
   
   /** Item Types */
   itemTypes: ItemCategoryModel[] = [];
@@ -34,6 +37,7 @@ export class HeaderComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
+    private addressService: UserAddressService,
   ) {
     //this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
@@ -59,6 +63,17 @@ export class HeaderComponent implements OnInit {
       this.authenticationService.tokenIsValid().subscribe( isValid => {
         if(isValid) {
           this.saleEnable = true;
+
+          console.log("Get session user in header", this.authenticationService.getSessionUser());
+          if(this.authenticationService.getSessionUser() != null) {
+            this.addressService.getByUserName(this.authenticationService.getSessionUser().userName)
+            .subscribe( (userAddress: UserAddressJson) => {
+              if(userAddress.id) {
+                this.profileComplete = true;
+              }
+            });
+          }
+          
         } else {
           this.saleEnable = false;
         }

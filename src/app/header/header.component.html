@@ -64,9 +64,13 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/market-place', 'null' ]">
                             COMPRA
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/publish' ]" *ngIf="saleEnable">
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/publish' ]" *ngIf="saleEnable && profileComplete">
                             VENDE
                         </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/console', 'perfil' ]" *ngIf="saleEnable && !profileComplete">
+                            COMPLETA TU PERFIL
+                        </div>
+                        
                         <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRA HISTORIA</div> -->
                         <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRO BLOG</div> -->
                     </div>

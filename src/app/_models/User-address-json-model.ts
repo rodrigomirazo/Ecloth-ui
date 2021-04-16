@@ -19,6 +19,7 @@ export class UserAddressJson {
     private _savedInProfile: boolean;
 
 	constructor() {
+        this.savedInProfile = false;
     }
 
     /**

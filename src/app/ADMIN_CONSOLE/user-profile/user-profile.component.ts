@@ -28,6 +28,8 @@ export class UserProfileComponent implements OnInit {
   public editProfile = false;
   public editAddress = false;
   public editPassword = false;
+  private userAddressId: number;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,6 +66,7 @@ export class UserProfileComponent implements OnInit {
       confirmPassword:     new FormControl('', Validators.required),
     });
 
+    this.formDefaultProfileValues();
     this.userSession = this.authService.getSessionUser();
 
     this.matIconRegistry.addSvgIcon("custom_edit_active",
@@ -96,30 +99,38 @@ export class UserProfileComponent implements OnInit {
 
   formDefaultAddressValues() {
     console.log(this.userSession.userAdress);
-    if( this.userSession.userAdress ) {
-      
-      this.addressFormGroup.controls['name']        .setValue(this.userSession.userAdress.name);
-      this.addressFormGroup.controls['lastnames']   .setValue(this.userSession.userAdress.lastnames);
-      this.addressFormGroup.controls['street']      .setValue(this.userSession.userAdress.street);
-      this.addressFormGroup.controls['intNumber']   .setValue(this.userSession.userAdress.intNumber);
-      this.addressFormGroup.controls['extNumber']   .setValue(this.userSession.userAdress.extNumber);
-      this.addressFormGroup.controls['zipCode']     .setValue(this.userSession.userAdress.zipCode);
-      this.addressFormGroup.controls['state']       .setValue(this.userSession.userAdress.state);
-      this.addressFormGroup.controls['city']        .setValue(this.userSession.userAdress.city);
-      this.addressFormGroup.controls['suburb']      .setValue(this.userSession.userAdress.suburb);
-      this.addressFormGroup.controls['reference']   .setValue(this.userSession.userAdress.reference);
-      this.addressFormGroup.controls['phoneNumber'] .setValue(this.userSession.userAdress.phoneNumber);
-      this.addressFormGroup.controls['streetRef']   .setValue(this.userSession.userAdress.streetRef);
-    } else {
-      this.userSession.userAdress = new UserAddressJson();
-    }
+    
+    this.addressService.getByUserName(this.userSession.userName)
+      .subscribe( (userAddress: UserAddressJson) => {
+        
+        if(userAddress.id) {
+          this.userAddressId = userAddress.id;
+        }
+
+        this.addressFormGroup.controls['name']        .setValue(userAddress.name);
+        this.addressFormGroup.controls['lastnames']   .setValue(userAddress.lastnames);
+        this.addressFormGroup.controls['street']      .setValue(userAddress.street);
+        this.addressFormGroup.controls['intNumber']   .setValue(userAddress.intNumber);
+        this.addressFormGroup.controls['extNumber']   .setValue(userAddress.extNumber);
+        this.addressFormGroup.controls['zipCode']     .setValue(userAddress.zipCode);
+        this.addressFormGroup.controls['state']       .setValue(userAddress.state);
+        this.addressFormGroup.controls['city']        .setValue(userAddress.city);
+        this.addressFormGroup.controls['suburb']      .setValue(userAddress.suburb);
+        this.addressFormGroup.controls['reference']   .setValue(userAddress.reference);
+        this.addressFormGroup.controls['phoneNumber'] .setValue(userAddress.phoneNumber);
+        this.addressFormGroup.controls['streetRef']   .setValue(userAddress.streetRef);
+    });
   }
 
   formDefaultProfileValues() {
-    this.profileFormGroup.controls['userName'].setValue(this.userSession.userName);
-    this.profileFormGroup.controls['name']    .setValue(this.userSession.name);
-    this.profileFormGroup.controls['lastname'].setValue(this.userSession.lastname);
-    this.profileFormGroup.controls['email']   .setValue(this.userSession.email);
+
+    this.authService.getUser(this.authService.getSessionUser().userName).subscribe( (user: User) => {
+      
+      this.profileFormGroup.controls['userName'].setValue(user.userName);
+      this.profileFormGroup.controls['name']    .setValue(user.name);
+      this.profileFormGroup.controls['lastname'].setValue(user.lastname);
+      this.profileFormGroup.controls['email']   .setValue(user.email);
+    });
   }
 
   onSubmitProfile() {
@@ -132,9 +143,7 @@ export class UserProfileComponent implements OnInit {
     
     //this.profileFormGroup.get("username").touched;
     this.userService.update(this.userSession).subscribe( (user: User) => {
-      this.authService.setLogin(user);
-      console.log("setLogin", user);
-      this.toggleProfileEdit();
+      window.location.reload();
       return user;
     });
 
@@ -164,8 +173,12 @@ export class UserProfileComponent implements OnInit {
 
     // User Id
     this.addressToEdit.$userId = this.userSession.id;
+
+    if(this.userAddressId) {
+      this.addressToEdit.$id = this.userAddressId;
+    }
+
     // Rest of the values
-    this.addressToEdit.$id =           this.userSession.userAdress.id
     this.addressToEdit.$name =         this.addressFormGroup.value.name;
     this.addressToEdit.$lastnames =    this.addressFormGroup.value.lastnames;
     this.addressToEdit.$street =       this.addressFormGroup.value.street;
@@ -193,7 +206,7 @@ export class UserProfileComponent implements OnInit {
       this.editAddress = !this.editAddress;
 
       this.userSession.userAdress = userAddress;
-
+      window.location.reload();
     });
   }
 

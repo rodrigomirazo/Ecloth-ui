@@ -12,6 +12,7 @@ import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
 import { UserItem } from '../_models/Item-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'item-detail',
@@ -26,6 +27,9 @@ export class ItemDetailComponent implements OnInit {
   @Input()
   private increment: number;
 
+  public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
+  
   public url: SafeResourceUrl;
 
   public item: UserItem;
@@ -58,11 +62,13 @@ export class ItemDetailComponent implements OnInit {
           
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
 
+            this.orderImages(itemResponse);
             console.log(itemResponse.itemImgUrls[0]);
+
             this.principleImg = itemResponse.itemImgUrls[0].imgUrl;
 
             this.assignFloatingChars(itemResponse, itemFloatingChars);
-            this.orderImages(itemResponse);
+            
           });
         } else {
           this.itemService.getById( parseInt(this.itemInput.id) ).subscribe( (itemResponse: UserItem) => {
@@ -83,7 +89,7 @@ export class ItemDetailComponent implements OnInit {
     
     // Sort image array
     itemResponse.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
-      return a.id - b.id;
+      return a.imgUrl.localeCompare(b.imgUrl);
     });
     
     // setup image array
@@ -183,7 +189,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   getImgBaseUrl() {
-    return "http://151.106.109.11/uploadedItemImg/";
+    return this.server + this.uploadedImgDir;
   }
 
   openPopUp() {

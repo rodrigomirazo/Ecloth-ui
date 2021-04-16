@@ -25,6 +25,8 @@ import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { ItemCategoryModel } from '../_models/main-categories-model';
 import { CategoryService } from '../category-tree/category.service';
 import { UtilsService } from '../_services/utils.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ItemImgUrls } from '../_models/Item-img-urls-model';
 
 @Component({
   selector: 'payment-confirmation',
@@ -35,13 +37,17 @@ export class PaymentConfirmationComponent implements OnInit {
 
   private validSession: boolean = false;
   private dialog: MatDialog;
+
+  public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
   public payPalConfig?: IPayPalConfig;
   public itemFloatingChars: ItemFloatingChars[];
   public itemType: ItemCategoryModel[];
+  public user: User;
+  
   itemTransaction: ItemTransactionJson = new ItemTransactionJson();
   addressFormGroup: FormGroup;
   discountFormGroup: FormGroup;
-  server: string = environment.server;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,10 +61,11 @@ export class PaymentConfirmationComponent implements OnInit {
     private categoryService: CategoryService,
     private utilsService: UtilsService,
     private router: Router,
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
-
+    this.user = this.authService.getSessionUser();
     // setup Form
     this.addressFormGroup = this._formBuilder.group({
       //paypalUser: new FormControl('', Validators.required),
@@ -101,6 +108,10 @@ export class PaymentConfirmationComponent implements OnInit {
               this.itemService.getById(params.itemId)
                 .subscribe( (userItemResp: UserItem) => {
 
+                  userItemResp.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+                    return a.imgUrl.localeCompare(b.imgUrl);
+                  });
+
                   this.assignFloatingChars(userItemResp, itemFloatingChars);
 
                   //Get User Buyer Address
@@ -110,6 +121,10 @@ export class PaymentConfirmationComponent implements OnInit {
                   this.userAddressService.getByUserName(user.userName)
                     .subscribe( (buyerAddress: UserAddressJson) => {
 
+                      if(buyerAddress == null) {
+                        buyerAddress = new UserAddressJson();
+                      }
+                      console.log("initTransaction: ", buyerAddress);
                       // Init Transaction
                       this.initTransaction(userItemResp, buyerAddress, vendorAddress);
 
@@ -162,7 +177,8 @@ export class PaymentConfirmationComponent implements OnInit {
     //Transaction history
     this.itemTransaction.$itemTransactionHistory = [];
 
-    console.log(this.itemTransaction);
+    //Initialize saved In profile
+    this.itemTransaction.$buyerAddress.savedInProfile = false;
   }
 
   webSiteComission() {
@@ -173,7 +189,7 @@ export class PaymentConfirmationComponent implements OnInit {
     } else if (this.itemTransaction.$item.price >= 50000 && this.itemTransaction.$item.price < 100000) {
       return .10 * this.itemTransaction.$item.price;
     } else { // >= 100, 000
-      return .08;
+      return .08 * this.itemTransaction.$item.price;
     }
   }
 
@@ -197,43 +213,47 @@ export class PaymentConfirmationComponent implements OnInit {
 
   getUserDefaulAddress() {
 
-    console.log(this.itemTransaction.$buyerAddress);
-    this.addressFormGroup.controls['name']        .setValue("oijoi");
-
     if( this.addressFormGroup.value.defaultUserAddress == "false" ) {
 
       this.userAddressService.getByUserName(this.itemTransaction.$userBuyer.$userName)
       .subscribe( (buyerAddress: UserAddressJson) => {
-        console.log(this.itemTransaction.$buyerAddress);
-        this.itemTransaction.$buyerAddress.savedInProfile = true;
-        this.addressFormGroup.controls['name']        .setValue(buyerAddress.name);
-        this.addressFormGroup.controls['lastname']    .setValue(buyerAddress.lastnames);
-        this.addressFormGroup.controls['street']      .setValue(buyerAddress.street);
-        this.addressFormGroup.controls['intNumber']   .setValue(buyerAddress.intNumber);
-        this.addressFormGroup.controls['extNumber']   .setValue(buyerAddress.extNumber);
-        this.addressFormGroup.controls['zipCode']     .setValue(buyerAddress.zipCode);
-        this.addressFormGroup.controls['state']       .setValue(buyerAddress.state);
-        this.addressFormGroup.controls['city']        .setValue(buyerAddress.city);
-        this.addressFormGroup.controls['suburb']      .setValue(buyerAddress.suburb);
-        this.addressFormGroup.controls['reference']   .setValue(buyerAddress.reference);
-        this.addressFormGroup.controls['streetRef']   .setValue(buyerAddress.streetRef);
-        this.addressFormGroup.controls['phoneNumber'] .setValue(buyerAddress.phoneNumber);
+        if(buyerAddress != null) {
+          this.itemTransaction.$buyerAddress.savedInProfile = true;
+          this.addressFormGroup.controls['name']        .setValue(buyerAddress.name);
+          this.addressFormGroup.controls['lastname']    .setValue(buyerAddress.lastnames);
+          this.addressFormGroup.controls['street']      .setValue(buyerAddress.street);
+          this.addressFormGroup.controls['intNumber']   .setValue(buyerAddress.intNumber);
+          this.addressFormGroup.controls['extNumber']   .setValue(buyerAddress.extNumber);
+          this.addressFormGroup.controls['zipCode']     .setValue(buyerAddress.zipCode);
+          this.addressFormGroup.controls['state']       .setValue(buyerAddress.state);
+          this.addressFormGroup.controls['city']        .setValue(buyerAddress.city);
+          this.addressFormGroup.controls['suburb']      .setValue(buyerAddress.suburb);
+          this.addressFormGroup.controls['reference']   .setValue(buyerAddress.reference);
+          this.addressFormGroup.controls['streetRef']   .setValue(buyerAddress.streetRef);
+          this.addressFormGroup.controls['phoneNumber'] .setValue(buyerAddress.phoneNumber);
+        } else {
+          this.itemTransaction.$buyerAddress.savedInProfile = false;
+          this.addressFormGroup.controls['defaultUserAddress'].setValue("true");
+          this._snackBar.open("No tienes Direcciones guardadas", "Ingresa Nueva Dirección", {
+            duration: 6000,
+          });
+        }
       });
 
     } else {
-      this.itemTransaction.$buyerAddress.savedInProfile = false;
-        this.addressFormGroup.controls['name']        .setValue("");
-        this.addressFormGroup.controls['lastname']    .setValue("");
-        this.addressFormGroup.controls['street']      .setValue("");
-        this.addressFormGroup.controls['intNumber']   .setValue("");
-        this.addressFormGroup.controls['extNumber']   .setValue("");
-        this.addressFormGroup.controls['zipCode']     .setValue("");
-        this.addressFormGroup.controls['state']       .setValue("");
-        this.addressFormGroup.controls['city']        .setValue("");
-        this.addressFormGroup.controls['suburb']      .setValue("");
-        this.addressFormGroup.controls['reference']   .setValue("");
-        this.addressFormGroup.controls['streetRef']   .setValue("");
-        this.addressFormGroup.controls['phoneNumber'] .setValue("");
+        this.itemTransaction.$buyerAddress.savedInProfile = false;
+        this.addressFormGroup.controls['name']        .setValue(null);
+        this.addressFormGroup.controls['lastname']    .setValue(null);
+        this.addressFormGroup.controls['street']      .setValue(null);
+        this.addressFormGroup.controls['intNumber']   .setValue(null);
+        this.addressFormGroup.controls['extNumber']   .setValue(null);
+        this.addressFormGroup.controls['zipCode']     .setValue(null);
+        this.addressFormGroup.controls['state']       .setValue(null);
+        this.addressFormGroup.controls['city']        .setValue(null);
+        this.addressFormGroup.controls['suburb']      .setValue(null);
+        this.addressFormGroup.controls['reference']   .setValue(null);
+        this.addressFormGroup.controls['streetRef']   .setValue(null);
+        this.addressFormGroup.controls['phoneNumber'] .setValue(null);
     }
 
   }
@@ -257,13 +277,12 @@ export class PaymentConfirmationComponent implements OnInit {
     this.itemTransactService.get(this.itemTransaction.$id)
       .subscribe( (resp: ItemTransactionJson) => {
         this.itemTransaction = resp;
-        console.log(resp);
     });
   }
 
   addressFormToDto(savedInProfile: boolean) {
 
-    this.itemTransaction.$buyerAddress.userId         = this.itemTransaction.$userBuyer.$id;
+    this.itemTransaction.$buyerAddress.userId         = this.user.id;
     this.itemTransaction.$buyerAddress.name           = this.addressFormGroup.value.name;
     this.itemTransaction.$buyerAddress.lastnames      = this.addressFormGroup.value.lastname;
     this.itemTransaction.$buyerAddress.street         = this.addressFormGroup.value.street;
@@ -284,7 +303,6 @@ export class PaymentConfirmationComponent implements OnInit {
     
     this.itemTransactService.save(this.itemTransaction)
     .subscribe( (transactResp: ItemTransactionJson) => {
-      console.log("Response", transactResp);
 
     });
 

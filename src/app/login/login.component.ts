@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       private http: HttpClient,
   ) { 
       console.log("const login");
-      // redirect to home if already logged in
       
       if (this.authenticationService.currentUserValue) {
           if(this.authService.tokenIsValid()) {
@@ -48,10 +47,8 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log("this.returnUrl: ", this.returnUrl);
 
     this.route.queryParams.subscribe(params => {
-        console.log(params);
         if(params) {
             if(params.crossLogin) {
                 //let user: User = new User(userName, password);
@@ -60,7 +57,6 @@ export class LoginComponent implements OnInit {
                   localStorage.getItem(this.googleUserCookie) == null ||
                   localStorage.getItem(this.googleUserCookie) == "null"
                   ) {
-                    console.log("if(params.crossLogin) {");
                     window.location.reload();
                 }
 
@@ -70,14 +66,11 @@ export class LoginComponent implements OnInit {
                 let userName = cookie.email;
                 let password = cookie.uid;
 
-                console.log("before cross login " + { userName, password });
-
                 this.loading = true;
                 this.authenticationService.googleLogin(userName, password)
                     .pipe(first())
                     .subscribe(
                         data => {
-                          console.log("this.returnUrl: ", this.returnUrl);
                           window.location.replace(environment.indexPage + "?refresh=true");
                           
                         },
@@ -95,7 +88,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-      console.log("onSubmit() fro login");
       this.submitted = true;
 
       // stop here if form is invalid

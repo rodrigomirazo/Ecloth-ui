@@ -40,15 +40,15 @@
             </div>
 
             <div class="col-xs-2" *ngIf="item.itemImgUrls[0]" (click)="getImageFromService(item.itemImgUrls[0].imgUrl, i)">
-                <img [src]=" server + '/uploadedItemImg/' + item.itemImgUrls[0].imgUrl " class="item-micro-img" alt="image">
+                <img [src]=" server + uploadedImgDir + item.itemImgUrls[0].imgUrl " class="item-micro-img" alt="image">
             </div>
             
             <div class="col-xs-2" *ngIf="item.itemImgUrls[1]" (click)="getImageFromService(item.itemImgUrls[1].imgUrl, i)">
-                <img [src]=" server + '/uploadedItemImg/' + item.itemImgUrls[1].imgUrl " class="item-micro-img" alt="image">
+                <img [src]=" server + uploadedImgDir + item.itemImgUrls[1].imgUrl " class="item-micro-img" alt="image">
             </div>
 
             <div class="col-xs-2" *ngIf="item.itemImgUrls[2]" (click)="getImageFromService(item.itemImgUrls[2].imgUrl, i)">
-                <img [src]=" server + '/uploadedItemImg/' + item.itemImgUrls[2].imgUrl " class="item-micro-img" alt="image">
+                <img [src]=" server + uploadedImgDir + item.itemImgUrls[2].imgUrl " class="item-micro-img" alt="image">
             </div>
 
             <div class="col-xs-3">

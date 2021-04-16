@@ -24,8 +24,10 @@ export class UserMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.authService.getSessionUser();
-    this.baawPartner = this.userService.isBaawPartner(this.user);
+    this.authService.getUser(this.authService.getSessionUser().userName).subscribe( (user: User) => {
+      this.user = user;
+      this.baawPartner = this.userService.isBaawPartner(this.user);
+    });
     this.route.params.subscribe(params => {
       this.section = params.section;
       this.section.toLowerCase();
