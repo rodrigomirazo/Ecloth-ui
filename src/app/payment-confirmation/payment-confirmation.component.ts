@@ -27,6 +27,7 @@ import { CategoryService } from '../category-tree/category.service';
 import { UtilsService } from '../_services/utils.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
+import { GenericMessageComponent } from '../generic-message/generic-message.component';
 
 @Component({
   selector: 'payment-confirmation',
@@ -36,7 +37,6 @@ import { ItemImgUrls } from '../_models/Item-img-urls-model';
 export class PaymentConfirmationComponent implements OnInit {
 
   private validSession: boolean = false;
-  private dialog: MatDialog;
 
   public uploadedImgDir: string = environment.uploadedImgDir;
   public server: string = environment.server;
@@ -62,6 +62,7 @@ export class PaymentConfirmationComponent implements OnInit {
     private utilsService: UtilsService,
     private router: Router,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -340,7 +341,7 @@ export class PaymentConfirmationComponent implements OnInit {
     payPalConfig = {
       currency: 'MXN',
 
-      clientId: 'AXDrazmijozxI9vYtlU8JbNIZORPtmfYmCYV6-M1lfKXnHuyfHhd7n8qq-hK2nRKvC7U8bJFfKuAladM',
+      clientId: environment.paypalClientId,
       //clientId: 'sb-k85nq4604497_api1.business.example.com',
       createOrderOnClient: (data) => <ICreateOrderRequest> {
         intent: 'CAPTURE',
@@ -378,7 +379,7 @@ export class PaymentConfirmationComponent implements OnInit {
         layout: 'vertical'
       },
       onApprove: (data, actions) => {
-        //console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
 
         //Save Transaction
         this.transactionStep(TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED, "onApprove" + data );
@@ -388,7 +389,7 @@ export class PaymentConfirmationComponent implements OnInit {
         });
         
         actions.order.get().then(details => {
-          //console.log('onApprove - you can get full order details inside onApprove: ', details);
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
 
           //Save Transaction
           this.transactionStep(TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED, "onApprove" + data );
@@ -396,14 +397,14 @@ export class PaymentConfirmationComponent implements OnInit {
               .subscribe( (itemTransactResp: any) => {
                 this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
 
-                this.router.navigate(['/console', 'compras']);
+                //this.router.navigate(['/console', 'compras']);
                 
           });
 
         });
       },
       onClientAuthorization: (data) => {
-        //console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
 
         //Save Transaction
         this.transactionStep(TRANSACT_STATUS_CLIENT_AUTHORIZATION, "OnClientAuthorization" + data );
@@ -411,7 +412,8 @@ export class PaymentConfirmationComponent implements OnInit {
           .subscribe( (itemTransactResp: any) => {
               this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
               this.itemTransaction.$item.paymentConfirmed = true;
-
+              this.closeDialog();
+              this.router.navigate(['/console', 'compras']);
         });
       },
       onCancel: (data, actions) => {
@@ -421,22 +423,28 @@ export class PaymentConfirmationComponent implements OnInit {
         this.transactionStep(TRANSACT_STATUS_CANCEL_TRANSACTION, "OnCancel" + data + actions );
         this.itemTransactService.save(this.itemTransaction)
           .subscribe( (itemTransactResp: any) => {
+              this.closeDialog();
               this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
         });
       },
       onError: err => {
-        //console.log('OnError', err);
+        console.log('OnError', err);
 
         //Save Transaction
         this.transactionStep(TRANSACT_STATUS_AFTER_TRANSACTION_FAILED, "onError" + err );
         this.itemTransactService.save(this.itemTransaction)
           .subscribe( (itemTransactResp: any) => {
+              this.closeDialog();
               this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
         });
 
       },
       onClick: (data, actions) => {
-        //console.log('onClick', data, actions);
+        console.log('onClick', data, actions);
+
+        if( this.addressFormGroup.value.defaultUserAddress == "true" ) {
+          this.addressFormToDto(false);
+        }
 
         //Save Transaction
         this.transactionStep(TRANSACT_STATUS_BEFORE_TRANSACTION, "onClick" + data + actions);
@@ -444,6 +452,7 @@ export class PaymentConfirmationComponent implements OnInit {
             .subscribe( (itemTransactResp: any) => {
               this.itemTransaction.$id = itemTransactResp.id;
               this.itemTransaction.$itemTransactionHistory = itemTransactResp.itemTransactionHistory;
+              this.openDialog();
         });
 
       },
@@ -527,6 +536,20 @@ export class PaymentConfirmationComponent implements OnInit {
         this.itemTransaction.$item.itemFloatingChars[j].floatingCharCatName = (floatCharCat.length > 0) ? floatCharCat[0].charName : "N/A";
       }
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(GenericMessageComponent, {
+      width: '250px',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  closeDialog() {
+    this.dialog.closeAll();
   }
 
   filterItemType(type: number) : string {

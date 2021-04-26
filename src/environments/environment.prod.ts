@@ -9,6 +9,7 @@ export const environment: any = {
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://baaw.mx/#/index",
   uploadedImgDir: "/uploadedItemImg/",
+  paypalClientId: "AWhu68252p7sL_ruxAHa4Kj-lBN5ZdEkfo_D7DsMcLTvmSi5ssAuNXw3x3yaL3t_YVwoH1OQVmdt5kU8",
   entity: {
     item: "/item",
     itemTransaction: "/itemTransaction",
@@ -23,6 +24,7 @@ export const environment: any = {
     
     buyerTransaction: "/userBuyer",
     vendorTransaction: "/userVendor",
+    user: "/user",
     
     filterItems: "/item/criteria",
     itemImage: "/item/uploadImg",

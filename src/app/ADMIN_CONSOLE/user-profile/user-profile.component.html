@@ -129,7 +129,7 @@
                 </mat-card-content>
             </mat-card>
 
-            <mat-card class="mat-card" style="height: 19em;">
+            <mat-card class="mat-card" style="height: 32em;">
                 <mat-card-content>
                     <table class="card-header">
                         <tr>
@@ -140,16 +140,36 @@
                                 <mat-card-subtitle>
                                 <button mat-stroked-button (click)="togglePasswordEdit()" [ngClass]="{'edit-mode-button': editPassword}">
                                     <mat-icon>edit</mat-icon>
-                                    Editar
+                                    Editar Contraseña
                                 </button>
                                 </mat-card-subtitle>
                             </td>
                         </tr>
                     </table>
 
+                    <table class="card-header">
+                        
+                        <tr class="row-height">
+                            <td class="card-title"> Para Cambiar Contraseña Haz los sig. Pasos</td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 1. Click en Editar Contraseña</td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 2. Click En Solicitud de cambio de Contraseña </td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 3. Resiviras un enlace con la solicitus </td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 4. Al abrir ese Link, Encontraras el formulario para definir la Contraseña </td>
+                        </tr>
+                    </table>
+
+                    <!--
                     <form [formGroup]="passwordFormGroup">
                     <table class="card-header">
-                        <!-- password -->
+                        password --
                         <tr class="row-height">
                             <td class="card-title">
                                 <div *ngIf="!editPassword">
@@ -166,7 +186,7 @@
                             </td>
                         </tr>
 
-                        <!-- confirmPassword -->
+                        confirmPassword
                         <tr class="row-height">
                             <td class="card-title">
                                 <div *ngIf="!editPassword">
@@ -185,6 +205,7 @@
 
                     </table>
                     </form>
+                    -->
 
                     <table class="card-header" style="margin-top: 20px;">
                         <tr>
@@ -192,12 +213,12 @@
                             </td>
                             <td class="card-edit">
                                 <mat-card-subtitle>
-                                <button mat-stroked-button
-                                        (click)="onSubmitPassword()"
-                                        [disabled]="!passwordFormGroup.valid || !editPassword">
-                                    <mat-icon>save</mat-icon>
-                                    Guardar
-                                </button>
+                                    <button mat-stroked-button
+                                            (click)="authService.ForgotPassword(userSession.email)"
+                                            [disabled]="!editPassword">
+                                        <mat-icon>send</mat-icon>
+                                        Solicitar Correo de Nueva Contraseña
+                                    </button>
                                 </mat-card-subtitle>
                             </td>
                         </tr>

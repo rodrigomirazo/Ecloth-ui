@@ -38,9 +38,18 @@
                     </div>
             </form>
 
+            <br>
+            Ó
+            <br>
+
             <input  type="image" src="/assets/images/crossOrigin/google/btn_google_normal.png"
                     style="width: 16em;"
                     (click)="authService.GoogleAuth()" />
+            
+            <div class="row" style="margin-top: 2em;">
+                ¿Haz Olvidado tu Contraseña? <br>
+                <a [routerLink]="['/forgot-password' ]" style="cursor: pointer;"> Reestablece tu Contraseña</a>
+            </div>
         </div>
     </div>
     

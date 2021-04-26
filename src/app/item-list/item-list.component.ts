@@ -73,17 +73,23 @@ export class ItemListComponent implements OnInit {
   }
 
   getfavorites() {
-    this.userService.userFavorites(this.user).subscribe((items: any[]) => {
-      
-      this.favorites = [];
-      console.log(items);
-      items.forEach(item => {
-        this.favorites = this.favorites.concat(item.id);
+    console.log("get favorites");
+    if(this.user != null) {
+      this.userService.userFavorites(this.user).subscribe((items: any[]) => {
+        
+        this.favorites = [];
+        console.log(items);
+        items.forEach(item => {
+          this.favorites = this.favorites.concat(item.id);
+        });
       });
-    });
+    }
   }
 
   isFavorite(itemId: number) {
+    if(this.user || this.user == null) {
+      return false;
+    }
     if(this.favorites.includes(itemId)) {
       return true;
     }

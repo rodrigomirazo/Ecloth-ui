@@ -10,6 +10,8 @@ export const environment: any = {
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://localhost:4200/#/index",
   uploadedImgDir: "/uploaded/",
+  paypalClientId: "AXDrazmijozxI9vYtlU8JbNIZORPtmfYmCYV6-M1lfKXnHuyfHhd7n8qq-hK2nRKvC7U8bJFfKuAladM",
+  //paypalClientId: "AWhu68252p7sL_ruxAHa4Kj-lBN5ZdEkfo_D7DsMcLTvmSi5ssAuNXw3x3yaL3t_YVwoH1OQVmdt5kU8",
   entity: {
     item: "/item",
     itemTransaction: "/itemTransaction",

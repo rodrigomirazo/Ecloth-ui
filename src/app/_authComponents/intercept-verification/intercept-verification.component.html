@@ -27,8 +27,59 @@
                     </p>
                 </div>
             </div>
+            <div *ngIf="verificationMode == 'resetPassword' ">
+                <div>
+                    <p class="text-center">Reingresa tu Contraseña</p>
+                </div>
+                <div>
+                    <p class="text-center">
+                        Ingresa la Nueva Contraseña para ingresar a BAAW
+                    </p>
+                    <form [formGroup]="passwordFormGroup">
+                        <div  class="row">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Contraseña</mat-label>
+                                <input  matInput placeholder="Contraseña" value="" formControlName="password"
+                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password">
+                                <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div  class="row">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Confirar Contraseña</mat-label>
+                                <input  matInput placeholder="Contraseña" value="" formControlName="confirmPassword"
+                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password">
+                                <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div  class="row" style="margin-top: 3em;">
+                            <mat-card-subtitle>
+                                <button mat-stroked-button
+                                (click)="validatePassword()"
+                                [disabled]="!passwordFormGroup.valid">
+                                    <mat-icon>save</mat-icon>
+                                    Reestablecer Contraseña
+                                </button>
+                            </mat-card-subtitle>
+                        </div>
+                    </form>
+
+                    <div *ngIf="passwordResetCompleted">
+                        <div  class="row" style="margin-top: 3em;">
+                            <div class="input-text-alignment">
+                                <mat-label>Tu Contraseña Ha sido reestablecida correctamente </mat-label>
+                                <a [routerLink]="['/login' ]" style="cursor: pointer;">Ingresar de Nuevo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 
-
 </div>
+
+<a [routerLink]="['/forgot-password' ]" style="cursor: pointer;">Olviode Contraseña</a>

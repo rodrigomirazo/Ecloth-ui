@@ -15,14 +15,13 @@ export class GenericDialogComponent implements OnInit {
 
     
   onNoClick(): void {
-    console.log("si entre");
     this.dialogRef.close();
 
   }
 
 
   ngOnInit() {
-    console.log(this.data)
+    console.log(this.data);
   }
 
 }

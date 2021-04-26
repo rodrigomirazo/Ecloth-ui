@@ -264,6 +264,25 @@ export class AuthenticationService {
         this.router.navigate(['verify-email-address']);
       })
     }
+
+    VerifyPassword(code: string, newPassword: string) {
+      return this.afAuth.auth.verifyPasswordResetCode(newPassword)
+      .then(() => {
+        window.alert('Pasword have being verified');
+      }).catch((error) => {
+        window.alert(error)
+      })
+    }
+
+    // Reset Forggot password
+    ConfirmPassword(code: string, newPassword: string) {
+      return this.afAuth.auth.confirmPasswordReset(code, newPassword)
+      .then(() => {
+        window.alert('Password have being confirmed.');
+      }).catch((error) => {
+        window.alert(error)
+      })
+    }
   
     // Reset Forggot password
     ForgotPassword(passwordResetEmail) {
