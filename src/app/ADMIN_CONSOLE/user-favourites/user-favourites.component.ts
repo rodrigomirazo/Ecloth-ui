@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FloatingCharsService } from 'src/app/floating-chars/floating-chars.service';
+import { ItemImgUrls } from 'src/app/_models/Item-img-urls-model';
 import { UserItem } from 'src/app/_models/Item-model';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
@@ -35,6 +36,16 @@ export class UserFavouritesComponent implements OnInit {
     this.userService.userFavorites(this.user).subscribe( (itemsResp: any[]) => {
       console.log(itemsResp);
       this.items = itemsResp;
+
+      if(itemsResp != null) {
+        if(itemsResp.length > 0) {
+          itemsResp.forEach(item => {
+            item.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+              return a.imgUrl.localeCompare(b.imgUrl);
+            });
+          });
+        }
+      }
     });
     
   }

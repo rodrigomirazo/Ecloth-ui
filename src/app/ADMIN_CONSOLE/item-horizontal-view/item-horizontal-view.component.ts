@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/category-tree/category.service';
 import { TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED, TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED, TRANSACT_STATUS_CLIENT_AUTHORIZATION, TRANSACT_STATUS_RECEIVED_TO_BUYER, TRANSACT_STATUS_SENT_TO_BUYER, TRANSACT_STATUS_SERVICED_COMPLETED, WEB_SITE_PAYPAL_PERCENTAJE, WEB_SITE_TAX } from 'src/app/_helpers/constants';
 import { ItemComissionsService } from 'src/app/_helpers/item-comissions.service';
 import { ItemFloatingCharRel } from 'src/app/_models/item-floating-char-rel';
+import { ItemImgUrls } from 'src/app/_models/Item-img-urls-model';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { ItemTransactionService } from 'src/app/_services/item-transaction.service';
@@ -83,6 +84,10 @@ export class ItemHorizontalViewComponent implements OnInit {
     this.paypalComission = this.itemComission.paypalComission(this.itemTransaction.item.price);
     this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.item.price);
     this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.itemTransaction.item.price);
+
+    this.itemTransaction.item.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+      return a.imgUrl.localeCompare(b.imgUrl);
+    });
   }
 
   filterItemType(type: number) : string {

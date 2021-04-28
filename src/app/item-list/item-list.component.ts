@@ -87,7 +87,7 @@ export class ItemListComponent implements OnInit {
   }
 
   isFavorite(itemId: number) {
-    if(this.user || this.user == null) {
+    if(this.user == null) {
       return false;
     }
     if(this.favorites.includes(itemId)) {
@@ -97,6 +97,9 @@ export class ItemListComponent implements OnInit {
   }
 
   addTofavorites(itemId) {
+    if(this.user == null) {
+      return;
+    }
     console.log("ading", this.user);
     this.userService.userAddFavorites(this.user, itemId).subscribe((items: any[]) => {
       this.itemFavorite = true;
@@ -105,6 +108,9 @@ export class ItemListComponent implements OnInit {
   }
 
   removeFromfavorites(itemId) {
+    if(this.user == null) {
+      return;
+    }
     console.log("removing");
     this.userService.userRemoveFavorites(this.user, itemId).subscribe((items: any[]) => {
       this.itemFavorite = false;

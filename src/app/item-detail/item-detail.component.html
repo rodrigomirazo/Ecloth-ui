@@ -26,7 +26,8 @@
         <b><p class="size-item-detail">{{ filterCatalog( 'brand', item.itemFloatingChars) }} {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
         <b><p class="price-item-detail"> {{item.price | currency}}</p></b>
 
-        <button mat-stroked-button [routerLink]="['/payment-confirmation/' + item.id ]" >Comprar</button>
+        <button mat-stroked-button [routerLink]="['/payment-confirmation/' + item.id ]" *ngIf="item.itemTransactionId == 0">Comprar</button>
+        <button mat-stroked-button *ngIf="item.itemTransactionId != 0" [disabled]="true">Bicicleta No Disponible</button>
         <mat-accordion multi>
             <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
               <mat-expansion-panel-header>

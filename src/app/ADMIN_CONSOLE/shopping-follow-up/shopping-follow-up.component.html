@@ -31,7 +31,7 @@
                 <!-- Item element Begin -->
                 <div class="row item-image-row" *ngIf="transaction.item.itemImgUrls[0] ">
                     <!-- <img [src]=" getImgBaseUrl() + blobImgs[i]" class="item-detail-img" alt="image"> -->
-                    <img src="/assets/uploaded/item_file_126_62"  class="item-detail-img">
+                    <img [src]=" server + uploadedImgDir + transaction.item.itemImgUrls[0].imgUrl" class="img-item">
                 </div>
 
 

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED, TRANSACT_STATUS_RECEIVED_TO_BUYER, TRANSACT_STATUS_SENT_TO_BUYER, TRANSACT_STATUS_SERVICED_COMPLETED } from 'src/app/_helpers/constants';
 import { ItemFloatingCharRel } from 'src/app/_models/item-floating-char-rel';
+import { ItemImgUrls } from 'src/app/_models/Item-img-urls-model';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { User } from 'src/app/_models/User-model';
@@ -25,10 +26,12 @@ export class ShoppingFollowUpComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper')
   public stepper: MatStepper;
 
+  
   public currentStep: number = 0;
   public transaction: any;
   public user: User;
   public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -45,6 +48,10 @@ export class ShoppingFollowUpComponent implements OnInit, AfterViewInit {
     this.itemTransactService.get(this.itemId).subscribe( (transactionResp: ItemTransactionJson) => {
       this.transaction = transactionResp;
       this.setStep();
+
+      this.transaction.item.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+        return a.imgUrl.localeCompare(b.imgUrl);
+      });
     });
 
     this.firstFormGroup = this._formBuilder.group({
