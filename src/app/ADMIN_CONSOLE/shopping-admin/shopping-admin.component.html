@@ -7,26 +7,37 @@
     </div>
     
     <div class="col-lg-7 col-md-7 col-sm-7 col-xm-7" style="margin-top: 15px;">
+
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="statusFilter" (change)="loadTransactions()">
         <table style="width: 100%;">
             <tr>
-                <mat-radio-group aria-label="Select an option" [(ngModel)]="statusFilter" (change)="loadTransactions()">
-                    <td style="width: 40%;"> <mat-radio-button [value]="'CLIENT_AUTHORIZATION'">Compra Autorizada</mat-radio-button> </td>
-                    <td style="width: 40%;"> <mat-radio-button [value]="'SERVICED_COMPLETED'">Servicio/Empaquetado</mat-radio-button> </td>
-                    <td style="width: 40%;"> <mat-radio-button [value]="'SENT_TO_BUYER'">Enviada</mat-radio-button> </td>
-                    <td style="width: 40%;"> <mat-radio-button [value]="'RECEIVED_TO_BUYER'">Entregado</mat-radio-button> </td>
-                </mat-radio-group>
+                <td style="width: 39%;"> <mat-radio-button [value]="'APPROVED_NOT_AUTHORIZE_YET,APPROVED_AND_AUTHORIZED'">1) Compra PRE-Autorizada</mat-radio-button> </td>
+                <td style="width: 33%;"> <mat-radio-button [value]="'CLIENT_AUTHORIZATION'">2) Compra Autorizada</mat-radio-button> </td>
+            </tr>
+            <tr>
+                <td> <mat-radio-button [value]="'SERVICED_COMPLETED'">3) Servicio/Empaquetado</mat-radio-button> </td>
+                <td> <mat-radio-button [value]="'SENT_TO_BUYER'">4) Enviada</mat-radio-button> </td>
+                <td> <mat-radio-button [value]="'RECEIVED_TO_BUYER'">5) Entregado</mat-radio-button> </td>
             </tr>
         </table>
+        </mat-radio-group>
     </div>    
 </div>
 
-<div class="row" *ngIf="items">
+<div class="row" *ngIf="items" style="margin-top: 2em;">
 
-    <div *ngFor="let itemTransaction of items; let i=index">
-        <item-horizontal-view
-            [itemTransaction]="itemTransaction"
-            [itemType]="itemType"
-            [serviceColumn]="true"></item-horizontal-view>
+    <div *ngIf="items.length == 0" style="    text-align: center; color: #ccc; margin-top: 2em;">
+        <h1>
+            Sin Bicicletas en esta selección
+        </h1>
+    </div>
+    <div *ngIf="items.length > 0">
+        <div *ngFor="let itemTransaction of items; let i=index">
+            <item-horizontal-view
+                [itemTransaction]="itemTransaction"
+                [itemType]="itemType"
+                [serviceColumn]="true"></item-horizontal-view>
+        </div>
     </div>
 
 </div>

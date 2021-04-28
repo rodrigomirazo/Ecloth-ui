@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ItemComissionsService } from 'src/app/_helpers/item-comissions.service';
 import { ItemFloatingCharRel } from 'src/app/_models/item-floating-char-rel';
+import { ItemImgUrls } from 'src/app/_models/Item-img-urls-model';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
 import { User } from 'src/app/_models/User-model';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ItemTransactionService } from 'src/app/_services/item-transaction.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'purchase-detail',
@@ -21,9 +24,20 @@ export class PurchaseDetailComponent implements OnInit {
   public transaction: any;
   public user: User;
 
+  // Comissions
+  public serviceCommision: number;
+  public webSiteCommision: number;
+  public webSiteTax: number;
+  public paypalComission: number;
+  public itemTransactionTotal: number;
+
+  public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
+  
   constructor(
     private itemTransactService: ItemTransactionService,
     private authService: AuthenticationService,
+    private itemComission: ItemComissionsService,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +46,16 @@ export class PurchaseDetailComponent implements OnInit {
     console.log(this.transactionId);
     this.itemTransactService.get(this.transactionId).subscribe( (transactionResp: ItemTransactionJson) => {
       this.transaction = transactionResp;
+
+      this.transaction.item.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
+        return a.imgUrl.localeCompare(b.imgUrl);
+      });
+
+      this.serviceCommision = this.itemComission.serviceCommision();
+      this.webSiteTax = this.itemComission.webSiteTax(this.transaction.item.price);
+      this.paypalComission = this.itemComission.paypalComission(this.transaction.item.price);
+      this.webSiteCommision = this.itemComission.webSiteComission(this.transaction.item.price);
+      this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.transaction.item.price);
     });
   }
 

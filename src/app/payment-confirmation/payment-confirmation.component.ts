@@ -28,6 +28,7 @@ import { UtilsService } from '../_services/utils.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
 import { GenericMessageComponent } from '../generic-message/generic-message.component';
+import { ItemComissionsService } from '../_helpers/item-comissions.service';
 
 @Component({
   selector: 'payment-confirmation',
@@ -44,6 +45,13 @@ export class PaymentConfirmationComponent implements OnInit {
   public itemFloatingChars: ItemFloatingChars[];
   public itemType: ItemCategoryModel[];
   public user: User;
+
+  // Comissions
+  public serviceCommision: number;
+  public webSiteCommision: number;
+  public webSiteTax: number;
+  public paypalComission: number;
+  public itemTransactionTotal: number;
   
   itemTransaction: ItemTransactionJson = new ItemTransactionJson();
   addressFormGroup: FormGroup;
@@ -63,6 +71,7 @@ export class PaymentConfirmationComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    private itemComission: ItemComissionsService,
   ) {}
 
   ngOnInit() {
@@ -133,7 +142,7 @@ export class PaymentConfirmationComponent implements OnInit {
                       this.payPalConfig = this.initPaypalInstance(
                         this.itemTransaction,
                         this.addressFormGroup.value.paypalUser,
-                        this.itemTransactionTotal() + ''
+                        this.itemTransactionTotal + ''
                       );
                     });
                   });
@@ -180,36 +189,12 @@ export class PaymentConfirmationComponent implements OnInit {
 
     //Initialize saved In profile
     this.itemTransaction.$buyerAddress.savedInProfile = false;
-  }
 
-  webSiteComission() {
-    if( this.itemTransaction.$item.price < 20000) {
-      return .15 * this.itemTransaction.$item.price;
-    } else if (this.itemTransaction.$item.price >= 20000 && this.itemTransaction.$item.price < 50000) {
-      return .12 * this.itemTransaction.$item.price;
-    } else if (this.itemTransaction.$item.price >= 50000 && this.itemTransaction.$item.price < 100000) {
-      return .10 * this.itemTransaction.$item.price;
-    } else { // >= 100, 000
-      return .08 * this.itemTransaction.$item.price;
-    }
-  }
-
-  webSiteTax() : number {
-    return this.itemTransaction.$item.price * WEB_SITE_TAX;
-  }
-
-  paypalComission() : number{
-    return this.itemTransaction.$item.price * WEB_SITE_PAYPAL_PERCENTAJE;
-  }
-
-  itemTransactionTotal() : number {
-    let total =
-      this.webSiteComission() +
-      this.paypalComission() +
-      this.webSiteTax() +
-      this.itemTransaction.$item.price;
-
-    return total;
+    this.serviceCommision = this.itemComission.serviceCommision();
+    this.webSiteTax = this.itemComission.webSiteTax(this.itemTransaction.$item.price);
+    this.paypalComission = this.itemComission.paypalComission(this.itemTransaction.$item.price);
+    this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.$item.price);
+    this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.itemTransaction.$item.price);
   }
 
   getUserDefaulAddress() {

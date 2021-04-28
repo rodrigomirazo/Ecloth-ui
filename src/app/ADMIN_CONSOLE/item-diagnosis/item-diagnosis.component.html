@@ -23,25 +23,34 @@
 
 <div class="row" *ngIf="items">
 
-    <div *ngFor="let itemTransaction of items; let i=index">
-        <item-horizontal-view 
-            *ngIf="diagnostFilter === 'notReviewed' "
-                [itemTransaction]="tranasactionWrapper( itemTransaction )"
-                [itemType]="itemType"
-                [rowHeader]="false"
-                [dateAndIdColumn]="true"
-                [diagnostCommentInput]="true"
-        ></item-horizontal-view>
+    <div *ngIf="items.length == 0" style="    text-align: center; color: #ccc; margin-top: 2em;">
+        <h1>
+            Sin Bicicletas en esta selección
+        </h1>
+    </div>
+    <div *ngIf="items.length > 0">
+    
+        <div *ngFor="let itemTransaction of items; let i=index">
+            <item-horizontal-view 
+                *ngIf="diagnostFilter === 'notReviewed' "
+                    [itemTransaction]="tranasactionWrapper( itemTransaction )"
+                    [itemType]="itemType"
+                    [rowHeader]="false"
+                    [dateAndIdColumn]="true"
+                    [diagnostCommentInput]="true"
+            ></item-horizontal-view>
 
-        <item-horizontal-view
-            *ngIf="diagnostFilter === 'accepted' || diagnostFilter === 'rejected' "
-                [itemTransaction]="tranasactionWrapper( itemTransaction )"
-                [itemType]="itemType"
-                [rowHeader]="false"
-                [dateAndIdColumn]="true"
-                [diagnostCommentComplete]="true"
-        ></item-horizontal-view>
+            <item-horizontal-view
+                *ngIf="diagnostFilter === 'accepted' || diagnostFilter === 'rejected' "
+                    [itemTransaction]="tranasactionWrapper( itemTransaction )"
+                    [itemType]="itemType"
+                    [rowHeader]="false"
+                    [dateAndIdColumn]="true"
+                    [diagnostCommentComplete]="true"
+            ></item-horizontal-view>
 
+            
+        </div>
         
     </div>
 

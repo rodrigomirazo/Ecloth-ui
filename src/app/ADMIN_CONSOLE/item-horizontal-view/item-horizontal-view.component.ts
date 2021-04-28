@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryService } from 'src/app/category-tree/category.service';
-import { TRANSACT_STATUS_CLIENT_AUTHORIZATION, TRANSACT_STATUS_RECEIVED_TO_BUYER, TRANSACT_STATUS_SENT_TO_BUYER, TRANSACT_STATUS_SERVICED_COMPLETED, WEB_SITE_PAYPAL_PERCENTAJE, WEB_SITE_TAX } from 'src/app/_helpers/constants';
+import { TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED, TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED, TRANSACT_STATUS_CLIENT_AUTHORIZATION, TRANSACT_STATUS_RECEIVED_TO_BUYER, TRANSACT_STATUS_SENT_TO_BUYER, TRANSACT_STATUS_SERVICED_COMPLETED, WEB_SITE_PAYPAL_PERCENTAJE, WEB_SITE_TAX } from 'src/app/_helpers/constants';
+import { ItemComissionsService } from 'src/app/_helpers/item-comissions.service';
 import { ItemFloatingCharRel } from 'src/app/_models/item-floating-char-rel';
 import { ItemTransactionJson } from 'src/app/_models/Item-transaction-model-json';
 import { ItemCategoryModel } from 'src/app/_models/main-categories-model';
@@ -35,6 +36,7 @@ export class ItemHorizontalViewComponent implements OnInit {
 
   // Admin Sales
   @Input() public serviceColumn: boolean;
+  public authorize: boolean;
   public service: boolean;
   public sent: boolean;
   public received: boolean;
@@ -44,6 +46,13 @@ export class ItemHorizontalViewComponent implements OnInit {
   public uploadedImgDir: string = environment.uploadedImgDir;
   public server: string = environment.server;
 
+  // Comissions
+  public serviceCommision: number;
+  public webSiteCommision: number;
+  public webSiteTax: number;
+  public paypalComission: number;
+  public itemTransactionTotal: number;
+  
   // Sales
   @Input() public paymentDetails: boolean;
 
@@ -51,16 +60,29 @@ export class ItemHorizontalViewComponent implements OnInit {
     private itemService: ItemService,
     private itemTransactService: ItemTransactionService,
     private _snackBar: MatSnackBar,
+    private itemComission: ItemComissionsService,
   ) { }
 
   ngOnInit(): void {
 
+    if ( this.itemTransaction.transactionStatus == TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED ||
+      this.itemTransaction.transactionStatus == TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED_AND_AUTHORIZED) {
+        this.authorize = false;
+    } else {
+      this.authorize = true;
+    }
     this.service        = this.itemTransaction.service;
     this.sent           = this.itemTransaction.sent;
     this.received       = this.itemTransaction.recieved;
     this.trackingNumber = this.itemTransaction.trackingNumber;
     this.trackerCompany = this.itemTransaction.trackerCompany;
     this.transactionStatus = this.itemTransaction.transactionStatus;
+
+    this.serviceCommision = this.itemComission.serviceCommision();
+    this.webSiteTax = this.itemComission.webSiteTax(this.itemTransaction.item.price);
+    this.paypalComission = this.itemComission.paypalComission(this.itemTransaction.item.price);
+    this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.item.price);
+    this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.itemTransaction.item.price);
   }
 
   filterItemType(type: number) : string {
@@ -127,34 +149,16 @@ export class ItemHorizontalViewComponent implements OnInit {
     });
   }
 
-  webSiteComission() {
-    if( this.itemTransaction.item.price < 20000) {
-      return .15 * this.itemTransaction.item.price;
-    } else if (this.itemTransaction.item.price >= 20000 && this.itemTransaction.item.price < 50000) {
-      return .12 * this.itemTransaction.item.price;
-    } else if (this.itemTransaction.item.price >= 50000 && this.itemTransaction.item.price < 100000) {
-      return .10 * this.itemTransaction.item.price;
-    } else { // >= 100, 000
-      return .08;
+  onCheckAuthorize() {
+    this.sent = false;
+    this.received = false;
+    this.service = false;
+
+    if(this.authorize == false) {
+      this.transactionStatus = TRANSACT_STATUS_AFTER_TRANSACTION_APPROVED;
+    } else {
+      this.transactionStatus = TRANSACT_STATUS_CLIENT_AUTHORIZATION;
     }
-  }
-
-  webSiteTax() : number {
-    return this.itemTransaction.item.price * WEB_SITE_TAX;
-  }
-
-  paypalComission() : number {
-    return this.itemTransaction.item.price * WEB_SITE_PAYPAL_PERCENTAJE;
-  }
-
-  itemTransactionTotal() : number {
-    let total =
-    this.itemTransaction.totalPayment   -
-      2000 -
-      this.webSiteComission() -
-      this.paypalComission();
-
-    return total;
   }
 
   onCheckService() {

@@ -69,55 +69,63 @@
         <td style="width: 25%; padding-top: 1.5em;" *ngIf="paymentDetails" colspan="2">
             <p class="paymeent-detail"> Desglose de Venta </p>
 
-            <table class="table-ammounts" *ngIf="itemTransaction.item">
+            <div *ngIf="itemTransaction.item">
+                <table class="table-ammounts" *ngIf="itemTransaction.item.price">
 
-                <tr>
-                    <td class="table-ammounts-name"> <br> </td>
-                    <td> <br> </td>
-                </tr>
-                
-                <tr >
-                    <td class="table-ammounts-name"> Monto Cobrado: </td>
-                    <td class="table-ammounts-number"> {{ itemTransaction.totalPayment | currency }} </td>
-                </tr>
+                    <tr>
+                        <td class="table-ammounts-name"> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <!--
+                    <tr >
+                        <td class="table-ammounts-name"> Monto Cobrado: </td>
+                        <td class="table-ammounts-number"> {{ itemTransactionTotal | currency }} </td>
+                    </tr>
+                    -->
 
-                <tr>
-                    <td class="table-ammounts-name"> Comision Servicio: </td>
-                    <td class="table-ammounts-number"> {{ 2000 | currency }} </td>
-                </tr>
-    
-                <tr>
-                    <td class="table-ammounts-name"> Comision Baaw: </td>
-                    <td class="table-ammounts-number"> {{ webSiteComission() | currency }} </td>
-                </tr>
-    
-                <tr>
-                    <td class="table-ammounts-name"> Comision Bancaria: </td>
-                    <td class="table-ammounts-number"> {{ paypalComission() | currency }} </td>
-                </tr>
-    
-                <tr>
-                    <td class="table-ammounts-name"> Codigo de Promocion: </td>
-                    <td class="table-ammounts-number"> {{ 0 | currency }} </td>
-                </tr>
-                <tr>
-                    <td> <br> </td>
-                    <td> <br> </td>
-                </tr>
-                <tr class="table-ammounts">
-                    <td> <br> </td>
-                    <td> <br> </td>
-                </tr>
-                <tr>
-                    <td> <br> </td>
-                    <td> <br> </td>
-                </tr>
-                <tr>
-                    <td class="table-ammounts-total"> Total: </td>
-                    <td class="table-ammounts-total-number"> {{ itemTransactionTotal() | currency }} </td>
-                </tr>
-    
-            </table>
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Servicio: </td>
+                        <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Baaw: </td>
+                        <td class="table-ammounts-number"> {{ webSiteCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Bancaria: </td>
+                        <td class="table-ammounts-number"> {{ paypalComission | currency }} </td>
+                    </tr>
+
+                    <tr>
+                        <td class="table-ammounts-name"> IVA: </td>
+                        <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Codigo de Promocion: </td>
+                        <td class="table-ammounts-number"> {{ 0 | currency }} </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="table-ammounts">
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td class="table-ammounts-total"> Total: </td>
+                        <td class="table-ammounts-total-number"> {{ itemTransactionTotal | currency }} </td>
+                    </tr>
+        
+                </table>
+            </div>
 
         </td>
         <!-- Payment Details End -->
@@ -151,7 +159,22 @@
             <table class="table-service" *ngIf="itemTransaction.item">
 
                 <tr>
-                    <td class="table-service-checkbox" colspan="2" style="width: 33%">
+                    <td class="table-service-checkbox" colspan="2" style="width: 18%">
+                        <section class="approved-section">
+                            <mat-checkbox
+                                class="approved-margin"
+                                [(ngModel)]="authorize"
+                                [ngModelOptions]="{standalone: true}"
+                                name="authorizeInput"
+                                (change)="onCheckAuthorize()"
+                                [disabled]=""
+                                ngDefaultControl>
+                                <div *ngIf="authorize">Autorizado</div>
+                                <div *ngIf="!authorize">Autorizar</div>
+                            </mat-checkbox>
+                        </section>
+                    </td>
+                    <td class="table-service-checkbox" colspan="2" style="width: 30%">
                         <section class="approved-section">
                             <mat-checkbox
                                 class="approved-margin"
@@ -159,8 +182,11 @@
                                 [ngModelOptions]="{standalone: true}"
                                 name="serviceInput"
                                 (change)="onCheckService()"
-                                [disabled]=""
-                                ngDefaultControl>Servicio y Lavado/ Empaquetado</mat-checkbox>
+                                [disabled]="!authorize"
+                                ngDefaultControl>
+                                    <div *ngIf="!service">Lavar y Empaquetar</div>
+                                    <div *ngIf="service">Lavado y Empaquetado</div>
+                            </mat-checkbox>
                         </section>
                     </td>
                     <td class="table-service-checkbox" style="width: 16%">
@@ -172,7 +198,11 @@
                                 name="sentInput"
                                 (change)="onCheckSent()"
                                 [disabled]="!service"
-                                ngDefaultControl>Enviada</mat-checkbox>
+                                ngDefaultControl>
+
+                                <div *ngIf="sent">Enviada</div>
+                                <div *ngIf="!sent">Enviar</div>
+                            </mat-checkbox>
                         </section>
                     </td>
                     <td class="table-service-checkbox" style="width: 25%">
@@ -184,7 +214,12 @@
                                 name="approvedComments"
                                 (change)="onCheckReceived()"
                                 [disabled]="!sent"
-                                ngDefaultControl>Entregada</mat-checkbox>
+                                ngDefaultControl>
+                                
+                                <div *ngIf="received">Entregada</div>
+                                <div *ngIf="!received">Entregar</div>
+
+                            </mat-checkbox>
                         </section>
                     </td>
                 </tr>

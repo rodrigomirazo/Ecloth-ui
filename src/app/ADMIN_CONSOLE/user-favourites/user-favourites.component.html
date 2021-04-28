@@ -1,16 +1,23 @@
 
 <div class="row" *ngIf="items">
 
-    <div *ngFor="let itemTransaction of items; let i=index">
+    <div *ngIf="items.length == 0" style="    text-align: center; color: #ccc; margin-top: 2em;">
+        <h1>
+            Sin Bicicletas en esta selección
+        </h1>
+    </div>
+    <div *ngIf="items.length > 0">
+        <div *ngFor="let itemTransaction of items; let i=index">
         
-        <item-horizontal-view
-            [itemTransaction]="tranasactionWrapper( itemTransaction )"
-            [itemType]="itemType"
-            [rowHeader]="true"
-            [dateAndIdColumn]="false"
-            [diagnostCommentInput]="false"
-        ></item-horizontal-view>
-
+            <item-horizontal-view
+                [itemTransaction]="tranasactionWrapper( itemTransaction )"
+                [itemType]="itemType"
+                [rowHeader]="true"
+                [dateAndIdColumn]="false"
+                [diagnostCommentInput]="false"
+            ></item-horizontal-view>
+    
+        </div>
     </div>
 
 </div>

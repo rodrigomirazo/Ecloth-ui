@@ -204,22 +204,27 @@
             -->
             <tr>
                 <td class="table-ammounts-name"> Comision Baaw: </td>
-                <td class="table-ammounts-number"> {{ webSiteComission() | currency }} </td>
+                <td class="table-ammounts-number"> {{ webSiteCommision | currency }} </td>
             </tr>
 
             <tr>
                 <td class="table-ammounts-name"> Iva: </td>
-                <td class="table-ammounts-number"> {{ webSiteTax() | currency }} </td>
+                <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
             </tr>
 
             <tr>
                 <td class="table-ammounts-name"> Payment: </td>
-                <td class="table-ammounts-number"> {{ paypalComission() | currency }} </td>
+                <td class="table-ammounts-number"> {{ paypalComission | currency }} </td>
             </tr>
-
+        <!--
             <tr>
                 <td class="table-ammounts-name"> Codigo de Promocion: </td>
                 <td class="table-ammounts-number"> {{ 0 | currency }} </td>
+            </tr>
+        -->
+            <tr>
+                <td class="table-ammounts-name"> Servicio Lavado y Empaquetado: </td>
+                <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
             </tr>
             <tr>
                 <td> <br> </td>
@@ -235,7 +240,7 @@
             </tr>
             <tr>
                 <td class="table-ammounts-name"> Total: </td>
-                <td class="table-ammounts-number"> {{ itemTransactionTotal() | currency }} </td>
+                <td class="table-ammounts-number"> {{ itemTransactionTotal | currency }} </td>
             </tr>
 
         </table>
