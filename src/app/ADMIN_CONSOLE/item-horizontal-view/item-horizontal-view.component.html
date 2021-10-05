@@ -68,21 +68,59 @@
         <!-- Payment Details Begin -->
         <td style="width: 25%; padding-top: 1.5em;" *ngIf="paymentDetails" colspan="2">
             <p class="paymeent-detail"> Desglose de Venta </p>
-
             <div *ngIf="itemTransaction.item">
                 <table class="table-ammounts" *ngIf="itemTransaction.item.price">
-
                     <tr>
                         <td class="table-ammounts-name"> <br> </td>
                         <td> <br> </td>
                     </tr>
-                    <!--
-                    <tr >
-                        <td class="table-ammounts-name"> Monto Cobrado: </td>
-                        <td class="table-ammounts-number"> {{ itemTransactionTotal | currency }} </td>
-                    </tr>
-                    -->
 
+                    <tr>
+                        <td class="table-ammounts-name"> Precio Bicicleta: </td>
+                        <td class="table-ammounts-number"> {{ itemTransaction.item.price | currency }} </td>
+                    </tr>
+
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Servicio: </td>
+                        <td class="table-ammounts-number"> - {{ serviceCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Baaw: </td>
+                        <td class="table-ammounts-number"> - {{ webSiteCommision | currency }} </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="table-ammounts-name"> IVA: </td>
+                        <td class="table-ammounts-number"> - {{ webSiteTax | currency }} </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="table-ammounts">
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td class="table-ammounts-total"> Total a Recibir: </td>
+                        <td class="table-ammounts-total-number"> {{ itemTransactionTotalVendor | currency }} </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td style="width: 25%; padding-top: 1.5em;" *ngIf="vendorPaymentDetails" colspan="2">
+            <p class="paymeent-detail"> Desglose de Venta </p>
+            <div *ngIf="itemTransaction.item">
+                <table class="table-ammounts" *ngIf="itemTransaction.item.price">
+                    <tr>
+                        <td class="table-ammounts-name"> <br> </td>
+                        <td> <br> </td>
+                    </tr>
                     <tr>
                         <td class="table-ammounts-name"> Comision Servicio: </td>
                         <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
@@ -102,12 +140,6 @@
                         <td class="table-ammounts-name"> IVA: </td>
                         <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
                     </tr>
-                <!--
-                    <tr>
-                        <td class="table-ammounts-name"> Codigo de Promocion: </td>
-                        <td class="table-ammounts-number"> {{ 0 | currency }} </td>
-                    </tr>
-                -->
                     <tr>
                         <td> <br> </td>
                         <td> <br> </td>
@@ -124,10 +156,8 @@
                         <td class="table-ammounts-total"> Total: </td>
                         <td class="table-ammounts-total-number"> {{ itemTransactionTotal | currency }} </td>
                     </tr>
-        
                 </table>
             </div>
-
         </td>
         <!-- Payment Details End -->
 

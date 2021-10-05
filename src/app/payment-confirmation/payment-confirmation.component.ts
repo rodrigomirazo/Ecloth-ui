@@ -51,9 +51,10 @@ export class PaymentConfirmationComponent implements OnInit {
   public webSiteCommision: number;
   public webSiteTax: number;
   public paypalComission: number;
+  public shippingComission: number;
   public itemTransactionTotal: number;
   
-  itemTransaction: ItemTransactionJson = new ItemTransactionJson();
+  itemTransaction: any = new ItemTransactionJson();
   addressFormGroup: FormGroup;
   discountFormGroup: FormGroup;
 
@@ -191,10 +192,11 @@ export class PaymentConfirmationComponent implements OnInit {
     this.itemTransaction.$buyerAddress.savedInProfile = false;
 
     this.serviceCommision = this.itemComission.serviceCommision();
-    this.webSiteTax = this.itemComission.webSiteTax(this.itemTransaction.$item.price);
+    //this.webSiteTax = this.itemComission.webSiteTax(this.itemTransaction.$item.price);
     this.paypalComission = this.itemComission.paypalComission(this.itemTransaction.$item.price);
-    this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.$item.price);
+    //this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.$item.price);
     this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.itemTransaction.$item.price);
+    this.shippingComission = this.itemComission.shippingCommision(this.itemTransaction.$item.price);
   }
 
   getUserDefaulAddress() {
@@ -282,6 +284,21 @@ export class PaymentConfirmationComponent implements OnInit {
     this.itemTransaction.$buyerAddress.streetRef      = this.addressFormGroup.value.streetRef;
     this.itemTransaction.$buyerAddress.phoneNumber    = this.addressFormGroup.value.phoneNumber;
     this.itemTransaction.$buyerAddress.savedInProfile = savedInProfile;
+
+    this.itemTransaction.buyerAddress.userId         = this.user.id;
+    this.itemTransaction.buyerAddress.name           = this.addressFormGroup.value.name;
+    this.itemTransaction.buyerAddress.lastnames      = this.addressFormGroup.value.lastname;
+    this.itemTransaction.buyerAddress.street         = this.addressFormGroup.value.street;
+    this.itemTransaction.buyerAddress.intNumber      = this.addressFormGroup.value.intNumber;
+    this.itemTransaction.buyerAddress.extNumber      = this.addressFormGroup.value.extNumber;
+    this.itemTransaction.buyerAddress.zipCode        = this.addressFormGroup.value.zipCode;
+    this.itemTransaction.buyerAddress.state          = this.addressFormGroup.value.state;
+    this.itemTransaction.buyerAddress.city           = this.addressFormGroup.value.city;
+    this.itemTransaction.buyerAddress.suburb         = this.addressFormGroup.value.suburb;
+    this.itemTransaction.buyerAddress.reference      = this.addressFormGroup.value.reference;
+    this.itemTransaction.buyerAddress.streetRef      = this.addressFormGroup.value.streetRef;
+    this.itemTransaction.buyerAddress.phoneNumber    = this.addressFormGroup.value.phoneNumber;
+    this.itemTransaction.buyerAddress.savedInProfile = savedInProfile;
   }
 
   saveTransaction() {
@@ -427,12 +444,14 @@ export class PaymentConfirmationComponent implements OnInit {
       onClick: (data, actions) => {
         console.log('onClick', data, actions);
 
-        if( this.addressFormGroup.value.defaultUserAddress == "true" ) {
-          this.addressFormToDto(false);
-        }
-
+        
+        this.addressFormToDto(false);
+        
         //Save Transaction
+        this.addressFormToDto(false);
         this.transactionStep(TRANSACT_STATUS_BEFORE_TRANSACTION, "onClick" + data + actions);
+        console.log(this.itemTransaction);
+        
         this.itemTransactService.save(this.itemTransaction)
             .subscribe( (itemTransactResp: any) => {
               this.itemTransaction.$id = itemTransactResp.id;

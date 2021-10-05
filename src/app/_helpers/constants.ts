@@ -31,8 +31,9 @@ export const TRANSACT_STATUS_RECEIVED_TO_BUYER = "RECEIVED_TO_BUYER";
 export const WEB_SITE_SERVICE_COMMISION = 2000;
 export const WEB_SITE_PAYPAL_PERCENTAJE = .0395;
 export const WEB_SITE_PAYPAL_PRICE = 4;
-export const WEB_SITE_PAYPAL_IVA = 0.16;
+export const WEB_SITE_PAYPAL_IVA = 1.16;
 export const WEB_SITE_TAX = .0;
+export const WEB_SITE_SHIPPING = 500;
 
 export const PROFILE_BAAW_PARTNER = "BAAW_PARTNER";
 

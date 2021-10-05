@@ -53,6 +53,7 @@ export class ItemHorizontalViewComponent implements OnInit {
   public webSiteTax: number;
   public paypalComission: number;
   public itemTransactionTotal: number;
+  public itemTransactionTotalVendor: number;
   
   // Sales
   @Input() public paymentDetails: boolean;
@@ -84,6 +85,7 @@ export class ItemHorizontalViewComponent implements OnInit {
     this.paypalComission = this.itemComission.paypalComission(this.itemTransaction.item.price);
     this.webSiteCommision = this.itemComission.webSiteComission(this.itemTransaction.item.price);
     this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.itemTransaction.item.price);
+    this.itemTransactionTotalVendor = this.itemComission.itemTransactionTotalVendor(this.itemTransaction.item.price);
 
     this.itemTransaction.item.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
       return a.imgUrl.localeCompare(b.imgUrl);

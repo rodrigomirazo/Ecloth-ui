@@ -30,6 +30,7 @@ export class PurchaseDetailComponent implements OnInit {
   public webSiteTax: number;
   public paypalComission: number;
   public itemTransactionTotal: number;
+  public shippingComission: number;
 
   public uploadedImgDir: string = environment.uploadedImgDir;
   public server: string = environment.server;
@@ -56,6 +57,7 @@ export class PurchaseDetailComponent implements OnInit {
       this.paypalComission = this.itemComission.paypalComission(this.transaction.item.price);
       this.webSiteCommision = this.itemComission.webSiteComission(this.transaction.item.price);
       this.itemTransactionTotal = this.itemComission.itemTransactionTotal(this.transaction.item.price);
+      this.shippingComission = this.itemComission.shippingCommision(this.transaction.item.price);
     });
   }
 

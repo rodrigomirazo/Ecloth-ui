@@ -35,30 +35,29 @@
                     <tr>
                         <td style="width: 1.5%;"></td>
                         <td style="width: 30%;" colspan="2">
-                        
                             <span style="font-family: montserrat-bold;">
-                                {{ transaction.userBuyer.userAddresses[0].name }} {{ transaction.userBuyer.userAddresses[0].lastnames }}
+                                {{ transaction.buyerAddress.name }} {{ transaction.buyerAddress.lastnames }}
                             </span>
                             <br>
                             <span style="font-family: montserrat-light">
-                                {{ transaction.userBuyer.userAddresses[0].state }},
-                                {{ transaction.userBuyer.userAddresses[0].city }},
-                                cp {{ transaction.userBuyer.userAddresses[0].zipCode }},
-                                col. {{ transaction.userBuyer.userAddresses[0].suburb }}
+                                {{ transaction.buyerAddress.state }},
+                                {{ transaction.buyerAddress.city }},
+                                cp {{ transaction.buyerAddress.zipCode }},
+                                col. {{ transaction.buyerAddress.suburb }}
                             </span>
                             <br>
                             <span style="font-family: montserrat-light">
-                                calle {{ transaction.userBuyer.userAddresses[0].street }},
-                                ext. {{ transaction.userBuyer.userAddresses[0].extNumber }},
-                                int. {{ transaction.userBuyer.userAddresses[0].intNumber }}
+                                calle {{ transaction.buyerAddress.street }},
+                                ext. {{ transaction.buyerAddress.extNumber }},
+                                int. {{ transaction.buyerAddress.intNumber }}
                             </span>
                             <br>
                             <span style="font-family: montserrat-light">
-                                Referencias: {{ transaction.userBuyer.userAddresses[0].reference }}
+                                Referencias: {{ transaction.buyerAddress.reference }}
                             </span>
                             <br>
                             <span style="font-family: montserrat-light">
-                                Entre Calles: {{ transaction.userBuyer.userAddresses[0].streetRef }}
+                                Entre Calles: {{ transaction.buyerAddress.streetRef }}
                             </span>
                             <br>
                         </td>
@@ -85,23 +84,16 @@
                                     -->
                 
                                     <tr>
-                                        <td class="table-ammounts-name"> Comision Servicio: </td>
-                                        <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
+                                        <td class="table-ammounts-name"> Subtotal: </td>
+                                        <td class="table-ammounts-number"> {{ transaction.item.price | currency }} </td>
                                     </tr>
-                        
                                     <tr>
-                                        <td class="table-ammounts-name"> Comision Baaw: </td>
-                                        <td class="table-ammounts-number"> {{ webSiteCommision | currency }} </td>
+                                        <td class="table-ammounts-name"> Paqueteria </td>
+                                        <td class="table-ammounts-number"> {{ shippingComission | currency }} </td>
                                     </tr>
-                        
                                     <tr>
-                                        <td class="table-ammounts-name"> Comision Bancaria: </td>
+                                        <td class="table-ammounts-name"> Comisión Bancaria: </td>
                                         <td class="table-ammounts-number"> {{ paypalComission | currency }} </td>
-                                    </tr>
-                
-                                    <tr>
-                                        <td class="table-ammounts-name"> IVA: </td>
-                                        <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
                                     </tr>
                         
                                     <!--
