@@ -8,6 +8,49 @@
     padding-right: 20px;
 }
 
+@media only screen
+  and (min-device-width: 0px)
+  and (max-device-width: 576px) {
+    #main-menu-font-size {
+        font-size: 130%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 577px)
+  and (max-device-width: 767px) {
+    #main-menu-font-size {
+        font-size: 130%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 650px)
+  and (max-device-width: 992px) {
+    #main-menu-font-size {
+        font-size: 200%;
+    }
+    #main-icon {
+        width: 150%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 993px) {
+    #main-menu-font-size {
+        font-size: 300%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
 .category-sidenav-container {
     height: 100%;
 }

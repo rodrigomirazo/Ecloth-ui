@@ -2,37 +2,42 @@
 <div class="header-main-div home-page-header row">
 
     <!-- Toggle Button -->
-    <div class="col-md-3 col-sm-2 col-xs-2" [matMenuTriggerFor]="menu">
+    <div class="col-md-3 col-sm-3 col-xs-2" [matMenuTriggerFor]="menu">
         <div class="row">
             <button mat-icon-button aria-label="Example icon-button with a menu" class="app-icon">
                 <mat-icon style="color: #18c65e;">menu</mat-icon>
             </button>
         </div>
         <div class="row">
-            <span class="header-menu-title">menú</span>
+            <span class="header-menu-title" id="main-menu-font-size">menú</span>
         </div>
     </div>
 
-    <!-- separator (1) -->
+    <!-- separator (1)
     <div class="col-md-1 col-sm-2 col-xs-1">
     </div>
+     -->
 
     <!-- LGO -->
-    <div class="col-md-2 col-sm-1 col-xs-1 logo-header" [routerLink]="['/index' ]">
-        <img src="/assets/images/home/logo_baaw.svg" alt="Baawroom" width="250" height="100">
+    <div class="col-md-4
+                col-sm-3 offset-sm-1
+                col-xs-6 logo-header" [routerLink]="['/index' ]">
+        <img src="/assets/images/home/logo_baaw.svg" alt="Baawroom" id="main-icon">
     </div>
 
     <!-- separator (2) -->
-    <div class="col-md-3 col-sm-4 col-xs-4">
+    <div class="col-md-1 col-sm-1 col-xs-1">
     </div>
+    
 
     <!-- Search Bar (1) -->
-    <div class="col-md-3 col-sm-3 col-xs-4">
+    <div class="col-md-3 col-sm-3 col-sm-11
+                offset-md-1 offset-sm-1 offset-xs-1">
 
 
         <table style="width: 100%;">
             <tr>
-                <td colspan="3">
+                <td style="width: 100%;">
                     <div class="row search-bar-header" style="color: black;" id="search-bar">
                         <form [formGroup]="searchFormGroup" (submit)="submit()">
                             <mat-form-field appearance="none" style="width: 100%;" >
