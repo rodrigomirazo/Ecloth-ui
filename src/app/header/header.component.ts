@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UserAddressJson } from '../_models/User-address-json-model';
 import { AuthenticationService } from '../_services/authentication.service';
+import { UserAddressService } from '../_services/user-address.service';
 import { UtilsService } from '../_services/utils.service';
 
 @Component({
@@ -15,15 +18,16 @@ import { UtilsService } from '../_services/utils.service';
 })
 export class HeaderComponent implements OnInit {
 
-  private mountainFilter: string;
-  private urbanFilter: string;
-  private roadFilter: string;
-  private discoverFilter: string;
-  private searchFormGroup: FormGroup;
-  private saleEnable: boolean = false;
+  mountainFilter: string;
+  urbanFilter: string;
+  roadFilter: string;
+  discoverFilter: string;
+  searchFormGroup: FormGroup;
+  saleEnable: boolean = false;
+  profileComplete: boolean = false;
   
   /** Item Types */
-  private itemTypes: ItemCategoryModel[] = [];
+  itemTypes: ItemCategoryModel[] = [];
 
   constructor(
     private floatingCharsService: FloatingCharsService,
@@ -31,9 +35,11 @@ export class HeaderComponent implements OnInit {
     private utilsService: UtilsService,
     private router: Router,
     private _formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private addressService: UserAddressService,
   ) {
-    this.isUserValid();
+    //this.isUserValid();
     this.searchFormGroup = this._formBuilder.group({
       searchBar: new FormControl(''),
     });
@@ -44,12 +50,49 @@ export class HeaderComponent implements OnInit {
     this.getCategoryTypesLinkRoad();
     this.getCategoryTypesLinkUrban();
     
-    //private _router: Router
+    this.route.queryParams.subscribe(params => {
+      if(params) {
+        if(params.refresh) {
+          if(params.refresh == "true" ) {
+            this.saleEnable = true;
+            window.location.replace(environment.indexPage + "?refresh=false");
+            this.saleEnable = true;
+          }
+        }
+      }
+      this.authenticationService.tokenIsValid().subscribe( isValid => {
+        if(isValid) {
+          this.saleEnable = true;
+
+          console.log("Get session user in header", this.authenticationService.getSessionUser());
+          if(this.authenticationService.getSessionUser() != null) {
+            this.addressService.getByUserName(this.authenticationService.getSessionUser().userName)
+            .subscribe( (userAddress: UserAddressJson) => {
+              if(userAddress.id) {
+                this.profileComplete = true;
+              }
+            });
+          }
+          
+        } else {
+          this.saleEnable = false;
+        }
+      });
+
+    });
   }
 
   submit() {
     
     this.router.navigate(['/market-place', 'null', this.searchFormGroup.value.searchBar ])
+  }
+
+  closeSession() {
+    this.saleEnable = false;
+    console.log("closeSession() from header component");
+    this.authenticationService.logout();
+    this.saleEnable = false;
+    this.router.navigate(['/index'],  { queryParams: { refresh: false } } );
   }
 
   getCategoryTypesLinkMountain(): void {
@@ -96,6 +139,11 @@ export class HeaderComponent implements OnInit {
 
     this.authenticationService.tokenIsValid().subscribe((isUserToeknEnable: boolean) => {
       // Urbain
+      console.log("isValid:", isUserToeknEnable);
+      if(!isUserToeknEnable) {
+        this.authenticationService.logout();
+      }
+
       this.saleEnable = isUserToeknEnable;
     });
   }

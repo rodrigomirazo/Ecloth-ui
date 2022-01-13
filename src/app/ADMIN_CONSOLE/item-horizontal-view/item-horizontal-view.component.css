@@ -1,0 +1,160 @@
+
+.item-transaction-table {
+    margin-bottom: 1.5em;
+}
+
+.name-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 30pt;
+    color: #303130;
+    line-height: 41px;
+}
+
+.size-item-detail{
+    font-family: bebasNeue-regular;
+    font-size: 16pt;
+    color: #303130;
+    line-height: 0px;
+}
+
+.price-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 18pt;
+    color: #303130;
+    line-height: 28px;
+}
+
+.date-format {
+    line-height: 20px;
+}
+
+.sku-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 12pt;
+    color: #303130;
+    line-height: 0px;
+}
+
+.img-item {
+    width: 100%;
+    height: 105px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.item-detail-row {
+    line-height: 10px;
+}
+
+.item-row-title {
+    background-color: #f2f2f2;
+}
+
+.item-cell-title {
+    padding-top: 10px;
+    background-color: #f2f2f2;
+}
+
+.saled-date-item-title {
+    font-family: 'montserrat-regular';
+    font-size: 10pt;
+}
+.saled-date-item-detail {
+    font-family: montserrat-semibold;
+    font-size: 12pt;
+}
+
+:host ::ng-deep .submit-button {
+    background-color: #18c65e!important;
+    color: white;
+}
+
+.diagnost-comments {
+    font-family: 'montserrat-light';
+    font-size: 12pt;
+    color: #303130;
+    line-height: 0px;
+}
+
+.diagnost-full-width {
+    width: 85%;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #18c65e!important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #18c65e;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #18c65e;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #18c65e;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:#18c65e;
+    font-size: 12px;
+    margin-bottom: 2em;
+}
+
+.paymeent-detail {
+    font-family: 'montserrat-regular';
+}
+
+.table-ammounts {
+    width: 83%;
+    margin-left: 15px;
+    border-top: black 1px solid;
+}
+
+.table-ammounts-name {
+    font-family: 'montserrat-semiBold';
+    height: 1.3em;
+    font-size: 12px;
+}
+
+.table-ammounts-number {
+    font-family: 'montserrat-semiBold';
+    font-size: 12px;
+}
+
+.table-ammounts-total {
+    font-family: 'montserrat-regular';
+    font-size: 12px;
+    margin-bottom: 1em;
+}
+
+.table-ammounts {
+    width: 83%;
+    margin-left: 15px;
+}
+
+.table-service-checkbox {
+    width: 83%;
+    margin-left: 15px;
+}
+
+.table-service-input-name {
+
+}
+
+.table-service-name {
+
+}
+
+.table-service-name-value {
+    
+}
+
+.submit-button-admin-tracker {
+    font-family: 'montserrat-light';
+    font-size: 10pt;
+}

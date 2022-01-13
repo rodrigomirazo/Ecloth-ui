@@ -1,14 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InputFilter_header } from '../_models/input-filter-header-model';
 import { InputFilter } from '../_models/input-filter-model';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
   encodeBase64(inputFilter: InputFilter_header) {
 
@@ -52,6 +53,26 @@ export class UtilsService {
     } else {
       return "Mala";
     }
+  }
+
+  mail() {
+    let user = {
+      name: "rodrig",
+      email: "rodrigomirazo@gmail.com"
+    }
+    this.http.post("http://localhost:4200/sendmail", user).subscribe(
+      data => {
+        let res:any = data;
+        console.log(
+          `👏 > 👏 > 👏 > 👏 ${user.name} is successfully register and mail has been sent and the message id is ${res.messageId}`
+        );
+      },
+      err => {
+        console.log(err);
+      },() => {
+        
+      }
+    );
   }
 
 }

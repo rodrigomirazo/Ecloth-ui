@@ -10,16 +10,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class RateComponent {
 
   @Output()
-  private emitRate = new EventEmitter<number>();
+  emitRate = new EventEmitter<number>();
   
-  private _rate: number;
-  private _enableEdit: boolean;
-  private _iconType: string;
+  _rate: number;
+  _enableEdit: boolean;
+  _iconType: string;
 
-  private iconRates: boolean[] = [];
-  private initialSetup = false;
-  private iconActivePath: string;
-  private iconInactivePath: string;
+  iconRates: boolean[] = [];
+  initialSetup = false;
+  iconActivePath: string;
+  iconInactivePath: string;
 
   constructor() {
     for (let i = 0; i < 5; i++) {

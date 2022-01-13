@@ -28,19 +28,20 @@
     padding-left: 0px;
     margin-left: 0px;
     margin-right: 0px;
+    margin-bottom: 10px;
 }
 
 .item-title-new-message {
     background-color: #18c65e;
     color: white;
     margin: auto;
-    left: -7%;
+    left: -5%;
     padding-left: 1px;
 }
 
 .item-title-old-message {
     margin: auto;
-    left: -7%;
+    left: -5%;
     padding-left: 1px;
 }
 
@@ -62,6 +63,17 @@
     width: 99%;
     display: block;
     object-fit: cover;
+}
+
+.item-micro-img {
+    height: 45px;
+    width: 35px;
+    display: block;
+    object-fit: cover;
+    bottom: 6px;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .item-type {

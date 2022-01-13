@@ -16,8 +16,8 @@ import { ItemCategoryModel } from '../_models/main-categories-model';
 })
 export class CategoryTreeComponent {
 
-  private treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
-  private dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
+  treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
+  dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
 
   @Output() categoryId = new EventEmitter<number>();
 

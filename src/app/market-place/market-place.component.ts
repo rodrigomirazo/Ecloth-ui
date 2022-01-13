@@ -16,14 +16,14 @@ import { UtilsService } from '../_services/utils.service';
 })
 export class MarketPlaceComponent implements OnInit {
 
-  private inputFilter: InputFilter;
-  private outputFilter: InputFilter;
+  inputFilter: InputFilter;
+  outputFilter: InputFilter;
 
   /** Catalogs */
-  private selectedYears: number[] = [];
+  selectedYears: number[] = [];
 
   /** Change Detector */
-  private changeIncrement: number = 0;
+  changeIncrement: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,11 +53,13 @@ export class MarketPlaceComponent implements OnInit {
 
   getYearsCat(): void {
 
+    console.log(this.inputFilter);
     if(!this.inputFilter.years)
       this.inputFilter.years = [];
 
-    for (let year = 2020; year > 2015; year--) {
+    for (let year = 2021; year > 2015; year--) {
       this.inputFilter.years = this.inputFilter.years.concat(new InputFilterYear(year, false));
+      console.log(this.inputFilter.years);
     }
   }
 

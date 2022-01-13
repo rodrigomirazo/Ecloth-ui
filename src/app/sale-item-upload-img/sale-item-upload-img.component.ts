@@ -9,20 +9,25 @@ import { UploadFilesService } from '../_services/upload-files.service';
 export class SaleItemUploadImgComponent implements OnInit {
 
   @Input()
-  private itemId: string;
+  itemId: string;
   
   @Output()
   propagate: EventEmitter<File[]> = new EventEmitter<any[]>();
+  
+  @Output()
+  imgSelectIsValid: EventEmitter<boolean> = new EventEmitter<boolean>();
   
   /** File Uploading */
   _files: File[];
   _uploadFlag: boolean;
   
+  fileChecks: boolean[] = [];
   
   constructor(private uploadFilesService: UploadFilesService) { }
 
   ngOnInit() {
-
+    for (let i = 0; i < 8; i++)
+      this.fileChecks = this.fileChecks.concat(false);
   }
 
   @Input()
@@ -40,6 +45,22 @@ export class SaleItemUploadImgComponent implements OnInit {
   }
   public set uploadFlag(value: boolean) {
     this._uploadFlag = value;
+  }
+
+  checkImg(imgIndex: number, optional?: boolean) {
+    if(!optional) {
+      this.fileChecks[imgIndex] = true;
+    }
+    let isValid = true;
+    this.fileChecks.forEach(element => {
+      if(!element) {
+        isValid = false;
+      }
+    });
+    console.log(isValid);
+    if(isValid) {
+      this.imgSelectIsValid.emit(true);
+    }
   }
   
 }

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { ItemService } from '../item-list/item.service';
+import { ItemService } from '../_services/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
 import { UploadFilesService } from '../_services/upload-files.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { InputFilterYear } from '../_models/input-filter-years-model';
-import { CommentStmt } from '@angular/compiler';
-import { User } from '../_models/Item-user';
+import { User } from '../_models/User-model';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { AuthenticationService } from '../_services/authentication.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -24,41 +24,44 @@ import { MatDialog } from '@angular/material/dialog';
 export class SaleItemComponent implements OnInit {
 
   // Item
-  private item: UserItem = new UserItem();
+  item: UserItem = new UserItem();
   // User
-  private userId: number;
+  userId: number;
   //Floating Chars
-  private itemFloatingCharsRel: ItemFloatingCharRel[] = [];
-  private itemTypeSelected: ItemCategoryModel;
-  private yearSelected: InputFilterYear;
-  private textarea: string = "";
+  itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  itemTypeSelected: ItemCategoryModel;
+  yearSelected: InputFilterYear;
+  textarea: string = "";
 
   /** Category List */
-  private categoryLevelSelector: number[] = [];
-  private itemFloatingChars: ItemFloatingChars[];
-  private itemTypes: ItemCategoryModel[];
-  private years: InputFilterYear[];
+  categoryLevelSelector: number[] = [];
+  itemFloatingChars: ItemFloatingChars[];
+  itemTypes: ItemCategoryModel[];
+  years: InputFilterYear[];
 
   /** File Uploading */
-  private fileCounter; number = 0;
-  private files: File[] = [];
-  private filesToUpload: File[] = [];
-  private uploadFlag: boolean = false;
+  fileCounter; number = 0;
+  files: File[] = [];
+  filesToUpload: File[] = [];
+  uploadFlag: boolean = false;
+  imgSelectionValid: boolean = false;
 
   /** Form Groups */
-  private firstFormGroup: FormGroup;
-  private secondFormGroup: FormGroup;
-  private thirdFormGroup: FormGroup;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   /** update Item Resume */
-  private increment: number = 0;
+  increment: number = 0;
   
   ngOnInit() {
-
+    
   }
 
+  
   constructor(
     public dialog: MatDialog,
+    private authService: AuthenticationService,
     private categoryService: CategoryService,
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
@@ -69,14 +72,13 @@ export class SaleItemComponent implements OnInit {
       // Initialize itemId
       this.item.id = null;
       //Set User
+      const userSession = this.authService.getSessionUser();
       this.item.user = new User();
-      this.item.user.id = "1";
+      this.item.user.id = userSession.id;
       //Set Status
       this.item.statusId = 1;
       //Set Empty Image Array
       this.item.itemImgUrls = [];
-
-      console.log("this.item.user: ", this.item.user);
 
       this.firstFormGroup = this._formBuilder.group({
         backRear: new FormControl('', Validators.required),
@@ -84,10 +86,11 @@ export class SaleItemComponent implements OnInit {
         frontRear: new FormControl('', Validators.required),
         year: new FormControl('', Validators.required),
         suspension: new FormControl('', Validators.required),
+        backSuspension: new FormControl('', ),
         itemTypeCatId: new FormControl('', Validators.required),
 
         ruedos: new FormControl('', Validators.required),
-        cassette: new FormControl('', Validators.required),
+        cassette: new FormControl('', Validators.required), 
         series: new FormControl('', Validators.required),
         gearLevel: new FormControl('', Validators.required),
         multiplication: new FormControl('', Validators.required),
@@ -96,18 +99,28 @@ export class SaleItemComponent implements OnInit {
 
         // Floating CHARS
         brand: new FormControl('', Validators.required),
-        genere: new FormControl('', Validators.required),
-        frameMaterial: new FormControl('', Validators.required),
-        wheelSize: new FormControl('', Validators.required),
-        breakType: new FormControl('', Validators.required),
-        talla: new FormControl('', Validators.required)
+        brandSearchBar: new FormControl(),
         
+        genere: new FormControl('', Validators.required),
+        genereSearchBar: new FormControl(),
+        
+        frameMaterial: new FormControl('', Validators.required),
+        frameMaterialSearchBar: new FormControl(),
+
+        wheelSize: new FormControl('', Validators.required),
+        wheelSizeSearchBar: new FormControl(),
+
+        breakType: new FormControl('', Validators.required),
+        breakTypeSearchBar: new FormControl(),
+
+        talla: new FormControl('', Validators.required),
+        tallaSearchBar: new FormControl()
       });
       this.secondFormGroup = this._formBuilder.group({
         
       });
       this.thirdFormGroup = this._formBuilder.group({
-        price: ['', [Validators.required, Validators.min(100), Validators.max(100000)]]
+        price: ['', [Validators.required, Validators.min(1000), Validators.max(500000), Validators.pattern(/^[0-9]\d*$/)]]
       });
       
       this.userId = 1;
@@ -125,7 +138,6 @@ export class SaleItemComponent implements OnInit {
 
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
       this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
-      console.log("itemTypes", this.itemTypes);
     });
   }
 
@@ -134,7 +146,7 @@ export class SaleItemComponent implements OnInit {
     if(!this.years)
       this.years = [];
 
-    for (let year = 2020; year > 2015; year--) {
+    for (let year = 2021; year > 2015; year--) {
       this.years = this.years.concat(new InputFilterYear(year, false));
     }
   }
@@ -148,8 +160,6 @@ export class SaleItemComponent implements OnInit {
             new ItemFloatingCharRel(floatingChar.floatingCharId, floatingChar.floatingCharName, -1, "")
           );
       });
-
-      console.log(this.itemFloatingChars);
     });
   }
 
@@ -159,11 +169,8 @@ export class SaleItemComponent implements OnInit {
 
   selectFloatingChar(charIndx: number, floatingCharId: number, floatingCharCatId: number) {
     
-    console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
-
     this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
     this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
-    console.log(this.itemFloatingCharsRel);
   }
 
   filterFloatChar(flaotingChar: string): ItemFloatingCharsCat[] {
@@ -211,20 +218,19 @@ export class SaleItemComponent implements OnInit {
   }
   
   onEmitComponentsRange($event) {
-    this.item.comments = $event;
+    this.item.componentsRate = $event;
   }
   
 
   textAreaValidation() {
-    console.log(this.firstFormGroup.get("isModified").value);
-
     let control = this.firstFormGroup.get('comments');
     control.disabled ? control.enable() : control.disable();
   }
 
-  firstStepSave() {
-    console.log("this.firstFormGroup.valid: ", this.firstFormGroup.valid);
-    if( this.firstFormGroup.valid
+  firstStepSave($event: any) {
+    $event.preventDefault();
+    console.log(this.firstFormGroup);
+    if( this.firstFormGroup.status == "VALID"
       ) {
 
       this.item = this.itemService.adaptFormToItem(this.firstFormGroup, this.item);
@@ -239,44 +245,91 @@ export class SaleItemComponent implements OnInit {
         new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
       ];
 
+      console.log("this.userId: ", this.userId);
       this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
-        console.log("itemRepsonse: ", itemRepsonse);
+
         this.item.id = itemRepsonse.id;
       });
     }
   }
 
-  secondStepSave() {
+  rateCompleted() : boolean {
+    if(
+      this.item.frameRate &&
+      this.item.ruedosRate &&
+      this.item.wheelsRate &&
+      this.item.componentsRate
+      ) {
+        return true;
+      }
+      return false;
+  }
+
+  onValidImgSelections($event) {
+    this.imgSelectionValid = true;
+  }
+
+  secondStepSave($event: any) {
+    $event.preventDefault();
     this.uploadFlag = true;
   }
 
+  onSubmit($event: any) {
+    $event.preventDefault();
+  }
+
   thirdStepSave() {
-    //TODO: color catalog
-    console.log(this.item);
+    if( this.thirdFormGroup.status == "VALID" && this.rateCompleted() ) {
+      this.item.price = this.thirdFormGroup.value.price;
 
-    this.item.price = this.thirdFormGroup.value.price;
-
-    this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
-      console.log("itemRepsonse: ", itemRepsonse);
-      this.item.id = itemRepsonse.id;
-    });
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+        this.item.id = itemRepsonse.id;
+        this.router.navigate(['/market-place', 'null' ]);
+      });
+    }
   }
 
   finalStep() {
     //openDialog
-    const dialogRef = this.dialog.open(GenericDialogComponent, {
+    /*
+   const dialogRef = this.dialog.open(GenericDialogComponent, {
       width: '250px',
       height: '200px',
       data: {
-        image: "/assets/images/publish/cargada-error-12.svg"
+        image: "/assets/images/publish/cargada-error-11.svg"
       }
     })
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
-      this.router.navigate(['item-detail/', this.item.id])
     });
+    */
+  }
+
+  populate() {
+
+    //text
+    this.firstFormGroup.controls['backRear'].setValue("backRear");
+    this.firstFormGroup.controls['model'].setValue("model 1");
+    this.firstFormGroup.controls['frontRear'].setValue("front Rear");
+    this.firstFormGroup.controls['year'].setValue(2020);
+    this.firstFormGroup.controls['suspension'].setValue("Suspension 1");
+    this.firstFormGroup.controls['backSuspension'].setValue("Suspension Trasera 1");
+    this.firstFormGroup.controls['ruedos'].setValue("Ruedos nombre");
+    this.firstFormGroup.controls['cassette'].setValue("Cassette nombre");
+    this.firstFormGroup.controls['series'].setValue("Serie 1");
+    this.firstFormGroup.controls['gearLevel'].setValue("gear level");
+    this.firstFormGroup.controls['multiplication'].setValue("Multiplicacion nombre");
+    this.firstFormGroup.controls['isModified'].setValue(true);
+    this.firstFormGroup.controls['comments'].setValue("Comments 1");
+
+    //Options
+    this.firstFormGroup.controls['brand'].setValue(106);
+    this.firstFormGroup.controls['genere'].setValue(72);
+    this.firstFormGroup.controls['frameMaterial'].setValue(67);
+    this.firstFormGroup.controls['breakType'].setValue(74);
+    this.firstFormGroup.controls['talla'].setValue(108);
+    this.firstFormGroup.controls['itemTypeCatId'].setValue(182);
+    this.firstFormGroup.controls['wheelSize'].setValue(96);
   }
 
 }

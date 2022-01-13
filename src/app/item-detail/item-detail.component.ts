@@ -5,17 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
 import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
-import { ItemService } from '../item-list/item.service';
+import { ItemService } from '../_services/item.service';
 import { ItemFloatingChars } from '../_models/item-floating-char';
 import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
 import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
 import { ItemImgUrls } from '../_models/Item-img-urls-model';
-import { UserItem } from '../_models/Item-user-model';
+import { UserItem } from '../_models/Item-model';
 import { ItemCategoryModel } from '../_models/main-categories-model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'item-detail',
-  templateUrl: './item-detail.component.html?v=${new Date().getTime()}',
+  templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit {
@@ -26,15 +27,18 @@ export class ItemDetailComponent implements OnInit {
   @Input()
   private increment: number;
 
+  public uploadedImgDir: string = environment.uploadedImgDir;
+  public server: string = environment.server;
+  
   public url: SafeResourceUrl;
 
-  private item: UserItem;
-  private itemFloatingChars: ItemFloatingChars[];
-  private itemType: ItemCategoryModel[];
-  private images: any[] = [];
-  private blobImgs: any[] = [];
-  private imageRows: number[] = [];
-  private principleImg: any;
+  public item: UserItem;
+  public itemFloatingChars: ItemFloatingChars[];
+  public itemType: ItemCategoryModel[];
+  public images: any[] = [];
+  public blobImgs: any[] = [];
+  public imageRows: number[] = [];
+  public principleImg: string = "";
 
   constructor(private itemService: ItemService, private route: ActivatedRoute,
     private floatingCharsService: FloatingCharsService,
@@ -57,12 +61,21 @@ export class ItemDetailComponent implements OnInit {
         if(params.itemId) {
           
           this.itemService.getById(params.itemId).subscribe( (itemResponse: UserItem) => {
-            this.assignFloatingChars(itemResponse, itemFloatingChars);
+
             this.orderImages(itemResponse);
+            console.log(itemResponse.itemImgUrls[0]);
+
+            this.principleImg = itemResponse.itemImgUrls[0].imgUrl;
+
+            this.assignFloatingChars(itemResponse, itemFloatingChars);
+            
           });
         } else {
           this.itemService.getById( parseInt(this.itemInput.id) ).subscribe( (itemResponse: UserItem) => {
             
+            console.log(itemResponse.itemImgUrls[0]);
+            this.principleImg = itemResponse.itemImgUrls[0].imgUrl;
+
             this.assignFloatingChars(itemResponse, itemFloatingChars);
             this.orderImages(itemResponse);
           });
@@ -76,7 +89,7 @@ export class ItemDetailComponent implements OnInit {
     
     // Sort image array
     itemResponse.itemImgUrls.sort(function(a: ItemImgUrls, b: ItemImgUrls) {
-      return b.id - a.id;
+      return a.imgUrl.localeCompare(b.imgUrl);
     });
     
     // setup image array
@@ -90,6 +103,7 @@ export class ItemDetailComponent implements OnInit {
         imgRowIndx = imgRowIndx + 2;
       }
     });
+    this.imageRows = this.imageRows.concat(imgRowIndx);
     
     let i = 0;
     this.images.forEach(image => {
@@ -99,14 +113,14 @@ export class ItemDetailComponent implements OnInit {
     });
   }
 
-  imgUrl(imageUrl: any) {
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
-
   setPrincipalImage(imageIndex) {
-    this.principleImg = this.blobImgs[imageIndex];
+    this.principleImg = imageIndex;
   }
-
+  /**
+   * 
+   * @param itemResponse 
+   * @param itemFloatingChars 
+   */
   assignFloatingChars(itemResponse: UserItem, itemFloatingChars: ItemFloatingChars[]) {
     this.item = itemResponse;
     if(this.item.itemFloatingChars) {
@@ -170,30 +184,12 @@ export class ItemDetailComponent implements OnInit {
   isImageLoading: boolean;
 
   getImageFromService(imageName: string, imgIndex: number) {
-    
     this.isImageLoading = true;
-    this.itemService.getImage(imageName).subscribe(data => {
-      this.createImageFromBlob(data, imgIndex);
-      this.isImageLoading = false;
-    }, error => {
-      this.isImageLoading = false;
-      
-    });
+    this.blobImgs[imgIndex] = imageName;
   }
 
-  createImageFromBlob(image: Blob, imgIndex: number) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-
-      this.blobImgs[imgIndex] = reader.result;
-      if(imgIndex == 0) {
-        this.principleImg = reader.result;
-      }
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+  getImgBaseUrl() {
+    return this.server + this.uploadedImgDir;
   }
 
   openPopUp() {

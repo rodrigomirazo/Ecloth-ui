@@ -1,0 +1,511 @@
+
+<div class="profile" *ngIf="profileFormGroup.value && profileFormGroup && addressFormGroup">
+
+    <div class="row row-height">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <mat-card class="mat-card">
+                <mat-card-content>
+                    <table class="card-header">
+                        <tr>
+                            <td class="card-title">
+                                <mat-card-title>Perfil</mat-card-title>
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                <button mat-stroked-button (click)="toggleProfileEdit()" [ngClass]="{'edit-mode-button': editProfile}">
+                                    <mat-icon>edit</mat-icon>
+                                    Editar
+                                </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <form [formGroup]="profileFormGroup">
+                    <table class="card-header">
+                        <!-- User Sesion -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editProfile">
+                                    <p class="field-name">Nombre de Usuario</p>
+                                    <p class="field-value" *ngIf="profileFormGroup.value.userName" >{{ profileFormGroup.value.userName }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.userName">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editProfile">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Nombre de Usuario</mat-label>
+                                        <input matInput placeholder="Nombre de Usuario" value="" formControlName="userName">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Name -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editProfile">
+                                    <p class="field-name">Nombre</p>
+                                    <p class="field-value" *ngIf="profileFormGroup.value.name" >{{ profileFormGroup.value.name }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.name">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editProfile">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Nombre</mat-label>
+                                        <input matInput placeholder="Nombre de Usuario" value="" formControlName="name">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- lastname -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editProfile">
+                                    <p class="field-name">Apellidos</p>
+                                    <p class="field-value" *ngIf="profileFormGroup.value.lastname">
+                                        {{ profileFormGroup.value.lastname }}
+                                    </p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.lastname">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editProfile">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Apellidos</mat-label>
+
+                                        <input matInput placeholder="Apellidos" value="" formControlName="lastname">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Mail -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editProfile">
+                                    <p class="field-name">Mail</p>
+                                    <p class="field-value" *ngIf="profileFormGroup.value.email" >{{ profileFormGroup.value.email }}</p>
+                                    <p class="field-value" *ngIf="!profileFormGroup.value.email">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editProfile">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Mail</mat-label>
+                                        <input matInput placeholder="Mail" value="" formControlName="email"
+                                                [email]="true" type="email" required
+                                                [ngClass]="{ 'is-invalid': submitted && f.usermail.errors }">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                    </form>
+
+                    <table class="card-header" style="margin-top: 20px;">
+                        <tr>
+                            <td class="card-title">
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                <button mat-stroked-button
+                                        (click)="onSubmitProfile()"
+                                        [disabled]="!profileFormGroup.valid || !editProfile">
+                                    <mat-icon>save</mat-icon>
+                                    Guardar
+                                </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="mat-card" style="height: 32em;">
+                <mat-card-content>
+                    <table class="card-header">
+                        <tr>
+                            <td class="card-title">
+                                <mat-card-title>Cambiar Contrasena</mat-card-title>
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                <button mat-stroked-button (click)="togglePasswordEdit()" [ngClass]="{'edit-mode-button': editPassword}">
+                                    <mat-icon>edit</mat-icon>
+                                    Editar Contraseña
+                                </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="card-header">
+                        
+                        <tr class="row-height">
+                            <td class="card-title"> Para Cambiar Contraseña Haz los sig. Pasos</td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 1. Click en Editar Contraseña</td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 2. Click En Solicitud de cambio de Contraseña </td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 3. Resiviras un enlace con la solicitus </td>
+                        </tr>
+                        <tr class="row-height">
+                            <td class="card-title"> 4. Al abrir ese Link, Encontraras el formulario para definir la Contraseña </td>
+                        </tr>
+                    </table>
+
+                    <!--
+                    <form [formGroup]="passwordFormGroup">
+                    <table class="card-header">
+                        password --
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editPassword">
+                                    <p class="field-name">Contraseña</p>
+                                    <p class="field-value">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</p>
+                                </div>
+                                <div *ngIf="editPassword">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Contraseña</mat-label>
+                                        <input matInput placeholder="Contraseña" formControlName="password" type="password">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        confirmPassword
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editPassword">
+                                    <p class="field-name">Confirmar Contraseña</p>
+                                    <p class="field-value">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</p>
+                                </div>
+                                <div *ngIf="editPassword">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Confirmar Contraseña</mat-label>
+                                        <input matInput placeholder="Confirmar Contraseña" formControlName="confirmPassword" type="password">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                    </form>
+                    -->
+
+                    <table class="card-header" style="margin-top: 20px;">
+                        <tr>
+                            <td class="card-title">
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                    <button mat-stroked-button
+                                            (click)="authService.ForgotPassword(userSession.email)"
+                                            [disabled]="!editPassword">
+                                        <mat-icon>send</mat-icon>
+                                        Solicitar Correo de Nueva Contraseña
+                                    </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <mat-card class="mat-card" style="height: 62em;">
+                <mat-card-content>
+                    <table class="card-header">
+                        <tr>
+                            <td class="card-title">
+                                <mat-card-title>Direccion</mat-card-title>
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                <button mat-stroked-button (click)="toggleAddressEdit()"
+                                        [ngClass]="{'edit-mode-button': editAddress}">
+                                    <mat-icon>edit</mat-icon>
+                                    Editar
+                                </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <form [formGroup]="addressFormGroup">
+                    <table class="card-header">
+                        <!-- name -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Nombre</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.name" >{{ addressFormGroup.value.name }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.name">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Nombre</mat-label>
+                                        <input matInput placeholder="Nombre" value="" formControlName="name">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- lastnames -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Apellidos</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.lastnames" >{{ addressFormGroup.value.lastnames }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.lastnames">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Apellidos</mat-label>
+                                        <input matInput placeholder="Apellidos" value="" formControlName="lastnames">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- street -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Calle</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.street">
+                                        {{ addressFormGroup.value.street }}
+                                    </p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.street">
+                                        Sin Definir
+                                    </p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Calle</mat-label>
+
+                                        <input matInput placeholder="Calle" value="" formControlName="street">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- intNumber -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">No. Interior</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.intNumber" >{{ addressFormGroup.value.intNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.intNumber">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>No. Interior</mat-label>
+                                        <input matInput placeholder="No. Interior" value="" formControlName="intNumber">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- ext Number -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">No. Exterior</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.extNumber" >
+                                        {{ addressFormGroup.value.extNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.extNumber">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>No. Exterior</mat-label>
+                                        <input matInput placeholder="No. Exterior" formControlName="extNumber">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- zipCode -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Código Postal</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.zipCode" >
+                                        {{ addressFormGroup.value.zipCode}}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.zipCode">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Código Postal</mat-label>
+                                        <input matInput placeholder="Código Postal" formControlName="zipCode">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- state -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Estado</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.state" >
+                                        {{ addressFormGroup.value.state }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.state">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Estado</mat-label>
+                                        <input matInput placeholder="Estado" formControlName="state">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- city -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Ciudad</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.city" >
+                                        {{ addressFormGroup.value.city }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.city">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Ciudad</mat-label>
+                                        <input matInput placeholder="Ciudad" formControlName="city">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- suburb -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Colonia</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.suburb" >
+                                        {{ addressFormGroup.value.suburb }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.suburb">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Colonia</mat-label>
+                                        <input matInput placeholder="Colonia" formControlName="suburb">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- reference -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Referencia</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.reference" >
+                                        {{ addressFormGroup.value.reference }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.reference">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Referencia</mat-label>
+                                        <input matInput placeholder="Referencia" formControlName="reference">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- phoneNumber -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Telefono</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.phoneNumber" >
+                                        {{ addressFormGroup.value.phoneNumber }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.phoneNumber">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Telefono</mat-label>
+                                        <input matInput placeholder="Telefono" formControlName="phoneNumber">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- streetRef -->
+                        <tr class="row-height">
+                            <td class="card-title">
+                                <div *ngIf="!editAddress">
+                                    <p class="field-name">Entre Calles</p>
+                                    <p class="field-value" *ngIf="addressFormGroup.value.streetRef" >
+                                        {{ addressFormGroup.value.streetRef }}</p>
+                                    <p class="field-value" *ngIf="!addressFormGroup.value.streetRef">Sin Definir</p>
+                                </div>
+                                <div *ngIf="editAddress">
+                                    <mat-form-field class="input-text-alignment">
+                                        <mat-label>Entre Calles</mat-label>
+                                        <input matInput placeholder="Entre Calles" formControlName="streetRef">
+                                        <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                    </form>
+
+                    <table class="card-header" style="margin-top: 20px;">
+                        <tr>
+                            <td class="card-title">
+                            </td>
+                            <td class="card-edit">
+                                <mat-card-subtitle>
+                                <button mat-stroked-button
+                                        (click)="onSubmitAddress()"
+                                        [disabled]="!addressFormGroup.valid || !editAddress">
+                                    <mat-icon>save</mat-icon>
+                                    Guardar
+                                </button>
+                                </mat-card-subtitle>
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+</div>

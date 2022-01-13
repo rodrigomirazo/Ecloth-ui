@@ -5,16 +5,22 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { LoginComponent } from './login/login.component';
 import { MarketPlaceComponent } from './market-place/market-place.component';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
 import { ReturnPolicyComponent } from './return-policy/return-policy.component';
 import { SaleItemComponent } from './sale-item/sale-item.component';
+import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
 import { TermsComponent } from './terms-conditions/terms-conditions.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
+import { UserConsoleComponent } from './ADMIN_CONSOLE/user-console/user-console.component';
+import { InterceptVerificationComponent } from './_authComponents/intercept-verification/intercept-verification.component';
 
 const routes: Routes = [
   { path: 'index', component: HomePageComponent, runGuardsAndResolvers: 'always' },
-  { path: 'login', component: LoginComponent },
-  
   { path: '', redirectTo: 'index', pathMatch: 'full', runGuardsAndResolvers: 'always'},
   { path: 'market-place/:inputFilter', component: MarketPlaceComponent },
   { path: 'market-place/:inputFilter/:searchBar', component: MarketPlaceComponent },
@@ -25,14 +31,28 @@ const routes: Routes = [
   { path: 'terms', component: TermsComponent},
   { path: 'privacy', component: PrivacyComponent},
   { path: 'return-policy', component: ReturnPolicyComponent},
-  { path: 'customer-service', component: CustomerServiceComponent}
+  { path: 'customer-service', component: CustomerServiceComponent},
+  
+  { path: 'register', component: RegisterUserComponent},
+
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-in', component: SignInComponent },
+  
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+  { path: 'auth/verification', component: InterceptVerificationComponent },
+  { path: 'payment-confirmation/:itemId', component: PaymentConfirmationComponent, canActivate: [ AuthGuard ] },
+
+  { path: 'console/:section', component: UserConsoleComponent, canActivate: [ AuthGuard ] },
+  { path: 'console/:section/:itemId', component: UserConsoleComponent, canActivate: [ AuthGuard ] }
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-  
+
 }

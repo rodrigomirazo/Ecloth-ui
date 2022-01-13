@@ -4,12 +4,12 @@ export class ItemImgUrlsJson {
     private id: number;
     private itemId: number;
     private createdTime: number;
-    private imgUrl: String;
-    private imgServer: String;
+    private imgUrl: string;
+    private imgServer: string;
 
 	constructor() {
 	}
-	
+
     /**
      * Getter $id
      * @return {number}
@@ -36,17 +36,17 @@ export class ItemImgUrlsJson {
 
     /**
      * Getter $imgUrl
-     * @return {String}
+     * @return {string}
      */
-	public get $imgUrl(): String {
+	public get $imgUrl(): string {
 		return this.imgUrl;
 	}
 
     /**
      * Getter $imgServer
-     * @return {String}
+     * @return {string}
      */
-	public get $imgServer(): String {
+	public get $imgServer(): string {
 		return this.imgServer;
 	}
 
@@ -76,19 +76,18 @@ export class ItemImgUrlsJson {
 
     /**
      * Setter $imgUrl
-     * @param {String} value
+     * @param {string} value
      */
-	public set $imgUrl(value: String) {
+	public set $imgUrl(value: string) {
 		this.imgUrl = value;
 	}
 
     /**
      * Setter $imgServer
-     * @param {String} value
+     * @param {string} value
      */
-	public set $imgServer(value: String) {
+	public set $imgServer(value: string) {
 		this.imgServer = value;
 	}
-
-
+	
 }

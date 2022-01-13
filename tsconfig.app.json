@@ -6,7 +6,16 @@
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts"
+    "src/polyfills.ts",
+
+    //"src/app/_helpers/index.ts",
+    //"src/app/_helpers/jwt.interceptor.ts",
+    //"src/app/_models/User.ts",
+    //"src/app/_models/floating-char-cat-Ids-selected.ts",
+    //"src/app/_models/floating-char-Ids-selected.ts",
+    //"src/app/_models/item-selected-filters.ts"
+    //"src/environments/environment.prod.ts"
+    
   ],
   "include": [
     "src/**/*.ts"

@@ -3,9 +3,10 @@
     margin-top: 40px;
     padding-top: 40px;
     background-color: #000000e3;
-    height: 24vh;
+    height: 28vh;
     bottom: -10px;
     display: flex;
+    width: 100%;
 }
 
 .footer-title {

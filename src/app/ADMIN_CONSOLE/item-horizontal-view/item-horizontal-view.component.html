@@ -1,0 +1,313 @@
+
+<table class="item-transaction-table">
+    <tr class="item-row-title" *ngIf="rowHeader">
+
+        <td class="item-cell-title">
+            <div class="saled-date-item-title">Fecha de Venta</div>
+            <div class="saled-date-item-detail">{{ dateFormat(itemTransaction.item.createdTime) | date: 'dd/MM/yyyy'}}</div>
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Status de Producto </div>
+            {{itemTransaction.transactionStatus }}
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Numero de Guia </div>
+            <div class="saled-date-item-detail"> {{itemTransaction.trackingNumber }} </div>
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Numero de Producto </div>
+            <div class="saled-date-item-detail"> {{itemTransaction.item.id }} </div>
+        </td>
+    </tr>
+    <tr class="item-detail-row">
+        <td style="width: 20%" *ngIf="itemTransaction.item.itemImgUrls[0]">
+            
+            <div class="col-md-12 col-sm-11 col-xs-12" *ngIf="itemTransaction.item.itemImgUrls[0].imgUrl">
+                <img [src]=" server + uploadedImgDir + itemTransaction.item.itemImgUrls[0].imgUrl" class="img-item">
+            </div>
+        </td>
+        <td style="width: 18%">
+            <div *ngIf="itemTransaction.item">
+                <b><p class="name-item-detail">{{itemTransaction.item.model}}</p></b>
+                <b><p class="size-item-detail" *ngIf="itemType"> Talla {{ filterCatalog('talla') }} {{ filterItemType(itemTransaction.item.itemTypeCatId)}} {{itemTransaction.item.year}} </p></b>
+                
+                <b><p class="price-item-detail">{{itemTransaction.item.price | currency}}</p></b>
+                <b><p class="sku-item-detail">Número de producto {{itemTransaction.item.id}}</p></b>
+
+            </div>
+        </td>
+        <td style="width: 20%" class="date-format" *ngIf="dateAndIdColumn">
+            Fecha de Solicitud: {{ dateFormat(itemTransaction.item.createdTime) | date: 'dd/MM/yyyy'}} <br>
+            Numero de Producto: {{itemTransaction.item.id }}
+        </td>
+
+        <!-- Diagnost form Begin -->
+        <td style="width: 28%" *ngIf="diagnostCommentInput">
+                <mat-form-field class="diagnost-full-width">
+                  <mat-label>Comentario de Diagnostico</mat-label>
+                  <textarea matInput placeholder="Ej. Articulo Invalido..."
+                            [disabled]="diagnosted"
+                            name="textComments"
+                            ngDefaultControl
+                            [(ngModel)]="diagnostComment"
+                            [ngModelOptions]="{standalone: true}"
+                            style="height: 5em; width: 100%;"></textarea>
+                </mat-form-field> <br>
+                <section class="approved-section">
+                    <mat-checkbox
+                        class="approved-margin"
+                        [(ngModel)]="itemApproved"
+                        [ngModelOptions]="{standalone: true}"
+                        name="approvedComments"
+                        [disabled]="diagnosted"
+                        ngDefaultControl>Aprovado</mat-checkbox>
+                </section>
+        </td>
+        <!-- Diagnost form End -->
+
+        <!-- Payment Details Begin -->
+        <td style="width: 25%; padding-top: 1.5em;" *ngIf="paymentDetails" colspan="2">
+            <p class="paymeent-detail"> Desglose de Venta </p>
+            <div *ngIf="itemTransaction.item">
+                <table class="table-ammounts" *ngIf="itemTransaction.item.price">
+                    <tr>
+                        <td class="table-ammounts-name"> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+
+                    <tr>
+                        <td class="table-ammounts-name"> Precio Bicicleta: </td>
+                        <td class="table-ammounts-number"> {{ itemTransaction.item.price | currency }} </td>
+                    </tr>
+
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Servicio: </td>
+                        <td class="table-ammounts-number"> - {{ serviceCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Baaw: </td>
+                        <td class="table-ammounts-number"> - {{ webSiteCommision | currency }} </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="table-ammounts-name"> IVA: </td>
+                        <td class="table-ammounts-number"> - {{ webSiteTax | currency }} </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="table-ammounts">
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td class="table-ammounts-total"> Total a Recibir: </td>
+                        <td class="table-ammounts-total-number"> {{ itemTransactionTotalVendor | currency }} </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td style="width: 25%; padding-top: 1.5em;" *ngIf="vendorPaymentDetails" colspan="2">
+            <p class="paymeent-detail"> Desglose de Venta </p>
+            <div *ngIf="itemTransaction.item">
+                <table class="table-ammounts" *ngIf="itemTransaction.item.price">
+                    <tr>
+                        <td class="table-ammounts-name"> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Servicio: </td>
+                        <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Baaw: </td>
+                        <td class="table-ammounts-number"> {{ webSiteCommision | currency }} </td>
+                    </tr>
+        
+                    <tr>
+                        <td class="table-ammounts-name"> Comision Bancaria: </td>
+                        <td class="table-ammounts-number"> {{ paypalComission | currency }} </td>
+                    </tr>
+
+                    <tr>
+                        <td class="table-ammounts-name"> IVA: </td>
+                        <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="table-ammounts">
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td> <br> </td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr>
+                        <td class="table-ammounts-total"> Total: </td>
+                        <td class="table-ammounts-total-number"> {{ itemTransactionTotal | currency }} </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <!-- Payment Details End -->
+
+        <!-- Diagnost Comments Begin -->
+        <td style="width: 25%" *ngIf="diagnostCommentComplete">
+            <p class="diagnost-comments">{{itemTransaction.item.diagnostComments}}</p>
+        </td>
+        <!-- Diagnost Comments End -->
+
+        <!-- Diagnost Status Begin -->
+        <td style="width: 25%;" *ngIf="diagnostCommentInput">
+
+            <div *ngIf="itemApproved && diagnosted">
+                Aprovado
+            </div>
+            <div *ngIf="!itemApproved && diagnosted">
+                Desaprobado
+            </div>
+
+            <button class="submit-button"
+                    (click)="sendDiagnosist()"
+                    *ngIf="!diagnosted"
+                    mat-raised-button color="primary"> Diagnosticar </button>
+        </td>
+        <!-- Diagnost Status End -->
+
+        <!-- Sent Tracker Begin -->
+        <td style="width: 50%;" *ngIf="serviceColumn">
+
+            <table class="table-service" *ngIf="itemTransaction.item">
+
+                <tr>
+                    <td class="table-service-checkbox" colspan="2" style="width: 18%">
+                        <section class="approved-section">
+                            <mat-checkbox
+                                class="approved-margin"
+                                [(ngModel)]="authorize"
+                                [ngModelOptions]="{standalone: true}"
+                                name="authorizeInput"
+                                (change)="onCheckAuthorize()"
+                                [disabled]=""
+                                ngDefaultControl>
+                                <div *ngIf="authorize">Autorizado</div>
+                                <div *ngIf="!authorize">Autorizar</div>
+                            </mat-checkbox>
+                        </section>
+                    </td>
+                    <td class="table-service-checkbox" colspan="2" style="width: 30%">
+                        <section class="approved-section">
+                            <mat-checkbox
+                                class="approved-margin"
+                                [(ngModel)]="service"
+                                [ngModelOptions]="{standalone: true}"
+                                name="serviceInput"
+                                (change)="onCheckService()"
+                                [disabled]="!authorize"
+                                ngDefaultControl>
+                                    <div *ngIf="!service">Lavar y Empaquetar</div>
+                                    <div *ngIf="service">Lavado y Empaquetado</div>
+                            </mat-checkbox>
+                        </section>
+                    </td>
+                    <td class="table-service-checkbox" style="width: 16%">
+                        <section class="approved-section">
+                            <mat-checkbox
+                                class="approved-margin"
+                                [(ngModel)]="sent"
+                                [ngModelOptions]="{standalone: true}"
+                                name="sentInput"
+                                (change)="onCheckSent()"
+                                [disabled]="!service"
+                                ngDefaultControl>
+
+                                <div *ngIf="sent">Enviada</div>
+                                <div *ngIf="!sent">Enviar</div>
+                            </mat-checkbox>
+                        </section>
+                    </td>
+                    <td class="table-service-checkbox" style="width: 25%">
+                        <section class="approved-section">
+                            <mat-checkbox
+                                class="approved-margin"
+                                [(ngModel)]="received"
+                                [ngModelOptions]="{standalone: true}"
+                                name="approvedComments"
+                                (change)="onCheckReceived()"
+                                [disabled]="!sent"
+                                ngDefaultControl>
+                                
+                                <div *ngIf="received">Entregada</div>
+                                <div *ngIf="!received">Entregar</div>
+
+                            </mat-checkbox>
+                        </section>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-service-input-name" colspan="4">
+                        <mat-form-field style="width: 80%; margin-bottom: -1.2em;">
+                            <mat-label>Paqueteria</mat-label>
+                            <input  matInput placeholder="Ex. DHL"
+                                    [(ngModel)]="trackerCompany"
+                                    [disabled]="!sent">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-service-input-name" colspan="4">
+                        <mat-form-field style="width: 80%;">
+                            <mat-label>Numero de Guia</mat-label>
+                            <input  matInput placeholder="Ex. 123ABC"
+                                    [(ngModel)]="trackingNumber"
+                                    [disabled]="!sent">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="table-service-name">
+
+                        </div>
+                        <div class="table-service-name-value">
+
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div class="table-service-name">
+
+                        </div>
+                        <div class="table-service-name-value">
+
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+
+            <button class="submit-button-admin-tracker"
+                    (click)="sendServiceFlow()"
+                    mat-raised-button> Guardar Cambios </button>
+        </td>
+
+        <!-- Sent Tracker End -->
+        <td style="width: 25%;" *ngIf="shopDetailButton">
+            <button style="margin-left: 10%; background-color: #18c65e"
+
+                [routerLink]="['/console/shoppingFollowUp/' + itemTransaction.id ]"
+                mat-raised-button color="primary">Seguimiento de Entrega</button>
+        </td>
+
+    </tr>
+    
+</table>

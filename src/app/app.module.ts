@@ -37,10 +37,53 @@ import { LoginComponent } from './login/login.component';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
 import { CustomerServiceComponent } from './customer-service/customer-service.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
+import { SubModuleTitleComponent } from './ADMIN_CONSOLE/sub-module-title/sub-module-title.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { TransactionDialogComponent } from './payment-confirmation/transaction-dialog/transaction-dialog.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AuthenticationService } from './_services/authentication.service';
+import { SignInComponent } from './_authComponents/sign-in/sign-in.component';
+import { SignUpComponent } from './_authComponents/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './_authComponents/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './_authComponents/verify-email/verify-email.component';
+import { UserConsoleComponent } from './ADMIN_CONSOLE/user-console/user-console.component';
+import { UserMenuComponent } from './ADMIN_CONSOLE/user-menu/user-menu.component';
+import { UserSalesComponent } from './ADMIN_CONSOLE/user-sales/user-sales.component';
+import { UserShoppingComponent } from './ADMIN_CONSOLE/user-shopping/user-shopping.component';
+import { ItemDiagnosisComponent } from './ADMIN_CONSOLE/item-diagnosis/item-diagnosis.component';
+import { ShoppingAdminComponent } from './ADMIN_CONSOLE/shopping-admin/shopping-admin.component';
+import { UserFavouritesComponent } from './ADMIN_CONSOLE/user-favourites/user-favourites.component';
+import { UserProfileComponent } from './ADMIN_CONSOLE/user-profile/user-profile.component';
+import { FrequentAnswersComponent } from './ADMIN_CONSOLE/frequent-answers/frequent-answers.component';
+import { ItemHorizontalViewComponent } from './ADMIN_CONSOLE/item-horizontal-view/item-horizontal-view.component';
+import { FilterElementsComponent } from './ADMIN_CONSOLE/filter-elements/filter-elements.component';
+import { ShoppingFollowUpComponent } from './ADMIN_CONSOLE/shopping-follow-up/shopping-follow-up.component';
+import { PurchaseDetailComponent } from './ADMIN_CONSOLE/purchase-detail/purchase-detail.component';
+import { InterceptVerificationComponent } from './_authComponents/intercept-verification/intercept-verification.component';
+import { GenericMessageComponent } from './generic-message/generic-message.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto'
+};
+
+const googleAuthConfig = {
+  apiKey: "AIzaSyC7A9QWrUGoaGasGz6E2xOWDU5YpfwVKoo",
+  authDomain: "baaw-797ba.firebaseapp.com",
+  databaseURL: "https://baaw-797ba-default-rtdb.firebaseio.com",
+  projectId: "baaw-797ba",
+  storageBucket: "baaw-797ba.appspot.com",
+  messagingSenderId: "824333940764",
+  appId: "1:824333940764:web:f1f229a2fff7e0875c07d9",
+  measurementId: "G-GQWWVD43TQ"
 };
 
 @NgModule({
@@ -70,7 +113,30 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     LoginComponent,
     //ErrorInterceptor
     GenericDialogComponent,
-    CustomerServiceComponent
+    CustomerServiceComponent,
+    PaymentConfirmationComponent,
+    SubModuleTitleComponent,
+    TransactionDialogComponent,
+    RegisterUserComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
+    UserConsoleComponent,
+    UserMenuComponent,
+    UserSalesComponent,
+    UserShoppingComponent,
+    ItemDiagnosisComponent,
+    ShoppingAdminComponent,
+    UserFavouritesComponent,
+    UserProfileComponent,
+    FrequentAnswersComponent,
+    ItemHorizontalViewComponent,
+    FilterElementsComponent,
+    ShoppingFollowUpComponent,
+    PurchaseDetailComponent,
+    InterceptVerificationComponent,
+    GenericMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,12 +147,22 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     SlickCarouselModule,
-    SwiperModule
+    SwiperModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule,
+    NgxPayPalModule,
+    AngularFireModule.initializeApp(googleAuthConfig),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule // storage
   ],
-  providers: [{
-    provide: SWIPER_CONFIG,
-    useValue: DEFAULT_SWIPER_CONFIG
-  }],
+  providers: [
+    AuthenticationService,
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG,
+    }
+  ],
   entryComponents: [
     GenericDialogComponent
   ],

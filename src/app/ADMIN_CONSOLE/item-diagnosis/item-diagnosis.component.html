@@ -1,0 +1,57 @@
+
+
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xm-4
+                col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+        <filter-elements    [startDate]="startDate" [endDate]="endDate"
+        (dateOutput)="getStartDate($event)" ></filter-elements>
+    </div>
+    
+    <div class="col-lg-7 col-md-7 col-sm-7 col-xm-7" style="margin-top: 15px;">
+        <table style="width: 100%;">
+            <tr>
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="diagnostFilter" (change)="itemsNotYetApproved()">
+                    <td style="width: 40%;"> <mat-radio-button [value]="'notReviewed'">Sin Diagnostico</mat-radio-button> </td>
+                    <td style="width: 40%;"> <mat-radio-button [value]="'accepted'">Aceptados</mat-radio-button> </td>
+                    <td style="width: 40%;"> <mat-radio-button [value]="'rejected'">Rechazados</mat-radio-button> </td>
+                </mat-radio-group>
+            </tr>
+        </table>
+    </div>    
+</div>
+
+
+<div class="row" *ngIf="items">
+
+    <div *ngIf="items.length == 0" style="    text-align: center; color: #ccc; margin-top: 2em;">
+        <h1>
+            Sin Bicicletas en esta selección
+        </h1>
+    </div>
+    <div *ngIf="items.length > 0">
+    
+        <div *ngFor="let itemTransaction of items; let i=index">
+            <item-horizontal-view 
+                *ngIf="diagnostFilter === 'notReviewed' "
+                    [itemTransaction]="tranasactionWrapper( itemTransaction )"
+                    [itemType]="itemType"
+                    [rowHeader]="false"
+                    [dateAndIdColumn]="true"
+                    [diagnostCommentInput]="true"
+            ></item-horizontal-view>
+
+            <item-horizontal-view
+                *ngIf="diagnostFilter === 'accepted' || diagnostFilter === 'rejected' "
+                    [itemTransaction]="tranasactionWrapper( itemTransaction )"
+                    [itemType]="itemType"
+                    [rowHeader]="false"
+                    [dateAndIdColumn]="true"
+                    [diagnostCommentComplete]="true"
+            ></item-horizontal-view>
+
+            
+        </div>
+        
+    </div>
+
+</div>

@@ -1,7 +1,7 @@
 <div class="row" style="padding-left: 2.5%; padding-right: 2.5%;">
 
-    <!-- TODO: add linear attr -->
-    <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
+    <!-- TODO: add  attr linear-->
+    <mat-horizontal-stepper labelPosition="bottom" #stepper>
         <mat-step [stepControl]="firstFormGroup">
             
             <!-- Begin First Step -->
@@ -10,22 +10,25 @@
                 <p class="first-step-sub-title">Necesitamos saber qué tipo de bicicleta tienes</p>
             </div>
 
-            <form [formGroup]="firstFormGroup" class="form-font-family">
+            <form [formGroup]="firstFormGroup" class="form-font-family"  (submit)="onSubmit($event)">
                 <ng-template matStepLabel>Cuéntanos de tu Bicicleta</ng-template>
                     <div class="row">
-                        <!-- Marca -->
+                        <!-- Marca [searchBarFormGroup]="'brandSearchBar'" -->
                         <div class="col-md-4 col-md-offset-3">
                             <app-catalog-selector
+                            [tittlaCase]="true"
                             [inputTitle]="'Marca'"
                             [inputFormName]="'brand'"
+                            
                             [parentFormGroup]="firstFormGroup"
                             [itemFloatingChar]="filterFloatChar('brand')"
-                            [itemFloatingCharRel]="filterFloatCharRel('brand')" ></app-catalog-selector>
+                            [itemFloatingCharRel]="filterFloatCharRel('brand')"></app-catalog-selector>
                         </div>
+
                         <!-- Cambio Trasero -->
                         <div class="col-md-4">
                             <mat-form-field class="input-text-alignment">
-                                <mat-label>Dirección de correo</mat-label>
+                                <mat-label>Cambio Trasero</mat-label>
                                 <input matInput placeholder="Cambio Trasero" value="" formControlName="backRear">
                                 <mat-hint> <p style="color: #18c65e; ">Este campo es obligatorio*</p></mat-hint>
                             </mat-form-field>
@@ -70,8 +73,8 @@
                         <!-- Suspension -->
                         <div class="col-md-4">
                             <mat-form-field class="input-text-alignment">
-                                <mat-label>Suspensión</mat-label>
-                                <input matInput placeholder="Cambio Delantero" value="" formControlName="suspension">
+                                <mat-label>Suspensión / Tijera</mat-label>
+                                <input matInput placeholder="Suspensión / Tijera" value="" formControlName="suspension">
                                 <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
                             </mat-form-field>
                         </div>
@@ -93,6 +96,30 @@
                                 <mat-hint style="color: #18c65e; margin-left: -10px;">Este campo es Obligatorio*</mat-hint>
                             </mat-form-field>
                         </div>
+                        <!-- Suspension -->
+                        <div class="col-md-4">
+                            <mat-form-field class="input-text-alignment">
+                                <mat-label>Suspensión Trasera</mat-label>
+                                <input matInput placeholder="Suspensión Trasera" value="" formControlName="backSuspension">
+                                <mat-hint> <p style="color: #303130; ">Este campo es Opcional*</p></mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Genero [searchBarFormGroup]="'genereSearchBar'" -->
+                        <div class="col-md-4 col-md-offset-3">
+                            <app-catalog-selector
+                            [tittlaCase]="true"
+                            [inputTitle]="'Genero'"
+                            [inputFormName]="'genere'"
+                            
+                            [parentFormGroup]="firstFormGroup"
+                            [itemFloatingChar]="filterFloatChar('genero')"
+                            [itemFloatingCharRel]="filterFloatCharRel('genero')"></app-catalog-selector>
+                        </div>
+
+                                                
                         <!-- Ruedos -->
                         <div class="col-md-4">
                             <mat-form-field class="input-text-alignment">
@@ -104,15 +131,18 @@
                     </div>
 
                     <div class="row">
-                        <!-- Genero -->
+                        <!-- Material del Cuadro [searchBarFormGroup]="'frameMaterialSearchBar'" -->
                         <div class="col-md-4 col-md-offset-3">
                             <app-catalog-selector
-                            [inputTitle]="'Genero'"
-                            [inputFormName]="'genere'"
+                            [tittlaCase]="true"
+                            [inputTitle]="'Material del Cuadro'"
+                            [inputFormName]="'frameMaterial'"
+                            
                             [parentFormGroup]="firstFormGroup"
-                            [itemFloatingChar]="filterFloatChar('genero')"
-                            [itemFloatingCharRel]="filterFloatCharRel('genero')" ></app-catalog-selector>
+                            [itemFloatingChar]="filterFloatChar('material_de_cuadro')"
+                            [itemFloatingCharRel]="filterFloatCharRel('material_de_cuadro')" ></app-catalog-selector>
                         </div>
+
                         <!-- Cassette -->
                         <div class="col-md-4">
                             <mat-form-field class="input-text-alignment">
@@ -121,17 +151,21 @@
                                 <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
                             </mat-form-field>
                         </div>
+                        
                     </div>
-
+                    
                     <div class="row">
-                        <!-- Material del Cuadro -->
+
                         <div class="col-md-4 col-md-offset-3">
+                            <!-- Medida de Llanta [searchBarFormGroup]="'wheelSizeSearchBar'" -->
                             <app-catalog-selector
-                            [inputTitle]="'Material del Cuadro'"
-                            [inputFormName]="'frameMaterial'"
+                            [tittlaCase]="true"
+                            [inputTitle]="'Medida de Llanta'"
+                            [inputFormName]="'wheelSize'"
+                            
                             [parentFormGroup]="firstFormGroup"
-                            [itemFloatingChar]="filterFloatChar('material_de_cuadro')"
-                            [itemFloatingCharRel]="filterFloatCharRel('material_de_cuadro')" ></app-catalog-selector>
+                            [itemFloatingChar]="filterFloatChar('medida_de_llanta')"
+                            [itemFloatingCharRel]="filterFloatCharRel('medida_de_llanta')" ></app-catalog-selector>
                         </div>
                         <!-- Numero de Serie -->
                         <div class="col-md-4">
@@ -142,34 +176,28 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    
 
                     <div class="row">
                         <!-- LEFT SIDE BEGIN -->
                         <div class="col-md-4 col-md-offset-3" style="padding-right: 0px; padding-left: 0px;">
-                            <!-- Medida de Llanta -->
+                            <!-- Tipo de Freno [searchBarFormGroup]="'breakTypeSearchBar'" -->
                             <div class="col-md-12">
                                 <app-catalog-selector
-                                    [inputTitle]="'Medida de Llanta'"
-                                    [inputFormName]="'wheelSize'"
-                                    [parentFormGroup]="firstFormGroup"
-                                    [itemFloatingChar]="filterFloatChar('medida_de_llanta')"
-                                    [itemFloatingCharRel]="filterFloatCharRel('medida_de_llanta')" ></app-catalog-selector>
-                            </div>
-                            <!-- Tipo de Freno -->
-                            <div class="col-md-12">
-                                <app-catalog-selector
+                                    [tittlaCase]="true"
                                     [inputTitle]="'Tipo de Freno'"
                                     [inputFormName]="'breakType'"
+                                    
                                     [parentFormGroup]="firstFormGroup"
                                     [itemFloatingChar]="filterFloatChar('tipo_de_freno')"
                                     [itemFloatingCharRel]="filterFloatCharRel('tipo_de_freno')" ></app-catalog-selector>
                             </div>
-                            <!-- Talla -->
+                            <!-- Talla [searchBarFormGroup]="'tallaSearchBar'" -->
                             <div class="col-md-12">
                                 <app-catalog-selector
+                                    [tittlaCase]="false"
                                     [inputTitle]="'Talla'"
                                     [inputFormName]="'talla'"
+                                    
                                     [parentFormGroup]="firstFormGroup"
                                     [itemFloatingChar]="filterFloatChar('talla')"
                                     [itemFloatingCharRel]="filterFloatCharRel('talla')" ></app-catalog-selector>
@@ -210,6 +238,8 @@
                             <br>
                             <mat-form-field class="col-md-8">
                                 <mat-label>¿Cuéntanos sobre sus modificaciones y detalles?</mat-label>
+
+                                <!-- [disabled]="firstFormGroup.value.isModified" -->
                                 <textarea matInput
                                             [disabled]="firstFormGroup.value.isModified"
                                             placeholder=""
@@ -230,8 +260,13 @@
                     <div class="col-md-8">
                     </div>
                     <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                        <button mat-stroked-button matStepperNext (click)="firstStepSave()"
+                        <!-- [disabled]="firstFormGroup.status != 'VALID' " -->
+                        <button mat-stroked-button matStepperNext (click)="firstStepSave($event)"
+                            [disabled]="firstFormGroup.status != 'VALID' "
                             class="step-next-button">Siguiente</button>
+
+                        <!-- <button mat-stroked-button matStepperNext (click)="populate()" class="step-next-button">Populate Values</button> -->
+                    
                     </div>
                 </div>
             </form>
@@ -240,11 +275,11 @@
         </mat-step>
         
         <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+          <form [formGroup]="secondFormGroup" (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
             <ng-template matStepLabel>Fotos</ng-template>
                 <!-- Upload Image -->
                 <div *ngIf="files.length >= 7">
-                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id"></app-sale-item-upload-img>
+                    <app-sale-item-upload-img [files]="files" [uploadFlag]="uploadFlag" [itemId]="item.id" (imgSelectIsValid)="onValidImgSelections($event)"></app-sale-item-upload-img>
                 </div>
 
             <div class="row" style="margin-top: 40px;">
@@ -255,7 +290,9 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-3" style="text-align: center; margin-top: 40px;">
-                    <button mat-stroked-button matStepperNext (click)="secondStepSave()"
+                    <!-- [disabled]="!imgSelectionValid" -->
+                    <button mat-stroked-button matStepperNext (click)="secondStepSave($event)"
+                        [disabled]="!imgSelectionValid"
                         class="step-next-button">Siguiente</button>
                 </div>
             </div>
@@ -270,7 +307,7 @@
                 <p class="first-step-sub-title">Califica el estado de tu bicicleta <br> en una escala de 1 a 5.</p>
             </div>
 
-            <form [formGroup]="thirdFormGroup" class="form-font-family">
+            <form [formGroup]="thirdFormGroup" class="form-font-family"  (submit)="onSubmit($event)" (ngSubmit)="onSubmit($event)">
                 <ng-template matStepLabel>Condiciones</ng-template>
 
                 <div class="row rate-row form-font-family">
@@ -328,7 +365,7 @@
                 <div class="row" style="text-align: center;">
                     <mat-form-field class="input-text-alignment">
                         <mat-label>Precio de Venta</mat-label>
-                        <input matInput placeholder="Número de Serie" value="" formControlName="price" type="number">
+                        <input matInput placeholder="Precio de Venta" value="" formControlName="price" type="number">
                         <mat-hint> <p style="color: #303130; ">Este campo es obligatorio*</p></mat-hint>
                     </mat-form-field>
                 </div>
@@ -343,12 +380,14 @@
                         </div>
                         <div class="col-md-3" style="text-align: center;">
                             <button mat-stroked-button matStepperNext (click)="thirdStepSave()"
-                                class="step-next-button">Siguiente</button>
+                                [disabled]=" !rateCompleted() || thirdFormGroup.status != 'VALID' "
+                                class="step-next-button">Subir</button>
                         </div>
                     </div>
 
             </form>
         </mat-step>
+        <!--
         <mat-step [stepControl]="secondFormGroup">
             <ng-template matStepLabel>Subir</ng-template>
             <div *ngIf="item.id">
@@ -356,7 +395,7 @@
                     <item-detail [itemInput]="item" [increment]="increment"></item-detail>
                 </div>
             </div>
-            <!-- Rate steps -->
+            
             <div class="row" style="margin-top: 40px;">
                 <div class="col-md-2">
                     <button mat-button matStepperPrevious
@@ -370,6 +409,7 @@
                 </div>
             </div>
         </mat-step>
+    -->
 
       </mat-horizontal-stepper>
 
