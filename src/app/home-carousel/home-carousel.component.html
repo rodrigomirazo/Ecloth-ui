@@ -1,0 +1,76 @@
+
+<div class="row">
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+
+        <div class="row slider-title">
+            Categorias
+        </div>
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    <div class="col-md-1 col-sm-1 col-xs-1" style="border-top: 6px solid #18c65e; margin-left: -40px; width: 7%; margin-bottom: 30px;"></div>
+</div>
+
+<div class="vertical-container">
+<div class="box-title"></div>
+
+<div class="content-container">
+    
+    <swiper class="swiper-container" [config]="config" [disabled]="disabled">
+
+    <div >
+
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <img class="img-slide-side img-slide-side-left" src="/assets/images/home/slider_urbana_active.png" [routerLink]="['/market-place', urbanFilter ]">
+        </div>
+
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <img class="img-slider" src="/assets/images/home/slider_montana_active.png" [routerLink]="['/market-place', mountainFilter ]">
+        </div>
+        
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-slide-side img-slide-side-right" src="/assets/images/home/slider_ruta_active.png" [routerLink]="['/market-place', roadFilter ]">
+        </div>
+
+    </div>
+    <div>
+        
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <img class="img-slide-side img-slide-side-left" src="/assets/images/home/slider_montana_active.png" [routerLink]="['/market-place', mountainFilter ]">
+        </div>
+
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <img class="img-slider" src="/assets/images/home/slider_ruta_active.png" [routerLink]="['/market-place', roadFilter ]">
+        </div>
+        
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <img class="img-slide-side img-slide-side-right" src="/assets/images/home/slider_urbana_active.png" [routerLink]="['/market-place', urbanFilter ]">
+        </div>
+
+    </div>
+    <div>
+        
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            
+            <img class="img-slide-side img-slide-side-left" src="/assets/images/home/slider_ruta_active.png" [routerLink]="['/market-place', roadFilter ]">
+        </div>
+
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <img class="img-slider" src="/assets/images/home/slider_urbana_active.png" [routerLink]="['/market-place', urbanFilter ]">
+        </div>
+        
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            
+            <img class="img-slide-side img-slide-side-right" src="/assets/images/home/slider_montana_active.png" [routerLink]="['/market-place', mountainFilter ]">
+        </div>
+
+    </div>
+
+    </swiper>
+
+</div>
+
+</div>

@@ -1,0 +1,204 @@
+
+<div *ngIf="item">
+    <div class="col-md-8" *ngIf="images">
+    
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 item-upload-img-div">
+            <img class="item-upload-img-principal" [src]="getImgBaseUrl() + principleImg">
+          </div>
+      </div>
+
+      
+      <div class="row" *ngFor="let imgRow of imageRows">
+          <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="blobImgs[imgRow]">
+              <img class="item-upload-img-button" [src]="getImgBaseUrl() + blobImgs[imgRow]" (click)="setPrincipalImage(blobImgs[imgRow])">
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 item-upload-img-div" *ngIf="blobImgs[imgRow + 1]">
+              <img class="item-upload-img-button" [src]="getImgBaseUrl() + blobImgs[imgRow + 1]" (click)="setPrincipalImage(blobImgs[imgRow + 1])">
+          </div>
+      </div>
+      
+    </div>
+
+    <div class="col-md-4">
+        <p class="type-item-detail"> Bicicleta/ {{ filterItemType(item.itemTypeCatId)}}</p>
+        <b><p class="name-item-detail">{{item.model}}</p></b>
+        <b><p class="size-item-detail">{{ filterCatalog( 'brand', item.itemFloatingChars) }} {{ filterCatalog('talla', item.itemFloatingChars) }}</p></b>
+        <b><p class="price-item-detail"> {{item.price | currency}}</p></b>
+
+        <button mat-stroked-button [routerLink]="['/payment-confirmation/' + item.id ]" *ngIf="item.itemTransactionId == 0">Comprar</button>
+        <button mat-stroked-button *ngIf="item.itemTransactionId != 0" [disabled]="true">Bicicleta No Disponible</button>
+        <mat-accordion multi>
+            <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title >
+                    <b>  Especificaciones </b>
+                </mat-panel-title>
+
+              </mat-expansion-panel-header>
+          
+              <table>
+                <tr>
+                <th>Marca</th>
+                <td>{{ filterCatalog('brand', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                <th>Modelo</th>
+                <td>{{item.model}}</td>
+                </tr>
+                <tr>
+                <th>Año</th>
+                <td>{{item.year}}</td>
+                </tr>
+                <tr>
+                <th>Género</th>
+                <td>{{ filterCatalog('genero', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                <th>Frenos</th>
+                <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Material del cuadro</th>
+                    <td>{{ filterCatalog('material_de_cuadro', item.itemFloatingChars) }}</td>
+                    </tr>
+                <tr>
+                    <th>Medida de Llanta</th>
+                    <td>{{ filterCatalog('medida_de_llanta', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Palanca de cambio</th>
+                    <td>{{ item.gearLevel }}</td>
+                </tr>
+                <tr>
+                    <th>Multiplicación</th>
+                    <td>{{ item.multiplication }}</td>
+                </tr>
+                <tr>
+                    <th>Cambio trasero</th>
+                    <td>{{  item.backRear }}</td>
+                </tr>
+                <tr>
+                    <th>Desviador delantero</th>
+                    <td>{{ filterCatalog('tipo_de_freno', item.itemFloatingChars) }}</td>
+                </tr>
+                <tr>
+                    <th>Suspensión</th>
+                    <td>{{ item.suspension}}</td>
+                </tr>
+                <tr>
+                    <th>Ruedos</th>
+                    <td>{{ item.ruedos }}</td>
+                </tr>
+                <tr>
+                    <th>Cassette</th>
+                    <td>{{ item.cassette }}</td>
+                </tr>
+                <tr>
+                    <th>Número de serie</th>
+                    <td>{{ item.series }}</td>
+                </tr>
+              </table>
+          
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b> Condiciones</b>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="rate-section">
+
+                <div class="row">
+
+                  <div class="col-md-6 text-item-detail">
+                      Calificación
+                  </div>
+                  <div class="col-md-6 text-item-detail">
+                      {{ item.scoreName }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                    Cuadro
+                  </div>
+                  <div class="col-md-6">
+                    <item-rate [rate]="item.frameRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                    Ruedos
+                  </div>
+                  <div class="col-md-6">
+                    <item-rate [rate]="item.ruedosRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-item-detail">
+                        Llantas
+                      </div>
+                      <div class="col-md-6">
+                      <item-rate [rate]="item.wheelsRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="col-md-6 text-item-detail">
+                        Componentes
+                      </div>
+                    <div class="col-md-6">
+                    <item-rate [rate]="item.componentsRate" [enableEdit]="false" [iconType]="'circle'"></item-rate>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 text-item-detail">
+                      Modificaciones
+                    </div>
+                    <div  *ngIf=" item.isModified == false" class="col-md-6 text-item-detail">
+                      Si
+                  </div>
+                  <div *ngIf="item.isModified == true" class="col-md-6 text-item-detail">
+                      No
+                </div>
+        
+              </div>
+            </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Detalles</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    {{item.comments}}
+                 </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Compra & devoluciones</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="normal-txt-detail">
+                    Contáctanos por vía whatsapp ó llamada al
+                    <b>44 48 66 77 77</b> ó vía correo electrónico:
+                <b>rider911@baaw.mx</b>
+                 </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="item-detail-accordion" [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <b> Envío</b>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="col-md-6 normal-txt-detail">
+                    A cargo del Vendedor
+                 </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          
+          <button mat-button [routerLink]="['/market-place', 'null' ]"
+                  style="text-decoration: underline; margin-top: 15px; color: #18c65e;"> < Regresar</button>
+    </div>
+</div>

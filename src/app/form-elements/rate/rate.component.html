@@ -1,0 +1,33 @@
+
+<table class="row" *ngIf="iconType == 'circle' ">
+    <tr>
+    <td *ngFor="let iconRate of iconRates; index as index" style="width: 15%;">
+        <div (click)="updateRange(index)" >
+<!-- class="col-xs-1 col-sm-1 col-md-1 col-lg-1" -->
+            <div  *ngIf="iconRate == true">
+                <img [src]="iconActivePath" class="svg-icon-rate">
+            </div>
+            <div *ngIf="iconRate == false">
+                <img [src]="iconInactivePath" class="svg-icon-rate">
+            </div>
+        </div>
+    </td>
+    </tr>
+</table>
+
+<table class="row" *ngIf="iconType == 'star' ">
+    <tr class="text-nowrap">
+        <td *ngFor="let iconRate of iconRates; index as index" style="width: 4%;">
+
+            <div (click)="updateRange(index)" class="div-img-wrapper">
+                <div  *ngIf="iconRate">
+                    <img [src]="iconActivePath" class="svg-icon-rate">
+                </div>
+                <div *ngIf="!iconRate">
+                    <img [src]="iconInactivePath" class="svg-icon-rate">
+                </div>
+            </div>
+
+        </td>
+    </tr>
+</table>

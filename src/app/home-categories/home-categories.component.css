@@ -1,0 +1,10 @@
+
+.blog-title {
+    font-size: 45px;
+    font-family: bebasNeue-bold;
+    color: #303130;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

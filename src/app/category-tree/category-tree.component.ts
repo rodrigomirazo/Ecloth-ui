@@ -2,7 +2,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {Component, Output, EventEmitter} from '@angular/core';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { CategoryService } from './category.service';
-import { ItemCategoryModel } from '../models/main-categories-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
 
 /**
  * Food data with nested structure.
@@ -16,8 +16,8 @@ import { ItemCategoryModel } from '../models/main-categories-model';
 })
 export class CategoryTreeComponent {
 
-  private treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
-  private dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
+  treeControl = new NestedTreeControl<ItemCategoryModel>(node => node.subCategories);
+  dataSource = new MatTreeNestedDataSource<ItemCategoryModel>();
 
   @Output() categoryId = new EventEmitter<number>();
 

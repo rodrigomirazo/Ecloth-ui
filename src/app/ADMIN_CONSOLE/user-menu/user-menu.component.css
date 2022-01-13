@@ -1,0 +1,58 @@
+
+.user-menu-section {
+    color: white;
+    font-family: 'montserrat-bold';
+}
+.user-menu-section:hover {
+    color: #18c65e;
+    font-size: 16px;
+}
+
+.user-menu-sub-section:hover {
+    color: #18c65e;
+    cursor: pointer;
+}
+
+.user-menu-sub-section-selected {
+    color: #18c65e;
+}
+
+.user-menu-section-selected {
+    color: #18c65e;
+    font-size: 15px;
+}
+
+.user-menu-sub-section {
+    color: white;
+    font-family: 'montserrat-light';
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding-left: 8px !important;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+::ng-deep .mat-expansion-panel {
+    background-color: #303130 !important;
+}
+
+.user-prfile-place-main-div ::ng-deep .mat-expansion-panel-spacing {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.filters-accordion {
+    z-index: 1;
+    position: absolute;
+    color: #f2f2f2;
+}
+
+::ng-deep .mat-expansion-indicator:after {
+
+    color: white;
+}
+::ng-deep .mat-expansion-indicator:hover {
+    color: #18c65e;
+}
+

@@ -1,0 +1,126 @@
+
+<div class="header-main-div home-page-header row">
+
+    <!-- Toggle Button -->
+    <div class="col-md-3 col-sm-3 col-xs-2" [matMenuTriggerFor]="menu">
+        <div class="row">
+            <button mat-icon-button aria-label="Example icon-button with a menu" class="app-icon">
+                <mat-icon style="color: #18c65e;">menu</mat-icon>
+            </button>
+        </div>
+        <div class="row">
+            <span class="header-menu-title" id="main-menu-font-size">menú</span>
+        </div>
+    </div>
+
+    <!-- separator (1)
+    <div class="col-md-1 col-sm-2 col-xs-1">
+    </div>
+     -->
+
+    <!-- LGO -->
+    <div class="col-md-4
+                col-sm-3 offset-sm-1
+                col-xs-6 logo-header" [routerLink]="['/index' ]">
+        <img src="/assets/images/home/logo_baaw.svg" alt="Baawroom" id="main-icon">
+    </div>
+
+    <!-- separator (2) -->
+    <div class="col-md-1 col-sm-1 col-xs-1">
+    </div>
+    
+
+    <!-- Search Bar (1) -->
+    <div class="col-md-3 col-sm-3 col-sm-11
+                offset-md-1 offset-sm-1 offset-xs-1">
+
+
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 100%;">
+                    <div class="row search-bar-header" style="color: black;" id="search-bar">
+                        <form [formGroup]="searchFormGroup" (submit)="submit()">
+                            <mat-form-field appearance="none" style="width: 100%;" >
+                                <mat-label style="color: gray;">Search</mat-label>
+                                <input matInput placeholder="" formControlName="searchBar">
+                                <span matPrefix class="material-icons" >search</span>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+</div>
+
+<mat-menu #menu="matMenu">
+    <div class="banner-menu" fixedTopGap="1">
+        <!-- <app-category-tree (categoryId)="onCategoryId($event)"></app-category-tree>-->
+        
+        <div class="menu-slide">
+
+            <div class="row" style="margin-left: 0px; margin-right: 0px;">
+
+                <!-- first column -->
+                <div class="col-md-6 col-sm-6 col-xs-6" style="border-width: 2px;height: 150px;
+                border-right: 1.5px solid #00000040">
+
+                    <div class="row" >
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/market-place', 'null' ]">
+                            COMPRA
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/publish' ]" *ngIf="saleEnable && profileComplete">
+                            VENDE
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side" [routerLink]="['/console', 'perfil' ]" *ngIf="saleEnable && !profileComplete">
+                            COMPLETA TU PERFIL
+                        </div>
+                        
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRA HISTORIA</div> -->
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-left-side">NUESTRO BLOG</div> -->
+                    </div>
+                </div>
+
+                <!-- Second column -->
+                <div class="col-md-5 col-sm-3">
+    
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side" [routerLink]="['/market-place', 'null' ]">
+                            Bicicletas
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side" [routerLink]="['/market-place', mountainFilter ]">
+                            Montaña
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side" [routerLink]="['/market-place', roadFilter ]">
+                            Ruta
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-right-side" [routerLink]="['/market-place', urbanFilter ]">
+                            Urbana
+                        </div>
+                    </div>
+    
+                </div>
+                <!-- <div class="col-md-1 col-sm-1"></div> -->
+            </div>
+
+            <div class="row" style="margin-top: 5%; margin-left: 0px; margin-right: 0px;">
+                
+                <div class="col-md-11 col-sm-11" style="padding-left: 10px;">
+    
+                    <div class="row" >
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side" [routerLink]="['/sign-up' ]" *ngIf="!saleEnable">REGISTRO</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side" [routerLink]="['/login' ]" *ngIf="!saleEnable">INICIA SESIÓN</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side" (click)="closeSession()" *ngIf="saleEnable">CERRAR SESIÓN</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side" [routerLink]="['/console', 'perfil' ]" *ngIf="saleEnable">Consola de Usuario</div>
+                        
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side">SOPORTE</div> -->
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 header-menu-botton-side">CENTRO DE ASISTENCIA</div> -->
+                    </div>
+    
+                </div>
+                <div class="col-md-7 col-sm-7"></div>
+            </div>
+
+        </div>
+    </div>
+</mat-menu>

@@ -1,0 +1,92 @@
+<div class="user-prfile-place-main-div" *ngIf="user">
+
+
+    <mat-accordion class="filters-accordion" hideToggle>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header [routerLink]="['/console', 'perfil' ]" style="padding-left: 19px;">
+                <mat-panel-title style="font-size: 14px; color: white; font-family: 'montserrat-light';">
+                    <mat-icon style="color: #18c65e;">person</mat-icon> Rider {{user.name}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <!-- Categorías -->
+        <mat-expansion-panel [expanded]="section === 'compras' || section === 'frequent-answers'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'compras' ]">
+                <mat-panel-title    class="user-menu-section"
+                                [ngClass]="{'user-menu-section-selected': section === 'compras' || section === 'frequent-answers'}">
+                    Compras
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
+                [routerLink]="['/console', 'compras' ]"
+                [ngClass]="{'user-menu-section-selected': section === 'compras' }">
+                    Compras
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section"
+                [routerLink]="['/console', 'frequent-answers' ]"
+                [ngClass]="{'user-menu-section-selected': section === 'frequent-answers'}">
+                    Preguntas
+                </div>
+            </section>
+        </mat-expansion-panel>
+
+        <!-- Year -->
+        <mat-expansion-panel [expanded]="section === 'ventas'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'ventas' ]">
+            <mat-panel-title    class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'ventas'}">
+                Ventas
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <!-- Frame Material -->
+        <mat-expansion-panel [expanded]="section === 'diagnostico'"
+                *ngIf="content()">
+            <mat-expansion-panel-header [routerLink]="['/console', 'diagnostico' ]">
+            <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'diagnostico'}">
+                Diagnostico
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'admin-ventas'"
+                            *ngIf="content()">
+            <mat-expansion-panel-header [routerLink]="['/console', 'admin-ventas' ]">
+            <mat-panel-title class="user-menu-section"
+                        [ngClass]="{'user-menu-section-selected': section === 'admin-ventas'}">
+                Administrador de Ventas
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section">
+                <div class="col-xs-12 col-sm-12 col-md-12 user-menu-sub-section">
+                    Section Name
+                </div>
+            </section>
+        </mat-expansion-panel>
+        
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'favoritos'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'favoritos' ]">
+                <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'favoritos'}">
+                    Favoritos
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+        <!-- Genere -->
+        <mat-expansion-panel [expanded]="section === 'perfil'">
+            <mat-expansion-panel-header [routerLink]="['/console', 'perfil' ]">
+                <mat-panel-title class="user-menu-section"
+                            [ngClass]="{'user-menu-section-selected': section === 'perfil'}">
+                    Perfil
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+</div>

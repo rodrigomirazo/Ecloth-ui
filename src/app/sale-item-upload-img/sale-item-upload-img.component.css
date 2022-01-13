@@ -1,0 +1,59 @@
+
+.item-upload-img-title {
+    text-align: center;
+    font-family: bebasNeue-bold;
+    font-size: 36px;
+}
+
+.item-upload-img-sub-title {
+    text-align: center;
+    font-family: bebasNeue-regular;
+    font-size: 18px;
+    line-height: 11px;
+}
+
+.item-upload-img-example-title {
+    text-align: center;
+    font-family: bebasNeue-bold;
+    font-size: 30px;
+    float: left;
+}
+
+.item-upload-img-principal-example {
+    margin-top: 18px;
+
+    height: 15em;
+    width: 29em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+}
+
+.item-upload-img-button {
+    
+    margin-top: 5px;
+    height: 8em;
+    width: 12em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+}
+
+.item-upload-img-div {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.item-upload-img-div-desc {
+    margin-top: 20px;
+    text-align: center;
+}
+
+p{
+    margin-top: 20px;
+    font-family:  montserrat-semibold;
+    font-size: 13px;
+    color: #303130;
+}

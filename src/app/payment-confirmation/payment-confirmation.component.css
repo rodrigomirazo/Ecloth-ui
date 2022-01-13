@@ -1,0 +1,224 @@
+
+.adress-section {
+    background-color: #303130;
+    border-radius: 14px;
+    color: white;
+}
+
+.product-section {
+    background-color: #f1f1f1;
+    border-radius: 14px;
+    margin-bottom: 25px;
+}
+
+
+.type-item-detail{
+    font-family: montserrat-medium;
+    font-size: 14pt;
+    margin-top: 24px;
+    color: #303130;
+  }
+  
+  .name-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 32pt;
+    color: #303130;
+    line-height: 41px;
+  }
+  
+  .size-item-detail{
+    font-family: bebasNeue-regular;
+    font-size: 16pt;
+    color: #303130;
+    line-height: 0px;
+  }
+  
+  .price-item-detail{
+    font-family: bebasNeue-bold;
+    font-size: 27pt;
+    color: #303130;
+    line-height: 34px;
+  }
+  
+.address-title {
+    font-size: 16px;
+    font-family: 'montserrat-semiBold';
+}
+
+.table-ammounts {
+    width: 83%;
+    margin-left: 15px;
+    border-top: black 1px solid;
+}
+
+.table-ammounts-name {
+    font-family: 'montserrat-light';
+}
+
+.table-ammounts-number {
+    font-family: 'montserrat-semiBold';
+}
+
+
+.address-hint {
+    font-size: 12px;
+}
+
+.address-separation-form {
+    margin-top: 25px;
+}
+
+.adress-input-1 {
+    width: 90%;
+}
+
+.adress-input-2 {
+
+}
+
+.adress-input-3 {
+
+}
+
+:host ::ng-deep .adress-section mat-label {
+    color: white;
+    font-size: 12px;
+    font-family: 'montserrat-light';
+}
+
+.adress-section .ng-touched::-webkit-input-placeholder {
+    color: red;
+}
+
+.adress-section .ng-untouched::-webkit-input-placeholder {
+    color: #cccccc;
+    font-size: 12px;
+    font-family: montserrat-light;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container {
+    text-align: center;
+    margin-left: 24%;
+    width: 50%;
+}
+
+:host ::ng-deep .mat-step-icon-selected {
+    background-color: #ffffff !important;
+}
+
+:host ::ng-deep .mat-step-icon-state-edit {
+    /* background-color: #ffffff !important; */
+}
+
+/** Steps **/
+.first-step-title {
+    font-family: bebasNeue-bold;
+    font-size: 39px;
+    color: #303130;
+}
+
+.first-step-sub-title {
+    font-family: montserrat-semiBold;
+    font-size: 15px;
+    color: #303130;
+}
+
+.form-font-family {
+    font-family: montserrat-light;
+}
+
+.form-font-family mat-radio-button {
+    font-family: montserrat-light;
+}
+
+:host ::ng-deep .form-font-family .ng-star-inserted {
+    font-family: montserrat-light;
+}
+
+/*
+.input-text-alignment {
+    bottom: -12px;
+}
+*/
+
+:host ::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+    border-top-width: 6px !important;
+    border-color: white;
+    padding-left: 0px;
+    padding-right: 0px;
+    
+}
+
+:host ::ng-deep mat-form-field mat-hint p {
+    color: #ffffff !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    border-bottom: solid 1px #ffffff !important;
+    color: #ffffff;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+    border-bottom: solid 1px #ffffff !important;
+}
+
+::ng-deep .mat-select-content {
+    background: red;
+}
+
+::ng-deep .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+    background-color: white;
+}
+
+::ng-deep .mat-form-field-infix label .ng-star-inserted {
+    float: left;
+    margin-left: 0px;
+}
+
+::ng-deep .mat-form-field-flex {
+    padding-left: 0px !important;
+}
+
+::ng-deep mat-select span .mat-form-field-label {
+    top: 25px !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #ffffff;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #ffffff;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:#ffffff;
+}
+
+.step-next-button {
+    border-radius: 35px;
+    width: 50%;
+    font-family: montserrat-light;
+}
+
+/** Rate **/
+.rate-row {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.item-prince-title {
+    font-family: bebasNeue-bold;
+    font-size: 30px;
+    color: #303130;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+
+.light-button {
+    border: 1px solid #ffffff !important;
+    border-radius: 20px;
+}

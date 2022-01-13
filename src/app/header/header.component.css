@@ -1,0 +1,189 @@
+
+.header-main-div {
+    width: 100%;
+    margin: auto;
+    padding: initial;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media only screen
+  and (min-device-width: 0px)
+  and (max-device-width: 576px) {
+    #main-menu-font-size {
+        font-size: 130%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 577px)
+  and (max-device-width: 767px) {
+    #main-menu-font-size {
+        font-size: 130%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 650px)
+  and (max-device-width: 992px) {
+    #main-menu-font-size {
+        font-size: 200%;
+    }
+    #main-icon {
+        width: 150%;
+    }
+}
+
+@media only screen
+  and (min-device-width: 993px) {
+    #main-menu-font-size {
+        font-size: 300%;
+    }
+    #main-icon {
+        width: 120%;
+    }
+}
+
+.category-sidenav-container {
+    height: 100%;
+}
+
+#categorySnav {
+    width: 20%;
+}
+
+.home-page-header {
+    height: 140px;
+    background: #fafafa;
+}
+
+.home-page-banner {
+    
+    height: 690px;
+    background: url(/assets/images/home/principal_banner.png);
+    background-position-x: center;
+    background-position-y: top;
+}
+
+.home-page-separation-banner {
+    width: 100%;
+}
+
+.banner-icon {
+    height: 40px;
+    width: 40px;
+    -webkit-filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, .5));
+    filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.banner-menu {
+    width: 100%;
+}
+
+.menu-slide {
+    margin: 10px;
+    margin-right: 50px;
+}
+
+::ng-deep .cdk-overlay-pane {
+    
+}
+
+::ng-deep .mat-menu-panel {
+    min-width: auto !important;
+    max-width: initial !important;
+    width: 40% !important;
+}
+
+/* Side nav content */
+
+.side-nav-content {
+    margin: 0 0 10px;
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 400%;
+    color: #fdfdfd;
+    bottom: 35px;
+    z-index: 1;
+    font-size: 70pt;
+    font-family: bebasNeue-bold;
+}
+
+.logo-header {
+    color: black;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.header-menu-title {
+    color: #303130;
+    font-size: 25px;
+    font-family: montserrat-regular;
+}
+
+.header-menu-left-side {
+    font-family: bebasNeue-bold;
+    font-size: 230%;
+    color: #303130;
+    cursor: pointer;
+}
+
+.header-menu-right-side {
+    font-family: montserrat-semiBold;
+    font-size: 26px;
+    color: #303130;
+    cursor: pointer;
+}
+
+.header-menu-botton-side {
+    font-family: bebasNeue-regular;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 26px;
+    color: #303130;
+}
+
+.header-menu-right-side:hover,
+.header-menu-left-side:hover,
+.header-menu-botton-side:hover {
+    color: #18c65e;
+}
+
+button.mat-button {
+    border-radius: 0;
+ }
+
+ /* Search bar */
+
+
+.search-bar-header ::ng-deep .mat-form-field-prefix {
+    top: -12px;
+    left: 7px;
+}
+
+.search-bar-header ::ng-deep .mat-form-field-flex {
+    border-radius: 12px;
+    height: 47px;
+    position: inherit;
+    top: 25px;
+    background-image: linear-gradient(to right, rgba(255,0,0,0), #3333332e 90%);
+}
+
+.search-bar-header ::ng-deep .mat-form-field-infix {
+    left: 10px;
+    top: -19px;
+}
+
+.search-bar-header ::ng-deep .mat-form-field {
+    line-height: 3.125;
+}
+

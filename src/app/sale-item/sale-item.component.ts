@@ -1,14 +1,20 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category-tree/category.service';
 import { FloatingCharsService } from '../floating-chars/floating-chars.service';
-import { ItemService } from '../item-list/item.service';
-import { ItemFloatingChars } from '../models/item-floating-char';
-import { ItemFloatingCharRel } from '../models/item-floating-char-rel';
-import { UserItem } from '../models/Item-user-model';
-import { ItemCategoryModel } from '../models/main-categories-model';
-import { UploadFilesService } from '../services/upload-files.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ItemService } from '../_services/item.service';
+import { ItemFloatingChars } from '../_models/item-floating-char';
+import { ItemFloatingCharRel } from '../_models/item-floating-char-rel';
+import { UserItem } from '../_models/Item-model';
+import { ItemCategoryModel } from '../_models/main-categories-model';
+import { UploadFilesService } from '../_services/upload-files.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ItemFloatingCharsCat } from '../_models/item-floating-char-cat';
+import { InputFilterYear } from '../_models/input-filter-years-model';
+import { User } from '../_models/User-model';
+import { Router } from '@angular/router';
+import { GenericDialogComponent } from '../generic-dialog/generic-dialog.component';
+import { AuthenticationService } from '../_services/authentication.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale-item',
@@ -18,70 +24,131 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class SaleItemComponent implements OnInit {
 
   // Item
-  private item: UserItem = new UserItem();
+  item: UserItem = new UserItem();
   // User
-  private userId: number;
+  userId: number;
   //Floating Chars
-  private itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  itemFloatingCharsRel: ItemFloatingCharRel[] = [];
+  itemTypeSelected: ItemCategoryModel;
+  yearSelected: InputFilterYear;
+  textarea: string = "";
 
   /** Category List */
-  private mainCategoryList: ItemCategoryModel[] = [];
-  private hierLevels: Array<number> = [];
-  private categoryLevelSelector: number[] = [];
-  private subcategoryLevelOptions: Array<ItemCategoryModel[]> = [];
-  private itemFloatingChars: ItemFloatingChars[];
-
-  /** Constants */
-  private initialLevels: number = 3;
+  categoryLevelSelector: number[] = [];
+  itemFloatingChars: ItemFloatingChars[];
+  itemTypes: ItemCategoryModel[];
+  years: InputFilterYear[];
 
   /** File Uploading */
-  private selectedFiles: FileList;
-  private progressInfos = [];
-  private fileInfos =  [];
-  private fileResult =  [];
+  fileCounter; number = 0;
+  files: File[] = [];
+  filesToUpload: File[] = [];
+  uploadFlag: boolean = false;
+  imgSelectionValid: boolean = false;
 
   /** Form Groups */
-  private firstFormGroup: FormGroup;
-  private secondFormGroup: FormGroup;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
+  /** update Item Resume */
+  increment: number = 0;
+  
   ngOnInit() {
-
+    
   }
 
+  
   constructor(
+    public dialog: MatDialog,
+    private authService: AuthenticationService,
     private categoryService: CategoryService,
     private floatingCharsService: FloatingCharsService,
     private itemService: ItemService,
     private uploadFilesService: UploadFilesService,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder,
+    private router: Router) {
+
+      // Initialize itemId
+      this.item.id = null;
+      //Set User
+      const userSession = this.authService.getSessionUser();
+      this.item.user = new User();
+      this.item.user.id = userSession.id;
+      //Set Status
+      this.item.statusId = 1;
+      //Set Empty Image Array
+      this.item.itemImgUrls = [];
 
       this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required]
+        backRear: new FormControl('', Validators.required),
+        model: new FormControl('', Validators.required),
+        frontRear: new FormControl('', Validators.required),
+        year: new FormControl('', Validators.required),
+        suspension: new FormControl('', Validators.required),
+        backSuspension: new FormControl('', ),
+        itemTypeCatId: new FormControl('', Validators.required),
+
+        ruedos: new FormControl('', Validators.required),
+        cassette: new FormControl('', Validators.required), 
+        series: new FormControl('', Validators.required),
+        gearLevel: new FormControl('', Validators.required),
+        multiplication: new FormControl('', Validators.required),
+        isModified: new FormControl('true', Validators.required),
+        comments: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(500)]),
+
+        // Floating CHARS
+        brand: new FormControl('', Validators.required),
+        brandSearchBar: new FormControl(),
+        
+        genere: new FormControl('', Validators.required),
+        genereSearchBar: new FormControl(),
+        
+        frameMaterial: new FormControl('', Validators.required),
+        frameMaterialSearchBar: new FormControl(),
+
+        wheelSize: new FormControl('', Validators.required),
+        wheelSizeSearchBar: new FormControl(),
+
+        breakType: new FormControl('', Validators.required),
+        breakTypeSearchBar: new FormControl(),
+
+        talla: new FormControl('', Validators.required),
+        tallaSearchBar: new FormControl()
       });
       this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required]
+        
+      });
+      this.thirdFormGroup = this._formBuilder.group({
+        price: ['', [Validators.required, Validators.min(1000), Validators.max(500000), Validators.pattern(/^[0-9]\d*$/)]]
       });
       
       this.userId = 1;
-      for (let level = 0; level < this.initialLevels; level++) {
-        this.hierLevels.push(level);
-        this.categoryLevelSelector = this.categoryLevelSelector.concat(-1);
-        this.subcategoryLevelOptions = this.subcategoryLevelOptions.concat([]);
+
+      for (let i = 0; i < 8; i++) {
+        this.files = this.files.concat(null);
       }
-      this.categoryLevelSelector[0] = 0;
 
-      this.getCategoryTypes();
       this.getFloatingChars();
-
-      //this.fileInfos = this.uploadFilesService.getFiles();
+      this.getCategoryTypes();
+      this.getYearsCat();
   }
 
   getCategoryTypes(): void {
+
     this.categoryService.getCategoryTypes().subscribe((itemType: ItemCategoryModel[]) => {
-      console.log(itemType);
-      this.mainCategoryList = itemType;
-      this.subcategoryLevelOptions[0] = this.mainCategoryList;
+      this.itemTypes = itemType.filter(cat => cat.subCategoryName == "Bicicletas")[0].subCategories;
     });
+  }
+
+  getYearsCat(): void {
+
+    if(!this.years)
+      this.years = [];
+
+    for (let year = 2021; year > 2015; year--) {
+      this.years = this.years.concat(new InputFilterYear(year, false));
+    }
   }
 
   getFloatingChars(): void {
@@ -89,143 +156,180 @@ export class SaleItemComponent implements OnInit {
       this.itemFloatingChars = itemFloatingChars;
       this.itemFloatingChars.forEach(floatingChar => {
         
-        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(new ItemFloatingCharRel(floatingChar.floatingCharId, -1));
+        this.itemFloatingCharsRel = this.itemFloatingCharsRel.concat(
+            new ItemFloatingCharRel(floatingChar.floatingCharId, floatingChar.floatingCharName, -1, "")
+          );
       });
-
-      console.log(this.itemFloatingChars);
     });
   }
 
-  goToNextSection(hierLevel: number, categoryId: number, goToNextSection: number) {
-    
-    let nextCategory: ItemCategoryModel[] = this.mainCategoryList;
-    
-    if( hierLevel + 1 >= this.categoryLevelSelector.length ) {
-      return ;
-    }
-
-    for (let levelIter = 0; levelIter <= hierLevel; levelIter++) {
-      if (!nextCategory)
-        break;
-      
-      // Determine chosen index
-      let pathIndex = 0;
-      for (let i = 0; i < nextCategory.length; i++) {
-        if(nextCategory[i].id == this.categoryLevelSelector[levelIter]) {
-          break;
-        }
-        pathIndex++;
-      }
-      
-      nextCategory = nextCategory[ pathIndex ].subCategories;
-    }
-
-    //Assign next category
-    this.subcategoryLevelOptions[hierLevel+1] = nextCategory;
-
-    //Remove Rest of the Levels options
-    for (let index = hierLevel + 2; index < this.subcategoryLevelOptions.length; index++) {
-      this.subcategoryLevelOptions[index] = [];
-      this.categoryLevelSelector[index] = -1;
-    }
-
-    //Remove Rest of selected levels
-    for (let index = hierLevel + 1; index < this.subcategoryLevelOptions.length; index++) {
-      this.categoryLevelSelector[index] = -1;
-    }
-    
-  }
-
-  getCurrentCategoryName(currentCategory: ItemCategoryModel, hierLevel: number) : string {
-    let nextCategory: ItemCategoryModel = currentCategory;
-    
-    for (let levelIter = 0; levelIter < hierLevel; levelIter++) {
-      if (!nextCategory)
-        break;
-      nextCategory = nextCategory.subCategories[0];
-    }
-    return (nextCategory)? nextCategory.categoryName : "";
-  }
-
-  selectFiles(event) {
-    this.progressInfos = [];
-
-    console.log(event.target.files);
-    const files = event.target.files;
-    let isImage = true;
-    this.fileInfos = [];
-
-    for (let i = 0; i < files.length; i++) {
-      if (files.item(i).type.match('image.*')) {
-
-        var reader = new FileReader();
-
-        reader.onload = (event:any) => {
-          console.log(event.target.result);
-           this.fileInfos.push(event.target.result); 
-        }
-
-        reader.readAsDataURL(event.target.files[i]);
-
-        continue;
-      } else {
-        isImage = false;
-        alert('invalid format!');
-        break;
-      }
-    }
-  
-    if (isImage) {
-      this.selectedFiles = event.target.files;
-    } else {
-      this.selectedFiles = undefined;
-      event.srcElement.percentage = null;
-    }
-    console.log(this.selectedFiles);
+  escapePipe(catName: string): string {
+    return catName.split('|').join(' - ');
   }
 
   selectFloatingChar(charIndx: number, floatingCharId: number, floatingCharCatId: number) {
     
-    console.log(charIndx + " - " +floatingCharId +" - "+ floatingCharCatId);
-
-    this.itemFloatingCharsRel[charIndx].$floatingCharId = floatingCharId;
-    this.itemFloatingCharsRel[charIndx].$floatingCharCatId = floatingCharCatId;
-    console.log(this.itemFloatingCharsRel);
+    this.itemFloatingCharsRel[charIndx].floatingCharId = floatingCharId;
+    this.itemFloatingCharsRel[charIndx].floatingCharCatId = floatingCharCatId;
   }
 
-  uploadFiles() {
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
+  filterFloatChar(flaotingChar: string): ItemFloatingCharsCat[] {
+
+    if(!this.itemFloatingChars) {
+      return [];
+    }
+    const charsCatalog: ItemFloatingChars[]  =
+      this.itemFloatingChars
+        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
+    
+    if(charsCatalog.length > 0) {
+      return charsCatalog[0].catalogList;
+    } else {
+      return [];
     }
   }
 
-  upload(idx, file) {
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
+  filterFloatCharRel(flaotingChar: string): ItemFloatingCharRel {
+
+    if(!this.itemFloatingCharsRel) {
+      return null;
+    }
+    const itemFloatingCharsRelFilter: ItemFloatingCharRel[]  =
+      this.itemFloatingCharsRel
+        .filter( floatChar => floatChar.floatingCharName == flaotingChar);
     
-    this.uploadFilesService.upload(file, this.userId, 1).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.fileResult = this.fileResult.concat(file.name);
-        }
-      });
+    if(itemFloatingCharsRelFilter.length > 0) {
+      return itemFloatingCharsRelFilter[0];
+    } else {
+      return null;
+    }
   }
 
-  save() {
-    this.item.$itemFloatingChars = this.itemFloatingCharsRel;
-    this.item.$itemTypeCatId = this.categoryLevelSelector[0];
-    this.item.$lastLevelCategoryId = this.categoryLevelSelector[this.categoryLevelSelector.length];
-    this.item.$statusId = 1;
-    //TODO: color catalog
-    this.item.$itemColorId = 85;
+  onEmitFrameRange($event) {
+    this.item.frameRate = $event;
+  }
+  
+  onEmitRuedosRange($event) {
+    this.item.ruedosRate = $event;
+  }
+
+  onEmitWheelsRange($event) {
+    this.item.wheelsRate = $event;
+  }
+  
+  onEmitComponentsRange($event) {
+    this.item.componentsRate = $event;
+  }
+  
+
+  textAreaValidation() {
+    let control = this.firstFormGroup.get('comments');
+    control.disabled ? control.enable() : control.disable();
+  }
+
+  firstStepSave($event: any) {
+    $event.preventDefault();
+    console.log(this.firstFormGroup);
+    if( this.firstFormGroup.status == "VALID"
+      ) {
+
+      this.item = this.itemService.adaptFormToItem(this.firstFormGroup, this.item);
+
+      //Flaoting Chars
+      this.item.itemFloatingChars = [
+        new ItemFloatingCharRel(this.filterFloatCharRel("brand").floatingCharId, "",       this.firstFormGroup.value.brand),
+        new ItemFloatingCharRel(this.filterFloatCharRel("genero").floatingCharId, "",      this.firstFormGroup.value.genere),
+        new ItemFloatingCharRel(this.filterFloatCharRel("material_de_cuadro").floatingCharId, "",  this.firstFormGroup.value.frameMaterial),
+        new ItemFloatingCharRel(this.filterFloatCharRel("medida_de_llanta").floatingCharId, "",    this.firstFormGroup.value.wheelSize),
+        new ItemFloatingCharRel(this.filterFloatCharRel("tipo_de_freno").floatingCharId, "",       this.firstFormGroup.value.breakType),
+        new ItemFloatingCharRel(this.filterFloatCharRel("talla").floatingCharId, "",               this.firstFormGroup.value.talla),
+      ];
+
+      console.log("this.userId: ", this.userId);
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+
+        this.item.id = itemRepsonse.id;
+      });
+    }
+  }
+
+  rateCompleted() : boolean {
+    if(
+      this.item.frameRate &&
+      this.item.ruedosRate &&
+      this.item.wheelsRate &&
+      this.item.componentsRate
+      ) {
+        return true;
+      }
+      return false;
+  }
+
+  onValidImgSelections($event) {
+    this.imgSelectionValid = true;
+  }
+
+  secondStepSave($event: any) {
+    $event.preventDefault();
+    this.uploadFlag = true;
+  }
+
+  onSubmit($event: any) {
+    $event.preventDefault();
+  }
+
+  thirdStepSave() {
+    if( this.thirdFormGroup.status == "VALID" && this.rateCompleted() ) {
+      this.item.price = this.thirdFormGroup.value.price;
+
+      this.itemService.post(this.item, true).subscribe( (itemRepsonse: UserItem) => {
+        this.item.id = itemRepsonse.id;
+        this.router.navigate(['/market-place', 'null' ]);
+      });
+    }
+  }
+
+  finalStep() {
+    //openDialog
+    /*
+   const dialogRef = this.dialog.open(GenericDialogComponent, {
+      width: '250px',
+      height: '200px',
+      data: {
+        image: "/assets/images/publish/cargada-error-11.svg"
+      }
+    })
     
-    this.itemService.post( this.item ).subscribe(persistedItem => {
-      console.log(persistedItem);
-
-      this.uploadFiles();
-
+    dialogRef.afterClosed().subscribe(result => {
     });
+    */
+  }
+
+  populate() {
+
+    //text
+    this.firstFormGroup.controls['backRear'].setValue("backRear");
+    this.firstFormGroup.controls['model'].setValue("model 1");
+    this.firstFormGroup.controls['frontRear'].setValue("front Rear");
+    this.firstFormGroup.controls['year'].setValue(2020);
+    this.firstFormGroup.controls['suspension'].setValue("Suspension 1");
+    this.firstFormGroup.controls['backSuspension'].setValue("Suspension Trasera 1");
+    this.firstFormGroup.controls['ruedos'].setValue("Ruedos nombre");
+    this.firstFormGroup.controls['cassette'].setValue("Cassette nombre");
+    this.firstFormGroup.controls['series'].setValue("Serie 1");
+    this.firstFormGroup.controls['gearLevel'].setValue("gear level");
+    this.firstFormGroup.controls['multiplication'].setValue("Multiplicacion nombre");
+    this.firstFormGroup.controls['isModified'].setValue(true);
+    this.firstFormGroup.controls['comments'].setValue("Comments 1");
+
+    //Options
+    this.firstFormGroup.controls['brand'].setValue(106);
+    this.firstFormGroup.controls['genere'].setValue(72);
+    this.firstFormGroup.controls['frameMaterial'].setValue(67);
+    this.firstFormGroup.controls['breakType'].setValue(74);
+    this.firstFormGroup.controls['talla'].setValue(108);
+    this.firstFormGroup.controls['itemTypeCatId'].setValue(182);
+    this.firstFormGroup.controls['wheelSize'].setValue(96);
   }
 
 }

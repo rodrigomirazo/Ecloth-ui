@@ -1,0 +1,288 @@
+
+<sub-module-title [titleName]=" 'Confirma tu compra' "></sub-module-title>
+
+<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5
+            col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1
+            adress-section">
+
+            
+    <form [formGroup]="addressFormGroup" class="form-font-family">
+    
+        <div class="address-separation-form"></div>
+        
+        <div class="row">
+            <p class="col-md-12" class="address-title">Direccion de envio:</p>
+            <p class="col-md-12" class="address-hint">Revise y realice cualquier cambio en su direccion de envio.:</p>
+            
+            <div class="address-separation-form"></div>
+
+            <mat-radio-group aria-label="Select an option" (change)="getUserDefaulAddress()"
+                formControlName="defaultUserAddress">
+                <div class="col-md-12">
+                    <mat-radio-button value="false">Utilizar misma direccion de perfil</mat-radio-button>
+                </div>
+                <div class="col-md-12">
+                    <mat-radio-button value="true">Nueva Direccion</mat-radio-button>
+                </div>
+            </mat-radio-group>
+        </div>
+
+        <div class="address-separation-form"></div>
+
+        <!-- Name -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Nombre" value="" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput placeholder="Apellidos" value="" formControlName="lastname">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Direccion -->
+        <div class="row">
+            
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput placeholder="Direccion" value="" formControlName="street">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Numero Exterior</mat-label>
+                    <input matInput placeholder="Nombre Exterior" value="" formControlName="extNumber">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Numero Interior</mat-label>
+                    <input matInput placeholder="Numero Interior" value="" formControlName="intNumber">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Estado y Ciudad -->
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Estado</mat-label>
+                    <input matInput placeholder="Estado" value="" formControlName="state">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Ciudad</mat-label>
+                    <input matInput placeholder="Ciudad" value="" formControlName="city">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Codigo Postal y Colonia -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Codigo Postal</mat-label>
+                    <input matInput placeholder="Codigo Postal" value="" formControlName="zipCode">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Colonia</mat-label>
+                    <input matInput placeholder="Colonia" value="" formControlName="suburb">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Entre que Calles -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Entre que Calles</mat-label>
+                    <input matInput placeholder="Entre que Calles" value="" formControlName="streetRef">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Codigo Postal y Colonia -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Referencias</mat-label>
+                    <input matInput placeholder="Referencias" value="" formControlName="reference">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Telefonos</mat-label>
+                    <input matInput placeholder="Telefonos" value="" formControlName="phoneNumber">
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-6 col-sm-offset-6 col-xs-offset-6">
+                <button (click)="saveUserAddress()" class="light-button" mat-stroked-button [disabled]="addressFormGroup.status != 'VALID' ">Guardar Cambios</button>
+            </div>
+        </div>
+
+        <div class="address-separation-form"></div>
+
+    </form>
+
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4
+            col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1
+            product-section">
+
+    <div class="address-separation-form"></div>
+
+        Producto:
+
+    <div class="address-separation-form"></div>
+    <div class="row" *ngIf="itemTransaction.item">
+
+        <table  style="width: 100%;">
+            <tr>
+                <td style="width: 10%;"></td>
+                <td style="width: 45%;">
+                    <img [src]=" server + uploadedImgDir + itemTransaction.item.itemImgUrls[0].imgUrl"
+                    style="height: 9em;
+                    width: 90%;
+                    display: block;
+                    object-fit: cover;
+                    margin-left: -10px;">
+                </td>
+
+                <td style="width: 45%;">
+                    <b><p class="name-item-detail">{{itemTransaction.item.model}}</p></b>
+                    <b><p class="size-item-detail"> Talla {{ filterCatalog('talla') }} {{ filterItemType(itemTransaction.item.itemTypeCatId)}} {{itemTransaction.item.year}} </p></b>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div class="row">
+        <form [formGroup]="discountFormGroup" class="form-font-family">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <mat-form-field class="input-text-alignment adress-input-1 ">
+                    <mat-label>Codigo de Descuento</mat-label>
+                    <input matInput placeholder="Codigo de Descuento" value="" formControlName="discountCode">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <div class="address-separation-form"></div>
+
+    <div class="row">
+
+        <table class="table-ammounts" *ngIf="itemTransaction.item">
+
+            <tr>
+                <td> <br> </td>
+                <td> <br> </td>
+            </tr>
+            <tr>
+                <td class="table-ammounts-name"> Subtotal: </td>
+                <td class="table-ammounts-number"> {{ itemTransaction.item.price | currency }} </td>
+            </tr>
+            <!--
+            <tr>
+                <td > Iva </td>
+                <td > 10, 00 </td>
+            </tr>
+            -->
+            <!--
+            <tr>
+                <td class="table-ammounts-name"> Comision Baaw: </td>
+                <td class="table-ammounts-number"> {{ webSiteCommision | currency }} </td>
+            </tr>
+
+            <tr>
+                <td class="table-ammounts-name"> Iva: </td>
+                <td class="table-ammounts-number"> {{ webSiteTax | currency }} </td>
+            </tr>
+
+
+        
+            <tr>
+                <td class="table-ammounts-name"> Codigo de Promocion: </td>
+                <td class="table-ammounts-number"> {{ 0 | currency }} </td>
+            </tr>
+            <tr>
+                <td class="table-ammounts-name"> Servicio Lavado y Empaquetado: </td>
+                <td class="table-ammounts-number"> {{ serviceCommision | currency }} </td>
+            </tr>
+        -->
+            <tr>
+                <td class="table-ammounts-name"> Paqueteria </td>
+                <td class="table-ammounts-number"> {{ shippingComission | currency }} </td>
+            </tr>
+            <tr>
+                <td class="table-ammounts-name"> Comisión Bancaria: </td>
+                <td class="table-ammounts-number"> {{ paypalComission | currency }} </td>
+            </tr>
+            <tr>
+                <td> <br> </td>
+                <td> <br> </td>
+            </tr>
+            <tr class="table-ammounts">
+                <td> <br> </td>
+                <td> <br> </td>
+            </tr>
+            <tr>
+                <td> <br> </td>
+                <td> <br> </td>
+            </tr>
+            <tr>
+                <td class="table-ammounts-name"> Total: </td>
+                <td class="table-ammounts-number"> {{ itemTransactionTotal | currency }} </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="address-separation-form"></div>
+</div>
+
+<div class="address-separation-form"></div>
+<div class="address-separation-form"></div>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4
+            col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1
+            product-section" *ngIf="addressFormGroup.status == 'VALID' ">
+    
+    <div class="address-separation-form"></div>
+
+    <p style="font-family: 'montserrat-semiBold';">Metodos de Pago:</p>
+        
+    <div class="address-separation-form"></div>
+
+    <div class="row">
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
+
+</div>
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4
+            col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1
+            product-section" *ngIf="addressFormGroup.status != 'VALID' ">
+    
+    <div class="address-separation-form"></div>
+
+    <p style="font-family: 'montserrat-semiBold';">Por Favor, Completa tu Dirección de Envio <br> Para proceder al pago </p>
+        
+    <div class="address-separation-form"></div>
+
+</div>

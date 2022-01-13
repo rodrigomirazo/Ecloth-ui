@@ -1,0 +1,136 @@
+
+<table class="item-transaction-table" *ngIf="transaction">
+    <tr class="item-row-title">
+
+        <td class="item-cell-title">
+            <div class="saled-date-item-title">Fecha de Venta</div>
+            <div class="saled-date-item-detail">{{ dateFormat(transaction.item.createdTime) | date: 'dd/MM/yyyy'}}</div>
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Status de Producto </div>
+            {{transaction.transactionStatus }}
+        </td>
+        <td>
+            <div class="saled-date-item-title"> Numero de Guia </div>
+            <div class="saled-date-item-detail"> {{transaction.trackingNumber }} </div>
+        </td>
+        <td style="width: 20%;">
+            <div class="saled-date-item-title"> Numero de Producto </div>
+            <div class="saled-date-item-detail"> {{transaction.item.id }} </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25%;">
+            <br>
+            <div class="item-detail-frame" *ngIf="transaction">
+
+                <div class="item-title-frame row">
+
+                </div>
+
+                <!-- Item element Begin -->
+                <div class="row item-image-row" *ngIf="transaction.item.itemImgUrls[0] ">
+                    <!-- <img [src]=" getImgBaseUrl() + blobImgs[i]" class="item-detail-img" alt="image"> -->
+                    <img [src]=" server + uploadedImgDir + transaction.item.itemImgUrls[0].imgUrl" class="img-item">
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-3">
+
+                    </div>
+
+                    <div class="col-xs-2" *ngIf="transaction.item.itemImgUrls[0]" (click)="getImageFromService(transaction.item.itemImgUrls[0].imgUrl, i)">
+                        <img [src]=" server + uploadedImgDir + transaction.item.itemImgUrls[0].imgUrl " class="item-micro-img" alt="image">
+                    </div>
+
+                    <div class="col-xs-2" *ngIf="transaction.item.itemImgUrls[1]" (click)="getImageFromService(transaction.item.itemImgUrls[1].imgUrl, i)">
+                        <img [src]=" server + uploadedImgDir + transaction.item.itemImgUrls[1].imgUrl " class="item-micro-img" alt="image">
+                    </div>
+
+                    <div class="col-xs-2" *ngIf="transaction.item.itemImgUrls[2]" (click)="getImageFromService(transaction.item.itemImgUrls[2].imgUrl, i)">
+                        <img [src]=" server + uploadedImgDir + transaction.item.itemImgUrls[2].imgUrl " class="item-micro-img" alt="image">
+                    </div>
+
+                    <div class="col-xs-3">
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 item-type">
+                        Bicicleta/ {{ filterItemType(transaction.item.itemTypeCatId) }}
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 item-name">
+                        {{ filterCatalog( 'brand', transaction.item.itemFloatingChars) }} {{ filterCatalog( 'talla', transaction.item.itemFloatingChars) }}
+                    </div>
+                    <div style="width: 100%;">
+                        <div class="col-xs-6 col-sm-5 col-md-6 item-price">
+                            {{transaction.item.price | currency}}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Item element End -->
+            </div>
+        </td>
+        <td style="width: 75%;" colspan="3">
+
+            <mat-horizontal-stepper #stepper style="width: 100%; margin-left: 10px;" [selectedIndex]="currentStep">
+
+                <ng-template matStepperIcon="edit">
+                    <mat-icon>done</mat-icon>
+                </ng-template>
+
+                <mat-step state="service">
+                    <ng-template matStepLabel>Pedido <br> Confirmado</ng-template>
+                </mat-step>
+                <mat-step label="Fill out your address" state="sent">
+                    <ng-template matStepLabel> <span>Preparando <br> tu Pedido </span> </ng-template>
+                </mat-step>
+                <mat-step state="received">
+                  <ng-template matStepLabel>Pedido <br> en Camino</ng-template>
+                </mat-step>
+                <mat-step state="received">
+                    <ng-template matStepLabel>Pedido <br> Entregado</ng-template>
+                  </mat-step>
+            </mat-horizontal-stepper>
+
+            <div style="align-content: center; margin: auto; display: table;">
+                <p style="font-family: 'montserrat-semiBold';"> DERIVADO DE LA CONTINGENCIA </p>
+                <span style="font-family: 'montserrat-regular';">
+                    Los  tiempos de entrega pueden llegar a tomar <br>
+                    un poco mas tiempo a partir de su compra. <br> <br>
+                    Agradecemos tu compresion.
+                </span>
+            </div>
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2"></td>
+        <td>
+        </td>
+        <td>
+
+            <button
+                [routerLink]="['/console/purchaseDetail/' + transaction.id ]"
+                mat-stroked-button style="float: right;
+                background-color: #18c65e;
+                margin-top: -30px;
+                border-radius: 21px;
+                color: white;
+                font-family: 'montserrat-light';"> Detalle de Compra </button>
+            <button
+                [routerLink]="['/console/compras' ]"
+                mat-stroked-button style="float: right;
+                margin-top: -30px;
+                margin-right: 5px;
+                border-radius: 21px;
+                font-family: 'montserrat-light';"> Regresar </button>
+        </td>
+    </tr>
+</table>
