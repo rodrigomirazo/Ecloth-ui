@@ -4,9 +4,8 @@
 
 export const environment: any = {
   production: false,
-  server: "/assets",
-  //host: "http://151.106.109.11:8081",
-  host: "http://localhost:8081",
+  server: "https://www.baawvps.host",
+  host: "https://www.baawvps.host:8082",
   baseUrl: "/ecommerce/bicicle/api/v1",
   indexPage: "http://localhost:4200/#/index",
   uploadedImgDir: "/uploaded/",

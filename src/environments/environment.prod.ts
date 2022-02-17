@@ -4,10 +4,10 @@
 
 export const environment: any = {
   production: false,
-  server: "http://151.106.109.11",
-  host: "http://151.106.109.11:8081",
+  server: "https://www.baawvps.host",
+  host: "https://www.baawvps.host:8081",
   baseUrl: "/ecommerce/bicicle/api/v1",
-  indexPage: "http://baaw.mx/#/index",
+  indexPage: "http://seminuevos.baaw.mx/#/index",
   uploadedImgDir: "/uploadedItemImg/",
   paypalClientId: "AWhu68252p7sL_ruxAHa4Kj-lBN5ZdEkfo_D7DsMcLTvmSi5ssAuNXw3x3yaL3t_YVwoH1OQVmdt5kU8",
   entity: {
